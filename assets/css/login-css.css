@@ -5,11 +5,16 @@
   font-family: 'FontAwesome', sans-serif;
 }
 
-body {
-  background: linear-gradient(to right, #ff9966 0%, #ff66cc 100%);
+body {/*
+  background: linear-gradient(to right, #ff9966 0%, #ff66cc 100%);*/
+  background: #ff9966; /* Old browsers */
+  background-image: url('../img/logo/back.png');  
   color: #606468;
   font: 87.5%/1.5em 'Open Sans', sans-serif;
   margin: 0;
+  background-repeat: no-repeat;
+  background-size: auto;
+  background-size: cover;
 }
 
 input {
@@ -31,7 +36,11 @@ after { clear: both; }
   margin: 50px auto;
   width: 320px;
 }
-
+.logo {
+    padding-top: 0px;
+    text-align: center;
+    padding-bottom: 20px;
+}
 #login form {
   margin: auto;
   padding: 22px 22px 22px 22px;
@@ -40,6 +49,12 @@ after { clear: both; }
   background: #282e33;
   border-top: 3px solid #434a52;
   border-bottom: 3px solid #434a52;
+}
+
+.login-button-pro .login-button {
+    padding: 10px 20px;
+    border: none;
+    background: #ffb06d!important;
 }
 
 #login form span {
