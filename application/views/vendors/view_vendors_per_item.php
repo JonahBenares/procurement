@@ -37,34 +37,36 @@
                                         <td width="5%"></td>
                                         <td width="5%"></td>
                                     </tr>
+                                    <?php foreach($vendors AS $v){ ?>
                                     <tr>
                                         <td colspan="3">Vendor Name:</td>
-                                        <td colspan="8"></td>
+                                        <td colspan="8"><?php echo $v['vendor'];?></td>
                                         <td colspan="3">Phone Number:</td>
-                                        <td colspan="8"></td>                                        
+                                        <td colspan="8"><?php echo $v['phn_no'];?></td>                                        
                                     </tr>
                                     <tr>
                                         <td colspan="3">Address:</td>
-                                        <td colspan="8"></td>
+                                        <td colspan="8"><?php echo $v['address'];?></td>
                                         <td colspan="3">Fax Number:</td>
-                                        <td colspan="8"></td>                                        
+                                        <td colspan="8"><?php echo $v['fax'];?></td>                                        
                                     </tr>
                                     <tr>
                                         <td colspan="3">Email Address:</td>
-                                        <td colspan="8"></td>
+                                        <td colspan="8"><?php echo $v['email'];?></td>
                                         <td colspan="3">Contact Person:</td>
-                                        <td colspan="8"></td>                                        
+                                        <td colspan="8"><?php echo $v['contact_person'];?></td>                                        
                                     </tr>
                                     <tr>
                                         <td colspan="3">Terms:</td>
-                                        <td colspan="8"></td>
+                                        <td colspan="8"><?php echo $v['terms'];?></td>
                                         <td colspan="3">Type:</td>
-                                        <td colspan="8"></td>                                        
+                                        <td colspan="8"><?php echo $v['type'];?></td>                                        
                                     </tr>
                                     <tr>
                                         <td colspan="3">Notes:</td>
-                                        <td colspan="19"></td>                                    
+                                        <td colspan="19"><?php echo $v['notes'];?></td>                                    
                                     </tr>
+                                    <?php } ?>
                                 </table>
                             </div>
                         </div>                      
