@@ -48,26 +48,27 @@
                                                         <a class="close" data-dismiss="modal" href="#"><i class="fa fa-close"></i></a>
                                                     </div>
                                                 </div>
-                                                <form>
+                                                <form method="POST" action = "<?php echo base_url();?>index.php/items/insert_item">
                                                     <div class="modal-body-lowpad">
                                                         <div class="form-group">
                                                             <p class="m-b-0">Item Description:</p>
-                                                            <textarea name="" class="form-control" cols="2"></textarea>
+                                                            <textarea name="item" class="form-control" cols="2"></textarea>
                                                         </div>
                                                         <div class="form-group">
                                                             <p class="m-b-0">Specification:</p>
-                                                            <textarea name="" class="form-control" cols="2"></textarea>
+                                                            <textarea name="spec" class="form-control" cols="2"></textarea>
                                                         </div>
                                                         <div class="form-group">
                                                             <p class="m-b-0">Brand:</p>
-                                                            <input type="text" name="" class="form-control">
+                                                            <input type="text" name="brand" class="form-control">
                                                         </div>
                                                         <div class="form-group">
                                                             <p class="m-b-0">Part Number:</p>
-                                                            <input type="text" name="" class="form-control">
+                                                            <input type="text" name="pn" class="form-control">
                                                         </div>
                                                         <center>
-                                                            <a href="#" class="btn btn-custon-three btn-primary btn-block">Save</a>
+                                                            <!-- <a href="#" class="btn btn-custon-three btn-primary btn-block">Save</a> -->
+                                                            <input type = "submit" class="btn btn-custon-three btn-primary btn-block" value = "Save">
                                                         </center>
                                                     </div>
                                                 </form>
@@ -98,25 +99,27 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        <?php foreach($item as $i){ ?>
                                         <tr>
                                             <td></td>
                                             <td>
-                                                <a href="" class="btn-link txt-primary" onclick="itemDetails('<?php echo base_url(); ?>')">Item Names</a>
+                                                <a href="" class="btn-link txt-primary" onclick="itemDetails('<?php echo base_url(); ?>','<?php echo $i->item_id;?>')"><?php echo $i->item_name;?></a>
                                             </td>
-                                            <td>Amvescap plc</td>
-                                            <td>15%</td>
-                                            <td>15%</td>
+                                            <td><?php echo $i->item_specs;?></td>
+                                            <td><?php echo $i->brand_name;?></td>
+                                            <td><?php echo $i->part_no;?></td>
                                             <td>
                                                 <center>
-                                                    <a href="" onclick="updateItem('<?php echo base_url(); ?>')" class="btn btn-custon-three btn-info btn-xs">
+                                                    <a onclick="updateItem('<?php echo base_url(); ?>','<?php echo $i->item_id;?>')" class="btn btn-custon-three btn-info btn-xs">
                                                         <span class="fa fa-pencil"></span>
                                                     </a>
-                                                    <a href="" class="btn btn-custon-three btn-danger btn-xs">
+                                                    <a href="<?php echo base_url(); ?>index.php/items/delete_item/<?php echo $i->item_id;?>" class="btn btn-custon-three btn-danger btn-xs" onclick="confirmationDelete(this);return false;">
                                                         <span class="fa fa-times"></span>
                                                     </a>
                                                 </center>
                                             </td>
-                                        </tr>                                        
+                                        </tr> 
+                                        <?php } ?>                                       
                                     </tbody>
                                 </table>
                             </div>

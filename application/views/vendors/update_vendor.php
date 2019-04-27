@@ -13,44 +13,56 @@
                                     <tbody>
                                         <tr>
                                             <td>
-                                                <form>
+                                                <form method="POST" action = "<?php echo base_url();?>index.php/vendors/edit_vendor">
                                                     <div class="modal-body-lowpad">
+                                                    <?php foreach($vendor AS $v){ ?>
                                                         <div class="form-group">
                                                             <p class="m-b-0">Vendor:</p>
-                                                            <input type="text" name="" class="form-control">
+                                                            <input type="text" name="vendor" class="form-control" value = "<?php echo $v->vendor_name;?>">
                                                         </div>
                                                         <div class="form-group">
-                                                            <p class="m-b-0">Specification:</p>
-                                                            <input type="text" name="" class="form-control">
+                                                            <p class="m-b-0">Product/Services:</p>
+                                                            <textarea name="product" class="form-control"><?php echo $v->product_services;?></textarea>
                                                         </div>
                                                         <div class="form-group">
                                                             <p class="m-b-0">Address:</p>
-                                                            <input type="text" name="" class="form-control">
+                                                            <textarea name="address" class="form-control"><?php echo $v->address;?></textarea>
                                                         </div>
                                                         <div class="form-group">
-                                                            <p class="m-b-0">Phone:</p>
-                                                            <input type="text" name="" class="form-control">
+                                                            <p class="m-b-0">Phone Number:</p>
+                                                            <input type="text" name="phone" class="form-control" value = "<?php echo $v->phone_number;?>">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <p class="m-b-0">Fax Number:</p>
+                                                            <input type="text" name="fax" class="form-control" value = "<?php echo $v->fax_number;?>">
                                                         </div>
                                                         <div class="form-group">
                                                             <p class="m-b-0">Terms:</p>
-                                                            <input type="text" name="" class="form-control">
+                                                            <textarea name="terms" class="form-control"><?php echo $v->terms;?></textarea>
                                                         </div>
                                                         <div class="form-group">
                                                             <p class="m-b-0">Type:</p>
-                                                            <input type="text" name="" class="form-control">
+                                                            <textarea name="type" class="form-control"><?php echo $v->type;?></textarea>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <p class="m-b-0">Contact Person:</p>
+                                                            <input type="text" name="contact" class="form-control" value = "<?php echo $v->contact_person;?>">
                                                         </div>
                                                         <div class="form-group">
                                                             <p class="m-b-0">Notes:</p>
-                                                            <input type="text" name="" class="form-control">
+                                                            <textarea name="notes" class="form-control"><?php echo $v->notes;?></textarea>
                                                         </div>
                                                         <div class="form-group">
                                                             <p class="m-b-0">Status:</p>
-                                                            <select type="text" name="" class="form-control">
-                                                                <option>hello</option>
+                                                            <select type="text" name="status" class="form-control">
+                                                                <option value = "Active" <?php echo (($v->status == 'Active') ? ' selected' : '');?>>Active</option>
+                                                                <option value = "Inactive" <?php echo (($v->status == 'Inactive') ? ' selected' : '');?>>Inactive</option>
                                                             </select>
                                                         </div>
+                                                        <input type = "hidden" name = "vendor_id" value="<?php echo $id; ?>">
+                                                        <?php } ?>
                                                         <center>
-                                                            <a href="#" class="btn btn-custon-three btn-info btn-block"><span class="fa fa-search"></span> Search</a>
+                                                            <input type = "submit" class="btn btn-custon-three btn-info btn-block" value = "Update">
                                                         </center>
                                                     </div>
                                                 </form>

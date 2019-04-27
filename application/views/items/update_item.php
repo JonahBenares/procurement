@@ -13,27 +13,30 @@
                                     <tbody>
                                         <tr>
                                             <td>
-                                                <form>
+                                                <form method="POST" action = "<?php echo base_url();?>index.php/items/edit_item">
                                                     <div class="modal-body-lowpad">
+                                                        <?php foreach($item AS $i){ ?>
                                                         <div class="form-group">
                                                             <p class="m-b-0">Item Description:</p>
-                                                            <textarea name="" class="form-control" cols="2"></textarea>
+                                                            <textarea name="item" class="form-control" cols="2"><?php echo $i->item_name;?></textarea>
                                                         </div>
                                                         <div class="form-group">
                                                             <p class="m-b-0">Specification:</p>
-                                                            <textarea name="" class="form-control" cols="2"></textarea>
+                                                            <textarea name="spec" class="form-control" cols="2"><?php echo $i->item_specs;?></textarea>
                                                         </div>
                                                         <div class="form-group">
                                                             <p class="m-b-0">Brand:</p>
-                                                            <input type="text" name="" class="form-control">
+                                                            <input type="text" name="brand" class="form-control" value = "<?php echo $i->brand_name;?>">
                                                         </div>
                                                         <div class="form-group">
                                                             <p class="m-b-0">Part Number:</p>
-                                                            <input type="text" name="" class="form-control">
+                                                            <input type="text" name="pn" class="form-control" value = "<?php echo $i->part_no;?>">
                                                         </div>
                                                         <center>
-                                                            <a href="#" class="btn btn-custon-three btn-primary btn-block">Save</a>
+                                                            <input type = "submit" class="btn btn-custon-three btn-primary btn-block" value = "Save">
                                                         </center>
+                                                        <input type = "hidden" name = "item_id" value="<?php echo $id; ?>">
+                                                        <?php } ?>
                                                     </div>
                                                 </form>
                                             </td>

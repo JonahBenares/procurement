@@ -16,33 +16,35 @@
                                 <hr>
                                 <table>
                                     <tbody>
+                                        <?php foreach($item AS $i){ ?>
                                         <tr>
                                             <td><u><b>Item Description:</b></u></td>
                                         </tr>
                                         <tr>
-                                            <td><h5>Water Treatment Chemicals, Waste Treatment Products, Preventive Maintenance Chemicals, Vapour Corrosion Inhibitor, Reverse Osmosis Maintenance Chemicals, Cleaners and Metal Treatment, Aerosol Products, Specialty Greases, Specialty Oils, Electrical Safety</h5></td>
+                                            <td><h5><?php echo $i->item_name;?></h5></td>
                                         </tr>
                                         <tr>
                                             <td><u><b>Specification:</b></u></td>
                                         </tr>
                                         <tr>
-                                            <td><p>Automatic Lubrication Unit, Pneumatic Oil & Grease Pumps, Industrial Process Pumps, Oil Meter Injectors, Divider Valves, Hose Reels, Hydraclean Pressure Washers, Air Operated Double Diaphragm Pumps</p></td>
+                                            <td><p><?php echo $i->item_specs;?></p></td>
                                         </tr>
                                         <tr>
                                             <td><u><b>Brand:</b></u></td>
                                         </tr>
                                         <tr>
-                                            <td><p>here</p></td>
+                                            <td><p><?php echo $i->brand_name;?></p></td>
                                         </tr>
                                         <tr>
                                             <td><u><b>Part Number:</b></u></td>
                                         </tr>
                                         <tr>
-                                            <td><p>here</p></td>                                            
-                                        </tr>                                      
+                                            <td><p><?php echo $i->part_no;?></p></td>                                            
+                                        </tr>  
+                                        <?php } ?>                                    
                                     </tbody>
                                 </table>
-                                <a href="#" class="btn btn-custon-three btn-primary btn-block">Export To Excel</a>
+                                <a href="" class="btn btn-custon-three btn-primary btn-block">Export To Excel</a>
                             </div>
                         </div>                      
                         <div class="hr-bold"></div>
@@ -66,159 +68,17 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        <?php foreach($vendors AS $v){ ?>
                                         <tr>
                                             <td>
-                                                <a href="" class="btn-link txt-primary" onclick="viewVendor('<?php echo base_url(); ?>')">Vendor Names</a>
+                                                <a class="btn-link txt-primary" onclick="viewVendor('<?php echo base_url(); ?>','<?php echo $v['vendor_id'];?>')"><?php echo $v['vendor'];?></a>
                                             </td>
-                                            <td>Amvescap plc</td>
-                                            <td>15%</td>
-                                            <td>15%</td>
-                                            <td>15%</td>
+                                            <td><?php echo $v['address'];?></td>
+                                            <td><?php echo $v['phn_no'];?></td>
+                                            <td><?php echo $v['terms'];?></td>
+                                            <td><?php echo $v['notes'];?></td>
                                         </tr>        
-                                        <tr>
-                                            <td>
-                                                <a href="" class="btn-link txt-primary" onclick="viewVendor('<?php echo base_url(); ?>')">Vendor Names</a>
-                                            </td>
-                                            <td>Amvescap plc</td>
-                                            <td>15%</td>
-                                            <td>15%</td>
-                                            <td>15%</td>
-                                        </tr>        
-                                        <tr>
-                                            <td>
-                                                <a href="" class="btn-link txt-primary" onclick="viewVendor('<?php echo base_url(); ?>')">Vendor Names</a>
-                                            </td>
-                                            <td>Amvescap plc</td>
-                                            <td>15%</td>
-                                            <td>15%</td>
-                                            <td>15%</td>
-                                        </tr>        
-                                        <tr>
-                                            <td>
-                                                <a href="" class="btn-link txt-primary" onclick="viewVendor('<?php echo base_url(); ?>')">Vendor Names</a>
-                                            </td>
-                                            <td>Amvescap plc</td>
-                                            <td>15%</td>
-                                            <td>15%</td>
-                                            <td>15%</td>
-                                        </tr>        
-                                        <tr>
-                                            <td>
-                                                <a href="" class="btn-link txt-primary" onclick="viewVendor('<?php echo base_url(); ?>')">Vendor Names</a>
-                                            </td>
-                                            <td>Amvescap plc</td>
-                                            <td>15%</td>
-                                            <td>15%</td>
-                                            <td>15%</td>
-                                        </tr>        
-                                        <tr>
-                                            <td>
-                                                <a href="" class="btn-link txt-primary" onclick="viewVendor('<?php echo base_url(); ?>')">Vendor Names</a>
-                                            </td>
-                                            <td>Amvescap plc</td>
-                                            <td>15%</td>
-                                            <td>15%</td>
-                                            <td>15%</td>
-                                        </tr>        
-                                        <tr>
-                                            <td>
-                                                <a href="" class="btn-link txt-primary" onclick="viewVendor('<?php echo base_url(); ?>')">Vendor Names</a>
-                                            </td>
-                                            <td>Amvescap plc</td>
-                                            <td>15%</td>
-                                            <td>15%</td>
-                                            <td>15%</td>
-                                        </tr>        
-                                        <tr>
-                                            <td>
-                                                <a href="" class="btn-link txt-primary" onclick="viewVendor('<?php echo base_url(); ?>')">Vendor Names</a>
-                                            </td>
-                                            <td>Amvescap plc</td>
-                                            <td>15%</td>
-                                            <td>15%</td>
-                                            <td>15%</td>
-                                        </tr>        
-                                        <tr>
-                                            <td>
-                                                <a href="" class="btn-link txt-primary" onclick="viewVendor('<?php echo base_url(); ?>')">Vendor Names</a>
-                                            </td>
-                                            <td>Amvescap plc</td>
-                                            <td>15%</td>
-                                            <td>15%</td>
-                                            <td>15%</td>
-                                        </tr>        
-                                        <tr>
-                                            <td>
-                                                <a href="" class="btn-link txt-primary" onclick="viewVendor('<?php echo base_url(); ?>')">Vendor Names</a>
-                                            </td>
-                                            <td>Amvescap plc</td>
-                                            <td>15%</td>
-                                            <td>15%</td>
-                                            <td>15%</td>
-                                        </tr>        
-                                        <tr>
-                                            <td>
-                                                <a href="" class="btn-link txt-primary" onclick="viewVendor('<?php echo base_url(); ?>')">Vendor Names</a>
-                                            </td>
-                                            <td>Amvescap plc</td>
-                                            <td>15%</td>
-                                            <td>15%</td>
-                                            <td>15%</td>
-                                        </tr>                                        
-                                        <tr>
-                                            <td>
-                                                <a href="" class="btn-link txt-primary" onclick="viewVendor('<?php echo base_url(); ?>')">Vendor Names</a>
-                                            </td>
-                                            <td>Amvescap plc</td>
-                                            <td>15%</td>
-                                            <td>15%</td>
-                                            <td>15%</td>
-                                        </tr>        
-                                        <tr>
-                                            <td>
-                                                <a href="" class="btn-link txt-primary" onclick="viewVendor('<?php echo base_url(); ?>')">Vendor Names</a>
-                                            </td>
-                                            <td>Amvescap plc</td>
-                                            <td>15%</td>
-                                            <td>15%</td>
-                                            <td>15%</td>
-                                        </tr>        
-                                        <tr>
-                                            <td>
-                                                <a href="" class="btn-link txt-primary" onclick="viewVendor('<?php echo base_url(); ?>')">Vendor Names</a>
-                                            </td>
-                                            <td>Amvescap plc</td>
-                                            <td>15%</td>
-                                            <td>15%</td>
-                                            <td>15%</td>
-                                        </tr>        
-                                        <tr>
-                                            <td>
-                                                <a href="" class="btn-link txt-primary" onclick="viewVendor('<?php echo base_url(); ?>')">Vendor Names</a>
-                                            </td>
-                                            <td>Amvescap plc</td>
-                                            <td>15%</td>
-                                            <td>15%</td>
-                                            <td>15%</td>
-                                        </tr>        
-                                        <tr>
-                                            <td>
-                                                <a href="" class="btn-link txt-primary" onclick="viewVendor('<?php echo base_url(); ?>')">Vendor Names</a>
-                                            </td>
-                                            <td>Amvescap plc</td>
-                                            <td>15%</td>
-                                            <td>15%</td>
-                                            <td>15%</td>
-                                        </tr>        
-                                        <tr>
-                                            <td>
-                                                <a href="" class="btn-link txt-primary" onclick="viewVendor('<?php echo base_url(); ?>')">Vendor Names</a>
-                                            </td>
-                                            <td>Amvescap plc</td>
-                                            <td>15%</td>
-                                            <td>15%</td>
-                                            <td>15%</td>
-                                        </tr>        
+                                        <?php } ?>        
                                     </tbody>
                                 </table>
                             </div>

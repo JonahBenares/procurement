@@ -47,49 +47,59 @@
                                         <div class="modal-dialog">
                                             <div class="modal-content">
                                                 <div class="modal-header header-color-modal bg-color-1">
-                                                    <h4 class="modal-title">Add New Item</h4>
+                                                    <h4 class="modal-title">Add New Vendor</h4>
                                                     <div class="modal-close-area modal-close-df">
                                                         <a class="close" data-dismiss="modal" href="#"><i class="fa fa-close"></i></a>
                                                     </div>
                                                 </div>
-                                                <form>
+                                                <form method="POST" action = "<?php echo base_url();?>index.php/vendors/insert_vendor">
                                                     <div class=" p-l-20 p-r-20 modal-body-lowpad">
                                                         <div class="form-group">
                                                             <p class="m-b-0">Vendor:</p>
-                                                            <input type="text" name="" class="form-control">
+                                                            <input type="text" name="vendor" class="form-control">
                                                         </div>
                                                         <div class="form-group">
-                                                            <p class="m-b-0">Specification:</p>
-                                                            <input type="text" name="" class="form-control">
+                                                            <p class="m-b-0">Product/Services:</p>
+                                                            <input type="text" name="product" class="form-control">
                                                         </div>
                                                         <div class="form-group">
                                                             <p class="m-b-0">Address:</p>
-                                                            <input type="text" name="" class="form-control">
+                                                            <input type="text" name="address" class="form-control">
                                                         </div>
                                                         <div class="form-group">
-                                                            <p class="m-b-0">Phone:</p>
-                                                            <input type="text" name="" class="form-control">
+                                                            <p class="m-b-0">Phone Number:</p>
+                                                            <input type="text" name="phone_num" class="form-control">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <p class="m-b-0">Fax Number:</p>
+                                                            <input type="text" name="fax_num" class="form-control">
                                                         </div>
                                                         <div class="form-group">
                                                             <p class="m-b-0">Terms:</p>
-                                                            <input type="text" name="" class="form-control">
+                                                            <input type="text" name="terms" class="form-control">
                                                         </div>
                                                         <div class="form-group">
                                                             <p class="m-b-0">Type:</p>
-                                                            <input type="text" name="" class="form-control">
+                                                            <input type="text" name="type" class="form-control">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <p class="m-b-0">Contact Person:</p>
+                                                            <input type="text" name="contact" class="form-control">
                                                         </div>
                                                         <div class="form-group">
                                                             <p class="m-b-0">Notes:</p>
-                                                            <input type="text" name="" class="form-control">
+                                                            <input type="text" name="notes" class="form-control">
                                                         </div>
                                                         <div class="form-group">
                                                             <p class="m-b-0">Status:</p>
-                                                            <select type="text" name="" class="form-control">
-                                                                <option>hello</option>
+                                                            <select type="text" name="status" class="form-control">
+                                                                <option value = "">--Select Status--</option>
+                                                                <option value = "1">Active</option>
+                                                                <option value = "2">Inactive</option>
                                                             </select>
                                                         </div>
                                                         <center>
-                                                            <a href="#" class="btn btn-custon-three btn-primary btn-block">Save</a>
+                                                            <input type = "submit" class="btn btn-custon-three btn-primary btn-block" value = "Save">
                                                         </center>
                                                     </div>
                                                 </form>
@@ -112,7 +122,7 @@
                                                             <input type="text" name="" class="form-control">
                                                         </div>
                                                         <div class="form-group">
-                                                            <p class="m-b-0">Specification:</p>
+                                                            <p class="m-b-0">Product/Services:</p>
                                                             <input type="text" name="" class="form-control">
                                                         </div>
                                                         <div class="form-group">
@@ -166,7 +176,7 @@
                                         <tr>
                                             <th data-checkbox="true"></th>
                                             <th>Vendor</th>
-                                            <th>Product/Servie</th>
+                                            <th>Product/Services</th>
                                             <th>Address</th>
                                             <th>Phone</th>
                                             <th>Terms</th>
@@ -177,29 +187,31 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                    <?php foreach($vendors AS $v){ ?>
                                         <tr>
                                             <td></td>
                                             <td>
-                                                <a href="" class="btn-link txt-primary" onclick="vendorDetails('<?php echo base_url(); ?>')">Item Names</a>
+                                                <a href="" class="btn-link txt-primary" onclick="vendorDetails('<?php echo base_url(); ?>','<?php echo $v->vendor_id; ?>')"><?php echo $v->vendor_name?></a>
                                             </td>
-                                            <td>Amvescap plc</td>
-                                            <td>15%</td>
-                                            <td>15%</td>
-                                            <td>15%</td>
-                                            <td>15%</td>
-                                            <td>15%</td>
-                                            <td>15%</td>
+                                            <td><?php echo $v->product_services?></td>
+                                            <td><?php echo $v->address?></td>
+                                            <td><?php echo $v->phone_number?></td>
+                                            <td><?php echo $v->terms?></td>
+                                            <td><?php echo $v->notes?></td>
+                                            <td><?php echo $v->type?></td>
+                                            <td><?php if($v->status == 'Active'){ echo 'Active'; }else { echo 'Inactive'; } ?></td>
                                             <td>
                                                 <center>
-                                                    <a href="" onclick="updateVendor('<?php echo base_url(); ?>')" class="btn btn-custon-three btn-info btn-xs">
+                                                    <a onclick="updateVendor('<?php echo base_url(); ?>','<?php echo $v->vendor_id; ?>')" class="btn btn-custon-three btn-info btn-xs">
                                                         <span class="fa fa-pencil"></span>
                                                     </a>
-                                                    <a href="" class="btn btn-custon-three btn-danger btn-xs">
+                                                    <a href="<?php echo base_url(); ?>index.php/vendors/delete_vendor/<?php echo $v->vendor_id;?>" class="btn btn-custon-three btn-danger btn-xs" onclick="confirmationDelete(this);return false;">
                                                         <span class="fa fa-times"></span>
                                                     </a>
                                                 </center>
                                             </td>
-                                        </tr>                                        
+                                        </tr>  
+                                    <?php } ?>                                      
                                     </tbody>
                                 </table>
                             </div>

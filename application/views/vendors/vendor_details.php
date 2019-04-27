@@ -16,54 +16,68 @@
                                 <hr>
                                 <table>
                                     <tbody>
+                                    <?php foreach($vendor AS $v){ ?>
                                         <tr>
                                             <td><u><b>Vendor:</b></u></td>
                                         </tr>
                                         <tr>
-                                            <td><h5>here</h5></td>
+                                            <td><h5><?php echo $v->vendor_name; ?></h5></td>
                                         </tr>
                                         <tr>
                                             <td><u><b>Product/Service:</b></u></td>
                                         </tr>
                                         <tr>
-                                            <td><p>here</p></td>
+                                            <td><p><?php echo $v->product_services; ?></p></td>
                                         </tr>
                                         <tr>
                                             <td><u><b>Address:</b></u></td>
                                         </tr>
                                         <tr>
-                                            <td><p>here</p></td>
+                                            <td><p><?php echo $v->address; ?></p></td>
                                         </tr>
                                         <tr>
-                                            <td><u><b>Phone:</b></u></td>
+                                            <td><u><b>Phone Number:</b></u></td>
                                         </tr>
                                         <tr>
-                                            <td><p>here</p></td>
+                                            <td><p><?php echo $v->phone_number; ?></p></td>
+                                        </tr>
+                                        <tr>
+                                            <td><u><b>Fax Number:</b></u></td>
+                                        </tr>
+                                        <tr>
+                                            <td><p><?php echo $v->fax_number; ?></p></td>
                                         </tr>
                                         <tr>
                                             <td><u><b>Terms:</b></u></td>
                                         </tr>
                                         <tr>
-                                            <td><p>here</p></td>
+                                            <td><p><?php echo $v->terms; ?></p></td>
                                         </tr>
                                         <tr>
                                             <td><u><b>Type:</b></u></td>
                                         </tr>
                                         <tr>
-                                            <td><p>here</p></td>
+                                            <td><p><?php echo $v->type; ?></p></td>
                                         </tr>
                                         <tr>
-                                            <td><u><b>Note:</b></u></td>
+                                            <td><u><b>Contact Person:</b></u></td>
                                         </tr>
                                         <tr>
-                                            <td><p>here</p></td>
+                                            <td><p><?php echo $v->contact_person; ?></p></td>
+                                        </tr>
+                                        <tr>
+                                            <td><u><b>Notes:</b></u></td>
+                                        </tr>
+                                        <tr>
+                                            <td><p><?php echo $v->notes; ?></p></td>
                                         </tr>
                                         <tr>
                                             <td><u><b>Status:</b></u></td>
                                         </tr>
                                         <tr>
-                                            <td><p>here</p></td>                                            
-                                        </tr>                                
+                                            <td><p><?php echo $v->status; ?></p></td>                                            
+                                        </tr>  
+                                        <?php } ?>                              
                                     </tbody>
                                 </table>
                                 <a href="#" class="btn btn-custon-three btn-primary btn-block">Export To Excel</a>
@@ -86,9 +100,10 @@
                                             <th width="5%">Action</th>
                                         </tr>
                                     </thead>
-                                    <tbody>                                          
+                                    <tbody> 
+                                    <?php foreach($vendors AS $va){ ?>                                         
                                         <tr>
-                                            <td>Vendor Names</td>
+                                            <td><?php echo $va['item'];?></td>
                                             <td>
                                                 <center>
                                                     <a href="" class="btn btn-custon-three btn-danger btn-xs">
@@ -96,7 +111,8 @@
                                                     </a>
                                                 </center>
                                             </td>
-                                        </tr>        
+                                        </tr> 
+                                    <?php } ?>       
                                     </tbody>
                                 </table>
                             </div>
