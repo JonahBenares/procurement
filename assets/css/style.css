@@ -177,6 +177,9 @@ padding: 0
 	float:right;
 	padding:17px 0px;
 }
+a.dropdown-item:hover{
+	background-color: #000;
+}
 /*----------------------------------------*/
 /*  3.  Header top Menu CSS
 /*----------------------------------------*/

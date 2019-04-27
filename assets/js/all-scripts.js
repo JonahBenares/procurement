@@ -22,3 +22,9 @@ function updateDepartment(baseurl) {
 function updateEmployee(baseurl) {
     window.open(baseurl+"index.php/masterfile/update_employee", "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=50,left=450,width=500,height=500");
 }
+function updatePurpose(baseurl) {
+    window.open(baseurl+"index.php/masterfile/update_purpose", "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=50,left=450,width=500,height=500");
+}
+function updateEnduse(baseurl) {
+    window.open(baseurl+"index.php/masterfile/update_enduse", "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=50,left=450,width=500,height=500");
+}

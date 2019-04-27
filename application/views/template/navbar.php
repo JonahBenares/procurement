@@ -23,11 +23,13 @@
                                 <span class="mini-dn">Masterfile</span> 
                                 <span class="indicator-right-menu mini-dn"><i class="fa indicator-mn fa-angle-left"></i></span>
                             </a>
-                            <div role="menu" class="dropdown-menu left-menu-dropdown animated flipInX">
+                            <div role="menu" class="dropdown-menu left-menu-dropdown animated flipInX p-t-0">
                                 <a href="<?php echo base_url(); ?>index.php/items/item_list" class="dropdown-item">Items</a>
                                 <a href="<?php echo base_url(); ?>index.php/vendors/vendor_list" class="dropdown-item">Vendors</a>
                                 <a href="<?php echo base_url(); ?>index.php/masterfile/employee_list" class="dropdown-item">Employee</a>
                                 <a href="<?php echo base_url(); ?>index.php/masterfile/department_list" class="dropdown-item">Department</a>
+                                <a href="<?php echo base_url(); ?>index.php/masterfile/purpose_list" class="dropdown-item">Purpose</a>
+                                <a href="<?php echo base_url(); ?>index.php/masterfile/enduse_list" class="dropdown-item">Enduse</a>
                             </div>
                         </li>
                         <li class="nav-item">

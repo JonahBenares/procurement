@@ -75,6 +75,30 @@ class Masterfile extends CI_Controller {
         $this->load->view('template/footer');
     }
 
+    public function purpose_list(){
+        $this->load->view('template/header');
+        $this->load->view('template/navbar');
+        $this->load->view('masterfile/purpose_list');
+        $this->load->view('template/footer');
+    }
+    public function update_purpose(){
+        $this->load->view('template/header');
+        $this->load->view('masterfile/update_purpose');
+        $this->load->view('template/footer');
+    }
+
+    public function enduse_list(){
+        $this->load->view('template/header');
+        $this->load->view('template/navbar');
+        $this->load->view('masterfile/enduse_list');
+        $this->load->view('template/footer');
+    }
+    public function update_enduse(){
+        $this->load->view('template/header');
+        $this->load->view('masterfile/update_enduse');
+        $this->load->view('template/footer');
+    }
+
 }
 
 ?>
