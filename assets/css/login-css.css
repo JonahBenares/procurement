@@ -57,7 +57,7 @@ after { clear: both; }
     background: #ffb06d!important;
 }
 
-#login form span {
+/*#login form span {
   background-color: #363b41;
   border-radius: 3px 0px 0px 3px;
   border-right: 3px solid #434a52;
@@ -68,9 +68,9 @@ after { clear: both; }
   text-align: center;
   width: 50px;
   height: 50px;
-}
+}*/
 
-#login form input[type="text"] {
+/*#login form input[type="text"] {
   background-color: #3b4148;
   border-radius: 0px 3px 3px 0px;
   color: #a9a9a9;
@@ -102,4 +102,4 @@ after { clear: both; }
 }
 #login form input[type="submit"]:hover {
   background: #16aa56;
-}
+}*/

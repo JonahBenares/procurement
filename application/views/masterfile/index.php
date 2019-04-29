@@ -49,7 +49,7 @@
                                     <div class="col-lg-9">
                                         <div class="login-input-area">
                                             <input type="email" name="email" />
-                                            <i class="fa fa-envelope login-user" aria-hidden="true"></i>
+                                            <i class="fa fa-user login-user" aria-hidden="true"></i>
                                         </div>
                                     </div>
                                 </div>

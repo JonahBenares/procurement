@@ -32,6 +32,10 @@
 .btn-danger{
 	background-color: #FF3547;
 }
+
+a.btn-secondary{
+	color: #fff;
+}
 .btn-custon-three.btn-default{
 	border-bottom:2px solid #ccc;
 }

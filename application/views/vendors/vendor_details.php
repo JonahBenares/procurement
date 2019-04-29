@@ -90,19 +90,26 @@
                 <div class="col-lg-8">
                     <div class="sparkline8-list shadow-reset">
                         <div class="hr-bold"></div>
-                        <div class="sparkline8-graph">
+                        <div class="sparkline8-graph" style="text-align: unset;">
                             <div class="datatable-dashv1-list custom-datatable-overright">
-                                <h4>Item List <a onclick="addVendorItem('<?php echo base_url(); ?>')" class="btn btn-custon-three btn-primary"><span class="fa fa-plus"></span> Add Item</a></h4>
+                                <h4>Item List 
+                                    <div class="pull-right">
+                                        <a onclick="addVendorItem('<?php echo base_url(); ?>')" class="btn btn-custon-three btn-primary"><span class="fa fa-plus"></span> Add Item</a>
+                                        <a onclick="" class="btn btn-custon-three btn-secondary"><span class="fa fa-plus"></span> Create RFQ</a>
+                                    </div>
+                                </h4>
                                 <table id="table" data-toggle="table" data-toolbar="#toolbar">
                                     <thead>
                                         <tr>
-                                            <th width="95%">Item Description</th>
+                                            <th width="5%"><input type="checkbox" name="" class="form-control"></th>
+                                            <th width="90%">Item Description</th>
                                             <th width="5%">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody> 
                                     <?php foreach($vendors AS $va){ ?>                                         
                                         <tr>
+                                            <td><input type="checkbox" name="" class="form-control"></td>
                                             <td><?php echo $va['item'];?></td>
                                             <td>
                                                 <center>
