@@ -79,40 +79,26 @@
                         </div>
                         <div class="sparkline8-graph">
                             <div class="datatable-dashv1-list custom-datatable-overright">
-                                <div id="toolbar">
-                                    <select class="form-control">
-                                        <option value="">Export Basic</option>
-                                        <option value="all">Export All</option>
-                                        <option value="selected">Export Selected</option>
-                                    </select>
-                                </div>
-                                <table id="table" data-toggle="table" data-pagination="true" data-search="true" data-show-columns="true" data-show-pagination-switch="true" data-show-refresh="true" data-key-events="true" data-show-toggle="true" data-resizable="true" data-cookie="true" data-cookie-id-table="saveId" data-show-export="true" data-click-to-select="true" data-toolbar="#toolbar">
+                                <table class="table table-bordered table-hover">
                                     <thead>
                                         <tr>
-                                            <th data-checkbox="true"></th>
-                                            <th>Item Description</th>
-                                            <th>Specification</th>
-                                            <th>Brand</th>
-                                            <th>Part No</th>
-                                            <th><center>Action</center></th>
+                                            <th width="5%"><input type="checkbox" class="form-control" name=""></th>
+                                            <th>RFQ #</th>
+                                            <th>Supplier</th>
+                                            <th>RFQ Date</th>
+                                            <th width="5%"><center><span class="fa fa-bars"></span></center></th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td></td>
-                                            <td>
-                                                <a href="" class="btn-link txt-primary" onclick="itemDetails('<?php echo base_url(); ?>')">Item Names</a>
-                                            </td>
+                                            <td><input type="checkbox" class="form-control" name=""></td>
                                             <td>Amvescap plc</td>
                                             <td>15%</td>
                                             <td>15%</td>
                                             <td>
                                                 <center>
-                                                    <a href="" onclick="updateItem('<?php echo base_url(); ?>')" class="btn btn-custon-three btn-info btn-xs">
-                                                        <span class="fa fa-pencil"></span>
-                                                    </a>
-                                                    <a href="" class="btn btn-custon-three btn-danger btn-xs">
-                                                        <span class="fa fa-times"></span>
+                                                    <a href="" class="btn btn-custon-three btn-warning btn-xs">
+                                                        <span class="fa fa-eye"></span>
                                                     </a>
                                                 </center>
                                             </td>

@@ -143,6 +143,10 @@ class Vendors extends CI_Controller {
         $this->load->view('vendors/add_vendoritem');
         $this->load->view('template/footer');
     }
+
+    public function rfq_outgoing(){
+        $this->load->view('vendors/rfq_outgoing');
+    }
     
 	
 }
