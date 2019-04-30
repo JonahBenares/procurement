@@ -115,7 +115,7 @@
                                                         <a class="close" data-dismiss="modal" href="#"><i class="fa fa-close"></i></a>
                                                     </div>
                                                 </div>
-                                                <form  method='POST' action="<?php echo base_url(); ?>index.php/report/search_vendor/">
+                                                <form  method='POST' action="<?php echo base_url(); ?>index.php/vendors/search_vendor/">
                                                     <div class=" p-l-20 p-r-20 modal-body-lowpad">
                                                         <div class="form-group">
                                                             <p class="m-b-0">Vendor:</p>
@@ -130,8 +130,12 @@
                                                             <input type="text" name="address" class="form-control">
                                                         </div>
                                                         <div class="form-group">
-                                                            <p class="m-b-0">Phone:</p>
+                                                            <p class="m-b-0">Phone Number:</p>
                                                             <input type="text" name="phone" class="form-control">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <p class="m-b-0">Fax Number:</p>
+                                                            <input type="text" name="fax" class="form-control">
                                                         </div>
                                                         <div class="form-group">
                                                             <p class="m-b-0">Terms:</p>
@@ -142,6 +146,10 @@
                                                             <input type="text" name="type" class="form-control">
                                                         </div>
                                                         <div class="form-group">
+                                                            <p class="m-b-0">Contact Person:</p>
+                                                            <input type="text" name="contact" class="form-control">
+                                                        </div>
+                                                        <div class="form-group">
                                                             <p class="m-b-0">Notes:</p>
                                                             <input type="text" name="notes" class="form-control">
                                                         </div>
@@ -149,8 +157,8 @@
                                                             <p class="m-b-0">Status:</p>
                                                             <select type="text" name="status" class="form-control">
                                                                 <option value = "">--Select Status--</option>
-                                                                <option value = "1">Active</option>
-                                                                <option value = "2">Inactive</option>
+                                                                <option value = "Active">Active</option>
+                                                                <option value = "Inactive">Inactive</option>
                                                             </select>
                                                         </div>
                                                         <center>
@@ -165,6 +173,9 @@
                                 </div>
                             </div>
                         </div>
+                        <?php if(!empty($filt)){ ?>     
+                        <span class='btn btn-success disabled'>Filter Applied</span><?php echo $filt ?>, <a href='<?php echo base_url(); ?>index.php/vendors/vendor_list' class='remove_filter alert-link pull-right btn'><span class="fa fa-times"></span></a>                    
+                        <?php } ?>
                         <div class="sparkline8-graph">
                             <div class="datatable-dashv1-list custom-datatable-overright">
                                 <div id="toolbar">
@@ -190,31 +201,34 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                    <?php foreach($vendors AS $v){ ?>
+                                    <?php 
+                                        if(!empty($vendors)){
+                                            foreach($vendors AS $v){ 
+                                    ?>
                                         <tr>
                                             <td></td>
                                             <td>
-                                                <a href="" class="btn-link txt-primary" onclick="vendorDetails('<?php echo base_url(); ?>','<?php echo $v->vendor_id; ?>')"><?php echo $v->vendor_name?></a>
+                                                <a href="" class="btn-link txt-primary" onclick="vendorDetails('<?php echo base_url(); ?>','<?php echo $v['vendor_id']; ?>')"><?php echo $v['vendor'];?></a>
                                             </td>
-                                            <td><?php echo $v->product_services?></td>
-                                            <td><?php echo $v->address?></td>
-                                            <td><?php echo $v->phone_number?></td>
-                                            <td><?php echo $v->terms?></td>
-                                            <td><?php echo $v->notes?></td>
-                                            <td><?php echo $v->type?></td>
-                                            <td><?php if($v->status == 'Active'){ echo 'Active'; }else { echo 'Inactive'; } ?></td>
+                                            <td><?php echo $v['product']?></td>
+                                            <td><?php echo $v['address']?></td>
+                                            <td><?php echo $v['phone']?></td>
+                                            <td><?php echo $v['terms']?></td>
+                                            <td><?php echo $v['type']?></td>
+                                            <td><?php echo $v['notes']?></td>
+                                            <td><?php if($v['status'] == 'Active'){ echo 'Active'; }else { echo 'Inactive'; } ?></td>
                                             <td>
                                                 <center>
-                                                    <a onclick="updateVendor('<?php echo base_url(); ?>','<?php echo $v->vendor_id; ?>')" class="btn btn-custon-three btn-info btn-xs">
+                                                    <a onclick="updateVendor('<?php echo base_url(); ?>','<?php echo $v['vendor_id']; ?>')" class="btn btn-custon-three btn-info btn-xs">
                                                         <span class="fa fa-pencil"></span>
                                                     </a>
-                                                    <a href="<?php echo base_url(); ?>index.php/vendors/delete_vendor/<?php echo $v->vendor_id;?>" class="btn btn-custon-three btn-danger btn-xs" onclick="confirmationDelete(this);return false;">
+                                                    <a href="<?php echo base_url(); ?>index.php/vendors/delete_vendor/<?php echo $v['vendor_id'];?>" class="btn btn-custon-three btn-danger btn-xs" onclick="confirmationDelete(this);return false;">
                                                         <span class="fa fa-times"></span>
                                                     </a>
                                                 </center>
                                             </td>
                                         </tr>  
-                                    <?php } ?>                                      
+                                    <?php } } ?>                                      
                                     </tbody>
                                 </table>
                             </div>

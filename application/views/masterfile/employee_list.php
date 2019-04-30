@@ -48,28 +48,31 @@
                                                         <a class="close" data-dismiss="modal" href="#"><i class="fa fa-close"></i></a>
                                                     </div>
                                                 </div>
-                                                <form>
+                                                <form method="POST" action = "<?php echo base_url();?>index.php/masterfile/insert_emp">
                                                     <div class="modal-body-lowpad">
                                                         <div class="form-group">
                                                             <p class="m-b-0">Employee Name:</p>
-                                                            <input name="" class="form-control" >
+                                                            <input type = "text" name="emp_name" class="form-control" >
                                                         </div>
                                                         <div class="form-group">
                                                             <p class="m-b-0">Department:</p>
-                                                            <select name="" class="form-control" cols="2">
-                                                                <option>1</option>
+                                                            <select name="dept" class="form-control" cols="2">
+                                                                <option value = "">--Select Department--</option>
+                                                                <?php foreach($department AS $d){ ?>
+                                                                <option value = "<?php echo $d->department_id; ?>"><?php echo $d->department_name?></option>
+                                                                <?php } ?>
                                                             </select>
                                                         </div>
                                                         <div class="form-group">
                                                             <p class="m-b-0">Position:</p>
-                                                            <input type="text" name="" class="form-control">
+                                                            <input type="text" name="position" class="form-control">
                                                         </div>
-                                                        <div class="form-group">
+                                                        <!-- <div class="form-group">
                                                             <p class="m-b-0">Location:</p>
-                                                            <input type="text" name="" class="form-control">
-                                                        </div>
+                                                            <input type="text" name="location" class="form-control">
+                                                        </div> -->
                                                         <center>
-                                                            <a href="#" class="btn btn-custon-three btn-primary btn-block">Save</a>
+                                                            <input type = "submit" class="btn btn-custon-three btn-primary btn-block" value = "Save">
                                                         </center>
                                                     </div>
                                                 </form>
@@ -95,28 +98,28 @@
                                             <th>Employee</th>
                                             <th>Department</th>
                                             <th>Position</th>
-                                            <th>Location</th>
                                             <th><center>Action</center></th>
                                         </tr>
                                     </thead>
                                     <tbody>
+                                    <?php foreach($employees AS $emp){ ?>
                                         <tr>
                                             <td></td>
-                                            <td>Amvescap plc</td>
-                                            <td>Amvescap plc</td>
-                                            <td>15%</td>
-                                            <td>15%</td>
+                                            <td><?php echo $emp['employee'];?></td>
+                                            <td><?php echo $emp['department'];?></td>
+                                            <td><?php echo $emp['position'];?></td>
                                             <td>
                                                 <center>
-                                                    <a href="" onclick="updateEmployee('<?php echo base_url(); ?>')" class="btn btn-custon-three btn-info btn-xs">
+                                                    <a onclick="updateEmployee('<?php echo base_url(); ?>','<?php echo $emp['emp_id']; ?>')" class="btn btn-custon-three btn-info btn-xs">
                                                         <span class="fa fa-pencil"></span>
                                                     </a>
-                                                    <a href="" class="btn btn-custon-three btn-danger btn-xs">
+                                                    <a href="<?php echo base_url(); ?>index.php/masterfile/delete_employee/<?php echo $emp['emp_id'];?>" class="btn btn-custon-three btn-danger btn-xs" onclick="confirmationDelete(this);return false;">
                                                         <span class="fa fa-times"></span>
                                                     </a>
                                                 </center>
                                             </td>
-                                        </tr>                                        
+                                        </tr> 
+                                    <?php } ?>                                       
                                     </tbody>
                                 </table>
                             </div>

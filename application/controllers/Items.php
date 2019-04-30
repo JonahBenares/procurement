@@ -83,6 +83,7 @@ class Items extends CI_Controller {
 
     public function item_details(){
         $this->load->view('template/header');
+        $data['id']=$this->uri->segment(3);
         $id=$this->uri->segment(3);
         $data['item'] = $this->super_model->select_row_where('item', 'item_id', $id);
         $row = $this->super_model->count_rows_where("vendor_details",'item_id',$id);
@@ -105,6 +106,83 @@ class Items extends CI_Controller {
         $this->load->view('items/item_details',$data);
         $this->load->view('template/footer');
     }
-}
 
+    public function export_items(){
+        require_once(APPPATH.'../assets/js/phpexcel/Classes/PHPExcel/IOFactory.php');
+        $id=$this->uri->segment(3);
+        foreach($this->super_model->select_row_where('item', 'item_id', $id) AS $info){
+            $item = $info->item_name;
+            $brand = $info->brand_name;
+            $item_specs = $info->item_specs;
+            $part_no = $info->part_no;
+        }
+        $exportfilename="item_details.xlsx";
+        $objPHPExcel = new PHPExcel();
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('A1', "ITEM DETAILS");
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('A3', "Item Name:");
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('B3', $item);
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('C3', "Brand:");
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('D3', $brand);
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('A4', "Specifications:");
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('B4', $item_specs);
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('C4', "Part Number:");
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('D4', $part_no);
+
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('A6', "VENDOR LIST");
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('A7', "Vendor Name");
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('B7', "Address");
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('C7', "Phone Number");
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('D7', "Fax Number");
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('E7', "Email");
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('F7', "Terms");
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('G7', "Type");
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('H7', "Contact Person");
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('I7', "Notes");
+
+        $num=7;
+        foreach($this->super_model->select_join_where('vendor_head','vendor_details',"item_id = '$id'",'vendor_id') AS $fetch){
+            $num++;
+            $objPHPExcel->setActiveSheetIndex(0)->setCellValue('A'.$num, $fetch->vendor_name);
+            $objPHPExcel->setActiveSheetIndex(0)->setCellValue('B'.$num, $fetch->address);
+            $objPHPExcel->setActiveSheetIndex(0)->setCellValue('C'.$num, $fetch->phone_number);
+            $objPHPExcel->setActiveSheetIndex(0)->setCellValue('D'.$num, $fetch->fax_number);
+            $objPHPExcel->setActiveSheetIndex(0)->setCellValue('E'.$num, $fetch->email);
+            $objPHPExcel->setActiveSheetIndex(0)->setCellValue('F'.$num, $fetch->terms);
+            $objPHPExcel->setActiveSheetIndex(0)->setCellValue('G'.$num, $fetch->type);
+            $objPHPExcel->setActiveSheetIndex(0)->setCellValue('H'.$num, $fetch->contact_person);
+            $objPHPExcel->setActiveSheetIndex(0)->setCellValue('I'.$num, $fetch->notes);
+        }
+
+        $styleArray = array(
+            'borders' => array(
+                'allborders' => array(
+                    'style' => PHPExcel_Style_Border::BORDER_THIN
+                )
+            )
+        );
+
+        $objPHPExcel->getActiveSheet()->getStyle('A1')->getFont()->setBold(true);
+        $objPHPExcel->getActiveSheet()->getStyle('B3')->getFont()->setBold(true);
+        $objPHPExcel->getActiveSheet()->getStyle('D3')->getFont()->setBold(true);
+        $objPHPExcel->getActiveSheet()->getStyle('B4')->getFont()->setBold(true);
+        $objPHPExcel->getActiveSheet()->getStyle('D4')->getFont()->setBold(true);
+        $objPHPExcel->getActiveSheet()->getStyle('A6')->getFont()->setBold(true);
+        $objPHPExcel->getActiveSheet()->getStyle('A7:I7')->getFont()->setBold(true);
+        $objPHPExcel->getActiveSheet()->getStyle('A1')->getFont()->setSize(14);
+        $objPHPExcel->getActiveSheet()->mergeCells('A6:I6');
+        $objPHPExcel->getActiveSheet()->getStyle('A6:I6')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+        $objPHPExcel->getActiveSheet()->getStyle('A1:D4')->applyFromArray($styleArray);
+        $objPHPExcel->getActiveSheet()->getStyle('A6:I'.$num)->applyFromArray($styleArray);
+        $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
+        if (file_exists($exportfilename))
+        unlink($exportfilename);
+        $objWriter->save($exportfilename);
+        unset($objPHPExcel);
+        unset($objWriter);   
+        ob_end_clean();
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment; filename="item_details.xlsx"');
+        readfile($exportfilename);
+    }
+}
 ?>
