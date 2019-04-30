@@ -110,49 +110,52 @@
                                         <div class="modal-dialog">
                                             <div class="modal-content">
                                                 <div class="modal-header header-color-modal bg-color-2">
-                                                    <h4 class="modal-title">BG Color Header Modal</h4>
+                                                    <h4 class="modal-title">Search Vendor</h4>
                                                     <div class="modal-close-area modal-close-df">
                                                         <a class="close" data-dismiss="modal" href="#"><i class="fa fa-close"></i></a>
                                                     </div>
                                                 </div>
-                                                <form>
+                                                <form  method='POST' action="<?php echo base_url(); ?>index.php/report/search_vendor/">
                                                     <div class=" p-l-20 p-r-20 modal-body-lowpad">
                                                         <div class="form-group">
                                                             <p class="m-b-0">Vendor:</p>
-                                                            <input type="text" name="" class="form-control">
+                                                            <input type="text" name="vendor" class="form-control">
                                                         </div>
                                                         <div class="form-group">
                                                             <p class="m-b-0">Product/Services:</p>
-                                                            <input type="text" name="" class="form-control">
+                                                            <input type="text" name="product" class="form-control">
                                                         </div>
                                                         <div class="form-group">
                                                             <p class="m-b-0">Address:</p>
-                                                            <input type="text" name="" class="form-control">
+                                                            <input type="text" name="address" class="form-control">
                                                         </div>
                                                         <div class="form-group">
                                                             <p class="m-b-0">Phone:</p>
-                                                            <input type="text" name="" class="form-control">
+                                                            <input type="text" name="phone" class="form-control">
                                                         </div>
                                                         <div class="form-group">
                                                             <p class="m-b-0">Terms:</p>
-                                                            <input type="text" name="" class="form-control">
+                                                            <input type="text" name="terms" class="form-control">
                                                         </div>
                                                         <div class="form-group">
                                                             <p class="m-b-0">Type:</p>
-                                                            <input type="text" name="" class="form-control">
+                                                            <input type="text" name="type" class="form-control">
                                                         </div>
                                                         <div class="form-group">
                                                             <p class="m-b-0">Notes:</p>
-                                                            <input type="text" name="" class="form-control">
+                                                            <input type="text" name="notes" class="form-control">
                                                         </div>
                                                         <div class="form-group">
                                                             <p class="m-b-0">Status:</p>
-                                                            <select type="text" name="" class="form-control">
-                                                                <option>hello</option>
+                                                            <select type="text" name="status" class="form-control">
+                                                                <option value = "">--Select Status--</option>
+                                                                <option value = "1">Active</option>
+                                                                <option value = "2">Inactive</option>
                                                             </select>
                                                         </div>
                                                         <center>
-                                                            <a href="#" class="btn btn-custon-three btn-success btn-block"><span class="fa fa-search"></span> Search</a>
+                                                            <!-- <a href="#" class="btn btn-custon-three btn-success btn-block"><span class="fa fa-search"></span> Search</a> -->
+                                                            <input type = "submit" class="btn btn-custon-three btn-success btn-block" value = "Search">
                                                         </center>
                                                     </div>
                                                 </form>
