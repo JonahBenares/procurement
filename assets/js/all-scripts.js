@@ -16,11 +16,11 @@ function updateVendor(baseurl,id) {
 function addVendorItem(baseurl) {
     window.open(baseurl+"index.php/vendors/add_vendoritem", "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=50,left=450,width=500,height=500");
 }
-function updateDepartment(baseurl) {
-    window.open(baseurl+"index.php/masterfile/update_department", "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=50,left=450,width=500,height=500");
+function updateDepartment(baseurl,id) {
+    window.open(baseurl+"index.php/masterfile/update_department/"+id, "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=50,left=450,width=500,height=500");
 }
-function updateEmployee(baseurl) {
-    window.open(baseurl+"index.php/masterfile/update_employee", "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=50,left=450,width=500,height=500");
+function updateEmployee(baseurl,id) {
+    window.open(baseurl+"index.php/masterfile/update_employee/"+id, "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=50,left=450,width=500,height=500");
 }
 function updatePurpose(baseurl) {
     window.open(baseurl+"index.php/masterfile/update_purpose", "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=50,left=450,width=500,height=500");

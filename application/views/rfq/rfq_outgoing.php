@@ -55,13 +55,24 @@
     </style>
     
     <div  class="pad">
-    	<form>  
+    <?php 
+  
+    foreach($head AS $h){
+    	$date=$h['rfq_date'];
+    	$supplier=$h['supplier'];
+    	$phone=$h['phone'];
+    	$saved=$h['saved'];
+  ?>
+    	<form method='POST' action='<?php echo base_url(); ?>rfq/save_rfq'>  
     		<div  id="prnt_btn">
 	    		<center>
 			    	<div class="btn-group">
 						<a href="javascript:history.go(-1)" class="btn btn-success btn-md p-l-100 p-r-100"><span class="fa fa-arrow-left"></span> Back</a>
+						<?php if($saved==1){ ?>
 						<a  onclick="printPage()" class="btn btn-warning btn-md p-l-100 p-r-100"><span class="fa fa-print"></span> Print</a>
-						<a href="" class="btn btn-primary btn-md p-l-100 p-r-100"><span class="fa fa-floppy-o"></span> Save</a>    				
+						<?php }  if($saved==0){?>
+						<input type='submit' class="btn btn-primary btn-md p-l-100 p-r-100" value="Save">  		
+						<?php } ?>		
 					</div>
 					<h4 class="text-white"><b>OUTGOING</b> RFQ</h4>
 				</center>
@@ -103,7 +114,7 @@
 		    		<tr><td class="f13" colspan="20" align="center"><br></td></tr>
 		    		<tr>
 		    			<td class="f13" colspan="2">Date:</td>
-		    			<td class="f13 bor-btm" colspan="8">asdasdas</td>
+		    			<td class="f13 bor-btm" colspan="8"><?php echo date('F j, Y', strtotime($date)); ?></td>
 		    			<td class="f13" colspan="1"></td>
 		    			<td class="f13" colspan="3">RFQ No.:</td>
 		    			<td class="f13 bor-btm" colspan="6">1231277</td>
@@ -111,14 +122,15 @@
 		    		<tr><td class="f13" colspan="20" align="center"></td></tr>
 		    		<tr>
 		    			<td class="f13" colspan="2">Supplier:</td>
-		    			<td class="f13 bor-btm" colspan="8">asdasdas</td>
+		    			<td class="f13 bor-btm" colspan="8"><?php echo $supplier; ?></td>
 		    			<td class="f13" colspan="1"></td>
 		    			<td class="f13" colspan="3">Tel. No.:</td>
-		    			<td class="f13 bor-btm" colspan="6">1231277</td>
+		    			<td class="f13 bor-btm" colspan="6"><?php echo $phone; ?></td>
 		    		</tr>
 		    		<tr><td class="f13" colspan="20" align="center"></td></tr>	    		
 		    		<tr><td class="f13" colspan="20" align="center"><br></td></tr>	    		
 		    		<tr>
+		    <?php } ?>
 		    			<td colspan="20">
 		    				<table class="table-bordered" width="100%">
 		    					<tr>
@@ -128,19 +140,30 @@
 		    						<td class="f13" align="center"><b>Brand/Offer</b></td>
 		    						<td class="f13" align="center"><b>Unit Price</b></td>
 		    					</tr>
+		    				<?php foreach($detail AS $item){ ?>
 		    					<tr>
-		    						<td class="f13" align="center">23</td>
-		    						<td class="f13" align="center">Unit</td>
-		    						<td class="f13" align="center">Item Description</td>
-		    						<td class="f13" align="center">Brand/Offer</td>
-		    						<td class="f13" align="center">Unit Price</td>
+		    						<td class="f13" align="center">1</td>
+		    						<td class="f13" align="center"><?php echo $item['unit']; ?></td>
+		    						<td class="f13" align="center" style='width:50%'><?php echo $item['item']; ?></td>
+		    						<td class="f13" align="center"></td>
+		    						<td class="f13" align="center"></td>
 		    					</tr>
+		    				<?php } ?>
 		    				</table>
 		    			</td>
 		    		</tr>
 		    		<tr><td class="f13" colspan="20" align="center"><br></td></tr>	    		
-
-		    		<tr><td class="f13" colspan="20">1. Quotation must be submitted on or before <input type="date" name="" style="border: 0px solid #000"></td></tr>	    	
+ 			<?php foreach($head AS $h){ ?>
+		    		<tr>
+		    			
+		    			
+		    			<td class="f13" colspan="20">1. Quotation must be submitted on or before
+		    			<?php if($h['saved']==0){ ?>
+		    			 <input type="date" name="due_date" style="border: 0px solid #000" >
+		    			 <?php } else { 
+		    			 	echo date('F j, Y', strtotime($h['due_date']));
+		    			  } ?>
+		    			 </td></tr>	    	
 		    		<tr><td class="f13" colspan="20">2. Please Fill - Up :</td></tr>	    	
 		    		<tr>
 		    			<td class="f13" colspan="2"></td>
@@ -200,7 +223,9 @@
 		    			<td class="f13" colspan="4">Prepared by:</td>
 		    			<td class="f13" colspan="2"></td>
 		    			<td class="f13" colspan="4">Noted by:</td>
-		    			<td class="f13" colspan="2"></td>
+		    			<td class="f13" colspan="2">
+
+		    			</td>
 		    			<td class="f13" colspan="4">Approved by:</td>
 		    			<td class="f13" colspan="2"></td>
 		    		</tr>	  
@@ -216,15 +241,33 @@
 		    		<tr>
 		    			<td class="f13" colspan="2"></td>
 		    			<td class="f13" colspan="4">
-		    				<input type="" name="" class="sel-des">
+		    			
 		    			</td>
 		    			<td class="f13" colspan="2"></td>
 		    			<td class="f13" colspan="4">
-		    				<input type="" name="" class="sel-des">
+		    			<?php if($h['saved']==0){ ?>
+		    			<select name='noted'>
+			    			<option value=''>-Select-</option>
+			    			<?php foreach($employee AS $emp){ ?>
+			    				<option value='<?php echo $emp->employee_id; ?>'><?php echo $emp->employee_name; ?></option>
+			    			<?php } ?>
+		    			</select>
+		    			<?php } else { 
+		    				echo "<center>".$h['noted']."</center>";
+		    			} ?>
 		    			</td>
 		    			<td class="f13" colspan="2"></td>
 		    			<td class="f13" colspan="4">
-		    				<input type="" name="" class="sel-des">
+		    			<?php if($h['saved']==0){ ?>
+		    				<select name='approved'>
+			    			<option value=''>-Select-</option>
+			    			<?php foreach($employee AS $emp){ ?>
+			    				<option value='<?php echo $emp->employee_id; ?>'><?php echo $emp->employee_name; ?></option>
+			    			<?php } ?>
+		    			</select>
+		    			<?php } else { 
+		    				echo "<center>".$h['approved']."</center>";
+		    			} ?>
 		    			</td>
 		    			<td class="f13" colspan="2"></td>
 		    		</tr>  	
@@ -234,8 +277,8 @@
 		    			<td class="f13" colspan="2">
 		    				Conforme:
 		    			</td>
-		    			<td class="f13 bor-btm" colspan="6"></td>
-		    			<td class="f13" colspan="6"></td>
+		    			<td class="f13 bor-btm" colspan="8"></td>
+		    			<td class="f13" colspan="4"></td>
 		    			<td class="f13" colspan="4">
 		    			</td>
 		    		</tr>  
@@ -247,9 +290,11 @@
 		    			<td class="f13" colspan="4">
 		    			</td>
 		    		</tr> 
+		    		<?php } ?>
 		    		<tr><td class="f13" colspan="20" align="center"><br></td></tr>		
 		    	</table>		    
 	    	</div>
+	    	<input type='hidden' name='rfq_id' value='<?php echo $rfq_id; ?>'>
     	</form>
     </div>
     <script type="text/javascript">

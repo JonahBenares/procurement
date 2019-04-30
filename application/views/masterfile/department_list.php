@@ -48,14 +48,14 @@
                                                         <a class="close" data-dismiss="modal" href="#"><i class="fa fa-close"></i></a>
                                                     </div>
                                                 </div>
-                                                <form>
+                                                <form method="POST" action = "<?php echo base_url();?>index.php/masterfile/insert_dept">
                                                     <div class="modal-body-lowpad">
                                                         <div class="form-group">
                                                             <p class="m-b-0">Department:</p>
-                                                            <input type="text" name="" class="form-control">
+                                                            <input type="text" name="dept" class="form-control">
                                                         </div>
                                                         <center>
-                                                            <a href="#" class="btn btn-custon-three btn-primary btn-block">Save</a>
+                                                            <input type = "submit" class="btn btn-custon-three btn-primary btn-block" value = "Save">
                                                         </center>
                                                     </div>
                                                 </form>
@@ -83,20 +83,22 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                    <?php foreach($department AS $d){ ?>
                                         <tr>
                                             <td></td>
-                                            <td>Amvescap plc</td>
+                                            <td><?php echo $d->department_name?></td>
                                             <td>
                                                 <center>
-                                                    <a href="" onclick="updateDepartment('<?php echo base_url(); ?>')" class="btn btn-custon-three btn-info btn-xs">
+                                                    <a href="" onclick="updateDepartment('<?php echo base_url(); ?>','<?php echo $d->department_id;?>')" class="btn btn-custon-three btn-info btn-xs">
                                                         <span class="fa fa-pencil"></span>
                                                     </a>
-                                                    <a href="" class="btn btn-custon-three btn-danger btn-xs">
+                                                    <a href="<?php echo base_url(); ?>index.php/masterfile/delete_dept/<?php echo $d->department_id;?>" class="btn btn-custon-three btn-danger btn-xs" onclick="confirmationDelete(this);return false;">
                                                         <span class="fa fa-times"></span>
                                                     </a>
                                                 </center>
                                             </td>
-                                        </tr>                                        
+                                        </tr>
+                                    <?php } ?>                                        
                                     </tbody>
                                 </table>
                             </div>

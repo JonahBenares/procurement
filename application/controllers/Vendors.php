@@ -49,7 +49,21 @@ class Vendors extends CI_Controller {
     public function vendor_list(){
         $this->load->view('template/header');
         $this->load->view('template/navbar');
-        $data['vendors'] = $this->super_model->select_all_order_by('vendor_head', 'vendor_name', 'ASC');
+        foreach($this->super_model->select_all_order_by('vendor_head', 'vendor_name', 'ASC') AS $et){
+            $data['vendors'][] = array(
+                'vendor_id'=>$et->vendor_id,
+                'vendor'=>$et->vendor_name,
+                'product'=>$et->product_services,
+                'address'=>$et->address,
+                'phone'=>$et->phone_number,
+                'fax'=>$et->fax_number,
+                'terms'=>$et->terms,
+                'type'=>$et->type,
+                'contact'=>$et->contact_person,
+                'notes'=>$et->notes,
+                'status'=>$et->status
+            );
+        }
         $this->load->view('vendors/vendor_list',$data);
         $this->load->view('template/footer');
     }
@@ -120,13 +134,16 @@ class Vendors extends CI_Controller {
 
     public function vendor_details(){
         $this->load->view('template/header');
+        $data['id']=$this->uri->segment(3);
         $id=$this->uri->segment(3);
+        $data['vendor_id']=$id;
         $data['vendor'] = $this->super_model->select_row_where('vendor_head', 'vendor_id', $id);
         $row = $this->super_model->count_rows_where("vendor_details",'vendor_id',$id);
         if($row!=0){
             foreach($this->super_model->select_row_where('vendor_details','vendor_id',$id) AS $v){
                 foreach($this->super_model->select_row_where('item','item_id',$v->item_id) AS $vd){
                     $data['vendors'][]=array(
+                        'item_id'=>$v->item_id,
                         'item'=>$this->super_model->select_column_where('item','item_name','item_id',$v->item_id),
                     );
                 }
@@ -149,213 +166,252 @@ class Vendors extends CI_Controller {
         $this->load->view('template/header');
         $this->load->view('template/navbar');
 
-        if(!empty($this->input->post('from'))){
-            $data['from'] = $this->input->post('from');
+        if(!empty($this->input->post('vendor'))){
+            $data['vendor'] = $this->input->post('vendor');
         } else {
-            $data['from']= "null";
+            $data['vendor']= "null";
         }
 
-        if(!empty($this->input->post('to'))){
-            $data['to'] = $this->input->post('to');
+        if(!empty($this->input->post('product'))){
+            $data['product'] = $this->input->post('product');
         } else {
-            $data['to']= "null";
+            $data['product']= "null";
         }
 
-        if(!empty($this->input->post('category'))){
-            $data['category'] = $this->input->post('category');
+        if(!empty($this->input->post('address'))){
+            $data['address'] = $this->input->post('address');
         } else {
-            $data['category'] = "null";
+            $data['address'] = "null";
         }
 
-        if(!empty($this->input->post('subcat'))){
-            $data['subcat'] = $this->input->post('subcat');
+        if(!empty($this->input->post('phone'))){
+            $data['phone'] = $this->input->post('phone');
         } else {
-            $data['subcat'] = "null";
+            $data['phone'] = "null";
         }
 
-        if(!empty($this->input->post('department'))){
-            $data['department'] = $this->input->post('department');
+        if(!empty($this->input->post('terms'))){
+            $data['terms'] = $this->input->post('terms');
         } else {
-            $data['department'] = "null";
+            $data['terms'] = "null";
         }
 
-        if(!empty($this->input->post('item'))){
-            $data['item'] = $this->input->post('item');
+        if(!empty($this->input->post('type'))){
+            $data['type'] = $this->input->post('type');
         } else {
-            $data['item'] = "null";
+            $data['type'] = "null";
         } 
 
-        if(!empty($this->input->post('brand'))){
-            $data['brand'] = $this->input->post('brand');
+        if(!empty($this->input->post('contact'))){
+            $data['contact'] = $this->input->post('contact');
         } else {
-            $data['brand'] = "null";
+            $data['contact'] = "null";
         } 
 
-        if(!empty($this->input->post('item_type'))){
-            $data['item_type'] = $this->input->post('item_type');
+        if(!empty($this->input->post('notes'))){
+            $data['notes'] = $this->input->post('notes');
         } else {
-            $data['item_type'] = "null";
+            $data['notes'] = "null";
         } 
 
-        if(!empty($this->input->post('model'))){
-            $data['model'] = $this->input->post('model');
+        if(!empty($this->input->post('status'))){
+            $data['status'] = $this->input->post('status');
         } else {
-            $data['model'] = "null";
+            $data['status'] = "null";
         } 
-
-        if(!empty($this->input->post('serial_no'))){
-            $data['serial_no'] = $this->input->post('serial_no');
-        } else {
-            $data['serial_no'] = "null";
-        } 
-
-        if(!empty($this->input->post('damage'))){
-            $data['damage'] = $this->input->post('damage');
-        } else {
-            $data['damage'] = "null";
-        } 
-
-        if(!empty($this->input->post('condition'))){
-            $data['condition'] = $this->input->post('condition');
-        } else {
-            $data['condition'] = "null";
-        }
-
-        if(!empty($this->input->post('placement'))){
-            $data['placement'] = $this->input->post('placement');
-        } else {
-            $data['placement'] = "null";
-        }
-
-        if(!empty($this->input->post('rack'))){
-            $data['rack'] = $this->input->post('rack');
-        } else {
-            $data['rack'] = "null";
-        }
-
 
         $sql="";
         $filter = " ";
-        if(!empty($this->input->post('from')) && !empty($this->input->post('to'))){
-            $from = $this->input->post('from');
-            $to = $this->input->post('to');
-            $sql.= " et_details.acquisition_date BETWEEN '$from' AND '$to' AND";
-            $filter .= "Acquisition Date - ".$from.' <strong>To</strong> '.$to.", ";
+
+        if(!empty($this->input->post('vendor'))){
+            $vendor = $this->input->post('vendor');
+            $sql.=" vendor_head.vendor_name LIKE '%$vendor%' AND";
+            $filter .= "Vendor - ".$vendor.", ";
         }
 
-        if(!empty($this->input->post('category'))){
-            $category = $this->input->post('category');
-            $sql.=" et_head.category_id = '$category' AND";
-            $cat = $this->super_model->select_column_where("category", "category_name", "category_id", $category);
-            $filter .= "Category - ".$cat.", ";
+        if(!empty($this->input->post('product'))){
+            $product = $this->input->post('product');
+            $sql.=" vendor_head.product_services LIKE '%$product%' AND";
+            $filter .= "Product - ".$product.", ";
         }
 
-        if(!empty($this->input->post('subcat'))){
-            $subcat = $this->input->post('subcat');
-            $sql.=" et_head.subcat_id = '$subcat' AND";
-            $subcat1 = $this->super_model->select_column_where("subcategory", "subcat_name", "subcat_id", $subcat);
-            $filter .= "Sub Category - ".$subcat1.", ";
+        if(!empty($this->input->post('address'))){
+            $address = $this->input->post('address');
+            $sql.=" vendor_head.address LIKE '%$address%' AND";
+            $filter .= "Address - ".$address.", ";
         }
 
-        if(!empty($this->input->post('department'))){
-            $department = $this->input->post('department');
-            $sql.=" et_head.department LIKE '%$department%' AND";
-            $filter .= "Department - ".$department.", ";
+        if(!empty($this->input->post('phone'))){
+            $phone = $this->input->post('phone');
+            $sql.=" vendor_head.phone_number LIKE '%$phone%' AND";
+            $filter .= "Phone Number - ".$phone.", ";
         }
 
-        if(!empty($this->input->post('item'))){
-            $item = $this->input->post('item');
-            $sql.=" et_head.et_desc LIKE '%$item%' AND";
-            $filter .= "Item Description - ".$item.", ";
+        if(!empty($this->input->post('fax'))){
+            $fax = $this->input->post('fax');
+            $sql.=" vendor_head.fax_number LIKE '%$fax%' AND";
+            $filter .= "Fax Number - ".$fax.", ";
         }
 
-        if(!empty($this->input->post('brand'))){
-            $brand = $this->input->post('brand');
-            $sql.=" et_details.brand LIKE '%$brand%' AND";
-            $filter .= "Brand - ".$brand.", ";
+        if(!empty($this->input->post('terms'))){
+            $terms = $this->input->post('terms');
+            $sql.=" vendor_head.terms LIKE '%$terms%' AND";
+            $filter .= "Terms - ".$terms.", ";
         }
 
-        if(!empty($this->input->post('model'))){
-            $model = $this->input->post('model');
-            $sql.=" et_details.model LIKE '%$model%' AND";
-            $filter .= "Model - ".$model.", ";
+        if(!empty($this->input->post('type'))){
+            $type = $this->input->post('type');
+            $sql.=" vendor_head.type LIKE '%$type%' AND";
+            $filter .= "Type - ".$type.", ";
         }
 
-        if(!empty($this->input->post('item_type'))){
-            $item_type = $this->input->post('item_type');
-            $sql.=" et_details.type LIKE '%$item_type%' AND";
-            $filter .= "Type - ".$item_type.", ";
+        if(!empty($this->input->post('contact'))){
+            $contact = $this->input->post('contact');
+            $sql.=" vendor_head.contact_person = '$contact' AND";
+            $filter .= "Contact Person - ".$contact.", ";
         }
 
-        if(!empty($this->input->post('serial_no'))){
-            $serial_no = $this->input->post('serial_no');
-            $sql.=" et_details.serial_no LIKE '%$serial_no%' AND";
-            $filter .= "Serial No. - ".$serial_no.", ";
+        if(!empty($this->input->post('notes'))){
+            $notes = $this->input->post('notes');
+            $sql.=" vendor_head.notes = '$notes' AND";
+            $filter .= "Notes - ".$notes.", ";
         }
 
-        if(!empty($this->input->post('damage'))){
-            $damage = $this->input->post('damage');
-            $sql.=" et_details.damage = '$damage' AND";
-            $filter .= "Damage Items, ";
-        }
-
-        if(!empty($this->input->post('condition'))){
-            $condition = $this->input->post('condition');
-            $sql.=" et_details.physical_id = '$condition' AND";
-            $physical = $this->super_model->select_column_where("physical_condition", "condition_name", "physical_id", $condition);
-            $filter .= "Physical Condition - ".$physical.", ";
-        }
-
-        if(!empty($this->input->post('placement'))){
-            $placement = $this->input->post('placement');
-            $sql.=" et_details.placement_id = '$placement' AND";
-            $place = $this->super_model->select_column_where("placement", "placement_name", "placement_id", $placement);
-            $filter .= "Placement - ".$place.", ";
-        }
-
-        if(!empty($this->input->post('rack'))){
-            $rack = $this->input->post('rack');
-            $sql.=" et_details.rack_id = '$rack' AND";
-            $rr = $this->super_model->select_column_where("rack", "rack_name", "rack_id", $rack);
-            $filter .= "Rack - ".$rr.", ";
+        if(!empty($this->input->post('status'))){
+            $status = $this->input->post('status');
+            $sql.=" vendor_head.status = '$status' AND";
+            $filter .= "Status - ".$status.", ";
         }
 
         $query=substr($sql, 0, -3);
         $data['filt']=substr($filter, 0, -2);
         foreach ($this->super_model->select_custom_where('vendor_head', $query) AS $et){
-                $unit =$this->super_model->select_column_where("unit", "unit_name", "unit_id", $et->unit_id);
-                $accountability =$this->super_model->select_column_where("employees", "employee_name", "employee_id", $et->accountability_id);
-                $category =$this->super_model->select_column_where("category", "category_name", "category_id", $et->category_id);
-                $subcat =$this->super_model->select_column_where("subcategory", "subcat_name", "subcat_id", $et->subcat_id);
-                $asset_control_no =$this->super_model->select_column_where("et_details", "asset_control_no", "et_id", $et->et_id);
-                $acquisition_date =$this->super_model->select_column_where("et_details", "acquisition_date", "et_id", $et->et_id);
-                $damage =$this->super_model->select_column_where("et_details", "damage", "et_id", $et->et_id);
-                $serial_no =$this->super_model->select_column_where("et_details", "serial_no", "et_id", $et->et_id);
-                $brand =$this->super_model->select_column_where("et_details", "brand", "et_id", $et->et_id);
-                $date_issued =$this->super_model->select_column_where("et_details", "date_issued", "et_id", $et->et_id);
-                $data['main'][] = array(
-                    'et_id'=>$et->et_id,
-                    'cat'=>$category,
-                    'subcat'=>$subcat,
-                    'department'=>$et->department,
-                    'unit'=>$unit,
-                    'damaged'=>$damage,
-                    'asset_control'=>$asset_control_no,
-                    'acquisition_date'=>$acquisition_date,
-                    'date_issued'=>$date_issued,
-                    'et_desc'=>$et->et_desc,
-                    'qty'=>$et->qty,
-                    'accountability'=>$accountability,
-                    'employee_id'=>$et->accountability_id
-                );
+            $data['vendors'][] = array(
+                'vendor_id'=>$et->vendor_id,
+                'vendor'=>$et->vendor_name,
+                'product'=>$et->product_services,
+                'address'=>$et->address,
+                'phone'=>$et->phone_number,
+                'fax'=>$et->fax_number,
+                'terms'=>$et->terms,
+                'type'=>$et->type,
+                'contact'=>$et->contact_person,
+                'notes'=>$et->notes,
+                'status'=>$et->status
+            );
         }
         $this->load->view('vendors/vendor_list',$data);
         $this->load->view('template/footer');
     }
+<<<<<<< HEAD
+   
+=======
+
+    public function export_vendor(){
+        require_once(APPPATH.'../assets/js/phpexcel/Classes/PHPExcel/IOFactory.php');
+        $id=$this->uri->segment(3);
+        foreach($this->super_model->select_row_where('vendor_head', 'vendor_id', $id) AS $info){
+            $vendor = $info->vendor_name;
+            $address = $info->address;
+            $phone_number = $info->phone_number;
+            $fax_number = $info->fax_number;
+            $email = $info->email;
+            $contact_person = $info->contact_person;
+            $terms = $info->terms;
+            $type = $info->type;
+            $notes = $info->notes;
+        }
+        $objPHPExcel = new PHPExcel();
+        $exportfilename="vendor_profile.xlsx";
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('A1', "VENDOR PROFILE");
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('A3', "Vendor Name:");
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('B3', $vendor);
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('C3', "Address:");
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('D3', $address);
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('A4', "Phone Number:");
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('B4', $phone_number);
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('C4', "Fax Number:");
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('D4', $fax_number);
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('A5', "Email:");
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('B5', $email);
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('C5', "Contact Person:");
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('D5', $contact_person);
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('A6', "Terms:");
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('B6', $terms);
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('C6', "Type:");
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('D6', $type);
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('A7', "Notes:");
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('B7', $notes);
+
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('A9', "ITEM LIST");
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('A10', "Item Name");
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('C10', "Brand");
+        $col='A';
+        $col2='C';
+        $num=10;
+        foreach($this->super_model->select_row_where('vendor_details', 'vendor_id', $id) AS $fetch){
+            $num++;
+            $objPHPExcel->setActiveSheetIndex(0)->setCellValue($col.$num, $this->super_model->select_column_where('item', 'item_name', 'item_id', $fetch->item_id));
+            $objPHPExcel->setActiveSheetIndex(0)->setCellValue($col2.$num, $this->super_model->select_column_where('item', 'brand_name', 'item_id', $fetch->item_id));
+            $objPHPExcel->getActiveSheet()->mergeCells($col.$num .':B'.$num);
+            $objPHPExcel->getActiveSheet()->mergeCells($col2.$num .':D'.$num);
+        }
+
+        $styleArray = array(
+              'borders' => array(
+                'allborders' => array(
+                  'style' => PHPExcel_Style_Border::BORDER_THIN
+                )
+              )
+            );
+
+        $objPHPExcel->getActiveSheet()->getStyle('A1')->getFont()->setBold(true);
+        $objPHPExcel->getActiveSheet()->getStyle('B3')->getFont()->setBold(true);
+        $objPHPExcel->getActiveSheet()->getStyle('D3')->getFont()->setBold(true);
+        $objPHPExcel->getActiveSheet()->getStyle('B4')->getFont()->setBold(true);
+        $objPHPExcel->getActiveSheet()->getStyle('D4')->getFont()->setBold(true);
+        $objPHPExcel->getActiveSheet()->getStyle('B5')->getFont()->setBold(true);
+        $objPHPExcel->getActiveSheet()->getStyle('D5')->getFont()->setBold(true);
+        $objPHPExcel->getActiveSheet()->getStyle('B6')->getFont()->setBold(true);
+        $objPHPExcel->getActiveSheet()->getStyle('D6')->getFont()->setBold(true);
+        $objPHPExcel->getActiveSheet()->getStyle('A8')->getFont()->setBold(true);
+        $objPHPExcel->getActiveSheet()->getStyle('A9')->getFont()->setBold(true);
+        $objPHPExcel->getActiveSheet()->getStyle('A10')->getFont()->setBold(true);
+        $objPHPExcel->getActiveSheet()->getStyle('C10')->getFont()->setBold(true);
+
+        $objPHPExcel->getActiveSheet()->getStyle('A1')->getFont()->setSize(14);
+
+        $objPHPExcel->getActiveSheet()->mergeCells('A8:D8');
+        $objPHPExcel->getActiveSheet()->mergeCells('A9:D9');
+        $objPHPExcel->getActiveSheet()->mergeCells('A10:B10');
+        $objPHPExcel->getActiveSheet()->mergeCells('C10:D10');
+        $objPHPExcel->getActiveSheet()->mergeCells('B7:D7');
+
+        $objPHPExcel->getActiveSheet()->getStyle('A8:B8')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+        $objPHPExcel->getActiveSheet()->getStyle('A9')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+        $objPHPExcel->getActiveSheet()->getStyle('A10')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+        $objPHPExcel->getActiveSheet()->getStyle('C10')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+
+        $objPHPExcel->getActiveSheet()->getStyle('A1:D7')->applyFromArray($styleArray);
+        $objPHPExcel->getActiveSheet()->getStyle('A9:D'.$num)->applyFromArray($styleArray);
+        $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
+        if (file_exists($exportfilename))
+                unlink($exportfilename);
+        $objWriter->save($exportfilename);
+        unset($objPHPExcel);
+        unset($objWriter);   
+        ob_end_clean();
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment; filename="vendor_profile.xlsx"');
+        readfile($exportfilename);
+
+    }
+
     public function rfq_outgoing(){
         $this->load->view('vendors/rfq_outgoing');
     }
     
+>>>>>>> 1cc42aac44d9d6b0ee5da60fa274102d07f79004
 }
 
 ?>
