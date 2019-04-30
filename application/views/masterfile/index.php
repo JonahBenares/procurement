@@ -69,8 +69,8 @@
                                 <div class="row">
                                     <div class="col-lg-12">
                                         <div class="login-button-pro">
-                                            <button type="submit" class="login-button login-button-lg btn-block">Log in</button>
-                                            <a href="<?php echo base_url(); ?>index.php/masterfile/index">login</a>
+                                            <!-- <button type="submit" class="login-button login-button-lg btn-block">Log in</button> -->
+                                            <a  class="login-button login-button-lg btn-block" href="<?php echo base_url(); ?>index.php/masterfile/index">login</a>
                                         </div>
                                     </div>
                                 </div>
