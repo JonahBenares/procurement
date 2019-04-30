@@ -144,7 +144,7 @@ class Vendors extends CI_Controller {
         $this->load->view('template/footer');
     }
 
-<<<<<<< HEAD
+
     public function search_vendor(){
         $this->load->view('template/header');
         $this->load->view('template/navbar');
@@ -352,13 +352,10 @@ class Vendors extends CI_Controller {
         $this->load->view('vendors/vendor_list',$data);
         $this->load->view('template/footer');
     }
-=======
     public function rfq_outgoing(){
         $this->load->view('vendors/rfq_outgoing');
     }
     
-	
->>>>>>> edbb015023cc8b1c6a2d20a3f72bf344ffea659a
 }
 
 ?>
