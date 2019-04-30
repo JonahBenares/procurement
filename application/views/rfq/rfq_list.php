@@ -89,7 +89,7 @@
                                                             <textarea cols="3" name="" class="form-control" ></textarea>
                                                         </div>
                                                         <center>
-                                                            <a href="#" class="btn btn-custon-three btn-primary btn-block">Save</a>
+                                                            <a href="<?php echo base_url(); ?>index.php/aoq/aoq_prnt" class="btn btn-custon-three btn-primary btn-block">Proceed</a>
                                                         </center>
                                                     </div>
                                                 </form>

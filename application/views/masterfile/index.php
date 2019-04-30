@@ -70,6 +70,7 @@
                                     <div class="col-lg-12">
                                         <div class="login-button-pro">
                                             <button type="submit" class="login-button login-button-lg btn-block">Log in</button>
+                                            <a href="<?php echo base_url(); ?>index.php/masterfile/index"></a>
                                         </div>
                                     </div>
                                 </div>
