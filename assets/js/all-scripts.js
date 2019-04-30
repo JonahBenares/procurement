@@ -34,3 +34,4 @@ function confirmationDelete(anchor){
     if(conf)
     window.location=anchor.attr("href");
 }
+
