@@ -92,6 +92,7 @@
                     </div>
                 </div>
                 <!--  -->
+                <form method='POST' action='<?php echo base_url(); ?>index.php/rfq/create_rfq' >
                 <div class="col-lg-8">
                     <div class="sparkline8-list shadow-reset">
                         <div class="hr-bold"></div>
@@ -100,7 +101,7 @@
                                 <h4>Item List 
                                     <div class="pull-right">
                                         <a href="" onclick="addVendorItem('<?php echo base_url(); ?>')" class="btn btn-custon-three btn-primary"><span class="fa fa-plus"></span> Add Item</a>
-                                        <a href="<?php echo base_url(); ?>index.php/vendors/rfq_outgoing" onclick="" class="btn btn-custon-three btn-secondary"><span class="fa fa-plus"></span> Create RFQ</a>
+                                        <input type='submit' onclick="return confirm('Are you sure you want to create RFQ?')" class="btn btn-custon-three btn-secondary" value="Create RFQ">
                                     </div>
                                 </h4>
                                 <table id="table" data-toggle="table" data-toolbar="#toolbar">
@@ -114,7 +115,7 @@
                                     <tbody> 
                                     <?php foreach($vendors AS $va){ ?>                                         
                                         <tr>
-                                            <td><input type="checkbox" name="" class="form-control"></td>
+                                            <td><input type="checkbox" name="item_id[]" value="<?php echo $va['item_id']; ?>" class="form-control"></td>
                                             <td><?php echo $va['item'];?></td>
                                             <td>
                                                 <center>
@@ -124,7 +125,8 @@
                                                 </center>
                                             </td>
                                         </tr> 
-                                    <?php } ?>       
+                                    <?php } ?>      
+                                   
                                     </tbody>
                                 </table>
                             </div>
@@ -132,6 +134,8 @@
                         <div class="hr-bold"></div>                   
                     </div>
                 </div>
+                 <input type='hidden' name='vendor_id' value="<?php echo $vendor_id; ?>"> 
+                </form>
             </div>
         </div>
     </div>

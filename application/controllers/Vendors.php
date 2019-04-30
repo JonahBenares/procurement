@@ -121,12 +121,14 @@ class Vendors extends CI_Controller {
     public function vendor_details(){
         $this->load->view('template/header');
         $id=$this->uri->segment(3);
+        $data['vendor_id']=$id;
         $data['vendor'] = $this->super_model->select_row_where('vendor_head', 'vendor_id', $id);
         $row = $this->super_model->count_rows_where("vendor_details",'vendor_id',$id);
         if($row!=0){
             foreach($this->super_model->select_row_where('vendor_details','vendor_id',$id) AS $v){
                 foreach($this->super_model->select_row_where('item','item_id',$v->item_id) AS $vd){
                     $data['vendors'][]=array(
+                        'item_id'=>$v->item_id,
                         'item'=>$this->super_model->select_column_where('item','item_name','item_id',$v->item_id),
                     );
                 }
@@ -352,10 +354,7 @@ class Vendors extends CI_Controller {
         $this->load->view('vendors/vendor_list',$data);
         $this->load->view('template/footer');
     }
-    public function rfq_outgoing(){
-        $this->load->view('vendors/rfq_outgoing');
-    }
-    
+   
 }
 
 ?>
