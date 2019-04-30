@@ -94,8 +94,8 @@
                             <div class="datatable-dashv1-list custom-datatable-overright">
                                 <h4>Item List 
                                     <div class="pull-right">
-                                        <a onclick="addVendorItem('<?php echo base_url(); ?>')" class="btn btn-custon-three btn-primary"><span class="fa fa-plus"></span> Add Item</a>
-                                        <a onclick="" class="btn btn-custon-three btn-secondary"><span class="fa fa-plus"></span> Create RFQ</a>
+                                        <a href="" onclick="addVendorItem('<?php echo base_url(); ?>')" class="btn btn-custon-three btn-primary"><span class="fa fa-plus"></span> Add Item</a>
+                                        <a href="<?php echo base_url(); ?>index.php/vendors/rfq_outgoing" onclick="" class="btn btn-custon-three btn-secondary"><span class="fa fa-plus"></span> Create RFQ</a>
                                     </div>
                                 </h4>
                                 <table id="table" data-toggle="table" data-toolbar="#toolbar">
