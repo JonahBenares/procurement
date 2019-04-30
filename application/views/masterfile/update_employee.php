@@ -13,28 +13,34 @@
                                     <tbody>
                                         <tr>
                                             <td>
-                                                <form>
+                                                <form method="POST" action = "<?php echo base_url();?>index.php/masterfile/edit_employee">
                                                     <div class="modal-body-lowpad">
-                                                        <div class="form-group">
-                                                            <p class="m-b-0">Employee Name:</p>
-                                                            <input name="" class="form-control" >
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <p class="m-b-0">Department:</p>
-                                                            <select name="" class="form-control" cols="2">
-                                                                <option>1</option>
-                                                            </select>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <p class="m-b-0">Position:</p>
-                                                            <input type="text" name="" class="form-control">
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <p class="m-b-0">Location:</p>
-                                                            <input type="text" name="" class="form-control">
-                                                        </div>
+                                                        <?php foreach($emp AS $e){ ?>
+                                                            <div class="form-group">
+                                                                <p class="m-b-0">Employee Name:</p>
+                                                                <input type = "text" name="emp_name" class="form-control"  value = "<?php echo $e->employee_name?>">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <p class="m-b-0">Department:</p>
+                                                                <select name="dept" class="form-control" cols="2">
+                                                                    <option value = "">--Select Department--</option>
+                                                                    <?php foreach($department AS $d){ ?>
+                                                                    <option value = "<?php echo $d->department_id; ?>" <?php echo (($e->department_id == $d->department_id) ? ' selected' : '');?>><?php echo $d->department_name;?></option>
+                                                                    <?php } ?>
+                                                                </select>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <p class="m-b-0">Position:</p>
+                                                                <input type="text" name="position" class="form-control" value = "<?php echo $e->position?>">
+                                                            </div>
+                                                            <input type = "hidden" name = "emp_id" value="<?php echo $id; ?>">
+                                                            <!-- <div class="form-group">
+                                                                <p class="m-b-0">Location:</p>
+                                                                <input type="text" name="" class="form-control">
+                                                            </div> -->
+                                                        <?php } ?>
                                                         <center>
-                                                            <a href="#" class="btn btn-custon-three btn-primary btn-block">Save</a>
+                                                            <input type = "submit" class="btn btn-custon-three btn-info btn-block" value = "Update">
                                                         </center>
                                                     </div>
                                                 </form>

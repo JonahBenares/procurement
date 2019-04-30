@@ -85,7 +85,7 @@
                                         <?php } ?>                              
                                     </tbody>
                                 </table>
-                                <a href="#" class="btn btn-custon-three btn-primary btn-block">Export To Excel</a>
+                                <a href="<?php echo base_url(); ?>index.php/vendors/export_vendor/<?php echo $id; ?>" class="btn btn-custon-three btn-primary btn-block">Export To Excel</a>
                             </div>
                         </div>                      
                         <div class="hr-bold"></div>

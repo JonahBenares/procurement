@@ -13,14 +13,17 @@
                                     <tbody>
                                         <tr>
                                             <td>
-                                                <form>
+                                                <form method="POST" action = "<?php echo base_url();?>index.php/masterfile/edit_dept">
                                                     <div class="modal-body-lowpad">
                                                         <div class="form-group">
                                                             <p class="m-b-0">Department:</p>
-                                                            <input type="text" name="" class="form-control">
+                                                            <?php foreach($department AS $d){ ?>
+                                                            <input type="text" name="dept" class="form-control" value = "<?php echo $d->department_name?>">
+                                                            <?php } ?>
+                                                            <input type = "hidden" name = "dept_id" value="<?php echo $id; ?>">
                                                         </div>
                                                         <center>
-                                                            <a href="#" class="btn btn-custon-three btn-primary btn-block">Save</a>
+                                                            <input type = "submit" class="btn btn-custon-three btn-info btn-block" value = "Update">
                                                         </center>
                                                     </div>
                                                 </form>
