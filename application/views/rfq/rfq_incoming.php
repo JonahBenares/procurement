@@ -45,7 +45,7 @@
 			width: 100%;
 		}
 		@media print{
-			#prnt_btn{
+			#prnt_btn, .reco{
 				display: none;
 			}
 		}
@@ -104,7 +104,7 @@
 		    			<td class="f13" colspan="2">Date:</td>
 		    			<td class="f13 bor-btm" colspan="8">asdasdas</td>
 		    			<td class="f13" colspan="1"></td>
-		    			<td class="f13" colspan="3">RFQ No. Series:</td>
+		    			<td class="f13" colspan="3">RFQ No.:</td>
 		    			<td class="f13 bor-btm" colspan="6">1231277</td>
 		    		</tr>
 		    		<tr><td class="f13" colspan="20" align="center"></td></tr>
@@ -126,6 +126,7 @@
 		    						<td class="f13" align="center"><b>Item Description</b></td>
 		    						<td class="f13" align="center"><b>Brand/Offer</b></td>
 		    						<td class="f13" align="center" width="20%"><b>Unit Price</b></td>
+		    						<td class="f13 reco" align="center" width="5%"><b>Reco</b></td>
 		    					</tr>
 		    					<tr>
 		    						<td class="f13" align="center">23</td>
@@ -133,6 +134,7 @@
 		    						<td class="f13" align="center">Item Das  sadasda escription</td>
 		    						<td class="f13" align="center"><input type="" name="" class="sel-des"></td>
 		    						<td class="f13" align="center"><input type="" name="" class="sel-des"></td>
+		    						<td class="f13 reco" align="center"><input type="checkbox" name="" ></td>
 		    					</tr>
 		    				</table>
 		    			</td>

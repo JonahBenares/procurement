@@ -105,7 +105,7 @@
 		    			<td class="f13" colspan="2">Date:</td>
 		    			<td class="f13 bor-btm" colspan="8">asdasdas</td>
 		    			<td class="f13" colspan="1"></td>
-		    			<td class="f13" colspan="3">RFQ No. Series:</td>
+		    			<td class="f13" colspan="3">RFQ No.:</td>
 		    			<td class="f13 bor-btm" colspan="6">1231277</td>
 		    		</tr>
 		    		<tr><td class="f13" colspan="20" align="center"></td></tr>

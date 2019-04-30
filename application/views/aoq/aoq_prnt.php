@@ -4,7 +4,7 @@
             font-size:12px!important;
         }
         .pad{
-        	padding:0px 250px 0px 250px
+        	padding:0px 30px 0px 30px
         }
         @media print{
         	.pad{
@@ -20,22 +20,56 @@
         {
 		    border: 1px solid #000!important;
 		}
-		.f13{
-			font-size:13px!important;
+		.table-borbold{
+			border: 2px solid #000!important;
+		}
+		.table-borreg{
+			border: 1px solid #000!important;
+		}
+		.f10{
+			font-size:11px!important;
+		}
+		.f9{
+			font-size:9px!important;
 		}
 		.bor-btm{
-			border-bottom: 1px solid #000;
+			border-bottom: 1px solid #000!important;
 		}
 		.sel-des{
 			border: 0px!important;
 		}
 		@media print{
+			html, body{
+	            background: #fff!important;
+	            font-size:12px!important;
+	        }
 			#prnt_btn{
 				display: none;
+			}
+			.f10{
+				font-size:10px!important;
+			}
+			.text-red{
+				color: red!important;
+			}
+			.yellow-back{
+			background-image: url('../../assets/img/yellow.png')!important;
+			}
+			.green-back{
+				background-image: url('../../assets/img/green.png')!important;
 			}
 		}
 		.text-white{
 			color: #fff;
+		}
+		.text-red{
+			color: red;
+		}
+		.yellow-back{
+			background-image: url('../../assets/img/yellow.png');
+		}
+		.green-back{
+			background-image: url('../../assets/img/green.png');
 		}
     </style>
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/animate.css">
@@ -44,196 +78,430 @@
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/mixins.css">
     <div  class="pad">
     	<form>  
-    		<center>
-		    	<div class="btn-group" id="prnt_btn">
-					<a href="" class="btn btn-success btn-md p-l-100 p-r-100"><span class="fa fa-arrow-left"></span> Back</a>
-					<a  onclick="printPage()" class="btn btn-warning btn-md p-l-100 p-r-100"><span class="fa fa-print"></span> Print</a>
-					<a href="" class="btn btn-primary btn-md p-l-100 p-r-100"><span class="fa fa-floppy-o"></span> Save</a>    				
-				</div>
-			</center>
+    		<div id="prnt_btn">
+	    		<center>
+			    	<div class="btn-group">
+						<a href="" class="btn btn-success btn-md p-l-100 p-r-100"><span class="fa fa-arrow-left"></span> Back</a>
+						<a  onclick="printPage()" class="btn btn-warning btn-md p-l-100 p-r-100"><span class="fa fa-print"></span> Print</a>
+						<a href="" class="btn btn-primary btn-md p-l-100 p-r-100"><span class="fa fa-floppy-o"></span> Save</a>    				
+					</div>
+					<p class="text-white p-l-250 p-r-250">Instructions: When printing ABSTRACT OF QUOTATION make sure the following options are set correctly -- <u>Browser</u>: Chrome, <u>Layout</u>: Landscape, <u>Paper Size</u>: A4 <u>Margin</u> : Custom (top: 0.11" , right:0.40", bottom: 0.11", left: 0.11") <u>Scale</u>: 81 and the option: Background graphics is checked</p>
+				</center>
+			</div>
 	    	<div style="background: #fff;">    		  			
-		    	<table class="table-boSrdered" width="100%" style="border:2px solid #000">
+		    	<table class="table-bordersed" width="100%" style="background: #fff;border: 1px solid #000">
 		    		<tr>
-		    			<td width="5%"><br></td>
-		    			<td width="5%"><br></td>
-		    			<td width="5%"><br></td>
-		    			<td width="5%"><br></td>
-		    			<td width="5%"><br></td>
-		    			<td width="5%"><br></td>
-		    			<td width="5%"><br></td>
-		    			<td width="5%"><br></td>
-		    			<td width="5%"><br></td>
-		    			<td width="5%"><br></td>
-		    			<td width="5%"><br></td>
-		    			<td width="5%"><br></td>
-		    			<td width="5%"><br></td>
-		    			<td width="5%"><br></td>
-		    			<td width="5%"><br></td>
-		    			<td width="5%"><br></td>
-		    			<td width="5%"><br></td>
-		    			<td width="5%"><br></td>
-		    			<td width="5%"><br></td>
-		    			<td width="5%"><br></td>
-		    		</tr>
+		    			<td width="3%"><br></td>
+		    			<td width="3%"><br></td>
+		    			<td width="3%"><br></td>
+		    			<td width="3%"><br></td>
+		    			<td width="3%"><br></td>
+		    			<td width="3%"><br></td>
+		    			<td width="3%"><br></td>
+		    			<td width="3%"><br></td>
+		    			<td width="3%"><br></td>
+		    			<td width="3%"><br></td>
+		    			<td width="3%"><br></td>
+		    			<td width="3%"><br></td>
+		    			<td width="3%"><br></td>
+		    			<td width="3%"><br></td>
+		    			<td width="3%"><br></td>
+		    			<td width="3%"><br></td>
+		    			<td width="3%"><br></td>
+		    			<td width="3%"><br></td>
+		    			<td width="3%"><br></td>
+		    			<td width="3%"><br></td>
+		    			<td width="3%"><br></td>
+		    			<td width="3%"><br></td>
+		    			<td width="3%"><br></td>
+		    			<td width="3%"><br></td>
+		    			<td width="3%"><br></td>
+		    			<td width="3%"><br></td>
+		    			<td width="3%"><br></td>
+		    			<td width="3%"><br></td>
+		    			<td width="3%"><br></td>
+		    			<td width="3%"><br></td>
+		    			<td width="3%"><br></td>
+		    			<td width="3%"><br></td>
+		    			<td width="3%"><br></td>
+		    		</tr>		    	
+		    		<tr><td colspan="33" class="f10"  align="center"><h5><b>ABSTRACT OF QUOTATION</b></h5></td></tr>
 		    		<tr>
-		    			<td colspan="5" align="center"><img width="150px" src="<?php echo base_url(); ?>assets/img/logo_cenpri.png"></td>
-		    			<td colspan="15"><h4 style="margin: 0px"><b>CENTRAL NEGROS POWER RELIABILITY, INC.</b></h4></td>
-		    		</tr>
-		    		<tr><td class="f13" colspan="20" align="center">Office: 88 Corner Rizal-Mabini Sts., Bacolod City</td></tr>
-		    		<tr><td class="f13" colspan="20" align="center">Tel. No.: (034) 435-1932/476-7382</td></tr>
-		    		<tr><td class="f13" colspan="20" align="center">Telefax: (034) 435-1932</td></tr>
-		    		<tr><td class="f13" colspan="20" align="center">Plant Site: Purok San Jose, Barangay Calumangan, Bago City</td></tr>
-		    		<tr><td class="f13" colspan="20" align="center"><br></td></tr>
-		    		<tr><td colspan="20" align="center"><b>REQUEST FOR QUOTATION</b></td></tr>
-		    		<tr><td class="f13" colspan="20" align="center"><br></td></tr>
-		    		<tr>
-		    			<td class="f13" colspan="2">Date:</td>
-		    			<td class="f13 bor-btm" colspan="8">asdasdas</td>
-		    			<td class="f13" colspan="1"></td>
-		    			<td class="f13" colspan="3">RFQ No. Series:</td>
-		    			<td class="f13 bor-btm" colspan="6">1231277</td>
-		    		</tr>
-		    		<tr><td class="f13" colspan="20" align="center"></td></tr>
-		    		<tr>
-		    			<td class="f13" colspan="2">Supplier:</td>
-		    			<td class="f13 bor-btm" colspan="8">asdasdas</td>
-		    			<td class="f13" colspan="1"></td>
-		    			<td class="f13" colspan="3">Tel. No.:</td>
-		    			<td class="f13 bor-btm" colspan="6">1231277</td>
-		    		</tr>
-		    		<tr><td class="f13" colspan="20" align="center"></td></tr>	    		
-		    		<tr><td class="f13" colspan="20" align="center"><br></td></tr>	    		
-		    		<tr>
-		    			<td colspan="20">
-		    				<table class="table-bordered" width="100%">
-		    					<tr>
-		    						<td class="f13" align="center" width="5%"><b>Qty</b></td>
-		    						<td class="f13" align="center"><b>Unit</b></td>
-		    						<td class="f13" align="center"><b>Item Description</b></td>
-		    						<td class="f13" align="center"><b>Brand/Offer</b></td>
-		    						<td class="f13" align="center"><b>Unit Price</b></td>
-		    					</tr>
-		    					<tr>
-		    						<td class="f13" align="center">23</td>
-		    						<td class="f13" align="center">Unit</td>
-		    						<td class="f13" align="center">Item Description</td>
-		    						<td class="f13" align="center">Brand/Offer</td>
-		    						<td class="f13" align="center">Unit Price</td>
-		    					</tr>
-		    				</table>
-		    			</td>
-		    		</tr>
-		    		<tr><td class="f13" colspan="20" align="center"><br></td></tr>	    		
-
-		    		<tr><td class="f13" colspan="20">1. Quotation must be submitted on or before <input type="date" name="" style="border: 0px solid #000"></td></tr>	    	
-		    		<tr><td class="f13" colspan="20">2. Please Fill - Up :</td></tr>	    	
-		    		<tr>
-		    			<td class="f13" colspan="2"></td>
-		    			<td class="f13" colspan="5">- a. Price Validity</td>
-		    			<td class="f13" colspan="3"></td>
-		    			<td class="f13 bor-btm" colspan="7"></td>
-		    			<td class="f13" colspan="3"></td>
-
-		    		</tr>
-		    		<tr>
-		    			<td class="f13" colspan="2"></td>
-		    			<td class="f13" colspan="5">- b. Payment Terms</td>
-		    			<td class="f13" colspan="3"></td>
-		    			<td class="f13 bor-btm" colspan="7"></td>
-		    			<td class="f13" colspan="3"></td>
-
+		    			<td colspan="4" class="f10" align="right">Department: &nbsp;</td>
+		    			<td colspan="13" class="f10" >Test Tsest tsets test </td>		    			
+		    			<td colspan="3" class="f10" align="right">Date: &nbsp;</td>
+		    			<td colspan="13" class="f10" >Purposeasds</td>
 		    		</tr>	
 		    		<tr>
-		    			<td class="f13" colspan="2"></td>
-		    			<td class="f13" colspan="5">- c. Date of Delivery</td>
-		    			<td class="f13" colspan="3"></td>
-		    			<td class="f13 bor-btm" colspan="7"></td>
-		    			<td class="f13" colspan="3"></td>
-
-		    		</tr>	
-		    		<tr>
-		    			<td class="f13" colspan="2"></td>
-		    			<td class="f13" colspan="5">&nbsp; d. Item's Warranty</td>
-		    			<td class="f13" colspan="3"></td>
-		    			<td class="f13 bor-btm" colspan="7"></td>
-		    			<td class="f13" colspan="3"></td>
-
-		    		</tr>	
-		    		<tr>
-		    			<td class="f13" colspan="2"></td>
-		    			<td class="f13" colspan="5">&nbsp; e. Company's TIN Number</td>
-		    			<td class="f13" colspan="3"></td>
-		    			<td class="f13 bor-btm" colspan="7"></td>
-		    			<td class="f13" colspan="3"></td>
-
-		    		</tr>	
-		    		<tr>
-		    			<td class="f13" colspan="2"></td>
-		    			<td class="f13" colspan="5">&nbsp; d. Item's Warranty</td>
-		    			<td class="f13" colspan="3"></td>
-		    			<td class="f13 bor-btm" colspan="7"></td>
-		    			<td class="f13" colspan="3"></td>
-
-		    		</tr>	
-		    		<tr>
-		    			<td class="f13" colspan="2"></td>
-		    			<td class="f13" colspan="18">&nbsp; f. Vat <input type="checkbox" name=""> ||  non-Vat <input type="checkbox" name=""></td>
+		    			<td colspan="4" class="f10" align="right">Purpose: &nbsp;</td>
+		    			<td colspan="13" class="f10" >Test Tsest tsets test </td>		    			
+		    			<td colspan="3"class="f10" align="right">PR #: &nbsp;</td>
+		    			<td colspan="13" class="f10" >Purposesasad </td>
 		    		</tr>
-		    		<tr><td class="f13" colspan="20" align="center"><br></td></tr>	
 		    		<tr>
-		    			<td class="f13" colspan="2"></td>
-		    			<td class="f13" colspan="4">Prepared by:</td>
-		    			<td class="f13" colspan="2"></td>
-		    			<td class="f13" colspan="4">Noted by:</td>
-		    			<td class="f13" colspan="2"></td>
-		    			<td class="f13" colspan="4">Approved by:</td>
-		    			<td class="f13" colspan="2"></td>
-		    		</tr>	  
+		    			<td colspan="4" class="f10" align="right">Enduse: &nbsp;</td>
+		    			<td colspan="13" class="f10" >Test Tsest tsets test </td>		    			
+		    			<td colspan="3"class="f10" align="right">Date Needed: &nbsp;</td>
+		    			<td colspan="13" class="f10" >Purasdpose</td>
+		    		</tr>	
 		    		<tr>
-		    			<td class="f13" colspan="2"></td>
-		    			<td class="f13 bor-btm" colspan="4"><br></td>
-		    			<td class="f13" colspan="2"></td>
-		    			<td class="f13 bor-btm" colspan="4"><br></td>
-		    			<td class="f13" colspan="2"></td>
-		    			<td class="f13 bor-btm" colspan="4"><br></td>
-		    			<td class="f13" colspan="2"></td>
-		    		</tr>  	
+		    			<td colspan="4" class="f10"  align="right">Requested by: &nbsp;</td>
+		    			<td colspan="29" class="f10" >Test Tsest tsets test </td>
+		    		</tr>
+		    		<!-- <tr><td class="f10"  align="center"><br></td></tr> -->
+		    		<tr><td class="f10" colspan="33" align="center"><br></td></tr>
 		    		<tr>
-		    			<td class="f13" colspan="2"></td>
-		    			<td class="f13" colspan="4">
-		    				<input type="" name="" class="sel-des">
+		    			<td colspan="8" class="f10"  align="center"></td>
+
+
+		    			<!-- loop ka here -->
+		    			<td colspan="5" class="f10 table-borbold"  align="center">
+		    				<b>Visayan Construction Supply</b><br>
+		    				Mrs. Chua<br>
+		    				434-7277
 		    			</td>
-		    			<td class="f13" colspan="2"></td>
-		    			<td class="f13" colspan="4">
-		    				<input type="" name="" class="sel-des">
+		    			<!-- and delete the other two below salamats -->
+
+		    			<td colspan="5" class="f10 table-borbold"  align="center">
+		    				Visayan Construction Supply<br>
+		    				Mrs. Chua<br>
+		    				434-7277
 		    			</td>
-		    			<td class="f13" colspan="2"></td>
-		    			<td class="f13" colspan="4">
-		    				<input type="" name="" class="sel-des">
+		    			<td colspan="5" class="f10 table-borbold"  align="center">
+		    				Visayan Construction Supply<br>
+		    				Mrs. Chua<br>
+		    				434-7277
 		    			</td>
-		    			<td class="f13" colspan="2"></td>
-		    		</tr>  	
-		    		<tr><td class="f13" colspan="20" align="center"><br></td></tr>	
+		    			<td colspan="5" class="f10 table-borbold"  align="center">
+		    				Visayan Construction Supply<br>
+		    				Mrs. Chua<br>
+		    				434-7277
+		    			</td>
+		    			<td colspan="5" class="f10 table-borbold"  align="center">
+		    				Visayan Construction Supply<br>
+		    				Mrs. Chua<br>
+		    				434-7277
+		    			</td>
+		    		</tr>
 		    		<tr>
-		    			<td class="f13" colspan="2"></td>
-		    			<td class="f13" colspan="2">
-		    				Conforme:
-		    			</td>
-		    			<td class="f13 bor-btm" colspan="6"></td>
-		    			<td class="f13" colspan="6"></td>
-		    			<td class="f13" colspan="4">
-		    			</td>
-		    		</tr>  
+		    			<td class="f9 table-borbold" align="center"><b>#</td>
+		    			<td colspan="5" class="f9 table-borbold" align="center"><b>DESCRIPTION</td>
+		    			<td class="f9 table-borbold" align="center"><b>QTY</td>
+		    			<td class="f9 table-borbold" align="center"><b>UOM</td>
+
+		    			<td colspan="2" class="f9 table-borbold" align="center"><b>OFFER</b></td>
+		    			<td class="f9 table-borbold" align="center"><b>U/P</b></td>
+		    			<td class="f9 table-borbold" align="center"><b>AMOUNT</b></td>
+		    			<td class="f9 table-borbold" align="center"><b>COMMENTS</b></td>
+
+		    			<td colspan="2" class="f9 table-borbold" align="center"><b>OFFER</b></td>
+		    			<td class="f9 table-borbold" align="center"><b>U/P</b></td>
+		    			<td class="f9 table-borbold" align="center"><b>AMOUNT</b></td>
+		    			<td class="f9 table-borbold" align="center"><b>COMMENTS</b></td>
+
+		    			<td colspan="2" class="f9 table-borbold" align="center"><b>OFFER</b></td>
+		    			<td class="f9 table-borbold" align="center"><b>U/P</b></td>
+		    			<td class="f9 table-borbold" align="center"><b>AMOUNT</b></td>
+		    			<td class="f9 table-borbold" align="center"><b>COMMENTS</b></td>
+
+		    			<td colspan="2" class="f9 table-borbold" align="center"><b>OFFER</b></td>
+		    			<td class="f9 table-borbold" align="center"><b>U/P</b></td>
+		    			<td class="f9 table-borbold" align="center"><b>AMOUNT</b></td>
+		    			<td class="f9 table-borbold" align="center"><b>COMMENTS</b></td>
+
+		    			<td colspan="2" class="f9 table-borbold" align="center"><b>OFFER</b></td>
+		    			<td class="f9 table-borbold" align="center"><b>U/P</b></td>
+		    			<td class="f9 table-borbold" align="center"><b>AMOUNT</b></td>
+		    			<td class="f9 table-borbold" align="center"><b>COMMENTS</b></td>
+
+		    			
+		    		</tr>
 		    		<tr>
-		    			<td class="f13" colspan="2"></td>
-		    			<td class="f13" colspan="2"></td>
-		    			<td class="f13" colspan="7" align="center">Supplier's Signature Over Printed Name</td>
-		    			<td class="f13" colspan="5"></td>
-		    			<td class="f13" colspan="4">
+		    			<td class="f10 table-borreg" align="center">99</td>
+		    			<td colspan="5" class="f10 table-borreg" align="left"> Adhesives, Threadlockers/Threadsealants, Wear Prevention, Belt Repair, Metal Rebuilding, Floor Repair/Grouting</td>
+		    			<td class="f10 table-borreg" align="center">14</td>
+		    			<td class="f10 table-borreg" align="center">length</td>
+
+		    			<!-- loop ka here -->
+		    			<td colspan="2" class="f10 table-borreg" align="left"> Adhesives, Threadlockers/Threadsealants, Wear Prevention,<b class="text-red"> Belt Repair, Metal Rebuilding,</b> Floor Repair/Grouting</td>
+		    			<td class="f10 table-borreg yellow-back" align="center">170.00</td>
+		    			<td class="f10 table-borreg green-back" align="center">2380.00</td>
+		    			<td class="f10 table-borreg text-red" align="center">complying</td>
+		    			<!-- and delete the other two below salamats -->
+
+		    			<td colspan="2" class="f10 table-borreg" align="left"> Adhesives, Threadlockers/Threadsealants, Wear Prevention,<b class="text-red"> Belt Repair, Metal Rebuilding,</b> Floor Repair/Grouting</td>
+		    			<td class="f10 table-borreg yellow-back" align="center">170.00</td>
+		    			<td class="f10 table-borreg green-back" align="center">2380.00</td>
+		    			<td class="f10 table-borreg text-red" align="center">complying</td>
+
+		    			<td colspan="2" class="f10 table-borreg" align="left"> Adhesives, Threadlockers/Threadsealants, Wear Prevention,<b class="text-red"> Belt Repair, Metal Rebuilding,</b> Floor Repair/Grouting</td>
+		    			<td class="f10 table-borreg yellow-back" align="center">170.00</td>
+		    			<td class="f10 table-borreg green-back" align="center">2380.00</td>
+		    			<td class="f10 table-borreg text-red" align="center">complying</td>
+
+		    			<td colspan="2" class="f10 table-borreg" align="left"></td>
+		    			<td class="f10 table-borreg" align="center"></td>
+		    			<td class="f10 table-borreg" align="center"></td>
+		    			<td class="f10 table-borreg text-red" align="center"></td>
+
+		    			<td colspan="2" class="f10 table-borreg" align="left"></td>
+		    			<td class="f10 table-borreg" align="center"></td>
+		    			<td class="f10 table-borreg" align="center"></td>
+		    			<td class="f10 table-borreg text-red" align="center"></td>
+		    		</tr>
+		    		<tr>
+		    			<td class="f10 table-borreg" align="center">99</td>
+		    			<td colspan="5" class="f10 table-borreg" align="left"> Adhesives, Threadlockers/Threadsealants, Wear Prevention, Belt Repair, Metal Rebuilding, Floor Repair/Grouting</td>
+		    			<td class="f10 table-borreg" align="center">14</td>
+		    			<td class="f10 table-borreg" align="center">length</td>
+
+		    			<!-- loop ka here -->
+		    			<td colspan="2" class="f10 table-borreg" align="left"> Adhesives, Threadlockers/Threadsealants, Wear Prevention,<b class="text-red"> Belt Repair, Metal Rebuilding,</b> Floor Repair/Grouting</td>
+		    			<td class="f10 table-borreg yellow-back" align="center">170.00</td>
+		    			<td class="f10 table-borreg green-back" align="center">2380.00</td>
+		    			<td class="f10 table-borreg text-red" align="center">complying</td>
+		    			<!-- and delete the other two below salamats -->
+
+		    			<td colspan="2" class="f10 table-borreg" align="left"> Adhesives, Threadlockers/Threadsealants, Wear Prevention,<b class="text-red"> Belt Repair, Metal Rebuilding,</b> Floor Repair/Grouting</td>
+		    			<td class="f10 table-borreg yellow-back" align="center">170.00</td>
+		    			<td class="f10 table-borreg green-back" align="center">2380.00</td>
+		    			<td class="f10 table-borreg text-red" align="center">complying</td>
+
+		    			<td colspan="2" class="f10 table-borreg" align="left"> Adhesives, Threadlockers/Threadsealants, Wear Prevention,<b class="text-red"> Belt Repair, Metal Rebuilding,</b> Floor Repair/Grouting</td>
+		    			<td class="f10 table-borreg yellow-back" align="center">170.00</td>
+		    			<td class="f10 table-borreg green-back" align="center">2380.00</td>
+		    			<td class="f10 table-borreg text-red" align="center">complying</td>
+
+		    			<td colspan="2" class="f10 table-borreg" align="left"></td>
+		    			<td class="f10 table-borreg" align="center"></td>
+		    			<td class="f10 table-borreg" align="center"></td>
+		    			<td class="f10 table-borreg text-red" align="center"></td>
+
+		    			<td colspan="2" class="f10 table-borreg" align="left"></td>
+		    			<td class="f10 table-borreg" align="center"></td>
+		    			<td class="f10 table-borreg" align="center"></td>
+		    			<td class="f10 table-borreg text-red" align="center"></td>
+		    		</tr>
+		    		<tr>
+		    			<td class="f10 table-borreg" align="center"></td>
+		    			<td colspan="5" class="f10 table-borreg" align="left"></td>
+		    			<td class="f10 table-borreg" align="center"></td>
+		    			<td class="f10 table-borreg" align="center"></td>
+
+		    			<!-- loop ka here -->
+		    			<td colspan="2" class="f10 table-borreg" align="left"><br></td>
+		    			<td class="f10 table-borreg" align="center"></td>
+		    			<td class="f10 table-borreg" align="center"></td>
+		    			<td class="f10 table-borreg" align="center"></td>
+		    			<!-- and delete the other two below salamats -->
+
+		    			<td colspan="2" class="f10 table-borreg" align="left"></td>
+		    			<td class="f10 table-borreg" align="center"></td>
+		    			<td class="f10 table-borreg" align="center"></td>
+		    			<td class="f10 table-borreg" align="center"></td>
+
+		    			<td colspan="2" class="f10 table-borreg" align="left"></td>
+		    			<td class="f10 table-borreg" align="center"></td>
+		    			<td class="f10 table-borreg" align="center"></td>
+		    			<td class="f10 table-borreg" align="center"></td>
+
+		    			<td colspan="2" class="f10 table-borreg" align="left"></td>
+		    			<td class="f10 table-borreg" align="center"></td>
+		    			<td class="f10 table-borreg" align="center"></td>
+		    			<td class="f10 table-borreg" align="center"></td>
+
+		    			<td colspan="2" class="f10 table-borreg" align="left"></td>
+		    			<td class="f10 table-borreg" align="center"></td>
+		    			<td class="f10 table-borreg" align="center"></td>
+		    			<td class="f10 table-borreg" align="center"></td>
+		    		</tr>
+		    		<tr>
+		    			<td class="f10 table-borreg" align="center"></td>
+		    			<td colspan="7" class="f10 table-borreg text-red" align="center"><b>REMARK</b></td>
+
+		    			<!-- loop ka here -->
+		    			<td colspan="5" class="f10 table-borreg" align="left"><br></td>
+		    			<!-- and delete the other two below salamats -->
+
+		    			<td colspan="5" class="f10 table-borreg" align="left"><br></td>
+		    			<td colspan="5" class="f10 table-borreg" align="left"><br></td>
+		    			<td colspan="5" class="f10 table-borreg" align="left"><br></td>
+		    			<td colspan="5" class="f10 table-borreg" align="left"><br></td>
+		    		</tr>
+		    		<tr><td class="f10" colspan="33" align="center"><br></td></tr>
+		    		<tr>
+		    			<td class="" align="center">a.</td>
+		    			<td colspan="7" class="f10" align="center">Price Validity</td>
+		    			<td colspan="2" class="f10 bor-btm" align="left"><br></td>
+		    			<td colspan="3" class="f10" align="left"><br></td>
+		    			<td colspan="2" class="f10 bor-btm" align="left"><br></td>
+		    			<td colspan="3" class="f10" align="left"><br></td>
+		    			<td colspan="2" class="f10 bor-btm" align="left"><br></td>
+		    			<td colspan="3" class="f10" align="left"><br></td>
+		    			<td colspan="2" class="f10 bor-btm" align="left"><br></td>
+		    			<td colspan="3" class="f10" align="left"><br></td>
+		    			<td colspan="2" class="f10 bor-btm" align="left"><br></td>
+		    			<td colspan="3" class="f10" align="left"><br></td>
+		    		</tr>
+		    		<tr>
+		    			<td class="" align="center">b.</td>
+		    			<td colspan="7" class="f10" align="center">Payment Terms</td>
+		    			<td colspan="2" class="f10 bor-btm" align="left"><br></td>
+		    			<td colspan="3" class="f10" align="left"><br></td>
+		    			<td colspan="2" class="f10 bor-btm" align="left"><br></td>
+		    			<td colspan="3" class="f10" align="left"><br></td>
+		    			<td colspan="2" class="f10 bor-btm" align="left"><br></td>
+		    			<td colspan="3" class="f10" align="left"><br></td>
+		    			<td colspan="2" class="f10 bor-btm" align="left"><br></td>
+		    			<td colspan="3" class="f10" align="left"><br></td>
+		    			<td colspan="2" class="f10 bor-btm" align="left"><br></td>
+		    			<td colspan="3" class="f10" align="left"><br></td>
+		    		</tr>
+		    		<tr>
+		    			<td class="" align="center">c.</td>
+		    			<td colspan="7" class="f10" align="center">Date of Delivery</td>
+		    			<td colspan="2" class="f10 bor-btm" align="left"><br></td>
+		    			<td colspan="3" class="f10" align="left"><br></td>
+		    			<td colspan="2" class="f10 bor-btm" align="left"><br></td>
+		    			<td colspan="3" class="f10" align="left"><br></td>
+		    			<td colspan="2" class="f10 bor-btm" align="left"><br></td>
+		    			<td colspan="3" class="f10" align="left"><br></td>
+		    			<td colspan="2" class="f10 bor-btm" align="left"><br></td>
+		    			<td colspan="3" class="f10" align="left"><br></td>
+		    			<td colspan="2" class="f10 bor-btm" align="left"><br></td>
+		    			<td colspan="3" class="f10" align="left"><br></td>
+		    		</tr>
+		    		<tr>
+		    			<td class="" align="center">d.</td>
+		    			<td colspan="7" class="f10" align="center">Item's Warranty</td>
+		    			<td colspan="2" class="f10 bor-btm" align="left"><br></td>
+		    			<td colspan="3" class="f10" align="left"><br></td>
+		    			<td colspan="2" class="f10 bor-btm" align="left"><br></td>
+		    			<td colspan="3" class="f10" align="left"><br></td>
+		    			<td colspan="2" class="f10 bor-btm" align="left"><br></td>
+		    			<td colspan="3" class="f10" align="left"><br></td>
+		    			<td colspan="2" class="f10 bor-btm" align="left"><br></td>
+		    			<td colspan="3" class="f10" align="left"><br></td>
+		    			<td colspan="2" class="f10 bor-btm" align="left"><br></td>
+		    			<td colspan="3" class="f10" align="left"><br></td>
+		    		</tr>
+		    		<tr><td class="f10" colspan="33" align="center"><br></td></tr>
+
+		    	</table>
+		    	<!-- <table class="table-bordered" width="100%" style="border:2px solid #000">
+		    		<tr>
+		    			<td width="5%"><br></td>
+		    			<td width="2%"><br></td>
+		    			<td width="3%"><br></td>
+		    			<td width="5%"><br></td>
+		    			<td width="5%"><br></td>
+		    			<td width="5%"><br></td>
+		    			<td width="5%"><br></td>
+		    			<td width="5%"><br></td>
+		    			<td width="5%"><br></td>
+		    			<td width="5%"><br></td>
+		    			<td width="5%"><br></td>
+		    			<td width="5%"><br></td>
+		    			<td width="5%"><br></td>
+		    			<td width="5%"><br></td>
+		    			<td width="5%"><br></td>
+		    			<td width="5%"><br></td>
+		    			<td width="5%"><br></td>
+		    			<td width="5%"><br></td>
+		    			<td width="5%"><br></td>
+		    			<td width="5%"><br></td>
+		    			<td width="5%"><br></td>
+		    		</tr>		    		
+		    		<tr><td class="f10"  align="center"><h5><b>ABSTRACT OF QUOTATION</b></h5></td></tr>
+		    		<tr>
+		    			<td class="f10" colspan="2" align="right">Department: &nbsp;</td>
+		    			<td class="f10" colspan="9">Test Tsest tsets test </td>		    			
+		    			<td class="f10" colspan="2" align="right">Date: &nbsp;</td>
+		    			<td class="f10" colspan="8">Purposeasds</td>
+		    		</tr>	
+		    		<tr>
+		    			<td class="f10" colspan="2" align="right">Purpose: &nbsp;</td>
+		    			<td class="f10" colspan="9">Test Tsest tsets test </td>		    			
+		    			<td class="f10" colspan="2" align="right">PR #: &nbsp;</td>
+		    			<td class="f10" colspan="8">Purposesasad </td>
+		    		</tr>
+		    		<tr>
+		    			<td class="f10" colspan="2" align="right">Enduse: &nbsp;</td>
+		    			<td class="f10" colspan="9">Test Tsest tsets test </td>		    			
+		    			<td class="f10" colspan="2" align="right">Date Needed: &nbsp;</td>
+		    			<td class="f10" colspan="8">Purasdpose</td>
+		    		</tr>	
+		    		<tr>
+		    			<td class="f10" colspan="2" align="right">Requested by: &nbsp;</td>
+		    			<td class="f10" colspan="19">Test Tsest tsets test </td>
+		    		</tr>
+		    		<tr>
+		    			<td class="f10" colspan="6" align="center"></td>
+
+
+		    			loop ka here 
+		    			<td class="f10 table-borbold" colspan="5" align="center">
+		    				<b>Visayan Construction Supply</b><br>
+		    				Mrs. Chua<br>
+		    				434-7277
 		    			</td>
-		    		</tr> 
-		    		<tr><td class="f13" colspan="20" align="center"><br></td></tr>		
-		    	</table>		    
+		    			and delete the other two below salamats
+
+		    			<td class="f10 table-borbold" colspan="5" align="center">
+		    				Visayan Construction Supply<br>
+		    				Mrs. Chua<br>
+		    				434-7277
+		    			</td>
+		    			<td class="f10 table-borbold" colspan="5" align="center">
+		    				Visayan Construction Supply<br>
+		    				Mrs. Chua<br>
+		    				434-7277
+		    			</td>
+		    		</tr>
+		    		<tr>
+		    			<td class="f9 table-borbold" align="center"></td>
+		    			<td class="f9 table-borbold" align="center"><b>#</td>
+		    			<td class="f9 table-borbold" align="center" colspan="2"><b>DESCRIPTION</td>
+		    			<td class="f9 table-borbold" align="center"><b>QTY</td>
+		    			<td class="f9 table-borbold" align="center"><b>UOM</td>
+		    			<td class="f9 table-borbold" align="center" colspan="2"><b>OFFER</b></td>
+		    			<td class="f9 table-borbold" align="center"><b>U/P</b></td>
+		    			<td class="f9 table-borbold" align="center"><b>AMOUNT</b></td>
+		    			<td class="f9 table-borbold" align="center"><b>COMMENTS</b></td>
+		    			<td class="f9 table-borbold" align="center" colspan="2"><b>OFFER</b></td>
+		    			<td class="f9 table-borbold" align="center"><b>U/P</b></td>
+		    			<td class="f9 table-borbold" align="center"><b>AMOUNT</b></td>
+		    			<td class="f9 table-borbold" align="center"><b>COMMENTS</b></td>
+		    			<td class="f9 table-borbold" align="center" colspan="2"><b>OFFER</b></td>
+		    			<td class="f9 table-borbold" align="center"><b>U/P</b></td>
+		    			<td class="f9 table-borbold" align="center"><b>AMOUNT</b></td>
+		    			<td class="f9 table-borbold" align="center"><b>COMMENTS</b></td>
+		    		</tr>
+		    		<tr>
+		    			<td class="f10 table-borreg" align="center"></td>
+		    			<td class="f10 table-borreg" align="center">1</td>
+		    			<td class="f10 table-borreg" align="left" colspan="2">Deformed steel BAr. 12mm dia x 6 m. gr 33</td>
+		    			<td class="f10 table-borreg" align="center">14</td>
+		    			<td class="f10 table-borreg" align="center">length</td>
+
+		    			loop ka here 
+		    			<td class="f10 table-borreg" align="left" colspan="2">Deformed steel BAr. 12mm dia x 6 m. gr 33</td>
+		    			<td class="f10 table-borreg" align="center">170.00</td>
+		    			<td class="f10 table-borreg" align="center">2380.00</td>
+		    			<td class="f10 table-borreg text-red" align="center">complying</td>
+		    			 and delete the other two below salamats
+
+		    			<td class="f10 table-borreg" align="left" colspan="2">Deformed steel BAr. 12mm dia x 6 m. gr 33</td>
+		    			<td class="f10 table-borreg" align="center">170.00</td>
+		    			<td class="f10 table-borreg" align="center">2380.00</td>
+		    			<td class="f10 table-borreg" align="center">complying</td>
+
+		    			<td class="f10 table-borreg" align="left" colspan="2">Deformed steel BAr. 12mm dia x 6 m. gr 33</td>
+		    			<td class="f10 table-borreg" align="center">170.00</td>
+		    			<td class="f10 table-borreg" align="center">2380.00</td>
+		    			<td class="f10 table-borreg" align="center">complying</td>
+		    		</tr>
+		    	</table> -->		    
 	    	</div>
     	</form>
     </div>
