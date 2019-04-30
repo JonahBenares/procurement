@@ -47,6 +47,10 @@ class Rfq extends CI_Controller {
         $this->load->view('template/footer');
     }
 
+    public function rfq_incoming(){
+        $this->load->view('rfq/rfq_incoming');
+    }
+
 }
 
 ?>

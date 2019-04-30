@@ -4040,7 +4040,9 @@ ul.breadcome-menu {
 	background: #ebebeb;
 } 
 .materialdesign .left-custom-menu-adp-wrap ul.left-sidebar-menu-pro li .left-menu-dropdown{
-	background: #ececec;
+	/*background: #ececec;*/
+	background-image: linear-gradient(to bottom, #ececec 20%, #ff9966 100%);
+	box-shadow: 1px 1px 1px 0px #a5a1a1;
 }
 .materialdesign .flot-tick-label.tickLabel, .materialdesign .legend > div{
 	color: #fff;

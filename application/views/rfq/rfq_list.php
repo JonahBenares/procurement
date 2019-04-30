@@ -50,21 +50,43 @@
                                                 </div>
                                                 <form>
                                                     <div class="modal-body-lowpad">
+                                                        <div class="row">
+                                                            <div class="col-lg-6">
+                                                                <div class="form-group">
+                                                                    <p class="m-b-0">Date:</p>
+                                                                    <input type="date" name="" class="form-control">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-6">
+                                                                <div class="form-group">
+                                                                    <p class="m-b-0">PR #:</p>
+                                                                    <input type="text" name="" class="form-control">
+                                                                </div>
+                                                            </div>
+                                                        </div>                                                        
                                                         <div class="form-group">
-                                                            <p class="m-b-0">Item Description:</p>
-                                                            <textarea name="" class="form-control" cols="2"></textarea>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <p class="m-b-0">Specification:</p>
-                                                            <textarea name="" class="form-control" cols="2"></textarea>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <p class="m-b-0">Brand:</p>
+                                                            <p class="m-b-0">Department:</p>
                                                             <input type="text" name="" class="form-control">
                                                         </div>
                                                         <div class="form-group">
-                                                            <p class="m-b-0">Part Number:</p>
+                                                            <p class="m-b-0">Enduse:</p>
                                                             <input type="text" name="" class="form-control">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <p class="m-b-0">Purpose:</p>
+                                                            <input type="text" name="" class="form-control">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <p class="m-b-0">Date needed:</p>
+                                                            <input type="text" name="" class="form-control">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <p class="m-b-0">Requested by:</p>
+                                                            <input type="text" name="" class="form-control">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <p class="m-b-0">Remarks:</p>
+                                                            <textarea cols="3" name="" class="form-control" ></textarea>
                                                         </div>
                                                         <center>
                                                             <a href="#" class="btn btn-custon-three btn-primary btn-block">Save</a>
@@ -97,7 +119,7 @@
                                             <td>15%</td>
                                             <td>
                                                 <center>
-                                                    <a href="" class="btn btn-custon-three btn-warning btn-xs">
+                                                    <a href="" onclick="incomingRfq('<?php echo base_url(); ?>')" class="btn btn-custon-three btn-warning btn-xs">
                                                         <span class="fa fa-eye"></span>
                                                     </a>
                                                 </center>

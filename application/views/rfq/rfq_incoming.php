@@ -28,26 +28,33 @@
 		}
 		.sel-des{
 			border: 0px!important;
+			width: 100%;
 		}
 		@media print{
 			#prnt_btn{
 				display: none;
 			}
 		}
+		.text-white{
+			color: #fff;
+		}
     </style>
+    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/animate.css">
+    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/font-awesome.min.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/mixins.css">
     <div  class="pad">
     	<form>  
     		<center>
 		    	<div class="btn-group" id="prnt_btn">
-					<a href="" class="btn btn-success btn-md p-l-110 p-r-110"><span class="fa fa"></span>Back</a>
-					<a  onclick="printPage()" class="btn btn-warning btn-md p-l-110 p-r-110"><span class="fa fa"></span>Print</a>
-					<a href="" class="btn btn-primary btn-md p-l-110 p-r-110"><span class="fa fa"></span>Save</a>    				
+					<a href="" class="btn btn-success btn-md p-l-100 p-r-100"><span class="fa fa-arrow-left"></span> Back</a>
+					<a  onclick="printPage()" class="btn btn-warning btn-md p-l-100 p-r-100"><span class="fa fa-print"></span> Print</a>
+					<a href="" class="btn btn-primary btn-md p-l-100 p-r-100"><span class="fa fa-floppy-o"></span> Save</a>    				
 				</div>
+				<h4 class="text-white"> <b>INCOMING</b> RFQ</h4>
 			</center>
 	    	<div style="background: #fff;">    		  			
-		    	<table class="table-boSrdered" width="100%" style="border:2px solid #000">
+		    	<table class="table-bodrdered" width="100%" style="border:2px solid #000">
 		    		<tr>
 		    			<td width="5%"><br></td>
 		    			<td width="5%"><br></td>
@@ -106,14 +113,14 @@
 		    						<td class="f13" align="center"><b>Unit</b></td>
 		    						<td class="f13" align="center"><b>Item Description</b></td>
 		    						<td class="f13" align="center"><b>Brand/Offer</b></td>
-		    						<td class="f13" align="center"><b>Unit Price</b></td>
+		    						<td class="f13" align="center" width="20%"><b>Unit Price</b></td>
 		    					</tr>
 		    					<tr>
 		    						<td class="f13" align="center">23</td>
 		    						<td class="f13" align="center">Unit</td>
-		    						<td class="f13" align="center">Item Description</td>
-		    						<td class="f13" align="center">Brand/Offer</td>
-		    						<td class="f13" align="center">Unit Price</td>
+		    						<td class="f13" align="center">Item Das  sadasda escription</td>
+		    						<td class="f13" align="center"><input type="" name="" class="sel-des"></td>
+		    						<td class="f13" align="center"><input type="" name="" class="sel-des"></td>
 		    					</tr>
 		    				</table>
 		    			</td>
@@ -126,7 +133,7 @@
 		    			<td class="f13" colspan="2"></td>
 		    			<td class="f13" colspan="5">- a. Price Validity</td>
 		    			<td class="f13" colspan="3"></td>
-		    			<td class="f13 bor-btm" colspan="7"></td>
+		    			<td class="f13 bor-btm" colspan="7"><input type="" name="" class="sel-des"></td>
 		    			<td class="f13" colspan="3"></td>
 
 		    		</tr>
@@ -134,7 +141,7 @@
 		    			<td class="f13" colspan="2"></td>
 		    			<td class="f13" colspan="5">- b. Payment Terms</td>
 		    			<td class="f13" colspan="3"></td>
-		    			<td class="f13 bor-btm" colspan="7"></td>
+		    			<td class="f13 bor-btm" colspan="7"><input type="" name="" class="sel-des"></td>
 		    			<td class="f13" colspan="3"></td>
 
 		    		</tr>	
@@ -142,7 +149,7 @@
 		    			<td class="f13" colspan="2"></td>
 		    			<td class="f13" colspan="5">- c. Date of Delivery</td>
 		    			<td class="f13" colspan="3"></td>
-		    			<td class="f13 bor-btm" colspan="7"></td>
+		    			<td class="f13 bor-btm" colspan="7"><input type="" name="" class="sel-des"></td>
 		    			<td class="f13" colspan="3"></td>
 
 		    		</tr>	
@@ -150,7 +157,7 @@
 		    			<td class="f13" colspan="2"></td>
 		    			<td class="f13" colspan="5">&nbsp; d. Item's Warranty</td>
 		    			<td class="f13" colspan="3"></td>
-		    			<td class="f13 bor-btm" colspan="7"></td>
+		    			<td class="f13 bor-btm" colspan="7"><input type="" name="" class="sel-des"></td>
 		    			<td class="f13" colspan="3"></td>
 
 		    		</tr>	
@@ -158,7 +165,7 @@
 		    			<td class="f13" colspan="2"></td>
 		    			<td class="f13" colspan="5">&nbsp; e. Company's TIN Number</td>
 		    			<td class="f13" colspan="3"></td>
-		    			<td class="f13 bor-btm" colspan="7"></td>
+		    			<td class="f13 bor-btm" colspan="7"><input type="" name="" class="sel-des"></td>
 		    			<td class="f13" colspan="3"></td>
 
 		    		</tr>	
@@ -166,7 +173,7 @@
 		    			<td class="f13" colspan="2"></td>
 		    			<td class="f13" colspan="5">&nbsp; d. Item's Warranty</td>
 		    			<td class="f13" colspan="3"></td>
-		    			<td class="f13 bor-btm" colspan="7"></td>
+		    			<td class="f13 bor-btm" colspan="7"><input type="" name="" class="sel-des"></td>
 		    			<td class="f13" colspan="3"></td>
 
 		    		</tr>	

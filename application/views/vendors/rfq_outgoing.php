@@ -34,17 +34,23 @@
 				display: none;
 			}
 		}
+		.text-white{
+			color: #fff;
+		}
     </style>
+    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/animate.css">
+    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/font-awesome.min.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/mixins.css">
     <div  class="pad">
     	<form>  
     		<center>
 		    	<div class="btn-group" id="prnt_btn">
-					<a href="" class="btn btn-success btn-md p-l-110 p-r-110"><span class="fa fa"></span>Back</a>
-					<a  onclick="printPage()" class="btn btn-warning btn-md p-l-110 p-r-110"><span class="fa fa"></span>Print</a>
-					<a href="" class="btn btn-primary btn-md p-l-110 p-r-110"><span class="fa fa"></span>Save</a>    				
+					<a href="" class="btn btn-success btn-md p-l-100 p-r-100"><span class="fa fa-arrow-left"></span> Back</a>
+					<a  onclick="printPage()" class="btn btn-warning btn-md p-l-100 p-r-100"><span class="fa fa-print"></span> Print</a>
+					<a href="" class="btn btn-primary btn-md p-l-100 p-r-100"><span class="fa fa-floppy-o"></span> Save</a>    				
 				</div>
+				<h4 class="text-white"><b>OUTGOING</b> RFQ</h4>
 			</center>
 	    	<div style="background: #fff;">    		  			
 		    	<table class="table-boSrdered" width="100%" style="border:2px solid #000">
