@@ -1,3 +1,17 @@
+  	<head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>Procurement System</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- favicon
+    		============================================ -->
+        <link rel="shortcut icon" type="image/x-icon" href="<?php echo base_url(); ?>assets/img/message/logo4.ico">
+        <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/animate.css">
+	    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/font-awesome.min.css">
+	    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/bootstrap.min.css">
+	    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/mixins.css">
+	</head>
   	<style type="text/css">
         html, body{
             background: #2d2c2c!important;
@@ -39,20 +53,18 @@
 			color: #fff;
 		}
     </style>
-    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/animate.css">
-    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/font-awesome.min.css">
-    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/mixins.css">
     <div  class="pad">
     	<form>  
-    		<center>
-		    	<div class="btn-group" id="prnt_btn">
-					<a href="" class="btn btn-success btn-md p-l-100 p-r-100"><span class="fa fa-arrow-left"></span> Back</a>
-					<a  onclick="printPage()" class="btn btn-warning btn-md p-l-100 p-r-100"><span class="fa fa-print"></span> Print</a>
-					<a href="" class="btn btn-primary btn-md p-l-100 p-r-100"><span class="fa fa-floppy-o"></span> Save</a>    				
-				</div>
-				<h4 class="text-white"> <b>INCOMING</b> RFQ</h4>
-			</center>
+    		<div  id="prnt_btn">
+	    		<center>
+			    	<div class="btn-group">
+						<a href="" onclick="return quitBox('quit');" class="btn btn-success btn-md p-l-100 p-r-100"><span class="fa fa-arrow-left"></span> Back</a>
+						<a  onclick="printPage()" class="btn btn-warning btn-md p-l-100 p-r-100"><span class="fa fa-print"></span> Print</a>
+						<a href="" class="btn btn-primary btn-md p-l-100 p-r-100"><span class="fa fa-floppy-o"></span> Save</a>    				
+					</div>
+					<h4 class="text-white"> <b>INCOMING</b> RFQ</h4>
+				</center>
+			</div>
 	    	<div style="background: #fff;">    		  			
 		    	<table class="table-bodrdered" width="100%" style="border:2px solid #000">
 		    		<tr>
@@ -242,5 +254,13 @@
     <script type="text/javascript">
     	function printPage() {
 		  window.print();
+		}
+		function quitBox(cmd)
+		{   
+		    if (cmd=='quit')
+		    {
+		        open(location, '_self').close();
+		    }   
+		    return false;   
 		}
     </script>

@@ -10,10 +10,15 @@
                 <div class="col-lg-4">
                     <div class="sparkline8-list shadow-reset">
                         <div class="hr-bold"></div>
-                        <div class="sparkline8-graph">
+                        <div class="sparkline8-graph" style="text-align: unset;">
                             <div class="datatable-dashv1-list custom-datatable-overright"> 
-                                <h4>Vendor Details</h4>
-                                <hr>
+                                <h4>
+                                    <a href="" onclick="return quitBox('quit');" class="btn btn-success"><span class="fa fa-arrow-left"></span> Back</a>
+                                    <div class="pull-right">
+                                        Vendor Details
+                                    </div>                                                                      
+                                </h4>
+                                <hr class="m-t-0 m-b-0">
                                 <table>
                                     <tbody>
                                     <?php foreach($vendor AS $v){ ?>
@@ -130,3 +135,13 @@
             </div>
         </div>
     </div>
+    <script type="text/javascript">
+        function quitBox(cmd)
+        {   
+            if (cmd=='quit')
+            {
+                open(location, '_self').close();
+            }   
+            return false;   
+        }
+    </script>

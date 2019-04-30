@@ -50,7 +50,6 @@
 					<a  onclick="printPage()" class="btn btn-warning btn-md p-l-100 p-r-100"><span class="fa fa-print"></span> Print</a>
 					<a href="" class="btn btn-primary btn-md p-l-100 p-r-100"><span class="fa fa-floppy-o"></span> Save</a>    				
 				</div>
-				<h4 class="text-white"><b>OUTGOING</b> RFQ</h4>
 			</center>
 	    	<div style="background: #fff;">    		  			
 		    	<table class="table-boSrdered" width="100%" style="border:2px solid #000">
