@@ -303,9 +303,6 @@ class Vendors extends CI_Controller {
         $this->load->view('vendors/vendor_list',$data);
         $this->load->view('template/footer');
     }
-<<<<<<< HEAD
-   
-=======
 
     public function export_vendor(){
         require_once(APPPATH.'../assets/js/phpexcel/Classes/PHPExcel/IOFactory.php');
@@ -410,8 +407,5 @@ class Vendors extends CI_Controller {
     public function rfq_outgoing(){
         $this->load->view('vendors/rfq_outgoing');
     }
-    
->>>>>>> 1cc42aac44d9d6b0ee5da60fa274102d07f79004
 }
-
 ?>
