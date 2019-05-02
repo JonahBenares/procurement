@@ -170,16 +170,94 @@ class Masterfile extends CI_Controller {
         }
     }
 
+    public function unit_list(){
+        $this->load->view('template/header');
+        $this->load->view('template/navbar');
+        $data['unit']=$this->super_model->select_all_order_by('unit', 'unit_name', 'ASC');
+        $this->load->view('masterfile/unit_list',$data);
+        $this->load->view('template/footer');
+    }
+
+    public function insert_unit(){
+        $unit = trim($this->input->post('unit')," ");
+        $data = array(
+            'unit_name'=>$unit
+        );
+        if($this->super_model->insert_into("unit", $data)){
+            echo "<script>alert('Successfully Added!'); window.location ='".base_url()."index.php/masterfile/unit_list'; </script>";
+        }
+    }
+
+    public function update_unit(){
+        $this->load->view('template/header');
+        $data['id']=$this->uri->segment(3);
+        $id=$this->uri->segment(3);
+        $data['unit'] = $this->super_model->select_row_where('unit', 'unit_id', $id);
+        $this->load->view('masterfile/update_unit',$data);
+        $this->load->view('template/footer');
+    }
+
+    public function edit_unit(){
+        $data = array(
+            'unit_name'=>$this->input->post('unit'),
+        );
+        $unit_id = $this->input->post('unit_id');
+            if($this->super_model->update_where('unit', $data, 'unit_id', $unit_id)){
+            echo "<script>alert('Successfully Updated!'); window.opener.location.reload(); window.close();</script>";
+        }
+    }
+
+    public function delete_unit(){
+        $id=$this->uri->segment(3);
+        if($this->super_model->delete_where('unit', 'unit_id', $id)){
+            echo "<script>alert('Succesfully Deleted'); 
+                window.location ='".base_url()."index.php/masterfile/unit_list'; </script>";
+        }
+    }
+
     public function purpose_list(){
         $this->load->view('template/header');
         $this->load->view('template/navbar');
-        $this->load->view('masterfile/purpose_list');
+        $data['purpose']=$this->super_model->select_all_order_by('purpose', 'purpose_name', 'ASC');
+        $this->load->view('masterfile/purpose_list',$data);
         $this->load->view('template/footer');
     }
+
+    public function insert_purpose(){
+        $purpose = trim($this->input->post('purpose')," ");
+        $data = array(
+            'purpose_name'=>$purpose
+        );
+        if($this->super_model->insert_into("purpose", $data)){
+            echo "<script>alert('Successfully Added!'); window.location ='".base_url()."index.php/masterfile/purpose_list'; </script>";
+        }
+    }
+
     public function update_purpose(){
         $this->load->view('template/header');
-        $this->load->view('masterfile/update_purpose');
+        $data['id']=$this->uri->segment(3);
+        $id=$this->uri->segment(3);
+        $data['purpose'] = $this->super_model->select_row_where('purpose', 'purpose_id', $id);
+        $this->load->view('masterfile/update_purpose',$data);
         $this->load->view('template/footer');
+    }
+
+    public function edit_purpose(){
+        $data = array(
+            'purpose_name'=>$this->input->post('purpose'),
+        );
+        $purpose_id = $this->input->post('purpose_id');
+            if($this->super_model->update_where('purpose', $data, 'purpose_id', $purpose_id)){
+            echo "<script>alert('Successfully Updated!'); window.opener.location.reload(); window.close();</script>";
+        }
+    }
+
+    public function delete_purpose(){
+        $id=$this->uri->segment(3);
+        if($this->super_model->delete_where('purpose', 'purpose_id', $id)){
+            echo "<script>alert('Succesfully Deleted'); 
+                window.location ='".base_url()."index.php/masterfile/purpose_list'; </script>";
+        }
     }
 
     public function enduse_list(){

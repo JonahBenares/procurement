@@ -119,7 +119,7 @@
                                             <td><?php echo $va['item'];?></td>
                                             <td>
                                                 <center>
-                                                    <a href="" class="btn btn-custon-three btn-danger btn-xs">
+                                                    <a href="<?php echo base_url(); ?>index.php/vendors/delete_item/<?php echo $vendor_id;?>/<?php echo $va['vendordet_id'];?>" class="btn btn-custon-three btn-danger btn-xs" onclick="confirmationDelete(this);return false;">
                                                         <span class="fa fa-times"></span>
                                                     </a>
                                                 </center>
