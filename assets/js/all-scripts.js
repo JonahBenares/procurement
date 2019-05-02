@@ -28,8 +28,8 @@ function updateUnit(baseurl,id) {
 function updatePurpose(baseurl,id) {
     window.open(baseurl+"index.php/masterfile/update_purpose/"+id, "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=50,left=450,width=500,height=500");
 }
-function updateEnduse(baseurl) {
-    window.open(baseurl+"index.php/masterfile/update_enduse", "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=50,left=450,width=500,height=500");
+function updateEnduse(baseurl,id) {
+    window.open(baseurl+"index.php/masterfile/update_enduse/"+id, "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=50,left=450,width=500,height=500");
 }
 function incomingRfq(baseurl, rfqid) {
     window.open(baseurl+"index.php/rfq/rfq_incoming/"+rfqid, "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=45,left=25,width=1300,height=600");

@@ -127,7 +127,6 @@ class Items extends CI_Controller {
         $objPHPExcel->setActiveSheetIndex(0)->setCellValue('B4', $item_specs);
         $objPHPExcel->setActiveSheetIndex(0)->setCellValue('C4', "Part Number:");
         $objPHPExcel->setActiveSheetIndex(0)->setCellValue('D4', $part_no);
-
         $objPHPExcel->setActiveSheetIndex(0)->setCellValue('A6', "VENDOR LIST");
         $objPHPExcel->setActiveSheetIndex(0)->setCellValue('A7', "Vendor Name");
         $objPHPExcel->setActiveSheetIndex(0)->setCellValue('B7', "Address");
@@ -169,6 +168,7 @@ class Items extends CI_Controller {
         $objPHPExcel->getActiveSheet()->getStyle('A6')->getFont()->setBold(true);
         $objPHPExcel->getActiveSheet()->getStyle('A7:I7')->getFont()->setBold(true);
         $objPHPExcel->getActiveSheet()->getStyle('A1')->getFont()->setSize(14);
+        $objPHPExcel->getActiveSheet()->getStyle('A6:I6')->getFont()->setSize(14);
         $objPHPExcel->getActiveSheet()->mergeCells('A6:I6');
         $objPHPExcel->getActiveSheet()->getStyle('A6:I6')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
         $objPHPExcel->getActiveSheet()->getStyle('A1:D4')->applyFromArray($styleArray);

@@ -145,6 +145,7 @@ class Vendors extends CI_Controller {
                     $data['vendors'][]=array(
                         'vendordet_id'=>$v->vendordet_id,
                         'item_id'=>$v->item_id,
+                        'brand'=>$this->super_model->select_column_where('item','brand_name','item_id',$v->item_id),
                         'item'=>$this->super_model->select_column_where('item','item_name','item_id',$v->item_id),
                         'specs'=>$this->super_model->select_column_where('item','item_specs','item_id',$v->item_id),
                     );
@@ -183,7 +184,8 @@ class Vendors extends CI_Controller {
                         echo "<script>alert('Successfully Added!'); window.opener.location.reload(); window.close();</script>";
                     }
                 } else {
-                    echo "<script>alert('$itemname is already linked to this vendor. Item duplication prevented.'); window.location ='".base_url()."index.php/vendors/add_vendoritem'; window.opener.location.reload();</script>";
+                    echo "<script>alert('$itemname is already linked to this vendor. Item duplication prevented.'); window.location ='".base_url()."index.php/vendors/add_vendoritem';</script>";
+                     //window.opener.location.reload();
                 }
             } 
         }
@@ -303,13 +305,13 @@ class Vendors extends CI_Controller {
 
         if(!empty($this->input->post('contact'))){
             $contact = $this->input->post('contact');
-            $sql.=" vendor_head.contact_person = '$contact' AND";
+            $sql.=" vendor_head.contact_person LIKE '%$contact%' AND";
             $filter .= "Contact Person - ".$contact.", ";
         }
 
         if(!empty($this->input->post('notes'))){
             $notes = $this->input->post('notes');
-            $sql.=" vendor_head.notes = '$notes' AND";
+            $sql.=" vendor_head.notes LIKE '%$notes%' AND";
             $filter .= "Notes - ".$notes.", ";
         }
 
@@ -355,7 +357,7 @@ class Vendors extends CI_Controller {
             $notes = $info->notes;
         }
         $objPHPExcel = new PHPExcel();
-        $exportfilename="vendor_profile.xlsx";
+        $exportfilename="Vendor Profile.xlsx";
         $objPHPExcel->setActiveSheetIndex(0)->setCellValue('A1', "VENDOR PROFILE");
         $objPHPExcel->setActiveSheetIndex(0)->setCellValue('A3', "Vendor Name:");
         $objPHPExcel->setActiveSheetIndex(0)->setCellValue('B3', $vendor);
@@ -375,7 +377,6 @@ class Vendors extends CI_Controller {
         $objPHPExcel->setActiveSheetIndex(0)->setCellValue('D6', $type);
         $objPHPExcel->setActiveSheetIndex(0)->setCellValue('A7', "Notes:");
         $objPHPExcel->setActiveSheetIndex(0)->setCellValue('B7', $notes);
-
         $objPHPExcel->setActiveSheetIndex(0)->setCellValue('A9', "ITEM LIST");
         $objPHPExcel->setActiveSheetIndex(0)->setCellValue('A10', "Item Name");
         $objPHPExcel->setActiveSheetIndex(0)->setCellValue('C10', "Brand");
@@ -391,12 +392,12 @@ class Vendors extends CI_Controller {
         }
 
         $styleArray = array(
-              'borders' => array(
+            'borders' => array(
                 'allborders' => array(
                   'style' => PHPExcel_Style_Border::BORDER_THIN
                 )
-              )
-            );
+            )
+        );
 
         $objPHPExcel->getActiveSheet()->getStyle('A1')->getFont()->setBold(true);
         $objPHPExcel->getActiveSheet()->getStyle('B3')->getFont()->setBold(true);
@@ -413,6 +414,7 @@ class Vendors extends CI_Controller {
         $objPHPExcel->getActiveSheet()->getStyle('C10')->getFont()->setBold(true);
 
         $objPHPExcel->getActiveSheet()->getStyle('A1')->getFont()->setSize(14);
+        $objPHPExcel->getActiveSheet()->getStyle('A9:D9')->getFont()->setSize(14);
 
         $objPHPExcel->getActiveSheet()->mergeCells('A8:D8');
         $objPHPExcel->getActiveSheet()->mergeCells('A9:D9');
@@ -435,7 +437,7 @@ class Vendors extends CI_Controller {
         unset($objWriter);   
         ob_end_clean();
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        header('Content-Disposition: attachment; filename="vendor_profile.xlsx"');
+        header('Content-Disposition: attachment; filename="Vendor Profile.xlsx"');
         readfile($exportfilename);
 
     }

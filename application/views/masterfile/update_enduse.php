@@ -13,14 +13,17 @@
                                     <tbody>
                                         <tr>
                                             <td>
-                                                <form>
+                                                <form method="POST" action = "<?php echo base_url();?>index.php/masterfile/edit_enduse">
                                                     <div class="modal-body-lowpad">
                                                         <div class="form-group">
                                                             <p class="m-b-0">Enduse:</p>
-                                                            <input type="text" name="" class="form-control">
+                                                            <?php foreach($enduse AS $e){ ?>
+                                                            <input type="text" name="enduse" class="form-control" value = "<?php echo $e->enduse_name?>">
+                                                            <?php } ?>
+                                                            <input type="hidden" name="enduse_id" value = "<?php echo $id; ?>">
                                                         </div>
                                                         <center>
-                                                            <a href="#" class="btn btn-custon-three btn-primary btn-block">Save</a>
+                                                            <input type = "submit" class="btn btn-custon-three btn-primary btn-block" value = "Save">
                                                         </center>
                                                     </div>
                                                 </form>

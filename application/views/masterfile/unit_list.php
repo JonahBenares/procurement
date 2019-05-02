@@ -89,7 +89,7 @@
                                             <td><?php echo $d->unit_name?></td>
                                             <td>
                                                 <center>
-                                                    <a href="" onclick="updateUnit('<?php echo base_url(); ?>','<?php echo $d->unit_id;?>')" class="btn btn-custon-three btn-info btn-xs">
+                                                    <a onclick="updateUnit('<?php echo base_url(); ?>','<?php echo $d->unit_id;?>')" class="btn btn-custon-three btn-info btn-xs">
                                                         <span class="fa fa-pencil"></span>
                                                     </a>
                                                     <a href="<?php echo base_url(); ?>index.php/masterfile/delete_unit/<?php echo $d->unit_id;?>" class="btn btn-custon-three btn-danger btn-xs" onclick="confirmationDelete(this);return false;">
