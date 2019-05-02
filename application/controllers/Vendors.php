@@ -143,6 +143,7 @@ class Vendors extends CI_Controller {
             foreach($this->super_model->select_row_where('vendor_details','vendor_id',$id) AS $v){
                 foreach($this->super_model->select_row_where('item','item_id',$v->item_id) AS $vd){
                     $data['vendors'][]=array(
+                        'vendordet_id'=>$v->vendordet_id,
                         'item_id'=>$v->item_id,
                         'item'=>$this->super_model->select_column_where('item','item_name','item_id',$v->item_id),
                     );
@@ -172,19 +173,29 @@ class Vendors extends CI_Controller {
             if(!empty($item)) {
                 $rows = $this->super_model->count_custom_where("vendor_details","vendor_id='$id' AND item_id='$item'");
                 $itemname = $this->super_model->select_column_where('item', 'item_name', 'item_id', $item);
-                if($rows == 0){
+                if($rows==0){
                     $data = array(
                         'vendor_id'=>$id,
                         'item_id'=>$item,
                     );
-                    $this->super_model->insert_into("vendor_details", $data);
+                    if($this->super_model->insert_into("vendor_details", $data)){
+                        echo "<script>alert('Successfully Added!'); window.opener.location.reload(); window.close();</script>";
+                    }
                 } else {
-                    echo "<script>alert('$itemname is already linked to this vendor. Item duplication prevented.'); window.opener.location.reload();</script>";
+                    echo "<script>alert('$itemname is already linked to this vendor. Item duplication prevented.'); window.location ='".base_url()."index.php/vendors/add_vendoritem'; window.opener.location.reload();</script>";
                 }
             } 
         }
     }
 
+    public function delete_item(){
+        $venid=$this->uri->segment(3);
+        $id=$this->uri->segment(4);
+        if($this->super_model->delete_where('vendor_details', 'vendordet_id', $id)){
+            echo "<script>alert('Succesfully Deleted'); 
+                window.location ='".base_url()."index.php/vendors/vendor_details/$venid'; </script>";
+        }
+    }
 
     public function search_vendor(){
         $this->load->view('template/header');

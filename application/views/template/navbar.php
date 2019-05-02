@@ -28,6 +28,7 @@
                                 <a href="<?php echo base_url(); ?>index.php/vendors/vendor_list" class="dropdown-item">Vendors</a>
                                 <a href="<?php echo base_url(); ?>index.php/masterfile/employee_list" class="dropdown-item">Employee</a>
                                 <a href="<?php echo base_url(); ?>index.php/masterfile/department_list" class="dropdown-item">Department</a>
+                                <a href="<?php echo base_url(); ?>index.php/masterfile/unit_list" class="dropdown-item">Unit</a>
                                 <a href="<?php echo base_url(); ?>index.php/masterfile/purpose_list" class="dropdown-item">Purpose</a>
                                 <a href="<?php echo base_url(); ?>index.php/masterfile/enduse_list" class="dropdown-item">Enduse</a>
                             </div>
