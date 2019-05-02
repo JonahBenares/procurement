@@ -157,8 +157,32 @@ class Vendors extends CI_Controller {
 
     public function add_vendoritem(){
         $this->load->view('template/header');
-        $this->load->view('vendors/add_vendoritem');
+        $data['id']=$this->uri->segment(3);
+        $id=$this->uri->segment(3);
+        $data['vendor']=$this->super_model->select_column_where('vendor_head','vendor_name','vendor_id', $id);
+        $data['item']=$this->super_model->select_all_order_by('item', 'item_name', 'ASC');
+        $this->load->view('vendors/add_vendoritem',$data);
         $this->load->view('template/footer');
+    }
+
+    public function insert_itemvendor(){
+        for($x=1;$x<=10;$x++){
+            $item= $this->input->post('item'.$x);
+            $id= $this->input->post('id');
+            if(!empty($item)) {
+                $rows = $this->super_model->count_custom_where("vendor_details","vendor_id='$id' AND item_id='$item'");
+                $itemname = $this->super_model->select_column_where('item', 'item_name', 'item_id', $item);
+                if($rows == 0){
+                    $data = array(
+                        'vendor_id'=>$id,
+                        'item_id'=>$item,
+                    );
+                    $this->super_model->insert_into("vendor_details", $data);
+                } else {
+                    echo "<script>alert('$itemname is already linked to this vendor. Item duplication prevented.'); window.opener.location.reload();</script>";
+                }
+            } 
+        }
     }
 
 

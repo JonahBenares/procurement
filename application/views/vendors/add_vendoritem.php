@@ -8,9 +8,9 @@
                         <div style="height: 10px;    background: linear-gradient(to right, #ff9966 0%, #ff66cc 100%);}"></div>
                         <div class="sparkline8-graph">
                             <h5>Add Item/s to Vendor:</h5>
-                            <h4><u>Vendor Name</u></h4>
+                            <h4><u><?php echo $vendor;?></u></h4>
                             <div class="datatable-dashv1-list custom-datatable-overright">  
-                                <form>
+                                <form method='POST' action='<?php echo base_url(); ?>index.php/vendors/insert_itemvendor'>
                                     <table width="100%">
                                         <tbody>
                                         <?php for($x=1;$x<=10;$x++){ ?>
@@ -19,14 +19,18 @@
                                                     <div class="form-group">
                                                         <p class="m-b-0">Item #<?php echo $x; ?>:</p>
                                                         <select name="item<?php echo $x; ?>" class="form-control" >
-                                                            <option></option>
+                                                            <option value = "">--Select Item--</option>
+                                                            <?php foreach($item AS $i){ ?>
+                                                            <option value = "<?php echo $i->item_id?>"><?php echo $i->item_name; ?></option>
+                                                            <?php } ?>
                                                         </select>
                                                     </div>
                                                 </td>     
                                             </tr>
-                                        <?php } ?>    
+                                        <?php } ?>
+                                        <input type="hidden" name="id" value = "<?php echo $id; ?>">    
                                             <tr>
-                                                <td><a href="" class="btn btn-custon-three btn-primary btn-block"><span class="fa fa-plus"></span> Add Item/s</a></td>
+                                                <td><input type="submit" class="btn btn-custon-three btn-primary btn-block" value = "Add Item/s"></td>
                                             </tr>                                
                                         </tbody>
                                     </table>
