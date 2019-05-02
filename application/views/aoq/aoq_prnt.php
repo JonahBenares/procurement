@@ -1,4 +1,4 @@
-  	<style type="text/css">
+   	<style type="text/css">
         html, body{
             background: #2d2c2c!important;
             font-size:12px!important;
@@ -26,6 +26,9 @@
 		.table-borreg{
 			border: 1px solid #000!important;
 		}
+		.f12{
+			font-size:12px!important;
+		}
 		.f10{
 			font-size:11px!important;
 		}
@@ -49,8 +52,11 @@
 			#add_btn{
 				display: none;
 			}
+			.f12{
+				font-size:12px!important;
+			}
 			.f10{
-				font-size:10px!important;
+				font-size:11px!important;
 			}
 			.text-red{
 				color: red!important;
@@ -88,11 +94,11 @@
 						<a  onclick="printPage()" class="btn btn-warning btn-md p-l-100 p-r-100"><span class="fa fa-print"></span> Print</a>
 						<a href="" class="btn btn-primary btn-md p-l-100 p-r-100"><span class="fa fa-floppy-o"></span> Save</a>    				
 					</div>
-					<p class="text-white p-l-250 p-r-250">Instructions: When printing ABSTRACT OF QUOTATION make sure the following options are set correctly -- <u>Browser</u>: Chrome, <u>Layout</u>: Landscape, <u>Paper Size</u>: A4 <u>Margin</u> : Custom (top: 0.11" , right:0.40", bottom: 0.11", left: 0.11") <u>Scale</u>: 100 and the option: Background graphics is checked</p>
+					<p class="text-white p-l-250 p-r-250">Instructions: When printing ABSTRACT OF QUOTATION make sure the following options are set correctly -- <u>Browser</u>: Chrome, <u>Layout</u>: Landscape, <u>Paper Size</u>: A4 <u>Margin</u> : Custom (top: 0.11" , right:1.25", bottom: 0.11", left: 0.11") <u>Scale</u>: 100 and the option: Background graphics is checked</p>
 				</center>
 			</div>
 	    	<div style="background: #fff;">    		  			
-		    	<table class="table-bordedred" width="100%" style="background: #fff;border: 1px solid #000">
+		    	<table class="table-bodrdered" width="100%" style="background: #fff;border: 1px solid #000">
 		    		<tr>
 		    			<td width="3%"><br></td>
 		    			<td width="3%"><br></td>
@@ -130,31 +136,66 @@
 		    		</tr>		    	
 		    		<tr><td colspan="33" class="f10"  align="center"><h5><b>ABSTRACT OF QUOTATION</b></h5></td></tr>
 		    		<tr>
-		    			<td colspan="4" class="f10" align="right">Department: &nbsp;</td>
-		    			<td colspan="13" class="f10" >Test Tsest tsets test </td>		    			
-		    			<td colspan="3" class="f10" align="right">Date: &nbsp;</td>
-		    			<td colspan="13" class="f10" >Purposeasds</td>
+		    			<td colspan="4" class="f12" align="right">Department: &nbsp;</td>
+		    			<td colspan="13" class="f12" >Test Tsest tsets test </td>		    			
+		    			<td colspan="3" class="f12" align="right">Date: &nbsp;</td>
+		    			<td colspan="13" class="f12" >Purposeasds</td>
 		    		</tr>	
 		    		<tr>
-		    			<td colspan="4" class="f10" align="right">Purpose: &nbsp;</td>
-		    			<td colspan="13" class="f10" >Test Tsest tsets test </td>		    			
-		    			<td colspan="3"class="f10" align="right">PR #: &nbsp;</td>
-		    			<td colspan="13" class="f10" >Purposesasad </td>
+		    			<td colspan="4" class="f12" align="right">Purpose: &nbsp;</td>
+		    			<td colspan="13" class="f12" >Test Tsest tsets test </td>		    			
+		    			<td colspan="3"class="f12" align="right">PR #: &nbsp;</td>
+		    			<td colspan="13" class="f12" >Purposesasad </td>
 		    		</tr>
 		    		<tr>
-		    			<td colspan="4" class="f10" align="right">Enduse: &nbsp;</td>
-		    			<td colspan="13" class="f10" >Test Tsest tsets test </td>		    			
-		    			<td colspan="3"class="f10" align="right">Date Needed: &nbsp;</td>
-		    			<td colspan="13" class="f10" >Purasdpose</td>
+		    			<td colspan="4" class="f12" align="right">Enduse: &nbsp;</td>
+		    			<td colspan="13" class="f12" >Test Tsest tsets test </td>		    			
+		    			<td colspan="3"class="f12" align="right">Date Needed: &nbsp;</td>
+		    			<td colspan="13" class="f12" >Purasdpose</td>
 		    		</tr>	
 		    		<tr>
-		    			<td colspan="4" class="f10"  align="right">Requested by: &nbsp;</td>
-		    			<td colspan="29" class="f10" >Test Tsest tsets test </td>
+		    			<td colspan="4" class="f12"  align="right">Requested by: &nbsp;</td>
+		    			<td colspan="29" class="f12" >Test Tsest tsets test </td>
 		    		</tr>
 		    		<!-- <tr><td class="f10"  align="center"><br></td></tr> -->
 		    		<tr><td class="f10" colspan="33" align="center"><br></td></tr>
 		    		<tr>
-		    			<td colspan="8" class="f10"  align="center"><button id="add_btn" class="btn btn-primary">Add Item</button></td>
+		    			<td colspan="8" class="f10"  align="center">
+		    				<button id="add_btn" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+							  <span class="fa fa-plus"></span> Add Item
+							</button>
+
+							<!-- Modal -->
+							<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+							  <div class="modal-dialog" role="document">
+							    <div class="modal-content">
+							      	<div class="modal-header">
+								        <h5 class="modal-title" id="exampleModalLabel" style="text-align: left">Add Item 
+								        	<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								          		<span aria-hidden="true">&times;</span>
+								        	</button>
+								        </h5>							       
+							      	</div>
+							      	<form>
+							      	<div class="modal-body">
+							        <div class="form-group">
+                                        <h5 class="m-b-0" style="text-align: left">Item Description:</h5>
+                                        <input name="spec" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <h5 class="m-b-0" style="text-align: left">Qty:</h5>
+                                        <input name="spec" class="form-control">
+                                    </div>
+							      	</div>
+							      	<div class="modal-footer">
+								        <button type="button" class="btn btn-primary btn-block">Add</button>
+							      	</div>
+							      	</form>
+							    </div>
+							  </div>
+							</div>
+		    				
+		    			</td>
 
 
 		    			<!-- loop ka here -->
@@ -227,32 +268,32 @@
 
 		    			<!-- loop ka here -->
 		    			<td colspan="2" class="f10 table-borreg" align="left"> Adhesives, Threadlockers/Threadsealants, Wear Prevention,<b class="text-red"> Belt Repair, Metal Rebuilding,</b> Floor Repair/Grouting</td>
-		    			<td class="f10 table-borreg yellow-back" align="center">170.00</td>
-		    			<td class="f10 table-borreg green-back" align="center">2380.00</td>
+		    			<td class="f10 table-borreg yellow-back p-l-5 p-r-5" align="center">170.00</td>
+		    			<td class="f10 table-borreg green-back p-l-5 p-r-5" align="center">2380.00</td>
 		    			<td class="f10 table-borreg text-red" align="center">complying</td>
 		    			<!-- and delete the other two below salamats -->
 
 		    			<td colspan="2" class="f10 table-borreg" align="left"> Adhesives, Threadlockers/Threadsealants, Wear Prevention,<b class="text-red"> Belt Repair, Metal Rebuilding,</b> Floor Repair/Grouting</td>
-		    			<td class="f10 table-borreg yellow-back" align="center">170.00</td>
-		    			<td class="f10 table-borreg green-back" align="center">2380.00</td>
+		    			<td class="f10 table-borreg yellow-back p-l-5 p-r-5" align="center">170.00</td>
+		    			<td class="f10 table-borreg green-back p-l-5 p-r-5" align="center">2380.00</td>
 		    			<td class="f10 table-borreg text-red" align="center">complying</td>
 
 		    			<td colspan="2" class="f10 table-borreg" align="left"> Adhesives, Threadlockers/Threadsealants, Wear Prevention,<b class="text-red"> Belt Repair, Metal Rebuilding,</b> Floor Repair/Grouting</td>
-		    			<td class="f10 table-borreg yellow-back" align="center">170.00</td>
-		    			<td class="f10 table-borreg green-back" align="center">2380.00</td>
+		    			<td class="f10 table-borreg yellow-back p-l-5 p-r-5" align="center">170.00</td>
+		    			<td class="f10 table-borreg green-back p-l-5 p-r-5" align="center">2380.00</td>
+		    			<td class="f10 table-borreg text-red" align="center">complying</td>
+
+		    			<!-- <td colspan="2" class="f10 table-borreg" align="left"> Adhesives, Threadlockers/Threadsealants, Wear Prevention,<b class="text-red"> Belt Repair, Metal Rebuilding,</b> Floor Repair/Grouting</td>
+		    			<td class="f10 table-borreg yellow-back p-l-5 p-r-5" align="center">170.00</td>
+		    			<td class="f10 table-borreg green-back p-l-5 p-r-5" align="center">2380.00</td>
 		    			<td class="f10 table-borreg text-red" align="center">complying</td>
 
 		    			<td colspan="2" class="f10 table-borreg" align="left"> Adhesives, Threadlockers/Threadsealants, Wear Prevention,<b class="text-red"> Belt Repair, Metal Rebuilding,</b> Floor Repair/Grouting</td>
-		    			<td class="f10 table-borreg yellow-back" align="center">170.00</td>
-		    			<td class="f10 table-borreg green-back" align="center">2380.00</td>
-		    			<td class="f10 table-borreg text-red" align="center">complying</td>
+		    			<td class="f10 table-borreg yellow-back p-l-5 p-r-5" align="center">170.00</td>
+		    			<td class="f10 table-borreg green-back p-l-5 p-r-5" align="center">2380.00</td>
+		    			<td class="f10 table-borreg text-red" align="center">complying</td> -->
 
-		    			<td colspan="2" class="f10 table-borreg" align="left"> Adhesives, Threadlockers/Threadsealants, Wear Prevention,<b class="text-red"> Belt Repair, Metal Rebuilding,</b> Floor Repair/Grouting</td>
-		    			<td class="f10 table-borreg yellow-back" align="center">170.00</td>
-		    			<td class="f10 table-borreg green-back" align="center">2380.00</td>
-		    			<td class="f10 table-borreg text-red" align="center">complying</td>
-
-		    			<!-- <td colspan="2" class="f10 table-borreg" align="left"></td>
+		    			<td colspan="2" class="f10 table-borreg" align="left"></td>
 		    			<td class="f10 table-borreg" align="center"></td>
 		    			<td class="f10 table-borreg" align="center"></td>
 		    			<td class="f10 table-borreg text-red" align="center"></td>
@@ -260,7 +301,7 @@
 		    			<td colspan="2" class="f10 table-borreg" align="left"></td>
 		    			<td class="f10 table-borreg" align="center"></td>
 		    			<td class="f10 table-borreg" align="center"></td>
-		    			<td class="f10 table-borreg text-red" align="center"></td> -->
+		    			<td class="f10 table-borreg text-red" align="center"></td>
 		    		</tr>
 		    		<tr>
 		    			<td class="f10 table-borreg" align="center">99</td>
@@ -270,19 +311,19 @@
 
 		    			<!-- loop ka here -->
 		    			<td colspan="2" class="f10 table-borreg" align="left"> Adhesives, Threadlockers/Threadsealants, Wear Prevention,<b class="text-red"> Belt Repair, Metal Rebuilding,</b> Floor Repair/Grouting</td>
-		    			<td class="f10 table-borreg yellow-back" align="center">170.00</td>
-		    			<td class="f10 table-borreg green-back" align="center">2380.00</td>
+		    			<td class="f10 table-borreg yellow-back p-l-5 p-r-5" align="center">170.00</td>
+		    			<td class="f10 table-borreg green-back p-l-5 p-r-5" align="center">2380.00</td>
 		    			<td class="f10 table-borreg text-red" align="center">complying</td>
 		    			<!-- and delete the other two below salamats -->
 
 		    			<td colspan="2" class="f10 table-borreg" align="left"> Adhesives, Threadlockers/Threadsealants, Wear Prevention,<b class="text-red"> Belt Repair, Metal Rebuilding,</b> Floor Repair/Grouting</td>
-		    			<td class="f10 table-borreg yellow-back" align="center">170.00</td>
-		    			<td class="f10 table-borreg green-back" align="center">2380.00</td>
+		    			<td class="f10 table-borreg yellow-back p-l-5 p-r-5" align="center">170.00</td>
+		    			<td class="f10 table-borreg green-back p-l-5 p-r-5" align="center">2380.00</td>
 		    			<td class="f10 table-borreg text-red" align="center">complying</td>
 
 		    			<td colspan="2" class="f10 table-borreg" align="left"> Adhesives, Threadlockers/Threadsealants, Wear Prevention,<b class="text-red"> Belt Repair, Metal Rebuilding,</b> Floor Repair/Grouting</td>
-		    			<td class="f10 table-borreg yellow-back" align="center">170.00</td>
-		    			<td class="f10 table-borreg green-back" align="center">2380.00</td>
+		    			<td class="f10 table-borreg yellow-back p-l-5 p-r-5" align="center">170.00</td>
+		    			<td class="f10 table-borreg green-back p-l-5 p-r-5" align="center">2380.00</td>
 		    			<td class="f10 table-borreg text-red" align="center">complying</td>
 
 		    			<td colspan="2" class="f10 table-borreg" align="left"></td>
@@ -409,6 +450,7 @@
 		    			<td colspan="2" class="f10" align="left"><br></td>
 		    			<td colspan="3" class="f10" align="center">Approved by:</td>
 		    			<td colspan="2" class="f10" align="left"><br></td>
+		    			<td colspan="9" class="f10" align="left"><br></td>
 		    		</tr>
 		    		<tr><td class="f10" colspan="33" align="center"><br></td></tr>
 		    		<tr>
@@ -421,6 +463,7 @@
 		    			<td colspan="2" class="f10" align="left"><br></td>
 		    			<td colspan="3" class="f10 bor-btm" align="center">Someone</td>
 		    			<td colspan="2" class="f10" align="left"><br></td>
+		    			<td colspan="9" class="f10" align="left"><br></td>
 		    		</tr>
 		    		<tr><td class="f10" colspan="33" align="center"><br></td></tr>
 		    		<tr>
@@ -428,18 +471,22 @@
 		    			<td colspan="2"  class="" align="center"></td>
 		    			<td colspan="3"  class="" align="center">LEGEND:</td>
 		    			<td colspan="1"  class="" align="center"></td>
-		    			<td colspan="1"  class="green-back" align="center"></td>
+		    			<td colspan="1"  class="green-back p-l-5 p-r-5" align="center"></td>
 		    			<td colspan="1"  class="" align="center"></td>
 		    			<td colspan="4"  class="" align="left">Recommended Award</td>
+		    			<td colspan="19"  class="" align="center"></td>
+
 		    		</tr>
 		    		<tr>
 		    			<td colspan="2"  class="" align="center"></td>
 		    			<td colspan="2"  class="" align="center"></td>
 		    			<td colspan="3"  class="" align="center"></td>
 		    			<td colspan="1"  class="" align="center"></td>
-		    			<td colspan="1"  class="yellow-back" align="center"></td>
+		    			<td colspan="1"  class="yellow-back p-l-5 p-r-5" align="center"></td>
 		    			<td colspan="1"  class="" align="center"></td>
 		    			<td colspan="4"  class="" align="left">Lowest Price</td>
+		    			<td colspan="19"  class="" align="center"></td>
+
 		    		</tr>
 		    		<tr><td class="f10" colspan="33" align="center"><br></td></tr>
 
@@ -561,6 +608,7 @@
 	    	</div>
     	</form>
     </div>
+    
     <script type="text/javascript">
     	function printPage() {
 		  window.print();
