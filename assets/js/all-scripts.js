@@ -31,8 +31,8 @@ function updatePurpose(baseurl,id) {
 function updateEnduse(baseurl) {
     window.open(baseurl+"index.php/masterfile/update_enduse", "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=50,left=450,width=500,height=500");
 }
-function incomingRfq(baseurl) {
-    window.open(baseurl+"index.php/rfq/rfq_incoming/", "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=45,left=25,width=1300,height=600");
+function incomingRfq(baseurl, rfqid) {
+    window.open(baseurl+"index.php/rfq/rfq_incoming/"+rfqid, "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=45,left=25,width=1300,height=600");
 }
 function confirmationDelete(anchor){
     var conf = confirm('Are you sure you want to delete this record?');

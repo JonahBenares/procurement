@@ -1,3 +1,16 @@
+ 
+ <script type="text/javascript">
+ $( document ).ready(function() {
+    var $checkboxes = $('input[type="checkbox"]');
+    $checkboxes.change(function(){
+        var countCheckedCheckboxes = $checkboxes.filter(':checked').length;
+        if(countCheckedCheckboxes  > 5){
+           this.checked = false;
+           alert('You can only choose up to 5 RFQs.');
+        } 
+    });
+ });
+ </script>   
     <div class="breadcome-area mg-b-30 small-dn">
         <div class="container-fluid">
             <div class="row">
@@ -125,7 +138,10 @@
                                         $item = substr($item, 0, -2);
                                                 ?>
                                         <tr>
-                                            <td><input type="checkbox" class="form-control" name=""></td>
+                                            <td>
+                                            <?php if($li['completed']==1){ ?>
+                                            <input type="checkbox" class="form-control rfq_list" name="rfq" value="<?php echo $li['rfq_id']; ?>">
+                                            <?php } ?></td>
                                             <td><?php echo $li['rfq_no']; ?></td>
                                             <td><?php echo $li['supplier']; ?></td>
                                             <td><?php echo date('M d, Y',strtotime($li['rfq_date'])); ?></td>
@@ -134,7 +150,7 @@
                                             </td>
                                             <td>
                                                 <center>
-                                                    <a href="" onclick="incomingRfq('<?php echo base_url(); ?>')" class="btn btn-custon-three btn-warning btn-xs">
+                                                    <a href="javascript:void(0)" onclick="incomingRfq('<?php echo base_url(); ?>','<?php echo $li['rfq_id']; ?>')" class="btn btn-custon-three btn-warning btn-xs">
                                                         <span class="fa fa-eye"></span>
                                                     </a>
                                                 </center>

@@ -129,7 +129,8 @@ class Rfq extends CI_Controller {
 				'rfq_id'=>$rfq->rfq_id,
 				'rfq_no'=>$rfq->rfq_no,
 				'rfq_date'=>$rfq->rfq_date,
-				'supplier'=>$supplier
+				'supplier'=>$supplier,
+				'completed'=>$rfq->completed
 			);
 
 			foreach($this->super_model->select_row_where("rfq_detail", "rfq_id", $rfq->rfq_id) AS $it){
@@ -151,7 +152,79 @@ class Rfq extends CI_Controller {
     }
 
     public function rfq_incoming(){
-        $this->load->view('rfq/rfq_incoming');
+    	$rfq_id=$this->uri->segment(3);
+    	$data['rfq_id']=$rfq_id;
+    	$data['completed'] = $this->super_model->select_column_where('rfq_head','completed','rfq_id', $rfq_id);
+	 	foreach($this->super_model->select_row_where("rfq_head", "rfq_id", $rfq_id) AS $head){
+	 		$noted=$this->super_model->select_column_where('employees','employee_name','employee_id', $head->noted_by); 
+	 		$approved=$this->super_model->select_column_where('employees','employee_name','employee_id', $head->approved_by);
+	 		$prepared=$this->super_model->select_column_where('users','fullname','user_id', $head->prepared_by);
+	 		$data['head'][] = array(
+	 			'due_date'=>$head->due_date,
+	 			'rfq_date'=>$head->rfq_date,
+	 			'rfq_no'=>$head->rfq_no,
+	 			'supplier'=>$this->super_model->select_column_where('vendor_head','vendor_name','vendor_id', $head->supplier_id),
+	 			'phone'=>$this->super_model->select_column_where('vendor_head','phone_number','vendor_id', $head->supplier_id),
+	 			'validity'=>$head->price_validity,
+	 			'terms'=>$head->payment_terms,
+	 			'delivery_date'=>$head->delivery_date,
+	 			'warranty'=>$head->warranty,
+	 			'tin'=>$head->supplier_tin,
+	 			'vat'=>$head->vat,
+	 			'prepared'=>$prepared,
+	 			'noted'=>$noted,
+	 			'approved'=>$approved,
+	 			'saved'=>$head->saved,
+
+	 		);
+	 	}
+
+	 	foreach($this->super_model->select_row_where("rfq_detail", "rfq_id", $rfq_id) AS $detail){
+	 		$item=$this->super_model->select_column_where('item','item_name','item_id', $detail->item_id) .', '.$this->super_model->select_column_where('item','item_specs','item_id', $detail->item_id);
+	 		//$item='';
+	 		$data['detail'][] = array(
+	 			'detail_id'=>$detail->rfq_detail_id,
+	 			'item'=>$item,
+	 			'offer'=>$detail->offer,
+	 			'price'=>$detail->unit_price,
+	 			'reco'=>$detail->recommended,
+	 			'unit'=>$this->super_model->select_column_where('item','uom','item_id', $detail->item_id) 
+	 		);
+	 	}
+
+        $this->load->view('rfq/rfq_incoming', $data);
+    }
+
+    public function complete_rfq(){
+    	$rfq_id = $this->input->post('rfq_id');
+    	$count = $this->input->post('count');
+    	$head = array(
+    		'price_validity'=>$this->input->post('validity'),
+    		'payment_terms'=>$this->input->post('terms'),
+    		'delivery_date'=>$this->input->post('delivery_date'),
+    		'warranty'=>$this->input->post('warranty'),
+    		'supplier_tin'=>$this->input->post('tin'),
+    		'vat'=>$this->input->post('vat'),
+    		'completed'=>'1'
+    	);
+
+    	if($this->super_model->update_where("rfq_head", $head, "rfq_id", $rfq_id)){
+    		for($a=1; $a<=$count; $a++){
+    			$offer=$this->input->post('offer'.$a);
+    			$price=$this->input->post('price'.$a);
+    			$reco=$this->input->post('reco'.$a);
+    			$detailid=$this->input->post('detail_id'.$a);
+	    		$details = array(
+	    			'offer'=>$offer,
+	    			'unit_price'=>$price,
+	    			'recommended'=>$reco
+	    		);
+	    		$this->super_model->update_where("rfq_detail", $details, "rfq_detail_id", $detailid);
+    		}
+    	}
+
+    	redirect(base_url().'rfq/rfq_incoming/'.$rfq_id, 'refresh');
+
     }
 
 }

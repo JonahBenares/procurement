@@ -52,7 +52,7 @@
         <!-- Chat Box End-->
         <!-- jquery
     		============================================ -->
-        <script src="<?php echo base_url(); ?>assets/js/vendor/jquery-1.11.3.min.js"></script>
+        
         <!-- bootstrap JS
     		============================================ -->
         <script src="<?php echo base_url(); ?>assets/js/bootstrap.min.js"></script>

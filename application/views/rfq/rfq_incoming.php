@@ -54,13 +54,16 @@
 		}
     </style>
     <div  class="pad">
-    	<form>  
+    	<form method='POST' action="<?php echo base_url(); ?>rfq/complete_rfq">  
     		<div  id="prnt_btn">
 	    		<center>
 			    	<div class="btn-group">
 						<a href="" onclick="return quitBox('quit');" class="btn btn-success btn-md p-l-100 p-r-100"><span class="fa fa-arrow-left"></span> Back</a>
+						<?php if($completed==1){ ?>
 						<a  onclick="printPage()" class="btn btn-warning btn-md p-l-100 p-r-100"><span class="fa fa-print"></span> Print</a>
-						<a href="" class="btn btn-primary btn-md p-l-100 p-r-100"><span class="fa fa-floppy-o"></span> Save</a>    				
+						<?php } if($completed==0){ ?>
+						<input type='submit' class="btn btn-primary btn-md p-l-100 p-r-100" value="Save"> 	
+						<?php } ?>	
 					</div>
 					<h4 class="text-white"> <b>INCOMING</b> RFQ</h4>
 				</center>
@@ -100,23 +103,25 @@
 		    		<tr><td class="f13" colspan="20" align="center"><br></td></tr>
 		    		<tr><td colspan="20" align="center"><b>REQUEST FOR QUOTATION</b></td></tr>
 		    		<tr><td class="f13" colspan="20" align="center"><br></td></tr>
+		    		<?php foreach($head AS $h){ ?>
 		    		<tr>
 		    			<td class="f13" colspan="2">Date:</td>
-		    			<td class="f13 bor-btm" colspan="8">asdasdas</td>
+		    			<td class="f13 bor-btm" colspan="8"><?php echo date('F j, Y', strtotime($h['rfq_date'])); ?></td>
 		    			<td class="f13" colspan="1"></td>
 		    			<td class="f13" colspan="3">RFQ No.:</td>
-		    			<td class="f13 bor-btm" colspan="6">1231277</td>
+		    			<td class="f13 bor-btm" colspan="6"><?php echo $h['rfq_no']; ?></td>
 		    		</tr>
 		    		<tr><td class="f13" colspan="20" align="center"></td></tr>
 		    		<tr>
 		    			<td class="f13" colspan="2">Supplier:</td>
-		    			<td class="f13 bor-btm" colspan="8">asdasdas</td>
+		    			<td class="f13 bor-btm" colspan="8"><?php echo $h['supplier']; ?></td>
 		    			<td class="f13" colspan="1"></td>
 		    			<td class="f13" colspan="3">Tel. No.:</td>
-		    			<td class="f13 bor-btm" colspan="6">1231277</td>
+		    			<td class="f13 bor-btm" colspan="6"><?php echo $h['phone']; ?></td>
 		    		</tr>
 		    		<tr><td class="f13" colspan="20" align="center"></td></tr>	    		
-		    		<tr><td class="f13" colspan="20" align="center"><br></td></tr>	    		
+		    		<tr><td class="f13" colspan="20" align="center"><br></td></tr>	  
+		    	<?php } ?>  		
 		    		<tr>
 		    			<td colspan="20">
 		    				<table class="table-bordered" width="100%">
@@ -128,26 +133,61 @@
 		    						<td class="f13" align="center" width="20%"><b>Unit Price</b></td>
 		    						<td class="f13 reco" align="center" width="5%"><b>Reco</b></td>
 		    					</tr>
+		    					<?php
+		    					$x=1; 
+		    					foreach($detail AS $item){ ?>
 		    					<tr>
-		    						<td class="f13" align="center">23</td>
-		    						<td class="f13" align="center">Unit</td>
-		    						<td class="f13" align="center">Item Das  sadasda escription</td>
-		    						<td class="f13" align="center"><input type="" name="" class="sel-des"></td>
-		    						<td class="f13" align="center"><input type="" name="" class="sel-des"></td>
-		    						<td class="f13 reco" align="center"><input type="checkbox" name="" ></td>
+		    						<td class="f13" align="center">1</td>
+		    						<td class="f13" align="center"><?php echo $item['unit']; ?></td>
+		    						<td class="f13" align="center" style='width:50%'><?php echo $item['item']; ?></td>
+		    						<td class="f13" align="center">
+		    						<?php if($completed==0){ ?>
+		    							<input type="text" name="offer<?php echo $x; ?>" class="sel-des" autocomplete="off">
+		    						<?php } else {
+		    							echo $item['offer'];
+		    						} ?>
+		    						</td>
+		    						<td class="f13" align="center">
+		    						<?php if($completed==0){ ?>
+		    							<input type="text" name="price<?php echo $x; ?>" class="sel-des" autocomplete="off">
+		    							<?php } else {
+		    							echo $item['price'];
+		    						} ?>
+		    						</td>
+		    						<td class="f13 reco" align="center">
+		    						<?php if($completed==0){ ?>
+		    							<input type="checkbox" name="reco<?php echo $x; ?>" value='1' >
+		    						<?php } else {
+		    							if($item['reco']==1){
+		    								echo "<span class='fa fa-check'></span>";
+		    							}
+		    						} ?>
+		    					</td>
 		    					</tr>
+		    					<input type='hidden' name='detail_id<?php echo $x; ?>' value='<?php echo $item['detail_id']; ?>'>
+		    				<?php
+		    				$x++;
+		    				 } ?>
+		    				<input type='hidden' name='count' value='<?php echo $x; ?>'>
 		    				</table>
 		    			</td>
 		    		</tr>
 		    		<tr><td class="f13" colspan="20" align="center"><br></td></tr>	    		
-
-		    		<tr><td class="f13" colspan="20">1. Quotation must be submitted on or before <input type="date" name="" style="border: 0px solid #000"></td></tr>	    	
+		    		<?php foreach($head AS $h){ ?>
+		    		<tr><td class="f13" colspan="20">1. Quotation must be submitted on or before <?php echo date('F j, Y', strtotime($h['due_date'])); ?></td></tr>	    
+		    		<?php } ?>	
 		    		<tr><td class="f13" colspan="20">2. Please Fill - Up :</td></tr>	    	
 		    		<tr>
 		    			<td class="f13" colspan="2"></td>
 		    			<td class="f13" colspan="5">- a. Price Validity</td>
 		    			<td class="f13" colspan="3"></td>
-		    			<td class="f13 bor-btm" colspan="7"><input type="" name="" class="sel-des"></td>
+		    			<td class="f13 bor-btm" colspan="7">
+		    			<?php if($completed==0){ ?>
+		    				<input type="text" name="validity" class="sel-des" autocomplete="off">
+		    			<?php } else {
+		    				echo $h['validity'];
+		    			} ?>
+		    			</td>
 		    			<td class="f13" colspan="3"></td>
 
 		    		</tr>
@@ -155,7 +195,13 @@
 		    			<td class="f13" colspan="2"></td>
 		    			<td class="f13" colspan="5">- b. Payment Terms</td>
 		    			<td class="f13" colspan="3"></td>
-		    			<td class="f13 bor-btm" colspan="7"><input type="" name="" class="sel-des"></td>
+		    			<td class="f13 bor-btm" colspan="7">
+		    			<?php if($completed==0){ ?>
+		    				<input type="text" name="terms" class="sel-des" autocomplete="off">
+		    			<?php } else {
+		    				echo $h['terms'];
+		    			} ?>
+		    			</td>
 		    			<td class="f13" colspan="3"></td>
 
 		    		</tr>	
@@ -163,7 +209,12 @@
 		    			<td class="f13" colspan="2"></td>
 		    			<td class="f13" colspan="5">- c. Date of Delivery</td>
 		    			<td class="f13" colspan="3"></td>
-		    			<td class="f13 bor-btm" colspan="7"><input type="" name="" class="sel-des"></td>
+		    			<td class="f13 bor-btm" colspan="7">
+		    			<?php if($completed==0){ ?>
+		    				<input type="date" name="delivery_date" class="sel-des" autocomplete="off">
+		    			<?php } else {
+		    				echo date('F j, Y', strtotime($h['delivery_date']));
+		    			} ?></td>
 		    			<td class="f13" colspan="3"></td>
 
 		    		</tr>	
@@ -171,7 +222,13 @@
 		    			<td class="f13" colspan="2"></td>
 		    			<td class="f13" colspan="5">&nbsp; d. Item's Warranty</td>
 		    			<td class="f13" colspan="3"></td>
-		    			<td class="f13 bor-btm" colspan="7"><input type="" name="" class="sel-des"></td>
+		    			<td class="f13 bor-btm" colspan="7">
+		    			<?php if($completed==0){ ?>
+		    				<input type="text" name="warranty" class="sel-des" autocomplete="off">
+		    			<?php } else {
+		    				echo $h['warranty'];
+		    			} ?>
+		    			</td>
 		    			<td class="f13" colspan="3"></td>
 
 		    		</tr>	
@@ -179,21 +236,26 @@
 		    			<td class="f13" colspan="2"></td>
 		    			<td class="f13" colspan="5">&nbsp; e. Company's TIN Number</td>
 		    			<td class="f13" colspan="3"></td>
-		    			<td class="f13 bor-btm" colspan="7"><input type="" name="" class="sel-des"></td>
+		    			<td class="f13 bor-btm" colspan="7">
+		    			<?php if($completed==0){ ?>
+		    				<input type="text" name="tin" class="sel-des">
+		    			<?php } else {
+		    				echo $h['tin'];
+		    			} ?>
+		    			</td>
 		    			<td class="f13" colspan="3"></td>
-
 		    		</tr>	
 		    		<tr>
 		    			<td class="f13" colspan="2"></td>
-		    			<td class="f13" colspan="5">&nbsp; d. Item's Warranty</td>
-		    			<td class="f13" colspan="3"></td>
-		    			<td class="f13 bor-btm" colspan="7"><input type="" name="" class="sel-des"></td>
-		    			<td class="f13" colspan="3"></td>
-
-		    		</tr>	
-		    		<tr>
-		    			<td class="f13" colspan="2"></td>
-		    			<td class="f13" colspan="18">&nbsp; f. Vat <input type="checkbox" name=""> ||  non-Vat <input type="checkbox" name=""></td>
+		    			<td class="f13" colspan="18">&nbsp; f. Vat 
+		    			<?php if($completed==0){ ?>
+		    				<input type="checkbox" name="vat" value='1' > 
+		    			<?php } else { 
+		    				if($h['vat']==1){
+								echo "<span class='fa fa-check'></span>";
+							}
+		    			} ?>
+		    				</td>
 		    		</tr>
 		    		<tr><td class="f13" colspan="20" align="center"><br></td></tr>	
 		    		<tr>
@@ -214,18 +276,19 @@
 		    			<td class="f13 bor-btm" colspan="4"><br></td>
 		    			<td class="f13" colspan="2"></td>
 		    		</tr>  	
+		    		<?php foreach($head AS $h){ ?>
 		    		<tr>
 		    			<td class="f13" colspan="2"></td>
 		    			<td class="f13" colspan="4">
-		    				<input type="" name="" class="sel-des">
+		    				<center><?php echo $h['prepared']; ?></center>
 		    			</td>
 		    			<td class="f13" colspan="2"></td>
 		    			<td class="f13" colspan="4">
-		    				<input type="" name="" class="sel-des">
+		    				<center><?php echo $h['noted']; ?></center>
 		    			</td>
 		    			<td class="f13" colspan="2"></td>
 		    			<td class="f13" colspan="4">
-		    				<input type="" name="" class="sel-des">
+		    				<center><?php echo $h['approved']; ?></center>
 		    			</td>
 		    			<td class="f13" colspan="2"></td>
 		    		</tr>  	
@@ -240,6 +303,7 @@
 		    			<td class="f13" colspan="4">
 		    			</td>
 		    		</tr>  
+		    		<?php  } ?>
 		    		<tr>
 		    			<td class="f13" colspan="2"></td>
 		    			<td class="f13" colspan="2"></td>
@@ -251,6 +315,7 @@
 		    		<tr><td class="f13" colspan="20" align="center"><br></td></tr>		
 		    	</table>		    
 	    	</div>
+	    	<input type='hidden' name='rfq_id' value="<?php echo $rfq_id; ?>">
     	</form>
     </div>
     <script type="text/javascript">

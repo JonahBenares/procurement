@@ -62,9 +62,10 @@
         <!-- responsive CSS
     		============================================ -->
         <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/responsive.css">
+        <script src="<?php echo base_url(); ?>assets/js/vendor/jquery-1.11.3.min.js"></script>
         <!-- modernizr JS
     		============================================ -->
-        <script src="<?php echo base_url(); ?>js/vendor/modernizr-2.8.3.min.js"></script>
+       <!--  <script src="<?php echo base_url(); ?>js/vendor/modernizr-2.8.3.min.js"></script> -->
     </head>
 
     <body class="materialdesign">

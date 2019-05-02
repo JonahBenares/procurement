@@ -116,7 +116,7 @@
                                     <?php foreach($vendors AS $va){ ?>                                         
                                         <tr>
                                             <td><input type="checkbox" name="item_id[]" value="<?php echo $va['item_id']; ?>" class="form-control"></td>
-                                            <td><?php echo $va['item'];?></td>
+                                            <td><?php echo $va['item']. ", " . $va['specs']; ?></td>
                                             <td>
                                                 <center>
                                                     <a href="<?php echo base_url(); ?>index.php/vendors/delete_item/<?php echo $vendor_id;?>/<?php echo $va['vendordet_id'];?>" class="btn btn-custon-three btn-danger btn-xs" onclick="confirmationDelete(this);return false;">
