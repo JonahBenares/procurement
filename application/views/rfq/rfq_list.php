@@ -108,15 +108,30 @@
                                             <th>RFQ #</th>
                                             <th>Supplier</th>
                                             <th>RFQ Date</th>
+                                            <th>Items</th>
                                             <th width="5%"><center><span class="fa fa-bars"></span></center></th>
                                         </tr>
                                     </thead>
                                     <tbody>
+                                    <?php 
+                                    if(!empty($list)){
+                                    foreach($list AS $li) { 
+                                        $item='';
+                                        foreach($items AS $it){ 
+                                            if($it['rfq_id']==$li['rfq_id']){
+                                                $item .= $it['item_name']. ", ";
+                                            }
+                                        }
+                                        $item = substr($item, 0, -2);
+                                                ?>
                                         <tr>
                                             <td><input type="checkbox" class="form-control" name=""></td>
-                                            <td>Amvescap plc</td>
-                                            <td>15%</td>
-                                            <td>15%</td>
+                                            <td><?php echo $li['rfq_no']; ?></td>
+                                            <td><?php echo $li['supplier']; ?></td>
+                                            <td><?php echo date('M d, Y',strtotime($li['rfq_date'])); ?></td>
+                                            <td>
+                                                <?php echo $item; ?>
+                                            </td>
                                             <td>
                                                 <center>
                                                     <a href="" onclick="incomingRfq('<?php echo base_url(); ?>')" class="btn btn-custon-three btn-warning btn-xs">
@@ -124,7 +139,9 @@
                                                     </a>
                                                 </center>
                                             </td>
-                                        </tr>                                        
+                                        </tr>       
+                                    <?php }
+                                    } ?>                                 
                                     </tbody>
                                 </table>
                             </div>

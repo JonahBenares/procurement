@@ -241,7 +241,7 @@
 		    		<tr>
 		    			<td class="f13" colspan="2"></td>
 		    			<td class="f13" colspan="4">
-		    			
+		    			<center><?php echo $_SESSION['fullname']; ?></center>
 		    			</td>
 		    			<td class="f13" colspan="2"></td>
 		    			<td class="f13" colspan="4">

@@ -122,9 +122,31 @@ class Rfq extends CI_Controller {
     
 
 	public function rfq_list(){
+		$data =array();
+		foreach($this->super_model->select_row_where("rfq_head", "saved", "1") AS $rfq){
+			$supplier = $this->super_model->select_column_where('vendor_head','vendor_name','vendor_id', $rfq->supplier_id);
+			$data['list'][] = array(
+				'rfq_id'=>$rfq->rfq_id,
+				'rfq_no'=>$rfq->rfq_no,
+				'rfq_date'=>$rfq->rfq_date,
+				'supplier'=>$supplier
+			);
+
+			foreach($this->super_model->select_row_where("rfq_detail", "rfq_id", $rfq->rfq_id) AS $it){
+				$item = $this->super_model->select_column_where('item','item_name','item_id', $it->item_id);
+				//$item_name .= $item. ", ";
+				$data['items'][] = array(
+					'rfq_id'=>$it->rfq_id,
+					'item_name'=>$item
+				);
+			}
+
+			//$item_name = substr($item_name, 0, -2);
+
+		}
         $this->load->view('template/header');
         $this->load->view('template/navbar');
-        $this->load->view('rfq/rfq_list');
+        $this->load->view('rfq/rfq_list',$data);
         $this->load->view('template/footer');
     }
 
