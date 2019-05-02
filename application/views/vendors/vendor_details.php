@@ -100,7 +100,7 @@
                             <div class="datatable-dashv1-list custom-datatable-overright">
                                 <h4>Item List 
                                     <div class="pull-right">
-                                        <a href="" onclick="addVendorItem('<?php echo base_url(); ?>','<?php echo $id;?>')" class="btn btn-custon-three btn-primary"><span class="fa fa-plus"></span> Add Item</a>
+                                        <a onclick="addVendorItem('<?php echo base_url(); ?>','<?php echo $id;?>')" class="btn btn-custon-three btn-primary"><span class="fa fa-plus"></span> Add Item</a>
                                         <input type='submit' onclick="return confirm('Are you sure you want to create RFQ?')" class="btn btn-custon-three btn-secondary" value="Create RFQ">
                                     </div>
                                 </h4>
@@ -109,6 +109,7 @@
                                         <tr>
                                             <th width="5%"><input type="checkbox" name="" class="form-control"></th>
                                             <th width="90%">Item Description</th>
+                                            <th width="90%">Brand</th>
                                             <th width="5%">Action</th>
                                         </tr>
                                     </thead>
@@ -117,6 +118,7 @@
                                         <tr>
                                             <td><input type="checkbox" name="item_id[]" value="<?php echo $va['item_id']; ?>" class="form-control"></td>
                                             <td><?php echo $va['item'];?></td>
+                                            <td><?php echo $va['brand'];?></td>
                                             <td>
                                                 <center>
                                                     <a href="<?php echo base_url(); ?>index.php/vendors/delete_item/<?php echo $vendor_id;?>/<?php echo $va['vendordet_id'];?>" class="btn btn-custon-three btn-danger btn-xs" onclick="confirmationDelete(this);return false;">

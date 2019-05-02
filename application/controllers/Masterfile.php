@@ -65,6 +65,15 @@ class Masterfile extends CI_Controller {
         }
     }
 
+    public function user_logout(){
+        $this->session->sess_destroy();
+        $this->load->view('template/header');
+        $this->load->view('masterfile/login');
+        $this->load->view('template/footer');
+        echo "<script>alert('You have successfully logged out.'); 
+        window.location ='".base_url()."index.php/masterfile/index'; </script>";
+    }
+
     public function employee_list(){
         $this->load->view('template/header');
         $this->load->view('template/navbar');
@@ -263,13 +272,46 @@ class Masterfile extends CI_Controller {
     public function enduse_list(){
         $this->load->view('template/header');
         $this->load->view('template/navbar');
-        $this->load->view('masterfile/enduse_list');
+        $data['enduse']=$this->super_model->select_all_order_by('enduse', 'enduse_name', 'ASC');
+        $this->load->view('masterfile/enduse_list',$data);
         $this->load->view('template/footer');
     }
+
+    public function insert_enduse(){
+        $enduse = trim($this->input->post('enduse')," ");
+        $data = array(
+            'enduse_name'=>$enduse
+        );
+        if($this->super_model->insert_into("enduse", $data)){
+            echo "<script>alert('Successfully Added!'); window.location ='".base_url()."index.php/masterfile/enduse_list'; </script>";
+        }
+    }
+
     public function update_enduse(){
         $this->load->view('template/header');
-        $this->load->view('masterfile/update_enduse');
+        $data['id']=$this->uri->segment(3);
+        $id=$this->uri->segment(3);
+        $data['enduse'] = $this->super_model->select_row_where('enduse', 'enduse_id', $id);
+        $this->load->view('masterfile/update_enduse',$data);
         $this->load->view('template/footer');
+    }
+
+    public function edit_enduse(){
+        $data = array(
+            'enduse_name'=>$this->input->post('enduse'),
+        );
+        $enduse_id = $this->input->post('enduse_id');
+            if($this->super_model->update_where('enduse', $data, 'enduse_id', $enduse_id)){
+            echo "<script>alert('Successfully Updated!'); window.opener.location.reload(); window.close();</script>";
+        }
+    }
+
+    public function delete_enduse(){
+        $id=$this->uri->segment(3);
+        if($this->super_model->delete_where('enduse', 'enduse_id', $id)){
+            echo "<script>alert('Succesfully Deleted'); 
+                window.location ='".base_url()."index.php/masterfile/enduse_list'; </script>";
+        }
     }
 
 }

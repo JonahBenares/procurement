@@ -21,7 +21,7 @@
                                                         <select name="item<?php echo $x; ?>" class="form-control" >
                                                             <option value = "">--Select Item--</option>
                                                             <?php foreach($item AS $i){ ?>
-                                                            <option value = "<?php echo $i->item_id?>"><?php echo $i->item_name; ?></option>
+                                                            <option value = "<?php echo $i->item_id?>"><?php echo $i->item_name.", ".$i->brand_name.", ".$i->item_specs; ?></option>
                                                             <?php } ?>
                                                         </select>
                                                     </div>

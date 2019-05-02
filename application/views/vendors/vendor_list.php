@@ -208,7 +208,7 @@
                                         <tr>
                                             <td></td>
                                             <td>
-                                                <a href="" class="btn-link txt-primary" onclick="vendorDetails('<?php echo base_url(); ?>','<?php echo $v['vendor_id']; ?>')"><?php echo $v['vendor'];?></a>
+                                                <a class="btn-link txt-primary" onclick="vendorDetails('<?php echo base_url(); ?>','<?php echo $v['vendor_id']; ?>')"><?php echo $v['vendor'];?></a>
                                             </td>
                                             <td><?php echo $v['product']?></td>
                                             <td><?php echo $v['address']?></td>
