@@ -13,70 +13,18 @@
                                 <form>
                                     <table width="100%">
                                         <tbody>
+                                        <?php for($x=1;$x<=10;$x++){ ?>
                                             <tr>
                                                 <td>
                                                     <div class="form-group">
-                                                        <p class="m-b-0">Item #1:</p>
-                                                        <select name="" class="form-control" >
-                                                            <option>1</option>
-                                                        </select>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <p class="m-b-0">Item #2:</p>
-                                                        <select name="" class="form-control" >
-                                                            <option>1</option>
-                                                        </select>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <p class="m-b-0">Item #3:</p>
-                                                        <select name="" class="form-control" >
-                                                            <option>1</option>
-                                                        </select>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <p class="m-b-0">Item #4:</p>
-                                                        <select name="" class="form-control" >
-                                                            <option>1</option>
-                                                        </select>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <p class="m-b-0">Item #5:</p>
-                                                        <select name="" class="form-control" >
-                                                            <option>1</option>
-                                                        </select>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <p class="m-b-0">Item #6:</p>
-                                                        <select name="" class="form-control" >
-                                                            <option>1</option>
-                                                        </select>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <p class="m-b-0">Item #7:</p>
-                                                        <select name="" class="form-control" >
-                                                            <option>1</option>
-                                                        </select>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <p class="m-b-0">Item #8:</p>
-                                                        <select name="" class="form-control" >
-                                                            <option>1</option>
-                                                        </select>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <p class="m-b-0">Item #9:</p>
-                                                        <select name="" class="form-control" >
-                                                            <option>1</option>
-                                                        </select>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <p class="m-b-0">Item #10:</p>
-                                                        <select name="" class="form-control" >
-                                                            <option>1</option>
+                                                        <p class="m-b-0">Item #<?php echo $x; ?>:</p>
+                                                        <select name="item<?php echo $x; ?>" class="form-control" >
+                                                            <option></option>
                                                         </select>
                                                     </div>
                                                 </td>     
-                                            </tr>    
+                                            </tr>
+                                        <?php } ?>    
                                             <tr>
                                                 <td><a href="" class="btn btn-custon-three btn-primary btn-block"><span class="fa fa-plus"></span> Add Item/s</a></td>
                                             </tr>                                
