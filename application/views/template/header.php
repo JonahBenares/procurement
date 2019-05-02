@@ -1,4 +1,13 @@
 <!DOCTYPE html>
+<?php
+    if (isset($this->session->userdata['logged_in'])) {
+        $username = ($this->session->userdata['logged_in']['username']);
+        $password = ($this->session->userdata['logged_in']['password']);
+    } else {
+        echo "<script>alert('You are not logged in. Please login to continue.'); 
+            window.location ='".base_url()."index.php/masterfile/index'; </script>";
+    }
+?>
 <html class="no-js" lang="en">
 
     <head>

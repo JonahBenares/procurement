@@ -28,7 +28,7 @@ class Masterfile extends CI_Controller {
 	}
 
 	public function index(){
-        $this->load->view('masterfile/index');
+        $this->load->view('masterfile/login');
     }
 
     public function dashboard(){
@@ -36,6 +36,33 @@ class Masterfile extends CI_Controller {
         $this->load->view('template/navbar');
         $this->load->view('masterfile/dashboard');
         $this->load->view('template/footer');
+    }
+
+    public function login(){
+        $username=$this->input->post('username');
+        $password=$this->input->post('password');
+        $count=$this->super_model->login_user($username,$password);
+        if($count>0){   
+            $password1 =md5($this->input->post('password'));
+            $fetch=$this->super_model->select_custom_where("users", "username = '$username' AND (password = '$password' OR password = '$password1')");
+            foreach($fetch AS $d){
+                $userid = $d->user_id;
+                $username = $d->username;
+                $fullname = $d->fullname;
+            }
+            $newdata = array(
+               'user_id'=> $userid,
+               'username'=> $username,
+               'fullname'=> $fullname,
+               'logged_in'=> TRUE
+            );
+            $this->session->set_userdata($newdata);
+            redirect(base_url().'index.php/masterfile/dashboard/');
+        }
+        else{
+            $this->session->set_flashdata('error_msg', 'Username And Password Do not Exist!');
+            $this->load->view('masterfile/login');      
+        }
     }
 
     public function employee_list(){

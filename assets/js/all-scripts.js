@@ -13,8 +13,8 @@ function viewVendor(baseurl,id) {
 function updateVendor(baseurl,id) {
     window.open(baseurl+"index.php/vendors/update_vendor/"+id, "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=50,left=450,width=500,height=500");
 }
-function addVendorItem(baseurl) {
-    window.open(baseurl+"index.php/vendors/add_vendoritem", "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=50,left=450,width=500,height=500");
+function addVendorItem(baseurl,id) {
+    window.open(baseurl+"index.php/vendors/add_vendoritem/"+id, "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=50,left=450,width=500,height=500");
 }
 function updateDepartment(baseurl,id) {
     window.open(baseurl+"index.php/masterfile/update_department/"+id, "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=50,left=450,width=500,height=500");
