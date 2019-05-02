@@ -46,6 +46,9 @@
 			#prnt_btn{
 				display: none;
 			}
+			#add_btn{
+				display: none;
+			}
 			.f10{
 				font-size:10px!important;
 			}
@@ -85,11 +88,11 @@
 						<a  onclick="printPage()" class="btn btn-warning btn-md p-l-100 p-r-100"><span class="fa fa-print"></span> Print</a>
 						<a href="" class="btn btn-primary btn-md p-l-100 p-r-100"><span class="fa fa-floppy-o"></span> Save</a>    				
 					</div>
-					<p class="text-white p-l-250 p-r-250">Instructions: When printing ABSTRACT OF QUOTATION make sure the following options are set correctly -- <u>Browser</u>: Chrome, <u>Layout</u>: Landscape, <u>Paper Size</u>: A4 <u>Margin</u> : Custom (top: 0.11" , right:0.40", bottom: 0.11", left: 0.11") <u>Scale</u>: 81 and the option: Background graphics is checked</p>
+					<p class="text-white p-l-250 p-r-250">Instructions: When printing ABSTRACT OF QUOTATION make sure the following options are set correctly -- <u>Browser</u>: Chrome, <u>Layout</u>: Landscape, <u>Paper Size</u>: A4 <u>Margin</u> : Custom (top: 0.11" , right:0.40", bottom: 0.11", left: 0.11") <u>Scale</u>: 100 and the option: Background graphics is checked</p>
 				</center>
 			</div>
 	    	<div style="background: #fff;">    		  			
-		    	<table class="table-bordersed" width="100%" style="background: #fff;border: 1px solid #000">
+		    	<table class="table-bordedred" width="100%" style="background: #fff;border: 1px solid #000">
 		    		<tr>
 		    			<td width="3%"><br></td>
 		    			<td width="3%"><br></td>
@@ -151,7 +154,7 @@
 		    		<!-- <tr><td class="f10"  align="center"><br></td></tr> -->
 		    		<tr><td class="f10" colspan="33" align="center"><br></td></tr>
 		    		<tr>
-		    			<td colspan="8" class="f10"  align="center"></td>
+		    			<td colspan="8" class="f10"  align="center"><button id="add_btn" class="btn btn-primary">Add Item</button></td>
 
 
 		    			<!-- loop ka here -->
@@ -184,7 +187,7 @@
 		    			</td>
 		    		</tr>
 		    		<tr>
-		    			<td class="f9 table-borbold" align="center"><b>#</td>
+		    			<td class="f9 table-borbold "align="center"><b class="p-r-10 p-l-10">#</td>
 		    			<td colspan="5" class="f9 table-borbold" align="center"><b>DESCRIPTION</td>
 		    			<td class="f9 table-borbold" align="center"><b>QTY</td>
 		    			<td class="f9 table-borbold" align="center"><b>UOM</td>
@@ -239,7 +242,17 @@
 		    			<td class="f10 table-borreg green-back" align="center">2380.00</td>
 		    			<td class="f10 table-borreg text-red" align="center">complying</td>
 
-		    			<td colspan="2" class="f10 table-borreg" align="left"></td>
+		    			<td colspan="2" class="f10 table-borreg" align="left"> Adhesives, Threadlockers/Threadsealants, Wear Prevention,<b class="text-red"> Belt Repair, Metal Rebuilding,</b> Floor Repair/Grouting</td>
+		    			<td class="f10 table-borreg yellow-back" align="center">170.00</td>
+		    			<td class="f10 table-borreg green-back" align="center">2380.00</td>
+		    			<td class="f10 table-borreg text-red" align="center">complying</td>
+
+		    			<td colspan="2" class="f10 table-borreg" align="left"> Adhesives, Threadlockers/Threadsealants, Wear Prevention,<b class="text-red"> Belt Repair, Metal Rebuilding,</b> Floor Repair/Grouting</td>
+		    			<td class="f10 table-borreg yellow-back" align="center">170.00</td>
+		    			<td class="f10 table-borreg green-back" align="center">2380.00</td>
+		    			<td class="f10 table-borreg text-red" align="center">complying</td>
+
+		    			<!-- <td colspan="2" class="f10 table-borreg" align="left"></td>
 		    			<td class="f10 table-borreg" align="center"></td>
 		    			<td class="f10 table-borreg" align="center"></td>
 		    			<td class="f10 table-borreg text-red" align="center"></td>
@@ -247,7 +260,7 @@
 		    			<td colspan="2" class="f10 table-borreg" align="left"></td>
 		    			<td class="f10 table-borreg" align="center"></td>
 		    			<td class="f10 table-borreg" align="center"></td>
-		    			<td class="f10 table-borreg text-red" align="center"></td>
+		    			<td class="f10 table-borreg text-red" align="center"></td> -->
 		    		</tr>
 		    		<tr>
 		    			<td class="f10 table-borreg" align="center">99</td>
@@ -384,6 +397,49 @@
 		    			<td colspan="3" class="f10" align="left"><br></td>
 		    			<td colspan="2" class="f10 bor-btm" align="left"><br></td>
 		    			<td colspan="3" class="f10" align="left"><br></td>
+		    		</tr>
+		    		<tr><td class="f10" colspan="33" align="center"><br></td></tr>
+		    		<tr>
+		    			<td colspan="2"  class="" align="center"></td>
+		    			<td colspan="5" class="f10" align="center">Prepared by:</td>
+		    			<td colspan="2" class="f10" align="left"><br></td>
+		    			<td colspan="3" class="f10" align="center">Award Recommended by:</td>
+		    			<td colspan="2" class="f10" align="left"><br></td>
+		    			<td colspan="3" class="f10" align="center">Noted by:</td>
+		    			<td colspan="2" class="f10" align="left"><br></td>
+		    			<td colspan="3" class="f10" align="center">Approved by:</td>
+		    			<td colspan="2" class="f10" align="left"><br></td>
+		    		</tr>
+		    		<tr><td class="f10" colspan="33" align="center"><br></td></tr>
+		    		<tr>
+		    			<td colspan="2"  class="" align="center"></td>
+		    			<td colspan="5" class="f10 bor-btm" align="center">Someone</td>
+		    			<td colspan="2" class="f10" align="left"><br></td>
+		    			<td colspan="3" class="f10 bor-btm" align="center">Someone</td>
+		    			<td colspan="2" class="f10" align="left"><br></td>
+		    			<td colspan="3" class="f10 bor-btm" align="center">Someone</td>
+		    			<td colspan="2" class="f10" align="left"><br></td>
+		    			<td colspan="3" class="f10 bor-btm" align="center">Someone</td>
+		    			<td colspan="2" class="f10" align="left"><br></td>
+		    		</tr>
+		    		<tr><td class="f10" colspan="33" align="center"><br></td></tr>
+		    		<tr>
+		    			<td colspan="2"  class="" align="center"></td>
+		    			<td colspan="2"  class="" align="center"></td>
+		    			<td colspan="3"  class="" align="center">LEGEND:</td>
+		    			<td colspan="1"  class="" align="center"></td>
+		    			<td colspan="1"  class="green-back" align="center"></td>
+		    			<td colspan="1"  class="" align="center"></td>
+		    			<td colspan="4"  class="" align="left">Recommended Award</td>
+		    		</tr>
+		    		<tr>
+		    			<td colspan="2"  class="" align="center"></td>
+		    			<td colspan="2"  class="" align="center"></td>
+		    			<td colspan="3"  class="" align="center"></td>
+		    			<td colspan="1"  class="" align="center"></td>
+		    			<td colspan="1"  class="yellow-back" align="center"></td>
+		    			<td colspan="1"  class="" align="center"></td>
+		    			<td colspan="4"  class="" align="left">Lowest Price</td>
 		    		</tr>
 		    		<tr><td class="f10" colspan="33" align="center"><br></td></tr>
 
