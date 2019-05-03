@@ -79,11 +79,25 @@
                                                         </div>                                                        
                                                         <div class="form-group">
                                                             <p class="m-b-0">Department:</p>
-                                                            <input type="text" name="" class="form-control">
+                                                            <select name='department' class="form-control">
+                                                                <option value='' selected>-Select Department-</option>
+                                                                <?php foreach($department AS $dept){ ?>
+                                                                    <option value="<?php echo $dept->department_id; ?>">
+                                                                    <?php echo $dept->department_name; ?>
+                                                                    </option>
+                                                                <?php }  ?> 
+                                                            </select>
                                                         </div>
                                                         <div class="form-group">
                                                             <p class="m-b-0">Enduse:</p>
-                                                            <input type="text" name="" class="form-control">
+                                                            <select name='enduse' class="form-control">
+                                                                <option value='' selected>-Select End Use-</option>
+                                                                <?php foreach($enduse AS $end){ ?>
+                                                                    <option value="<?php echo $end->enduse_id; ?>">
+                                                                    <?php echo $end->enduse_name; ?>
+                                                                    </option>
+                                                                <?php }  ?> 
+                                                            </select>
                                                         </div>
                                                         <div class="form-group">
                                                             <p class="m-b-0">Purpose:</p>
