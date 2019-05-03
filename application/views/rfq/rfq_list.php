@@ -101,7 +101,14 @@
                                                         </div>
                                                         <div class="form-group">
                                                             <p class="m-b-0">Purpose:</p>
-                                                            <input type="text" name="" class="form-control">
+                                                            <select name='purpose' class="form-control">
+                                                                <option value='' selected>-Select Purpose-</option>
+                                                                <?php foreach($purpose AS $purp){ ?>
+                                                                    <option value="<?php echo $purp->purpose_id; ?>">
+                                                                    <?php echo $purp->purpose_name; ?>
+                                                                    </option>
+                                                                <?php }  ?> 
+                                                            </select>
                                                         </div>
                                                         <div class="form-group">
                                                             <p class="m-b-0">Date needed:</p>
