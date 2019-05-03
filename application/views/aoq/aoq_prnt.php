@@ -1,3 +1,5 @@
+   	<?php 
+   	$CI =& get_instance(); ?>
    	<style type="text/css">
         html, body{
             background: #2d2c2c!important;
@@ -86,7 +88,7 @@
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/mixins.css">
     <div  class="pad">
-    	<form>  
+    
     		<div id="prnt_btn">
 	    		<center>
 			    	<div class="btn-group">
@@ -135,33 +137,35 @@
 		    			<td width="3%"><br></td>
 		    		</tr>		    	
 		    		<tr><td colspan="33" class="f10"  align="center"><h5><b>ABSTRACT OF QUOTATION</b></h5></td></tr>
+		    		<?php foreach($head AS $h) { ?>
 		    		<tr>
 		    			<td colspan="4" class="f12" align="right">Department: &nbsp;</td>
-		    			<td colspan="13" class="f12" >Test Tsest tsets test </td>		    			
+		    			<td colspan="13" class="f12" ><?php echo $h['department']; ?></td>		    			
 		    			<td colspan="3" class="f12" align="right">Date: &nbsp;</td>
-		    			<td colspan="13" class="f12" >Purposeasds</td>
+		    			<td colspan="13" class="f12" ><?php echo date('F j, Y', strtotime($h['aoq_date'])); ?></td>
 		    		</tr>	
 		    		<tr>
 		    			<td colspan="4" class="f12" align="right">Purpose: &nbsp;</td>
-		    			<td colspan="13" class="f12" >Test Tsest tsets test </td>		    			
+		    			<td colspan="13" class="f12" ><?php echo $h['purpose']; ?></td>		    			
 		    			<td colspan="3"class="f12" align="right">PR #: &nbsp;</td>
-		    			<td colspan="13" class="f12" >Purposesasad </td>
+		    			<td colspan="13" class="f12" ><?php echo $h['pr']; ?></td>
 		    		</tr>
 		    		<tr>
 		    			<td colspan="4" class="f12" align="right">Enduse: &nbsp;</td>
-		    			<td colspan="13" class="f12" >Test Tsest tsets test </td>		    			
+		    			<td colspan="13" class="f12" ><?php echo $h['enduse']; ?></td>		    			
 		    			<td colspan="3"class="f12" align="right">Date Needed: &nbsp;</td>
-		    			<td colspan="13" class="f12" >Purasdpose</td>
+		    			<td colspan="13" class="f12" ><?php echo date('F j, Y', strtotime($h['date_needed'])); ?></td>
 		    		</tr>	
 		    		<tr>
 		    			<td colspan="4" class="f12"  align="right">Requested by: &nbsp;</td>
-		    			<td colspan="29" class="f12" >Test Tsest tsets test </td>
+		    			<td colspan="29" class="f12" ><?php echo $h['requested']; ?></td>
 		    		</tr>
+		    		<?php } ?>
 		    		<!-- <tr><td class="f10"  align="center"><br></td></tr> -->
 		    		<tr><td class="f10" colspan="33" align="center"><br></td></tr>
 		    		<tr>
 		    			<td colspan="8" class="f10"  align="center">
-		    				<button id="add_btn" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+		    				<button id="add_btn" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-id="<?php echo $aoq_id; ?>">
 							  <span class="fa fa-plus"></span> Add Item
 							</button>
 
@@ -176,20 +180,26 @@
 								        	</button>
 								        </h5>							       
 							      	</div>
-							      	<form>
+							      	<form method='POST' action="<?php echo base_url(); ?>aoq/add_item">
 							      	<div class="modal-body">
 							        <div class="form-group">
                                         <h5 class="m-b-0" style="text-align: left">Item Description:</h5>
-                                        <input name="spec" class="form-control">
+                                        <select name='item' class="form-control">
+                                        <option value='' selected>-Select Item-</option>
+                                        <?php foreach($items AS $it){ ?>
+                                        	<option value="<?php echo $it->item_id; ?>"><?php echo $it->item_name . ", " . $it->item_specs; ?></option>
+                                        <?php } ?>
+                                        </select>
                                     </div>
                                     <div class="form-group">
                                         <h5 class="m-b-0" style="text-align: left">Qty:</h5>
-                                        <input name="spec" class="form-control">
+                                        <input type='text' name="qty" class="form-control">
                                     </div>
 							      	</div>
 							      	<div class="modal-footer">
-								        <button type="button" class="btn btn-primary btn-block">Add</button>
+								        <input type="submit" class="btn btn-primary btn-block" value="Add">
 							      	</div>
+							      	<input type='hidden' name='aoq_id' value="<?php echo $aoq_id; ?>">
 							      	</form>
 							    </div>
 							  </div>
@@ -199,33 +209,14 @@
 
 
 		    			<!-- loop ka here -->
+		    			<?php foreach($supplier AS $sup){ ?>
 		    			<td colspan="5" class="f10 table-borbold"  align="center">
-		    				<b>Visayan Construction Supply</b><br>
-		    				Mrs. Chua<br>
-		    				434-7277
+		    				<b><?php echo $sup['supplier_name']; ?></b><br>
+		    				<?php echo $sup['contact']; ?><br>
+		    				<?php echo $sup['phone']; ?>
 		    			</td>
-		    			<!-- and delete the other two below salamats -->
-
-		    			<td colspan="5" class="f10 table-borbold"  align="center">
-		    				Visayan Construction Supply<br>
-		    				Mrs. Chua<br>
-		    				434-7277
-		    			</td>
-		    			<td colspan="5" class="f10 table-borbold"  align="center">
-		    				Visayan Construction Supply<br>
-		    				Mrs. Chua<br>
-		    				434-7277
-		    			</td>
-		    			<td colspan="5" class="f10 table-borbold"  align="center">
-		    				Visayan Construction Supply<br>
-		    				Mrs. Chua<br>
-		    				434-7277
-		    			</td>
-		    			<td colspan="5" class="f10 table-borbold"  align="center">
-		    				Visayan Construction Supply<br>
-		    				Mrs. Chua<br>
-		    				434-7277
-		    			</td>
+		    			<?php } ?>
+		    		
 		    		</tr>
 		    		<tr>
 		    			<td class="f9 table-borbold "align="center"><b class="p-r-10 p-l-10">#</td>
@@ -248,7 +239,7 @@
 		    			<td class="f9 table-borbold" align="center"><b>AMOUNT</b></td>
 		    			<td class="f9 table-borbold" align="center"><b>COMMENTS</b></td>
 
-		    			<td colspan="2" class="f9 table-borbold" align="center"><b>OFFER</b></td>
+		    			<!-- <td colspan="2" class="f9 table-borbold" align="center"><b>OFFER</b></td>
 		    			<td class="f9 table-borbold" align="center"><b>U/P</b></td>
 		    			<td class="f9 table-borbold" align="center"><b>AMOUNT</b></td>
 		    			<td class="f9 table-borbold" align="center"><b>COMMENTS</b></td>
@@ -256,86 +247,45 @@
 		    			<td colspan="2" class="f9 table-borbold" align="center"><b>OFFER</b></td>
 		    			<td class="f9 table-borbold" align="center"><b>U/P</b></td>
 		    			<td class="f9 table-borbold" align="center"><b>AMOUNT</b></td>
-		    			<td class="f9 table-borbold" align="center"><b>COMMENTS</b></td>
+		    			<td class="f9 table-borbold" align="center"><b>COMMENTS</b></td> -->
 
 		    			
 		    		</tr>
+		    		<?php foreach($aoq_item AS $it){ ?>
 		    		<tr>
 		    			<td class="f10 table-borreg" align="center">99</td>
-		    			<td colspan="5" class="f10 table-borreg" align="left"> Adhesives, Threadlockers/Threadsealants, Wear Prevention, Belt Repair, Metal Rebuilding, Floor Repair/Grouting</td>
-		    			<td class="f10 table-borreg" align="center">14</td>
+		    			<td colspan="5" class="f10 table-borreg" align="left"> <?php echo $it['item']; ?></td>
+		    			<td class="f10 table-borreg" align="center"><?php echo $it['qty']; ?></td>
 		    			<td class="f10 table-borreg" align="center">length</td>
 
 		    			<!-- loop ka here -->
-		    			<td colspan="2" class="f10 table-borreg" align="left"> Adhesives, Threadlockers/Threadsealants, Wear Prevention,<b class="text-red"> Belt Repair, Metal Rebuilding,</b> Floor Repair/Grouting</td>
-		    			<td class="f10 table-borreg yellow-back p-l-5 p-r-5" align="center">170.00</td>
-		    			<td class="f10 table-borreg green-back p-l-5 p-r-5" align="center">2380.00</td>
-		    			<td class="f10 table-borreg text-red" align="center">complying</td>
+		    			<?php foreach($supplier AS $sup){ 
+
+		    				$reco = $CI->get_rfq_item("recommended", $sup['supplier_id'], $it['item_id']); 
+		    				$up = $CI->get_rfq_item("unit_price", $sup['supplier_id'], $it['item_id']);
+		    				$total = $it['qty']*$up;
+		    				?>
+		    			<td colspan="2" class="f10 table-borreg" align="left">
+		    			<?php
+		    			if($reco==1){ ?>
+		    				<b class="text-red">
+		    				<?php echo $CI->get_rfq_item("offer", $sup['supplier_id'], $it['item_id']); ?>
+		    				</b>
+		    			<?php } else {
+		    				 echo $CI->get_rfq_item("offer", $sup['supplier_id'], $it['item_id']); 
+		    			 } ?>
+		    			, <?php echo $CI->get_rfq_item("item", $sup['supplier_id'], $it['item_id']); ?></td>
+		    			<td class="f10 table-borreg yellow-back p-l-5 p-r-5" align="center">
+		    			<?php echo number_format($up,2); ?></td>
+		    			<td class="f10 table-borreg green-back p-l-5 p-r-5" align="center"><?php echo number_format($total,2); ?></td>
+		    			<td class="f10 table-borreg text-red" align="center"></td>
 		    			<!-- and delete the other two below salamats -->
+		    			<?php } ?>
 
-		    			<td colspan="2" class="f10 table-borreg" align="left"> Adhesives, Threadlockers/Threadsealants, Wear Prevention,<b class="text-red"> Belt Repair, Metal Rebuilding,</b> Floor Repair/Grouting</td>
-		    			<td class="f10 table-borreg yellow-back p-l-5 p-r-5" align="center">170.00</td>
-		    			<td class="f10 table-borreg green-back p-l-5 p-r-5" align="center">2380.00</td>
-		    			<td class="f10 table-borreg text-red" align="center">complying</td>
-
-		    			<td colspan="2" class="f10 table-borreg" align="left"> Adhesives, Threadlockers/Threadsealants, Wear Prevention,<b class="text-red"> Belt Repair, Metal Rebuilding,</b> Floor Repair/Grouting</td>
-		    			<td class="f10 table-borreg yellow-back p-l-5 p-r-5" align="center">170.00</td>
-		    			<td class="f10 table-borreg green-back p-l-5 p-r-5" align="center">2380.00</td>
-		    			<td class="f10 table-borreg text-red" align="center">complying</td>
-
-		    			<!-- <td colspan="2" class="f10 table-borreg" align="left"> Adhesives, Threadlockers/Threadsealants, Wear Prevention,<b class="text-red"> Belt Repair, Metal Rebuilding,</b> Floor Repair/Grouting</td>
-		    			<td class="f10 table-borreg yellow-back p-l-5 p-r-5" align="center">170.00</td>
-		    			<td class="f10 table-borreg green-back p-l-5 p-r-5" align="center">2380.00</td>
-		    			<td class="f10 table-borreg text-red" align="center">complying</td>
-
-		    			<td colspan="2" class="f10 table-borreg" align="left"> Adhesives, Threadlockers/Threadsealants, Wear Prevention,<b class="text-red"> Belt Repair, Metal Rebuilding,</b> Floor Repair/Grouting</td>
-		    			<td class="f10 table-borreg yellow-back p-l-5 p-r-5" align="center">170.00</td>
-		    			<td class="f10 table-borreg green-back p-l-5 p-r-5" align="center">2380.00</td>
-		    			<td class="f10 table-borreg text-red" align="center">complying</td> -->
-
-		    			<td colspan="2" class="f10 table-borreg" align="left"></td>
-		    			<td class="f10 table-borreg" align="center"></td>
-		    			<td class="f10 table-borreg" align="center"></td>
-		    			<td class="f10 table-borreg text-red" align="center"></td>
-
-		    			<td colspan="2" class="f10 table-borreg" align="left"></td>
-		    			<td class="f10 table-borreg" align="center"></td>
-		    			<td class="f10 table-borreg" align="center"></td>
-		    			<td class="f10 table-borreg text-red" align="center"></td>
+		    	
 		    		</tr>
-		    		<tr>
-		    			<td class="f10 table-borreg" align="center">99</td>
-		    			<td colspan="5" class="f10 table-borreg" align="left"> Adhesives, Threadlockers/Threadsealants, Wear Prevention, Belt Repair, Metal Rebuilding, Floor Repair/Grouting</td>
-		    			<td class="f10 table-borreg" align="center">14</td>
-		    			<td class="f10 table-borreg" align="center">length</td>
-
-		    			<!-- loop ka here -->
-		    			<td colspan="2" class="f10 table-borreg" align="left"> Adhesives, Threadlockers/Threadsealants, Wear Prevention,<b class="text-red"> Belt Repair, Metal Rebuilding,</b> Floor Repair/Grouting</td>
-		    			<td class="f10 table-borreg yellow-back p-l-5 p-r-5" align="center">170.00</td>
-		    			<td class="f10 table-borreg green-back p-l-5 p-r-5" align="center">2380.00</td>
-		    			<td class="f10 table-borreg text-red" align="center">complying</td>
-		    			<!-- and delete the other two below salamats -->
-
-		    			<td colspan="2" class="f10 table-borreg" align="left"> Adhesives, Threadlockers/Threadsealants, Wear Prevention,<b class="text-red"> Belt Repair, Metal Rebuilding,</b> Floor Repair/Grouting</td>
-		    			<td class="f10 table-borreg yellow-back p-l-5 p-r-5" align="center">170.00</td>
-		    			<td class="f10 table-borreg green-back p-l-5 p-r-5" align="center">2380.00</td>
-		    			<td class="f10 table-borreg text-red" align="center">complying</td>
-
-		    			<td colspan="2" class="f10 table-borreg" align="left"> Adhesives, Threadlockers/Threadsealants, Wear Prevention,<b class="text-red"> Belt Repair, Metal Rebuilding,</b> Floor Repair/Grouting</td>
-		    			<td class="f10 table-borreg yellow-back p-l-5 p-r-5" align="center">170.00</td>
-		    			<td class="f10 table-borreg green-back p-l-5 p-r-5" align="center">2380.00</td>
-		    			<td class="f10 table-borreg text-red" align="center">complying</td>
-
-		    			<td colspan="2" class="f10 table-borreg" align="left"></td>
-		    			<td class="f10 table-borreg" align="center"></td>
-		    			<td class="f10 table-borreg" align="center"></td>
-		    			<td class="f10 table-borreg text-red" align="center"></td>
-
-		    			<td colspan="2" class="f10 table-borreg" align="left"></td>
-		    			<td class="f10 table-borreg" align="center"></td>
-		    			<td class="f10 table-borreg" align="center"></td>
-		    			<td class="f10 table-borreg text-red" align="center"></td>
-		    		</tr>
+		    		<?php } ?>
+		    	
 		    		<tr>
 		    			<td class="f10 table-borreg" align="center"></td>
 		    			<td colspan="5" class="f10 table-borreg" align="left"></td>
@@ -359,7 +309,7 @@
 		    			<td class="f10 table-borreg" align="center"></td>
 		    			<td class="f10 table-borreg" align="center"></td>
 
-		    			<td colspan="2" class="f10 table-borreg" align="left"></td>
+		    		<!-- 	<td colspan="2" class="f10 table-borreg" align="left"></td>
 		    			<td class="f10 table-borreg" align="center"></td>
 		    			<td class="f10 table-borreg" align="center"></td>
 		    			<td class="f10 table-borreg" align="center"></td>
@@ -367,7 +317,7 @@
 		    			<td colspan="2" class="f10 table-borreg" align="left"></td>
 		    			<td class="f10 table-borreg" align="center"></td>
 		    			<td class="f10 table-borreg" align="center"></td>
-		    			<td class="f10 table-borreg" align="center"></td>
+		    			<td class="f10 table-borreg" align="center"></td> -->
 		    		</tr>
 		    		<tr>
 		    			<td class="f10 table-borreg" align="center"></td>
@@ -379,8 +329,8 @@
 
 		    			<td colspan="5" class="f10 table-borreg" align="left"><br></td>
 		    			<td colspan="5" class="f10 table-borreg" align="left"><br></td>
-		    			<td colspan="5" class="f10 table-borreg" align="left"><br></td>
-		    			<td colspan="5" class="f10 table-borreg" align="left"><br></td>
+		    			<!-- <td colspan="5" class="f10 table-borreg" align="left"><br></td>
+		    			<td colspan="5" class="f10 table-borreg" align="left"><br></td> -->
 		    		</tr>
 		    		<tr><td class="f10" colspan="33" align="center"><br></td></tr>
 		    		<tr>
@@ -392,10 +342,10 @@
 		    			<td colspan="3" class="f10" align="left"><br></td>
 		    			<td colspan="2" class="f10 bor-btm" align="left"><br></td>
 		    			<td colspan="3" class="f10" align="left"><br></td>
-		    			<td colspan="2" class="f10 bor-btm" align="left"><br></td>
+		    			<!-- <td colspan="2" class="f10 bor-btm" align="left"><br></td>
 		    			<td colspan="3" class="f10" align="left"><br></td>
 		    			<td colspan="2" class="f10 bor-btm" align="left"><br></td>
-		    			<td colspan="3" class="f10" align="left"><br></td>
+		    			<td colspan="3" class="f10" align="left"><br></td> -->
 		    		</tr>
 		    		<tr>
 		    			<td class="" align="center">b.</td>
@@ -406,10 +356,10 @@
 		    			<td colspan="3" class="f10" align="left"><br></td>
 		    			<td colspan="2" class="f10 bor-btm" align="left"><br></td>
 		    			<td colspan="3" class="f10" align="left"><br></td>
-		    			<td colspan="2" class="f10 bor-btm" align="left"><br></td>
+		    			<!-- <td colspan="2" class="f10 bor-btm" align="left"><br></td>
 		    			<td colspan="3" class="f10" align="left"><br></td>
 		    			<td colspan="2" class="f10 bor-btm" align="left"><br></td>
-		    			<td colspan="3" class="f10" align="left"><br></td>
+		    			<td colspan="3" class="f10" align="left"><br></td> -->
 		    		</tr>
 		    		<tr>
 		    			<td class="" align="center">c.</td>
@@ -420,10 +370,10 @@
 		    			<td colspan="3" class="f10" align="left"><br></td>
 		    			<td colspan="2" class="f10 bor-btm" align="left"><br></td>
 		    			<td colspan="3" class="f10" align="left"><br></td>
-		    			<td colspan="2" class="f10 bor-btm" align="left"><br></td>
+		    			<!-- <td colspan="2" class="f10 bor-btm" align="left"><br></td>
 		    			<td colspan="3" class="f10" align="left"><br></td>
 		    			<td colspan="2" class="f10 bor-btm" align="left"><br></td>
-		    			<td colspan="3" class="f10" align="left"><br></td>
+		    			<td colspan="3" class="f10" align="left"><br></td> -->
 		    		</tr>
 		    		<tr>
 		    			<td class="" align="center">d.</td>
@@ -434,10 +384,10 @@
 		    			<td colspan="3" class="f10" align="left"><br></td>
 		    			<td colspan="2" class="f10 bor-btm" align="left"><br></td>
 		    			<td colspan="3" class="f10" align="left"><br></td>
-		    			<td colspan="2" class="f10 bor-btm" align="left"><br></td>
+		    			<!-- <td colspan="2" class="f10 bor-btm" align="left"><br></td>
 		    			<td colspan="3" class="f10" align="left"><br></td>
 		    			<td colspan="2" class="f10 bor-btm" align="left"><br></td>
-		    			<td colspan="3" class="f10" align="left"><br></td>
+		    			<td colspan="3" class="f10" align="left"><br></td> -->
 		    		</tr>
 		    		<tr><td class="f10" colspan="33" align="center"><br></td></tr>
 		    		<tr>
@@ -449,8 +399,8 @@
 		    			<td colspan="3" class="f10" align="center">Noted by:</td>
 		    			<td colspan="2" class="f10" align="left"><br></td>
 		    			<td colspan="3" class="f10" align="center">Approved by:</td>
-		    			<td colspan="2" class="f10" align="left"><br></td>
-		    			<td colspan="9" class="f10" align="left"><br></td>
+		    			<!-- <td colspan="2" class="f10" align="left"><br></td>
+		    			<td colspan="9" class="f10" align="left"><br></td> -->
 		    		</tr>
 		    		<tr><td class="f10" colspan="33" align="center"><br></td></tr>
 		    		<tr>
@@ -606,7 +556,7 @@
 		    		</tr>
 		    	</table> -->		    
 	    	</div>
-    	</form>
+    	
     </div>
     
     <script type="text/javascript">

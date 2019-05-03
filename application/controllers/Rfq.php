@@ -143,9 +143,7 @@ class Rfq extends CI_Controller {
 			}
 
 		}
-		$data['department']=$this->super_model->select_all_order_by("department", "department_name", "ASC");
-		$data['enduse']=$this->super_model->select_all_order_by("enduse", "enduse_name", "ASC");
-		$data['purpose']=$this->super_model->select_all_order_by("purpose", "purpose_name", "ASC");
+	
         $this->load->view('template/header');
         $this->load->view('template/navbar');
         $this->load->view('rfq/rfq_list',$data);
@@ -228,11 +226,6 @@ class Rfq extends CI_Controller {
 
     }
 
-    public function add_rfq(){
-        $this->load->view('template/header');
-        $this->load->view('rfq/add_rfq');
-        $this->load->view('template/footer');
-    }
 
 }
 

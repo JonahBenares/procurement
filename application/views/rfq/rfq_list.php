@@ -41,6 +41,7 @@
     </div>
     <div class="admin-dashone-data-table-area">
         <div class="container-fluid">
+         <form name="myform" action="<?php echo base_url(); ?>index.php/aoq/add_aoq" method="post">
             <div class="row">
                 <div class="col-lg-12">
                     <div class="sparkline8-list shadow-reset">
@@ -48,13 +49,15 @@
                             <div class="main-sparkline8-hd">
                                 <h1>RFQ List</h1>
                                 <div class="sparkline8-outline-icon">
-                                    <a class="btn btn-custon-three btn-primary" href="#" onclick="addRfq('<?php echo base_url(); ?>')">
+                                <input type='submit' class="btn btn-custon-three btn-primary" value='Create AOQ' > 
+                                  <!--   <a class="btn btn-custon-three btn-primary" href=">
                                         <span class="fa fa-plus p-l-0"></span>
                                         Create AOQ
-                                    </a>
+                                    </a> -->
                                 </div>
                             </div>
                         </div>
+                       
                         <div class="sparkline8-graph">
                             <div class="datatable-dashv1-list custom-datatable-overright">
                                 <table class="table table-bordered table-hover">
@@ -83,7 +86,7 @@
                                         <tr>
                                             <td>
                                             <?php if($li['completed']==1){ ?>
-                                            <input type="checkbox" class="form-control rfq_list" name="rfq" value="<?php echo $li['rfq_id']; ?>">
+                                            <input type="checkbox" class="form-control rfq_list" name="rfq[]" value="<?php echo $li['rfq_id']; ?>">
                                             <?php } ?></td>
                                             <td><?php echo $li['rfq_no']; ?></td>
                                             <td><?php echo $li['supplier']; ?></td>
@@ -103,10 +106,13 @@
                                     } ?>                                 
                                     </tbody>
                                 </table>
+
                             </div>
+                           
                         </div>
                     </div>
                 </div>
+                 </form>
             </div>
         </div>
     </div>

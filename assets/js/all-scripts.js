@@ -40,7 +40,7 @@ function confirmationDelete(anchor){
     window.location=anchor.attr("href");
 }
 
-function addRfq(baseurl,id) {
-    window.open(baseurl+"index.php/rfq/add_rfq/", "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=50,left=450,width=500,height=500");
-}
+// function addRfq(baseurl,rfq) {
+//     window.open(baseurl+"index.php/rfq/add_rfq/"+rfq, "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=50,left=450,width=500,height=500");
+// }
 
