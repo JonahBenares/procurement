@@ -228,6 +228,12 @@ class Rfq extends CI_Controller {
 
     }
 
+    public function add_rfq(){
+        $this->load->view('template/header');
+        $this->load->view('rfq/add_rfq');
+        $this->load->view('template/footer');
+    }
+
 }
 
 ?>

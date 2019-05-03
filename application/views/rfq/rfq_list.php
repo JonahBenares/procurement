@@ -48,7 +48,7 @@
                             <div class="main-sparkline8-hd">
                                 <h1>RFQ List</h1>
                                 <div class="sparkline8-outline-icon">
-                                    <a class="btn btn-custon-three btn-primary" href="#" data-toggle="modal" data-target="#PrimaryModalhdbgcl">
+                                    <a class="btn btn-custon-three btn-primary" href="#" onclick="addRfq('<?php echo base_url(); ?>')" data-toggle="modal" data-target="#PrimaryModalhdbgcl">
                                         <span class="fa fa-plus p-l-0"></span>
                                         Create AOQ
                                     </a>
