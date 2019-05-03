@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: May 02, 2019 at 04:02 AM
+-- Generation Time: May 03, 2019 at 07:45 AM
 -- Server version: 5.6.21
 -- PHP Version: 5.6.3
 
@@ -19,6 +19,53 @@ SET time_zone = "+00:00";
 --
 -- Database: `db_procurement`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `aoq_header`
+--
+
+CREATE TABLE IF NOT EXISTS `aoq_header` (
+`aoq_id` int(11) NOT NULL,
+  `aoq_date` varchar(20) DEFAULT NULL,
+  `pr_no` varchar(50) DEFAULT NULL,
+  `department_id` int(11) NOT NULL DEFAULT '0',
+  `enduse_id` int(11) NOT NULL DEFAULT '0',
+  `purpose_id` int(11) NOT NULL DEFAULT '0',
+  `date_needed` varchar(20) DEFAULT NULL,
+  `requested_by` int(11) NOT NULL DEFAULT '0',
+  `remarks` text,
+  `prepared_by` int(11) NOT NULL DEFAULT '0',
+  `recommending_approval` int(11) NOT NULL DEFAULT '0',
+  `approved_by` int(11) NOT NULL DEFAULT '0',
+  `create_date` varchar(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `aoq_items`
+--
+
+CREATE TABLE IF NOT EXISTS `aoq_items` (
+`aoq_items_id` int(11) NOT NULL,
+  `aoq_id` int(11) NOT NULL DEFAULT '0',
+  `item_id` int(11) NOT NULL DEFAULT '0',
+  `quantity` int(11) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `aoq_rfq`
+--
+
+CREATE TABLE IF NOT EXISTS `aoq_rfq` (
+`aoq_rfq_id` int(11) NOT NULL,
+  `aoq_id` int(11) NOT NULL DEFAULT '0',
+  `rfq_id` int(11) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -178,6 +225,24 @@ INSERT INTO `employees` (`employee_id`, `employee_name`, `department_id`, `posit
 (118, 'Carlos Antonio Leonardia', 0, 'Senior Project Engineer'),
 (119, 'Liza Marie Tasic', 0, ''),
 (120, 'Adrian Nemes', 0, '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `enduse`
+--
+
+CREATE TABLE IF NOT EXISTS `enduse` (
+`enduse_id` int(11) NOT NULL,
+  `enduse_name` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `enduse`
+--
+
+INSERT INTO `enduse` (`enduse_id`, `enduse_name`) VALUES
+(2, 'Test Enduse');
 
 -- --------------------------------------------------------
 
@@ -706,6 +771,24 @@ INSERT INTO `product_category` (`category_id`, `category_name`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `purpose`
+--
+
+CREATE TABLE IF NOT EXISTS `purpose` (
+`purpose_id` int(11) NOT NULL,
+  `purpose_name` text
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `purpose`
+--
+
+INSERT INTO `purpose` (`purpose_id`, `purpose_name`) VALUES
+(2, 'Test Purpose');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `rfq_detail`
 --
 
@@ -716,16 +799,27 @@ CREATE TABLE IF NOT EXISTS `rfq_detail` (
   `offer` text,
   `unit_price` decimal(10,2) NOT NULL DEFAULT '0.00',
   `recommended` int(11) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `rfq_detail`
 --
 
 INSERT INTO `rfq_detail` (`rfq_detail_id`, `rfq_id`, `item_id`, `offer`, `unit_price`, `recommended`) VALUES
-(1, 1, 244, NULL, '0.00', 0),
-(2, 1, 290, NULL, '0.00', 0),
-(3, 1, 292, NULL, '0.00', 0);
+(1, 1, 14, 'offer1', '10.00', 1),
+(2, 1, 2, 'offer2', '20.00', 0),
+(3, 1, 337, 'offer3', '30.00', 0),
+(4, 1, 334, 'offer4', '40.00', 0),
+(5, 2, 14, 'brand1', '20.00', 0),
+(6, 2, 334, 'brand2', '30.00', 1),
+(7, 2, 2, 'brand3', '40.00', 0),
+(8, 2, 337, 'brand4', '50.00', 0),
+(9, 3, 14, 'bo1', '30.00', 0),
+(10, 3, 334, 'bo2', '40.00', 0),
+(11, 3, 2, 'bo3', '50.00', 1),
+(12, 4, 334, 'b1', '40.00', 0),
+(13, 4, 337, 'b2', '50.00', 0),
+(14, 5, 17, NULL, '0.00', 0);
 
 -- --------------------------------------------------------
 
@@ -749,15 +843,20 @@ CREATE TABLE IF NOT EXISTS `rfq_head` (
   `noted_by` int(11) NOT NULL DEFAULT '0',
   `approved_by` int(11) NOT NULL DEFAULT '0',
   `saved` int(11) NOT NULL DEFAULT '0',
+  `completed` int(11) NOT NULL DEFAULT '0',
   `create_date` varchar(20) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `rfq_head`
 --
 
-INSERT INTO `rfq_head` (`rfq_id`, `rfq_no`, `rfq_date`, `supplier_id`, `due_date`, `price_validity`, `payment_terms`, `delivery_date`, `warranty`, `supplier_tin`, `vat`, `prepared_by`, `noted_by`, `approved_by`, `saved`, `create_date`) VALUES
-(1, NULL, '2019-04-30', 282, NULL, NULL, NULL, NULL, NULL, NULL, 0, 1, 0, 0, 0, '2019-04-30 09:27:01');
+INSERT INTO `rfq_head` (`rfq_id`, `rfq_no`, `rfq_date`, `supplier_id`, `due_date`, `price_validity`, `payment_terms`, `delivery_date`, `warranty`, `supplier_tin`, `vat`, `prepared_by`, `noted_by`, `approved_by`, `saved`, `completed`, `create_date`) VALUES
+(1, NULL, '2019-05-02 05:19:16', 21, '2019-05-15', '60days', 'COD', '2019-05-09', '1 year', '111-222-333', 0, 1, 79, 66, 1, 1, '2019-05-02 05:19:16'),
+(2, NULL, '2019-05-02 05:20:52', 140, '2019-05-15', '10days', '60 days', '2019-05-14', '1 year', '22-33', 1, 1, 79, 66, 1, 1, '2019-05-02 05:20:52'),
+(3, NULL, '2019-05-02 05:21:37', 270, '2019-05-15', '20 days', 'COD', '2019-05-15', '7 days', '1111111', 0, 1, 79, 66, 1, 1, '2019-05-02 05:21:37'),
+(4, NULL, '2019-05-02 05:24:14', 40, '2019-05-15', '10days', '2 months', '2019-05-17', '1 year', '22222', 1, 1, 79, 66, 1, 1, '2019-05-02 05:24:14'),
+(5, NULL, '2019-05-02 08:14:18', 365, NULL, NULL, NULL, NULL, NULL, NULL, 0, 1, 0, 0, 0, 0, '2019-05-02 08:14:18');
 
 -- --------------------------------------------------------
 
@@ -770,6 +869,24 @@ CREATE TABLE IF NOT EXISTS `rfq_series` (
   `year_month` varchar(20) DEFAULT NULL,
   `series` int(11) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `unit`
+--
+
+CREATE TABLE IF NOT EXISTS `unit` (
+`unit_id` int(11) NOT NULL,
+  `unit_name` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `unit`
+--
+
+INSERT INTO `unit` (`unit_id`, `unit_name`) VALUES
+(3, 'pc/s');
 
 -- --------------------------------------------------------
 
@@ -1655,6 +1772,24 @@ INSERT INTO `vendor_head` (`vendor_id`, `vendor_name`, `product_services`, `cate
 --
 
 --
+-- Indexes for table `aoq_header`
+--
+ALTER TABLE `aoq_header`
+ ADD PRIMARY KEY (`aoq_id`);
+
+--
+-- Indexes for table `aoq_items`
+--
+ALTER TABLE `aoq_items`
+ ADD PRIMARY KEY (`aoq_items_id`);
+
+--
+-- Indexes for table `aoq_rfq`
+--
+ALTER TABLE `aoq_rfq`
+ ADD PRIMARY KEY (`aoq_rfq_id`);
+
+--
 -- Indexes for table `brand`
 --
 ALTER TABLE `brand`
@@ -1673,6 +1808,12 @@ ALTER TABLE `employees`
  ADD PRIMARY KEY (`employee_id`);
 
 --
+-- Indexes for table `enduse`
+--
+ALTER TABLE `enduse`
+ ADD PRIMARY KEY (`enduse_id`);
+
+--
 -- Indexes for table `item`
 --
 ALTER TABLE `item`
@@ -1683,6 +1824,12 @@ ALTER TABLE `item`
 --
 ALTER TABLE `product_category`
  ADD PRIMARY KEY (`category_id`);
+
+--
+-- Indexes for table `purpose`
+--
+ALTER TABLE `purpose`
+ ADD PRIMARY KEY (`purpose_id`);
 
 --
 -- Indexes for table `rfq_detail`
@@ -1701,6 +1848,12 @@ ALTER TABLE `rfq_head`
 --
 ALTER TABLE `rfq_series`
  ADD PRIMARY KEY (`rfq_series_id`);
+
+--
+-- Indexes for table `unit`
+--
+ALTER TABLE `unit`
+ ADD PRIMARY KEY (`unit_id`);
 
 --
 -- Indexes for table `users`
@@ -1731,6 +1884,21 @@ ALTER TABLE `vendor_head`
 --
 
 --
+-- AUTO_INCREMENT for table `aoq_header`
+--
+ALTER TABLE `aoq_header`
+MODIFY `aoq_id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `aoq_items`
+--
+ALTER TABLE `aoq_items`
+MODIFY `aoq_items_id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `aoq_rfq`
+--
+ALTER TABLE `aoq_rfq`
+MODIFY `aoq_rfq_id` int(11) NOT NULL AUTO_INCREMENT;
+--
 -- AUTO_INCREMENT for table `brand`
 --
 ALTER TABLE `brand`
@@ -1746,6 +1914,11 @@ MODIFY `department_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 ALTER TABLE `employees`
 MODIFY `employee_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=121;
 --
+-- AUTO_INCREMENT for table `enduse`
+--
+ALTER TABLE `enduse`
+MODIFY `enduse_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+--
 -- AUTO_INCREMENT for table `item`
 --
 ALTER TABLE `item`
@@ -1756,20 +1929,30 @@ MODIFY `item_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=533;
 ALTER TABLE `product_category`
 MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=14;
 --
+-- AUTO_INCREMENT for table `purpose`
+--
+ALTER TABLE `purpose`
+MODIFY `purpose_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+--
 -- AUTO_INCREMENT for table `rfq_detail`
 --
 ALTER TABLE `rfq_detail`
-MODIFY `rfq_detail_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+MODIFY `rfq_detail_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=15;
 --
 -- AUTO_INCREMENT for table `rfq_head`
 --
 ALTER TABLE `rfq_head`
-MODIFY `rfq_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+MODIFY `rfq_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `rfq_series`
 --
 ALTER TABLE `rfq_series`
 MODIFY `rfq_series_id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `unit`
+--
+ALTER TABLE `unit`
+MODIFY `unit_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `users`
 --
