@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: May 03, 2019 at 07:45 AM
+-- Generation Time: May 04, 2019 at 04:13 AM
 -- Server version: 5.6.21
 -- PHP Version: 5.6.3
 
@@ -40,7 +40,14 @@ CREATE TABLE IF NOT EXISTS `aoq_header` (
   `recommending_approval` int(11) NOT NULL DEFAULT '0',
   `approved_by` int(11) NOT NULL DEFAULT '0',
   `create_date` varchar(20) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `aoq_header`
+--
+
+INSERT INTO `aoq_header` (`aoq_id`, `aoq_date`, `pr_no`, `department_id`, `enduse_id`, `purpose_id`, `date_needed`, `requested_by`, `remarks`, `prepared_by`, `recommending_approval`, `approved_by`, `create_date`) VALUES
+(1, '2019-05-03', '1111', 3, 2, 2, '2019-05-10', 24, 'test', 1, 0, 0, '2019-05-03 10:10:24');
 
 -- --------------------------------------------------------
 
@@ -53,7 +60,17 @@ CREATE TABLE IF NOT EXISTS `aoq_items` (
   `aoq_id` int(11) NOT NULL DEFAULT '0',
   `item_id` int(11) NOT NULL DEFAULT '0',
   `quantity` int(11) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `aoq_items`
+--
+
+INSERT INTO `aoq_items` (`aoq_items_id`, `aoq_id`, `item_id`, `quantity`) VALUES
+(1, 1, 337, 5),
+(2, 1, 334, 10),
+(3, 1, 14, 10),
+(4, 1, 380, 12);
 
 -- --------------------------------------------------------
 
@@ -65,7 +82,16 @@ CREATE TABLE IF NOT EXISTS `aoq_rfq` (
 `aoq_rfq_id` int(11) NOT NULL,
   `aoq_id` int(11) NOT NULL DEFAULT '0',
   `rfq_id` int(11) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `aoq_rfq`
+--
+
+INSERT INTO `aoq_rfq` (`aoq_rfq_id`, `aoq_id`, `rfq_id`) VALUES
+(1, 1, 1),
+(2, 1, 2),
+(3, 1, 4);
 
 -- --------------------------------------------------------
 
@@ -1887,17 +1913,17 @@ ALTER TABLE `vendor_head`
 -- AUTO_INCREMENT for table `aoq_header`
 --
 ALTER TABLE `aoq_header`
-MODIFY `aoq_id` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `aoq_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `aoq_items`
 --
 ALTER TABLE `aoq_items`
-MODIFY `aoq_items_id` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `aoq_items_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `aoq_rfq`
 --
 ALTER TABLE `aoq_rfq`
-MODIFY `aoq_rfq_id` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `aoq_rfq_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `brand`
 --
