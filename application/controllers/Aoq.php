@@ -148,6 +148,61 @@ class Aoq extends CI_Controller {
         $this->load->view('template/footer');
     }
 
+
+    public function aoq_prnt_five(){
+		$aoq_id=$this->uri->segment(3);
+		$data['aoq_id']=$aoq_id;
+		foreach($this->super_model->select_row_where("aoq_header", "aoq_id", $aoq_id) AS $head){
+			$department=$this->super_model->select_column_where('department','department_name','department_id', $head->department_id);
+			$enduse=$this->super_model->select_column_where('enduse','enduse_name','enduse_id', $head->enduse_id);
+			$purpose=$this->super_model->select_column_where('purpose','purpose_name','purpose_id', $head->purpose_id);
+			$requested=$this->super_model->select_column_where('employees','employee_name','employee_id', $head->requested_by);
+			$prepared=$this->super_model->select_column_where('employees','employee_name','employee_id', $head->prepared_by);
+			$data['head'][] = array(
+				'aoq_id'=>$head->aoq_id,
+				'aoq_date'=>$head->aoq_date,
+				'pr'=>$head->pr_no,
+				'department'=>$department,
+				'enduse'=>$enduse,
+				'purpose'=>$purpose,
+				'date_needed'=>$head->date_needed,
+				'requested'=>$requested,
+				'remarks'=>$head->remarks,
+				'prepared'=>$prepared
+			);
+		}
+
+		foreach($this->super_model->select_row_where("aoq_rfq", "aoq_id", $aoq_id) AS $rfq){
+			$supplier_id=$this->super_model->select_column_where('rfq_head','supplier_id','rfq_id', $rfq->rfq_id);
+			$supplier=$this->super_model->select_column_where('vendor_head','vendor_name','vendor_id', $supplier_id);
+			$contact=$this->super_model->select_column_where('vendor_head','contact_person','vendor_id', $supplier_id);
+			$phone=$this->super_model->select_column_where('vendor_head','phone_number','vendor_id', $supplier_id);
+			$data['supplier'][] = array(
+				'rfq_id'=>$rfq->rfq_id,
+				'supplier_id'=>$supplier_id,
+				'supplier_name'=>$supplier,
+				'contact'=>$contact,
+				'phone'=>$phone
+			);
+		}
+
+		foreach($this->super_model->select_row_where("aoq_items", "aoq_id", $aoq_id) AS $items){
+			$item_name=$this->super_model->select_column_where('item','item_name','item_id', $items->item_id);
+			$specs=$this->super_model->select_column_where('item','item_specs','item_id', $items->item_id);
+			$item = $item_name . ", " .$specs;
+			$data['aoq_item'][]=array(
+				'item_id'=>$items->item_id,
+				'item'=>$item,
+				'qty'=>$items->quantity
+			);
+		}
+
+		$data['items']=$this->super_model->select_all_order_by("item", "item_name", "ASC");
+        $this->load->view('template/header');
+        $this->load->view('aoq/aoq_prnt_five',$data);
+        $this->load->view('template/footer');
+    }
+
     public function add_item(){
     	$aoq_id=$this->input->post('aoq_id');
     	$items = array(

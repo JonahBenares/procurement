@@ -99,72 +99,58 @@
 					<p class="text-white p-l-250 p-r-250">Instructions: When printing ABSTRACT OF QUOTATION make sure the following options are set correctly -- <u>Browser</u>: Chrome, <u>Layout</u>: Landscape, <u>Paper Size</u>: A4 <u>Margin</u> : Custom (top: 0.11" , right:1.25", bottom: 0.11", left: 0.11") <u>Scale</u>: 100 and the option: Background graphics is checked</p>
 				</center>
 			</div>
-	    	<div style="background: #fff;">    		  			
-		    	<table class="table-bodrdered" width="100%" style="background: #fff;border: 1px solid #000">
+	    	<div style="background: #fff;"> 
+		    	<table class="table-borddered" width="100%" style="border:2px solid #000">
 		    		<tr>
+		    			<td width="2%"><br></td>
+		    			<td width="5%"><br></td>
 		    			<td width="3%"><br></td>
-		    			<td width="3%"><br></td>
-		    			<td width="3%"><br></td>
-		    			<td width="3%"><br></td>
-		    			<td width="3%"><br></td>
-		    			<td width="3%"><br></td>
-		    			<td width="3%"><br></td>
-		    			<td width="3%"><br></td>
-		    			<td width="3%"><br></td>
-		    			<td width="3%"><br></td>
-		    			<td width="3%"><br></td>
-		    			<td width="3%"><br></td>
-		    			<td width="3%"><br></td>
-		    			<td width="3%"><br></td>
-		    			<td width="3%"><br></td>
-		    			<td width="3%"><br></td>
-		    			<td width="3%"><br></td>
-		    			<td width="3%"><br></td>
-		    			<td width="3%"><br></td>
-		    			<td width="3%"><br></td>
-		    			<td width="3%"><br></td>
-		    			<td width="3%"><br></td>
-		    			<td width="3%"><br></td>
-		    			<td width="3%"><br></td>
-		    			<td width="3%"><br></td>
-		    			<td width="3%"><br></td>
-		    			<td width="3%"><br></td>
-		    			<td width="3%"><br></td>
-		    			<td width="3%"><br></td>
-		    			<td width="3%"><br></td>
-		    			<td width="3%"><br></td>
-		    			<td width="3%"><br></td>
-		    			<td width="3%"><br></td>
-		    		</tr>		    	
-		    		<tr><td colspan="33" class="f10"  align="center"><h5><b>ABSTRACT OF QUOTATION</b></h5></td></tr>
+		    			<td width="5%"><br></td>
+		    			<td width="5%"><br></td>
+		    			<td width="5%"><br></td>
+		    			<td width="5%"><br></td>
+		    			<td width="5%"><br></td>
+		    			<td width="5%"><br></td>
+		    			<td width="5%"><br></td>
+		    			<td width="5%"><br></td>
+		    			<td width="5%"><br></td>
+		    			<td width="5%"><br></td>
+		    			<td width="5%"><br></td>
+		    			<td width="5%"><br></td>
+		    			<td width="5%"><br></td>
+		    	 		<td width="5%"><br></td>
+		    			<td width="5%"><br></td>
+		    			<td width="5%"><br></td>
+		    			<td width="5%"><br></td>
+		    			<td width="5%"><br></td>
+		    		</tr>		    		
+		    		<tr><td class="f10" colspan="21"  align="center"><h5><b>ABSTRACT OF QUOTATION</b></h5></td></tr>
 		    		<?php foreach($head AS $h) { ?>
 		    		<tr>
-		    			<td colspan="4" class="f12" align="right">Department: &nbsp;</td>
-		    			<td colspan="13" class="f12" ><?php echo $h['department']; ?></td>		    			
-		    			<td colspan="3" class="f12" align="right">Date: &nbsp;</td>
-		    			<td colspan="13" class="f12" ><?php echo date('F j, Y', strtotime($h['aoq_date'])); ?></td>
+		    			<td class="f10" colspan="2" align="right">Department: &nbsp;</td>
+		    			<td class="f10" colspan="9"><?php echo $h['department']; ?></td>		    			
+		    			<td class="f10" colspan="2" align="right">Date: &nbsp;</td>
+		    			<td class="f10" colspan="8"><?php echo date('F j, Y', strtotime($h['aoq_date'])); ?></td>
 		    		</tr>	
 		    		<tr>
-		    			<td colspan="4" class="f12" align="right">Purpose: &nbsp;</td>
-		    			<td colspan="13" class="f12" ><?php echo $h['purpose']; ?></td>		    			
-		    			<td colspan="3"class="f12" align="right">PR #: &nbsp;</td>
-		    			<td colspan="13" class="f12" ><?php echo $h['pr']; ?></td>
+		    			<td class="f10" colspan="2" align="right">Purpose: &nbsp;</td>
+		    			<td class="f10" colspan="9"><?php echo $h['purpose']; ?></td>		    			
+		    			<td class="f10" colspan="2" align="right">PR #: &nbsp;</td>
+		    			<td class="f10" colspan="8"><?php echo $h['pr']; ?> </td>
 		    		</tr>
 		    		<tr>
-		    			<td colspan="4" class="f12" align="right">Enduse: &nbsp;</td>
-		    			<td colspan="13" class="f12" ><?php echo $h['enduse']; ?></td>		    			
-		    			<td colspan="3"class="f12" align="right">Date Needed: &nbsp;</td>
-		    			<td colspan="13" class="f12" ><?php echo date('F j, Y', strtotime($h['date_needed'])); ?></td>
+		    			<td class="f10" colspan="2" align="right">Enduse: &nbsp;</td>
+		    			<td class="f10" colspan="9"><?php echo $h['enduse']; ?></td>		    			
+		    			<td class="f10" colspan="2" align="right">Date Needed: &nbsp;</td>
+		    			<td class="f10" colspan="8"><?php echo date('F j, Y', strtotime($h['date_needed'])); ?></td>
 		    		</tr>	
 		    		<tr>
-		    			<td colspan="4" class="f12"  align="right">Requested by: &nbsp;</td>
-		    			<td colspan="29" class="f12" ><?php echo $h['requested']; ?></td>
+		    			<td class="f10" colspan="2" align="right">Requested by: &nbsp;</td>
+		    			<td class="f10" colspan="19"><?php echo $h['requested']; ?></td>
 		    		</tr>
 		    		<?php } ?>
-		    		<!-- <tr><td class="f10"  align="center"><br></td></tr> -->
-		    		<tr><td class="f10" colspan="33" align="center"><br></td></tr>
 		    		<tr>
-		    			<td colspan="8" class="f10"  align="center">
+		    			<td class="f10" colspan="6" align="center">
 		    				<button id="add_btn" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-id="<?php echo $aoq_id; ?>">
 							  <span class="fa fa-plus"></span> Add Item
 							</button>
@@ -204,11 +190,8 @@
 							    </div>
 							  </div>
 							</div>
-		    				
 		    			</td>
 
-
-		    			<!-- loop ka here -->
 		    			<?php foreach($supplier AS $sup){ ?>
 		    			<td colspan="5" class="f10 table-borbold"  align="center">
 		    				<b><?php echo $sup['supplier_name']; ?></b><br>
@@ -216,57 +199,39 @@
 		    				<?php echo $sup['phone']; ?>
 		    			</td>
 		    			<?php } ?>
-		    		
 		    		</tr>
 		    		<tr>
-		    			<td class="f9 table-borbold "align="center"><b class="p-r-10 p-l-10">#</td>
-		    			<td colspan="5" class="f9 table-borbold" align="center"><b>DESCRIPTION</td>
+		    			<td class="f9 table-borbold" align="center"><b>#</td>
+		    			<td class="f9 table-borbold" align="center" colspan="3"><b>DESCRIPTION</td>
 		    			<td class="f9 table-borbold" align="center"><b>QTY</td>
 		    			<td class="f9 table-borbold" align="center"><b>UOM</td>
-
-		    			<td colspan="2" class="f9 table-borbold" align="center"><b>OFFER</b></td>
+		    			<td class="f9 table-borbold" align="center" colspan="2"><b>OFFER</b></td>
 		    			<td class="f9 table-borbold" align="center"><b>U/P</b></td>
 		    			<td class="f9 table-borbold" align="center"><b>AMOUNT</b></td>
 		    			<td class="f9 table-borbold" align="center"><b>COMMENTS</b></td>
-
-		    			<td colspan="2" class="f9 table-borbold" align="center"><b>OFFER</b></td>
+		    			<td class="f9 table-borbold" align="center" colspan="2"><b>OFFER</b></td>
 		    			<td class="f9 table-borbold" align="center"><b>U/P</b></td>
 		    			<td class="f9 table-borbold" align="center"><b>AMOUNT</b></td>
 		    			<td class="f9 table-borbold" align="center"><b>COMMENTS</b></td>
-
-		    			<td colspan="2" class="f9 table-borbold" align="center"><b>OFFER</b></td>
+		    			<td class="f9 table-borbold" align="center" colspan="2"><b>OFFER</b></td>
 		    			<td class="f9 table-borbold" align="center"><b>U/P</b></td>
 		    			<td class="f9 table-borbold" align="center"><b>AMOUNT</b></td>
 		    			<td class="f9 table-borbold" align="center"><b>COMMENTS</b></td>
-
-		    			<!-- <td colspan="2" class="f9 table-borbold" align="center"><b>OFFER</b></td>
-		    			<td class="f9 table-borbold" align="center"><b>U/P</b></td>
-		    			<td class="f9 table-borbold" align="center"><b>AMOUNT</b></td>
-		    			<td class="f9 table-borbold" align="center"><b>COMMENTS</b></td>
-
-		    			<td colspan="2" class="f9 table-borbold" align="center"><b>OFFER</b></td>
-		    			<td class="f9 table-borbold" align="center"><b>U/P</b></td>
-		    			<td class="f9 table-borbold" align="center"><b>AMOUNT</b></td>
-		    			<td class="f9 table-borbold" align="center"><b>COMMENTS</b></td> -->
-
-		    			
 		    		</tr>
 		    		<?php foreach($aoq_item AS $it){ ?>
 		    		<tr>
-		    			<td class="f10 table-borreg" align="center">99</td>
-		    			<td colspan="5" class="f10 table-borreg" align="left"> <?php echo $it['item']; ?></td>
+		    			<td class="f10 table-borreg" align="center">1</td>
+		    			<td class="f10 table-borreg" align="left" colspan="3"><?php echo $it['item']; ?></td>
 		    			<td class="f10 table-borreg" align="center"><?php echo $it['qty']; ?></td>
 		    			<td class="f10 table-borreg" align="center">length</td>
-
-		    			<!-- loop ka here -->
 		    			<?php foreach($supplier AS $sup){ 
 
-		    				$reco = $CI->get_rfq_item("recommended", $sup['supplier_id'], $it['item_id']); 
-		    				$up = $CI->get_rfq_item("unit_price", $sup['supplier_id'], $it['item_id']);
-		    				$total = $it['qty']*$up;
-		    				?>
-		    			<td colspan="2" class="f10 table-borreg" align="left">
-		    			<?php
+	    				$reco = $CI->get_rfq_item("recommended", $sup['supplier_id'], $it['item_id']); 
+	    				$up = $CI->get_rfq_item("unit_price", $sup['supplier_id'], $it['item_id']);
+	    				$total = $it['qty']*$up;
+	    				?>		
+		    			<td class="f10 table-borreg" align="left" colspan="2">
+		    				<?php
 		    			if($reco==1){ ?>
 		    				<b class="text-red">
 		    				<?php echo $CI->get_rfq_item("offer", $sup['supplier_id'], $it['item_id']); ?>
@@ -274,288 +239,134 @@
 		    			<?php } else {
 		    				 echo $CI->get_rfq_item("offer", $sup['supplier_id'], $it['item_id']); 
 		    			 } ?>
-		    			, <?php echo $CI->get_rfq_item("item", $sup['supplier_id'], $it['item_id']); ?></td>
-		    			<td class="f10 table-borreg yellow-back p-l-5 p-r-5" align="center">
-		    			<?php echo number_format($up,2); ?></td>
-		    			<td class="f10 table-borreg green-back p-l-5 p-r-5" align="center"><?php echo number_format($total,2); ?></td>
+		    			, <?php echo $CI->get_rfq_item("item", $sup['supplier_id'], $it['item_id']); ?>
+		    			</td>
+		    			<td class="f10 table-borreg yellow-back" align="center"><?php echo number_format($up,2); ?></td>
+		    			<td class="f10 table-borreg green-back" align="center"><?php echo number_format($total,2); ?></td>
 		    			<td class="f10 table-borreg text-red" align="center"></td>
-		    			<!-- and delete the other two below salamats -->
 		    			<?php } ?>
-
-		    	
 		    		</tr>
 		    		<?php } ?>
-		    	
 		    		<tr>
-		    			<td class="f10 table-borreg" align="center"></td>
-		    			<td colspan="5" class="f10 table-borreg" align="left"></td>
+		    			<td class="f10 table-borreg" align="center"><br></td>
+		    			<td class="f10 table-borreg" align="left" colspan="3"></td>
 		    			<td class="f10 table-borreg" align="center"></td>
 		    			<td class="f10 table-borreg" align="center"></td>
 
-		    			<!-- loop ka here -->
-		    			<td colspan="2" class="f10 table-borreg" align="left"><br></td>
+		    			<td class="f10 table-borreg" align="left" colspan="2"></td>
 		    			<td class="f10 table-borreg" align="center"></td>
 		    			<td class="f10 table-borreg" align="center"></td>
-		    			<td class="f10 table-borreg" align="center"></td>
-		    			<!-- and delete the other two below salamats -->
+		    			<td class="f10 table-borreg text-red" align="center"></td>
 
-		    			<td colspan="2" class="f10 table-borreg" align="left"></td>
+		    			<td class="f10 table-borreg" align="left" colspan="2"></td>
 		    			<td class="f10 table-borreg" align="center"></td>
 		    			<td class="f10 table-borreg" align="center"></td>
 		    			<td class="f10 table-borreg" align="center"></td>
 
-		    			<td colspan="2" class="f10 table-borreg" align="left"></td>
+		    			<td class="f10 table-borreg" align="left" colspan="2"></td>
 		    			<td class="f10 table-borreg" align="center"></td>
 		    			<td class="f10 table-borreg" align="center"></td>
 		    			<td class="f10 table-borreg" align="center"></td>
-
-		    		<!-- 	<td colspan="2" class="f10 table-borreg" align="left"></td>
-		    			<td class="f10 table-borreg" align="center"></td>
-		    			<td class="f10 table-borreg" align="center"></td>
-		    			<td class="f10 table-borreg" align="center"></td>
-
-		    			<td colspan="2" class="f10 table-borreg" align="left"></td>
-		    			<td class="f10 table-borreg" align="center"></td>
-		    			<td class="f10 table-borreg" align="center"></td>
-		    			<td class="f10 table-borreg" align="center"></td> -->
 		    		</tr>
 		    		<tr>
-		    			<td class="f10 table-borreg" align="center"></td>
-		    			<td colspan="7" class="f10 table-borreg text-red" align="center"><b>REMARK</b></td>
+		    			<td class="f10 table-borreg" align="center"><br></td>
+		    			<td colspan="5" class="f10 table-borreg text-red" align="center"><b>REMARKS</b></td>
 
-		    			<!-- loop ka here -->
-		    			<td colspan="5" class="f10 table-borreg" align="left"><br></td>
-		    			<!-- and delete the other two below salamats -->
-
-		    			<td colspan="5" class="f10 table-borreg" align="left"><br></td>
-		    			<td colspan="5" class="f10 table-borreg" align="left"><br></td>
-		    			<!-- <td colspan="5" class="f10 table-borreg" align="left"><br></td>
-		    			<td colspan="5" class="f10 table-borreg" align="left"><br></td> -->
+		    			<td class="f10 table-borreg" align="left" colspan="5"></td>
+		    			<td class="f10 table-borreg" align="left" colspan="5"></td>
+		    			<td class="f10 table-borreg" align="left" colspan="5"></td>
 		    		</tr>
-		    		<tr><td class="f10" colspan="33" align="center"><br></td></tr>
+		    		<tr><td class="f10" colspan="21" align="center"><br></td></tr>
 		    		<tr>
 		    			<td class="" align="center">a.</td>
-		    			<td colspan="7" class="f10" align="center">Price Validity</td>
+		    			<td colspan="5" class="f10" align="center">Price Validity</td>
 		    			<td colspan="2" class="f10 bor-btm" align="left"><br></td>
 		    			<td colspan="3" class="f10" align="left"><br></td>
 		    			<td colspan="2" class="f10 bor-btm" align="left"><br></td>
 		    			<td colspan="3" class="f10" align="left"><br></td>
 		    			<td colspan="2" class="f10 bor-btm" align="left"><br></td>
 		    			<td colspan="3" class="f10" align="left"><br></td>
-		    			<!-- <td colspan="2" class="f10 bor-btm" align="left"><br></td>
-		    			<td colspan="3" class="f10" align="left"><br></td>
-		    			<td colspan="2" class="f10 bor-btm" align="left"><br></td>
-		    			<td colspan="3" class="f10" align="left"><br></td> -->
 		    		</tr>
 		    		<tr>
 		    			<td class="" align="center">b.</td>
-		    			<td colspan="7" class="f10" align="center">Payment Terms</td>
+		    			<td colspan="5" class="f10" align="center">Payment Terms</td>
 		    			<td colspan="2" class="f10 bor-btm" align="left"><br></td>
 		    			<td colspan="3" class="f10" align="left"><br></td>
 		    			<td colspan="2" class="f10 bor-btm" align="left"><br></td>
 		    			<td colspan="3" class="f10" align="left"><br></td>
 		    			<td colspan="2" class="f10 bor-btm" align="left"><br></td>
 		    			<td colspan="3" class="f10" align="left"><br></td>
-		    			<!-- <td colspan="2" class="f10 bor-btm" align="left"><br></td>
-		    			<td colspan="3" class="f10" align="left"><br></td>
-		    			<td colspan="2" class="f10 bor-btm" align="left"><br></td>
-		    			<td colspan="3" class="f10" align="left"><br></td> -->
 		    		</tr>
 		    		<tr>
 		    			<td class="" align="center">c.</td>
-		    			<td colspan="7" class="f10" align="center">Date of Delivery</td>
+		    			<td colspan="5" class="f10" align="center">Date of Delivery</td>
 		    			<td colspan="2" class="f10 bor-btm" align="left"><br></td>
 		    			<td colspan="3" class="f10" align="left"><br></td>
 		    			<td colspan="2" class="f10 bor-btm" align="left"><br></td>
 		    			<td colspan="3" class="f10" align="left"><br></td>
 		    			<td colspan="2" class="f10 bor-btm" align="left"><br></td>
 		    			<td colspan="3" class="f10" align="left"><br></td>
-		    			<!-- <td colspan="2" class="f10 bor-btm" align="left"><br></td>
-		    			<td colspan="3" class="f10" align="left"><br></td>
-		    			<td colspan="2" class="f10 bor-btm" align="left"><br></td>
-		    			<td colspan="3" class="f10" align="left"><br></td> -->
 		    		</tr>
 		    		<tr>
 		    			<td class="" align="center">d.</td>
-		    			<td colspan="7" class="f10" align="center">Item's Warranty</td>
+		    			<td colspan="5" class="f10" align="center">Item's Warranty</td>
 		    			<td colspan="2" class="f10 bor-btm" align="left"><br></td>
 		    			<td colspan="3" class="f10" align="left"><br></td>
 		    			<td colspan="2" class="f10 bor-btm" align="left"><br></td>
 		    			<td colspan="3" class="f10" align="left"><br></td>
 		    			<td colspan="2" class="f10 bor-btm" align="left"><br></td>
 		    			<td colspan="3" class="f10" align="left"><br></td>
-		    			<!-- <td colspan="2" class="f10 bor-btm" align="left"><br></td>
-		    			<td colspan="3" class="f10" align="left"><br></td>
-		    			<td colspan="2" class="f10 bor-btm" align="left"><br></td>
-		    			<td colspan="3" class="f10" align="left"><br></td> -->
 		    		</tr>
-		    		<tr><td class="f10" colspan="33" align="center"><br></td></tr>
+		    		<tr><td class="f10" colspan="21" align="center"><br></td></tr>
 		    		<tr>
-		    			<td colspan="2"  class="" align="center"></td>
-		    			<td colspan="5" class="f10" align="center">Prepared by:</td>
+		    			<td colspan="1"  class="" align="center"></td>
+		    			<td colspan="4" class="f10" align="center">Prepared by:</td>
 		    			<td colspan="2" class="f10" align="left"><br></td>
 		    			<td colspan="3" class="f10" align="center">Award Recommended by:</td>
 		    			<td colspan="2" class="f10" align="left"><br></td>
 		    			<td colspan="3" class="f10" align="center">Noted by:</td>
 		    			<td colspan="2" class="f10" align="left"><br></td>
 		    			<td colspan="3" class="f10" align="center">Approved by:</td>
-		    			<!-- <td colspan="2" class="f10" align="left"><br></td>
-		    			<td colspan="9" class="f10" align="left"><br></td> -->
+		    			<td colspan="1"  class="" align="center"></td>
 		    		</tr>
-		    		<tr><td class="f10" colspan="33" align="center"><br></td></tr>
+		    		<tr><td class="f10" colspan="21" align="center"><br></td></tr>
 		    		<tr>
-		    			<td colspan="2"  class="" align="center"></td>
-		    			<td colspan="5" class="f10 bor-btm" align="center">Someone</td>
+		    			<td colspan="1"  class="" align="center"></td>
+		    			<td colspan="4" class="f10 bor-btm" align="center">Someone</td>
 		    			<td colspan="2" class="f10" align="left"><br></td>
 		    			<td colspan="3" class="f10 bor-btm" align="center">Someone</td>
 		    			<td colspan="2" class="f10" align="left"><br></td>
 		    			<td colspan="3" class="f10 bor-btm" align="center">Someone</td>
 		    			<td colspan="2" class="f10" align="left"><br></td>
 		    			<td colspan="3" class="f10 bor-btm" align="center">Someone</td>
-		    			<td colspan="2" class="f10" align="left"><br></td>
-		    			<td colspan="9" class="f10" align="left"><br></td>
+		    			<td colspan="1" class="f10" align="left"><br></td>
 		    		</tr>
-		    		<tr><td class="f10" colspan="33" align="center"><br></td></tr>
+		    		<tr><td class="f10" colspan="21" align="center"><br></td></tr>
 		    		<tr>
-		    			<td colspan="2"  class="" align="center"></td>
-		    			<td colspan="2"  class="" align="center"></td>
+		    			<td colspan="1"  class="" align="center"></td>
 		    			<td colspan="3"  class="" align="center">LEGEND:</td>
 		    			<td colspan="1"  class="" align="center"></td>
 		    			<td colspan="1"  class="green-back p-l-5 p-r-5" align="center"></td>
 		    			<td colspan="1"  class="" align="center"></td>
 		    			<td colspan="4"  class="" align="left">Recommended Award</td>
-		    			<td colspan="19"  class="" align="center"></td>
+		    			<td colspan="10"  class="" align="center"></td>
 
 		    		</tr>
 		    		<tr>
-		    			<td colspan="2"  class="" align="center"></td>
-		    			<td colspan="2"  class="" align="center"></td>
+		    			<td colspan="1"  class="" align="center"></td>
 		    			<td colspan="3"  class="" align="center"></td>
 		    			<td colspan="1"  class="" align="center"></td>
 		    			<td colspan="1"  class="yellow-back p-l-5 p-r-5" align="center"></td>
 		    			<td colspan="1"  class="" align="center"></td>
 		    			<td colspan="4"  class="" align="left">Lowest Price</td>
-		    			<td colspan="19"  class="" align="center"></td>
+		    			<td colspan="10"  class="" align="center"></td>
 
 		    		</tr>
-		    		<tr><td class="f10" colspan="33" align="center"><br></td></tr>
-
-		    	</table>
-		    	<!-- <table class="table-bordered" width="100%" style="border:2px solid #000">
-		    		<tr>
-		    			<td width="5%"><br></td>
-		    			<td width="2%"><br></td>
-		    			<td width="3%"><br></td>
-		    			<td width="5%"><br></td>
-		    			<td width="5%"><br></td>
-		    			<td width="5%"><br></td>
-		    			<td width="5%"><br></td>
-		    			<td width="5%"><br></td>
-		    			<td width="5%"><br></td>
-		    			<td width="5%"><br></td>
-		    			<td width="5%"><br></td>
-		    			<td width="5%"><br></td>
-		    			<td width="5%"><br></td>
-		    			<td width="5%"><br></td>
-		    			<td width="5%"><br></td>
-		    			<td width="5%"><br></td>
-		    			<td width="5%"><br></td>
-		    			<td width="5%"><br></td>
-		    			<td width="5%"><br></td>
-		    			<td width="5%"><br></td>
-		    			<td width="5%"><br></td>
-		    		</tr>		    		
-		    		<tr><td class="f10"  align="center"><h5><b>ABSTRACT OF QUOTATION</b></h5></td></tr>
-		    		<tr>
-		    			<td class="f10" colspan="2" align="right">Department: &nbsp;</td>
-		    			<td class="f10" colspan="9">Test Tsest tsets test </td>		    			
-		    			<td class="f10" colspan="2" align="right">Date: &nbsp;</td>
-		    			<td class="f10" colspan="8">Purposeasds</td>
-		    		</tr>	
-		    		<tr>
-		    			<td class="f10" colspan="2" align="right">Purpose: &nbsp;</td>
-		    			<td class="f10" colspan="9">Test Tsest tsets test </td>		    			
-		    			<td class="f10" colspan="2" align="right">PR #: &nbsp;</td>
-		    			<td class="f10" colspan="8">Purposesasad </td>
-		    		</tr>
-		    		<tr>
-		    			<td class="f10" colspan="2" align="right">Enduse: &nbsp;</td>
-		    			<td class="f10" colspan="9">Test Tsest tsets test </td>		    			
-		    			<td class="f10" colspan="2" align="right">Date Needed: &nbsp;</td>
-		    			<td class="f10" colspan="8">Purasdpose</td>
-		    		</tr>	
-		    		<tr>
-		    			<td class="f10" colspan="2" align="right">Requested by: &nbsp;</td>
-		    			<td class="f10" colspan="19">Test Tsest tsets test </td>
-		    		</tr>
-		    		<tr>
-		    			<td class="f10" colspan="6" align="center"></td>
-
-
-		    			loop ka here 
-		    			<td class="f10 table-borbold" colspan="5" align="center">
-		    				<b>Visayan Construction Supply</b><br>
-		    				Mrs. Chua<br>
-		    				434-7277
-		    			</td>
-		    			and delete the other two below salamats
-
-		    			<td class="f10 table-borbold" colspan="5" align="center">
-		    				Visayan Construction Supply<br>
-		    				Mrs. Chua<br>
-		    				434-7277
-		    			</td>
-		    			<td class="f10 table-borbold" colspan="5" align="center">
-		    				Visayan Construction Supply<br>
-		    				Mrs. Chua<br>
-		    				434-7277
-		    			</td>
-		    		</tr>
-		    		<tr>
-		    			<td class="f9 table-borbold" align="center"></td>
-		    			<td class="f9 table-borbold" align="center"><b>#</td>
-		    			<td class="f9 table-borbold" align="center" colspan="2"><b>DESCRIPTION</td>
-		    			<td class="f9 table-borbold" align="center"><b>QTY</td>
-		    			<td class="f9 table-borbold" align="center"><b>UOM</td>
-		    			<td class="f9 table-borbold" align="center" colspan="2"><b>OFFER</b></td>
-		    			<td class="f9 table-borbold" align="center"><b>U/P</b></td>
-		    			<td class="f9 table-borbold" align="center"><b>AMOUNT</b></td>
-		    			<td class="f9 table-borbold" align="center"><b>COMMENTS</b></td>
-		    			<td class="f9 table-borbold" align="center" colspan="2"><b>OFFER</b></td>
-		    			<td class="f9 table-borbold" align="center"><b>U/P</b></td>
-		    			<td class="f9 table-borbold" align="center"><b>AMOUNT</b></td>
-		    			<td class="f9 table-borbold" align="center"><b>COMMENTS</b></td>
-		    			<td class="f9 table-borbold" align="center" colspan="2"><b>OFFER</b></td>
-		    			<td class="f9 table-borbold" align="center"><b>U/P</b></td>
-		    			<td class="f9 table-borbold" align="center"><b>AMOUNT</b></td>
-		    			<td class="f9 table-borbold" align="center"><b>COMMENTS</b></td>
-		    		</tr>
-		    		<tr>
-		    			<td class="f10 table-borreg" align="center"></td>
-		    			<td class="f10 table-borreg" align="center">1</td>
-		    			<td class="f10 table-borreg" align="left" colspan="2">Deformed steel BAr. 12mm dia x 6 m. gr 33</td>
-		    			<td class="f10 table-borreg" align="center">14</td>
-		    			<td class="f10 table-borreg" align="center">length</td>
-
-		    			loop ka here 
-		    			<td class="f10 table-borreg" align="left" colspan="2">Deformed steel BAr. 12mm dia x 6 m. gr 33</td>
-		    			<td class="f10 table-borreg" align="center">170.00</td>
-		    			<td class="f10 table-borreg" align="center">2380.00</td>
-		    			<td class="f10 table-borreg text-red" align="center">complying</td>
-		    			 and delete the other two below salamats
-
-		    			<td class="f10 table-borreg" align="left" colspan="2">Deformed steel BAr. 12mm dia x 6 m. gr 33</td>
-		    			<td class="f10 table-borreg" align="center">170.00</td>
-		    			<td class="f10 table-borreg" align="center">2380.00</td>
-		    			<td class="f10 table-borreg" align="center">complying</td>
-
-		    			<td class="f10 table-borreg" align="left" colspan="2">Deformed steel BAr. 12mm dia x 6 m. gr 33</td>
-		    			<td class="f10 table-borreg" align="center">170.00</td>
-		    			<td class="f10 table-borreg" align="center">2380.00</td>
-		    			<td class="f10 table-borreg" align="center">complying</td>
-		    		</tr>
-		    	</table> -->		    
+		    		<tr><td class="f10" colspan="21" align="center"><br></td></tr>
+		    	</table>		    
 	    	</div>
+	    	<br>
+	    	<br>
     	
     </div>
     
