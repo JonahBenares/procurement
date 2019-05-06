@@ -147,6 +147,7 @@
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/mixins.css">
     <div  class="pad">
+
     		<form method='POST' action='<?php echo base_url(); ?>aoq/aoq_save'>
     		<div id="prnt_btn">
 	    		<center>
@@ -416,6 +417,7 @@
 		    		<tr><td class="f10" colspan="21" align="center"><br></td></tr>
 		    	</table>		    
 	    	</div>
+	    	<input type='hidden' name='count' value="3">
 	    	<input type='hidden' name='aoq_id' value="<?php echo $aoq_id; ?>">
 	    	</form>
 	    	<br>
