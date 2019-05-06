@@ -82,6 +82,58 @@
 		.green-back{
 			background-image: url('../../assets/img/green.png');
 		}
+		/* -------------------- Colors: Background */
+		.slate   { background-color: #ddd; }
+		.green   { background-color: #779126; }
+		.blue    { background-color: #3b8ec2; }
+		.yellow  { background-color: #eec111; }
+		.black   { background-color: #000; }
+
+		/* -------------------- Colors: Text */
+		.slate select   { color: #000; }
+		.green select   { color: #fff; }
+		.blue select    { color: #fff; }
+		.yellow select  { color: #000; }
+		.black select   { color: #fff; }
+
+
+		select#soflow, select#soflow-color {
+			-webkit-appearance: button;
+			-webkit-border-radius: 2px;
+			-webkit-padding-end: 20px;
+			-webkit-padding-start: 2px;
+			-webkit-user-select: none;
+			background-image: url(http://i62.tinypic.com/15xvbd5.png), -webkit-linear-gradient(#FAFAFA, #F4F4F4 40%, #E5E5E5);
+			background-position: 98% center;
+			background-repeat: no-repeat;
+			border: 1px solid #AAA;
+			color: #555;
+			font-size: inherit;
+			overflow: hidden;			
+			padding: 6px 50px 6px 12px;
+			text-overflow: ellipsis;
+			white-space: pre-wrap;
+			width: 100%;			
+			font-size: 14px;
+			box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+			-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+			-webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+			-o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+			transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+		}
+		select#soflow-color {
+		    color: #fff;
+		    background-image: url(http://i62.tinypic.com/15xvbd5.png), -webkit-linear-gradient( #ff9966 , #ec7955);
+		    background-color: #da6946;
+		    /*-webkit-border-radius: 20px;
+		    -moz-border-radius: 20px;*/
+		    /*border-radius: 20px;*/
+		    padding-left: 15px;
+		}
+		.op:hover{
+			color: #000!important;
+			background: #fff!important;
+		}
     </style>
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/animate.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/font-awesome.min.css">
@@ -171,39 +223,39 @@
 
 							<!-- Modal -->
 							<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-							  <div class="modal-dialog" role="document">
-							    <div class="modal-content">
-							      	<div class="modal-header">
-								        <h5 class="modal-title" id="exampleModalLabel" style="text-align: left">Add Item 
-								        	<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-								          		<span aria-hidden="true">&times;</span>
-								        	</button>
-								        </h5>							       
-							      	</div>
-							      	<form method='POST' action="<?php echo base_url(); ?>aoq/add_item">
-							      	<div class="modal-body">
-							        <div class="form-group">
-                                        <h5 class="m-b-0" style="text-align: left">Item Description:</h5>
-                                        <select name='item' class="form-control" required="">
-                                        <option style="width:100px!important"  value='' selected>-Select Item-</option>
-                                        <?php foreach($items AS $it){ ?>
-                                        	<option value="<?php echo $it->item_id; ?>" ><?php echo $it->item_name . ", -- " . $it->item_specs; ?></option>
-                                        <?php } ?>
-                                        </select>
-                                        <label>Selected item name here</label>
-                                    </div>
-                                    <div class="form-group">
-                                        <h5 class="m-b-0" style="text-align: left">Qty:</h5>
-                                        <input type='text' name="qty" class="form-control" required="">
-                                    </div>
-							      	</div>
-							      	<div class="modal-footer">
-								        <input type="submit" class="btn btn-primary btn-block" value="Add">
-							      	</div>
-							      	<input type='hidden' name='aoq_id' value="<?php echo $aoq_id; ?>">
-							      	</form>
-							    </div>
-							  </div>
+							  	<div class="modal-dialog" role="document">
+								    <div class="modal-content">
+								      	<div class="modal-header">
+									        <h5 class="modal-title" id="exampleModalLabel" style="text-align: left">Add Item 
+									        	<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									          		<span aria-hidden="true">&times;</span>
+									        	</button>
+									        </h5>							       
+								      	</div>
+								      	<form method='POST' action="<?php echo base_url(); ?>aoq/add_item">
+								      	<div class="modal-body">
+								        <div class="form-group">
+	                                        <h5 class="m-b-0" style="text-align: left">Item Description:</h5>
+	                                        <select name="item" id="soflow-color" class="semi-square" required="">
+											  	<option value='' selected>-Select Item-</option>
+											  	<?php foreach($items AS $it){ ?>
+											  		<option value="<?php echo $it->item_id; ?>"><?php echo $it->item_name . ", " . $it->item_specs; ?></option>
+											  	<?php } ?>
+											</select>
+	                                    </div>                                   
+	                                    <div class="form-group">
+	                                        <h5 class="m-b-0" style="text-align: left">Qty:</h5>
+	                                        <input type='text' name="qty" class="form-control" required="">
+	                                    </div>
+
+								      	</div>
+								      	<div class="modal-footer">
+									        <input type="submit" class="btn btn-primary btn-block" value="Add">
+								      	</div>
+								      	<input type='hidden' name='aoq_id' value="<?php echo $aoq_id; ?>">
+								      	</form>
+								    </div>
+							  	</div>
 							</div>
 		    				
 		    			</td>
