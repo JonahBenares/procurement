@@ -142,14 +142,14 @@
 		    						<td class="f13" align="center" style='width:50%'><?php echo $item['item']; ?></td>
 		    						<td class="f13" align="center">
 		    						<?php if($completed==0){ ?>
-		    							<input type="text" name="offer<?php echo $x; ?>" class="sel-des" autocomplete="off">
+		    							<input type="text" name="offer<?php echo $x; ?>" class="sel-des" autocomplete="off" required>
 		    						<?php } else {
 		    							echo $item['offer'];
 		    						} ?>
 		    						</td>
 		    						<td class="f13" align="center">
 		    						<?php if($completed==0){ ?>
-		    							<input type="text" name="price<?php echo $x; ?>" class="sel-des" autocomplete="off">
+		    							<input type="text" name="price<?php echo $x; ?>" class="sel-des" autocomplete="off" required>
 		    							<?php } else {
 		    							echo $item['price'];
 		    						} ?>
@@ -326,7 +326,9 @@
 		{   
 		    if (cmd=='quit')
 		    {
+		    	self.opener.location.reload();
 		        open(location, '_self').close();
+
 		    }   
 		    return false;   
 		}

@@ -103,7 +103,7 @@
                                         <tr>
                                             <td></td>
                                             <td>
-                                                <a href="" class="btn-link txt-primary" onclick="itemDetails('<?php echo base_url(); ?>','<?php echo $i->item_id;?>')"><?php echo $i->item_name;?></a>
+                                                <a href="javascript:void(0)" class="btn-link txt-primary" onclick="itemDetails('<?php echo base_url(); ?>','<?php echo $i->item_id;?>')"><?php echo $i->item_name;?></a>
                                             </td>
                                             <td><?php echo $i->item_specs;?></td>
                                             <td><?php echo $i->brand_name;?></td>
