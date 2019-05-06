@@ -340,7 +340,7 @@
 		    		<tr>
 		    			<td class="" align="center">a.</td>
 		    			<td colspan="5" class="f10" align="center">Price Validity</td>
-		    			<td colspan="2" class="f10 bor-btm" align="left"><br></td>
+		    			<td colspan="2" class="f10 bor-btm" align="left">sdf<br></td>
 		    			<td colspan="3" class="f10" align="left"><br></td>
 		    			<td colspan="2" class="f10 bor-btm" align="left"><br></td>
 		    			<td colspan="3" class="f10" align="left"><br></td>

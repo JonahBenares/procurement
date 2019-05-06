@@ -122,12 +122,20 @@ class Aoq extends CI_Controller {
 			$supplier=$this->super_model->select_column_where('vendor_head','vendor_name','vendor_id', $supplier_id);
 			$contact=$this->super_model->select_column_where('vendor_head','contact_person','vendor_id', $supplier_id);
 			$phone=$this->super_model->select_column_where('vendor_head','phone_number','vendor_id', $supplier_id);
+			$validity=$this->super_model->select_column_where('rfq_head','price_validity','rfq_id', $rfq->rfq_id);
+			$terms=$this->super_model->select_column_where('rfq_head','payment_terms','rfq_id', $rfq->rfq_id);
+			$delivery=$this->super_model->select_column_where('rfq_head','delivery_date','rfq_id', $rfq->rfq_id);
+			$warranty=$this->super_model->select_column_where('rfq_head','warranty','rfq_id', $rfq->rfq_id);
 			$data['supplier'][] = array(
 				'rfq_id'=>$rfq->rfq_id,
 				'supplier_id'=>$supplier_id,
 				'supplier_name'=>$supplier,
 				'contact'=>$contact,
-				'phone'=>$phone
+				'phone'=>$phone,
+				'validity'=>$validity,
+				'terms'=>$terms,
+				'delivery'=>$delivery,
+				'warranty'=>$warranty
 			);
 		}
 
