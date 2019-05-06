@@ -48,9 +48,20 @@
 			#prnt_btn{
 				display: none;
 			}
+			.emphasis{
+				border: 0px solid #fff!important;
+			}
 		}
 		.text-white{
 			color: #fff;
+		}
+		.select-des{			
+		    -webkit-appearance: none;
+		    border: 0px;
+		}
+	
+		.emphasis{
+			border-bottom: 2px solid red;
 		}
     </style>
     
@@ -159,7 +170,7 @@
 		    			
 		    			<td class="f13" colspan="20">1. Quotation must be submitted on or before
 		    			<?php if($h['saved']==0){ ?>
-		    			 <input type="date" name="due_date" style="border: 0px solid #000" >
+		    			 <input class="emphasis" type="date" name="due_date" >
 		    			 <?php } else { 
 		    			 	echo date('F j, Y', strtotime($h['due_date']));
 		    			  } ?>
@@ -246,8 +257,8 @@
 		    			<td class="f13" colspan="2"></td>
 		    			<td class="f13" colspan="4">
 		    			<?php if($h['saved']==0){ ?>
-		    			<select name='noted'>
-			    			<option value=''>-Select-</option>
+		    			<select name='noted' class="select-des emphasis">
+			    			<option value=''>-Select Employee-</option>
 			    			<?php foreach($employee AS $emp){ ?>
 			    				<option value='<?php echo $emp->employee_id; ?>'><?php echo $emp->employee_name; ?></option>
 			    			<?php } ?>
@@ -259,8 +270,8 @@
 		    			<td class="f13" colspan="2"></td>
 		    			<td class="f13" colspan="4">
 		    			<?php if($h['saved']==0){ ?>
-		    				<select name='approved'>
-			    			<option value=''>-Select-</option>
+		    				<select name='approved' class="select-des emphasis">
+			    			<option value=''>-Select Employee-</option>
 			    			<?php foreach($employee AS $emp){ ?>
 			    				<option value='<?php echo $emp->employee_id; ?>'><?php echo $emp->employee_name; ?></option>
 			    			<?php } ?>

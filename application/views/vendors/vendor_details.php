@@ -2,6 +2,9 @@
         html, body.materialdesign {
             background: #2d2c2c;
         }
+        .text-white{
+            color: #fff;
+        }
     </style>
     <div class="admin-dashone-data-table-area m-t-15">
         <div class="container-fluid">
@@ -101,26 +104,23 @@
                                 <h4>Item List 
                                     <div class="pull-right">
                                         <a onclick="addVendorItem('<?php echo base_url(); ?>','<?php echo $id;?>')" class="btn btn-custon-three btn-primary"><span class="fa fa-plus"></span> Add Item</a>
-                                        <input type='submit' onclick="return confirm('Are you sure you want to create RFQ?')" class="btn btn-custon-three btn-secondary" value="Create RFQ">
+                                        <input type='submit' onclick="return confirm('Are you sure you want to create RFQ?')" class="text-white btn btn-custon-three btn-secondary" value="Create RFQ">
                                     </div>
                                 </h4>
-                                <table id="table" data-toggle="table" data-toolbar="#toolbar">
+                                <table width="100%" data-toggle="table" data-toolbar="#toolbar">
                                     <thead>
                                         <tr>
-                                            <th width="5%"><input type="checkbox" name="" class="form-control"></th>
-                                            <th width="90%">Item Description</th>
-                                            <th width="90%">Brand</th>
-                                            <th width="5%">Action</th>
+                                            <th align="center"><input type="checkbox" name=""></th>
+                                            <th>Item Description</th>
+                                            <th>Brand</th>
+                                            <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody> 
                                     <?php foreach($vendors AS $va){ ?>                                         
                                         <tr>
-                                            <td><input type="checkbox" name="item_id[]" value="<?php echo $va['item_id']; ?>" class="form-control"></td>
-
+                                            <td align="center"><input type="checkbox" name="item_id[]" value="<?php echo $va['item_id']; ?>"></td>
                                             <td><?php echo $va['item']. ", " . $va['specs']; ?></td>
-
-                                            <td><?php echo $va['item'];?></td>
                                             <td><?php echo $va['brand'];?></td>
                                             <td>
                                                 <center>
@@ -130,8 +130,7 @@
                                                 </center>
                                             </td>
                                         </tr> 
-                                    <?php } ?>      
-                                   
+                                    <?php } ?>   
                                     </tbody>
                                 </table>
                             </div>
