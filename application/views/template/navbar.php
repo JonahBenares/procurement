@@ -35,8 +35,15 @@
                         </li>
                         <li class="nav-item">
                             <a href="<?php echo base_url(); ?>index.php/rfq/rfq_list"  role="button" class="nav-link dropdown-toggle">
-                                <i class="fa big-icon fa-file-text"></i>
+                                <i class="fa big-icon fa-th-large"></i>
                                 <span class="mini-dn">RFQ</span> 
+                                <span class="indicator-right-menu mini-dn"></span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?php echo base_url(); ?>index.php/aoq/aoq_list"  role="button" class="nav-link dropdown-toggle">
+                                <i class="fa big-icon fa-th-list"></i>
+                                <span class="mini-dn">AOQ</span> 
                                 <span class="indicator-right-menu mini-dn"></span>
                             </a>
                         </li>
