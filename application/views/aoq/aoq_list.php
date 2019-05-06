@@ -61,22 +61,27 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                    <?php 
+                                    if(!empty($header)){
+                                    foreach($header AS $head){ ?>
                                         <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
+                                            <td><?php echo date('F j, Y', strtotime($head['aoq_date'])); ?></td>
+                                            <td><?php echo $head['pr']; ?></td>
+                                            <td><?php echo $supplier; ?></td>
+                                            <td><?php echo $head['department']; ?></td>
+                                            <td><?php echo $head['enduse']; ?></td>
+                                            <td><?php echo $head['requestor']; ?></td>
+                                            <td><?php echo date('F j, Y', strtotime($head['date_needed']));; ?></td>
                                             <td>
                                                 <center>
-                                                    <a href="<?php echo base_url(); ?>index.php//" class="btn btn-custon-three btn-warning btn-xs" >
+                                                    <a href="<?php echo base_url(); ?>aoq/aoq_prnt/<?php echo $head['aoq_id']; ?>" class="btn btn-custon-three btn-warning btn-xs" >
                                                         <span class="fa fa-eye"></span>
                                                     </a>
                                                 </center>
                                             </td>
-                                        </tr>                                     
+                                        </tr>  
+                                        <?php } 
+                                        } ?>                                   
                                     </tbody>
                                 </table>
 

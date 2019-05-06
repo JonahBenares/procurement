@@ -400,6 +400,17 @@ class super_model extends CI_Model
 
     }
 
+     public function get_min_where($table, $column,$where){
+         $this->db->select_min($column);
+         $this->db->from($table);
+         $this->db->where($where);
+         $query = $this->db->get();
+         foreach($query->result() as $result){
+            return $result->$column;
+        }
+
+    }
+
     public function get_table_columns($table){
         $fields = $this->db->list_fields($table);
         return $fields;
