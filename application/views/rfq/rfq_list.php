@@ -86,7 +86,7 @@
                                         $item='';
                                         foreach($items AS $it){ 
                                             if($it['rfq_id']==$li['rfq_id']){
-                                                $item .= $it['item_name']. ", ";
+                                                $item .="- ".$it['item_name']. "<br> ";
                                             }
                                         }
                                         $item = substr($item, 0, -2);
