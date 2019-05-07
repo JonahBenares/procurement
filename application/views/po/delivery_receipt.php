@@ -21,17 +21,13 @@
         .pad{
         	padding:0px 250px 0px 250px
         }
-        @media print{
-        	.pad{
-        	padding:0px 0px 0px 0px
-        	}
-        }
         .table-bordered>tbody>tr>td, 
         .table-bordered>tbody>tr>th, 
         .table-bordered>tfoot>tr>td, 
         .table-bordered>tfoot>tr>th, 
         .table-bordered>thead>tr>td, 
-        .table-bordered>thead>tr>th
+        .table-bordered>thead>tr>th,
+        .all-border
         {
 		    border: 1px solid #000!important;
 		}
@@ -45,11 +41,21 @@
 			border: 0px!important;
 		}
 		@media print{
+			html, body{
+	            background: #fff!important;
+	            font-size:12px!important;
+	        }
+			.pad{
+        	padding:0px 0px 0px 0px
+        	}
 			#prnt_btn{
 				display: none;
 			}
 			.emphasis{
 				border: 0px solid #fff!important;
+			}
+			.text-red{
+				color: red!important;
 			}
 		}
 		.text-white{
@@ -63,6 +69,12 @@
 		.emphasis{
 			border-bottom: 2px solid red;
 		}
+		.text-red{
+			color: red;
+		}
+		.nomarg{
+			margin: 0px 2px 0px 2px;
+		}
     </style>
     
     <div  class="pad">
@@ -75,10 +87,11 @@
 						<a  onclick="printPage()" class="btn btn-warning btn-md p-l-100 p-r-100"><span class="fa fa-print"></span> Print</a>
 						<input type='submit' class="btn btn-primary btn-md p-l-100 p-r-100" value="Save">	
 					</div>
+					<p class="text-white">Instructions: When printing DELIVERY RECEIPT make sure the following options are set correctly -- <u>Browser</u>: Chrome, <u>Layout</u>: Portrait, <u>Paper Size</u>: A4 <u>Margin</u> : Default <u>Scale</u>: 100</p>
 				</center>
 			</div>
 	    	<div style="background: #fff;">    		  			
-		    	<table class="table-boSrdered" width="100%" style="border:2px solid #000">
+		    	<table class="table-bordsered" width="100%" style="border:0px solid #000">
 		    		<tr>
 		    			<td width="5%"><br></td>
 		    			<td width="5%"><br></td>
@@ -103,16 +116,103 @@
 		    		</tr>
 		    		<tr>
 		    			<td colspan="5" align="center"><img width="150px" src="<?php echo base_url(); ?>assets/img/logo_cenpri.png"></td>
-		    			<td colspan="15"><h4 style="margin: 0px"><b>CENTRAL NEGROS POWER RELIABILITY, INC.</b></h4></td>
+		    			<td colspan="15"><h4 style="margin-left: 30px"><b>CENTRAL NEGROS POWER RELIABILITY, INC.</b></h4></td>
 		    		</tr>
 		    		<tr><td class="f13" colspan="20" align="center">Office: 88 Corner Rizal-Mabini Sts., Bacolod City</td></tr>
 		    		<tr><td class="f13" colspan="20" align="center">Tel. No.: (034) 435-1932/476-7382</td></tr>
 		    		<tr><td class="f13" colspan="20" align="center">Telefax: (034) 435-1932</td></tr>
 		    		<tr><td class="f13" colspan="20" align="center">Plant Site: Purok San Jose, Barangay Calumangan, Bago City</td></tr>
 		    		<tr><td class="f13" colspan="20" align="center"><br></td></tr>
-		    		<tr><td colspan="20" align="center"><b>REQUEST FOR QUOTATION</b></td></tr>
+		    		<tr><td colspan="20" align="center"><h5><b class="text-red">DELIVERY RECEIPT</b></h5></td></tr>
+		    		<!-- <tr><td class="f13" colspan="20" align="center"><br></td></tr> -->
+		    		<tr>
+		    			<td colspan="10" class="all-border "><b class="text-red nomarg">DR No. 4321</b></td>
+		    			<td colspan="10" class="all-border "><b class="nomarg">PO No: PR-191-4763</b></td>
+		    		</tr>
+		    		<tr>
+		    			<td colspan="10" class="all-border "><b class="nomarg">Date : April 27, 2019</b></td>
+		    			<td colspan="10" class="all-border "><b class="nomarg">PR No: PR-191-2019</b></td>
+		    		</tr>
+		    		<tr>
+		    			<td colspan="20" class="all-border"><b class="nomarg">Purpose: Consumables, Tools and Equipment's for Spare Stator Rewinding</b></td>
+		    		</tr>
+		    		<tr>
+		    			<td colspan="20" class="all-border"><b class="nomarg">End Use: Spare Ideal Generator</b></td>
+		    		</tr>
+		    		<tr>
+		    			<td colspan="20" class="all-border"><b class="nomarg">Requestor: Julius Pangilinan / Kennah Sasamoto</b></td>
+		    		</tr>
+		    		<tr>
+		    			<td class="all-border" align="center"><b class="nomarg">#</b></td>
+		    			<td class="all-border" align="center" colspan="6"><b class="nomarg">Supplier</b></td>
+		    			<td class="all-border" align="center" colspan="6"><b class="nomarg">Description</b></td>
+		    			<td class="all-border" align="center"><b class="nomarg">Delivered</b></td>
+		    			<td class="all-border" align="center"><b class="nomarg">Received</b></td>
+		    			<td class="all-border" align="center" colspan="2"><b class="nomarg">UOM</b></td>
+		    			<td class="all-border" align="center" colspan="3"><b class="nomarg">Remarks</b></td>
+		    		</tr>
+		    		<tr>
+		    			<td class="all-border" align="center">1</td>
+		    			<td class="all-border" align="left" colspan="6">A-ONE INDUSTRIAL SALES</td>
+		    			<td class="all-border" align="left" colspan="6">Power tools; Brand: Ken, Model: 69135</td>
+		    			<td class="all-border" align="center">1</td>
+		    			<td class="all-border" align="center"></td>
+		    			<td class="all-border" align="center" colspan="2">set</td>
+		    			<td class="all-border" align="center" colspan="3"></td>
+		    		</tr>
+		    		<tr>
+		    			<td class="all-border" align="center">2</td>
+		    			<td class="all-border" align="left" colspan="6">A-ONE INDUSTRIAL SALES</td>
+		    			<td class="all-border" align="left" colspan="6">Acetylene cutting outfit, Brand: Supercut</td>
+		    			<td class="all-border" align="center">1</td>
+		    			<td class="all-border" align="center"></td>
+		    			<td class="all-border" align="center" colspan="2">unit</td>
+		    			<td class="all-border" align="center" colspan="3"></td>
+		    		</tr>
 		    		<tr><td class="f13" colspan="20" align="center"><br></td></tr>
-		    		
+		    		<tr>
+		    			<td></td>
+		    			<td colspan="6"><b>Prepared by:</b></td>
+		    			<td colspan="5"></td>
+		    			<td colspan="6"><b>Received by:</b></td>
+		    			<td colspan="2"></td>
+		    		</tr>
+		    		<tr>
+		    			<td></td>
+		    			<td colspan="6" class="bor-btm"><b><br></b></td>
+		    			<td colspan="5"></td>
+		    			<td colspan="6" class="bor-btm">Stephen Jardinico</td>
+		    			<td colspan="2"></td>
+		    		</tr>
+		    		<tr>
+		    			<td></td>
+		    			<td colspan="6">Kervic S. Biñas</td>
+		    			<td colspan="5"></td>
+		    			<td colspan="6">Print Name & Signature with Date Received</td>
+		    			<td colspan="2"></td>
+		    		</tr>
+		    		<tr><td class="f13" colspan="20" align="center"><br></td></tr>
+		    		<tr>
+		    			<td></td>
+		    			<td colspan="6"><b></b></td>
+		    			<td colspan="5"></td>
+		    			<td colspan="6"><b>Witnessed by:</b></td>
+		    			<td colspan="2"></td>
+		    		</tr>
+		    		<tr>
+		    			<td></td>
+		    			<td colspan="6"><b><br></b></td>
+		    			<td colspan="5"></td>
+		    			<td colspan="6" class="bor-btm">Mary Grace Bugna</td>
+		    			<td colspan="2"></td>
+		    		</tr>
+		    		<tr>
+		    			<td></td>
+		    			<td colspan="6"></td>
+		    			<td colspan="5"></td>
+		    			<td colspan="6">Print Name & Signature with Date Received</td>
+		    			<td colspan="2"></td>
+		    		</tr>
 		    		<tr><td class="f13" colspan="20" align="center"><br></td></tr>		
 		    	</table>		    
 	    	</div>

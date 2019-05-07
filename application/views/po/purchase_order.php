@@ -21,11 +21,6 @@
         .pad{
         	padding:0px 250px 0px 250px
         }
-        @media print{
-        	.pad{
-        	padding:0px 0px 0px 0px
-        	}
-        }
         .table-bordered>tbody>tr>td, 
         .table-bordered>tbody>tr>th, 
         .table-bordered>tfoot>tr>td, 
@@ -46,6 +41,9 @@
 			border: 0px!important;
 		}
 		@media print{
+			.pad{
+        	padding:0px 0px 0px 0px
+        	}
 			#prnt_btn{
 				display: none;
 			}
@@ -82,6 +80,7 @@
 						<a  onclick="printPage()" class="btn btn-warning btn-md p-l-100 p-r-100"><span class="fa fa-print"></span> Print</a>
 						<input type='submit' class="btn btn-primary btn-md p-l-100 p-r-100" value="Save">	
 					</div>
+					<p class="text-white">Instructions: When printing PURCHASE ORDER make sure the following options are set correctly -- <u>Browser</u>: Chrome, <u>Layout</u>: Portrait, <u>Paper Size</u>: A4, <u>Margin</u> : Default, <u>Scale</u>: 100</p>
 				</center>
 			</div>
 	    	<div style="background: #fff;">    		  			

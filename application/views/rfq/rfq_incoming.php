@@ -66,6 +66,7 @@
 						<?php } ?>	
 					</div>
 					<h4 class="text-white"> <b>INCOMING</b> RFQ</h4>
+					<p class="text-white">Instructions: When printing REQUEST FOR QUOTATION make sure the following options are set correctly -- <u>Browser</u>: Chrome, <u>Layout</u>: Portrait, <u>Paper Size</u>: A4, <u>Margin</u> : Default, <u>Scale</u>: 100</p>
 				</center>
 			</div>
 	    	<div style="background: #fff;">    		  			

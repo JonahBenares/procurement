@@ -51,6 +51,10 @@
 			.emphasis{
 				border: 0px solid #fff!important;
 			}
+			html, body{
+	            background: #fff!important;
+	            font-size:12px!important;
+	        }
 		}
 		.text-white{
 			color: #fff;
@@ -86,6 +90,7 @@
 						<?php } ?>		
 					</div>
 					<h4 class="text-white"><b>OUTGOING</b> RFQ</h4>
+					<p class="text-white">Instructions: When printing REQUEST FOR QUOTATION make sure the following options are set correctly -- <u>Browser</u>: Chrome, <u>Layout</u>: Portrait, <u>Paper Size</u>: A4, <u>Margin</u> : Default, <u>Scale</u>: 100</p>
 				</center>
 			</div>
 	    	<div style="background: #fff;">    		  			
@@ -128,7 +133,7 @@
 		    			<td class="f13 bor-btm" colspan="8"><?php echo date('F j, Y', strtotime($date)); ?></td>
 		    			<td class="f13" colspan="1"></td>
 		    			<td class="f13" colspan="3">RFQ No.:</td>
-		    			<td class="f13 bor-btm" colspan="6">1231277</td>
+		    			<td class="f13 bor-btm" colspan="6"></td>
 		    		</tr>
 		    		<tr><td class="f13" colspan="20" align="center"></td></tr>
 		    		<tr>

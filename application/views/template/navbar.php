@@ -83,7 +83,7 @@
                                         <li class="nav-item dropdown">
                                             <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle">Templates <span class="angle-down-topmenu"><i class="fa fa-angle-down"></i></span></a>
                                             <div role="menu" class="dropdown-menu animated flipInX">
-                                                <a href="<?php echo base_url(); ?>index.php/po/purchase_order" class="dropdown-item">Purchase Request</a>
+                                                <a href="<?php echo base_url(); ?>index.php/po/purchase_order" class="dropdown-item">Purchase Order</a>
                                                 <a href="<?php echo base_url(); ?>index.php/po/delivery_receipt" class="dropdown-item">Delivery Receipt</a>
                                             </div>
                                         </li>
