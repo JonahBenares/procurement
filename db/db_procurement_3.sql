@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: May 04, 2019 at 04:13 AM
+-- Generation Time: May 07, 2019 at 02:56 AM
 -- Server version: 5.6.21
 -- PHP Version: 5.6.3
 
@@ -37,17 +37,18 @@ CREATE TABLE IF NOT EXISTS `aoq_header` (
   `requested_by` int(11) NOT NULL DEFAULT '0',
   `remarks` text,
   `prepared_by` int(11) NOT NULL DEFAULT '0',
-  `recommending_approval` int(11) NOT NULL DEFAULT '0',
+  `noted_by` int(11) NOT NULL DEFAULT '0',
   `approved_by` int(11) NOT NULL DEFAULT '0',
-  `create_date` varchar(20) DEFAULT NULL
+  `create_date` varchar(20) DEFAULT NULL,
+  `saved` int(11) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `aoq_header`
 --
 
-INSERT INTO `aoq_header` (`aoq_id`, `aoq_date`, `pr_no`, `department_id`, `enduse_id`, `purpose_id`, `date_needed`, `requested_by`, `remarks`, `prepared_by`, `recommending_approval`, `approved_by`, `create_date`) VALUES
-(1, '2019-05-03', '1111', 3, 2, 2, '2019-05-10', 24, 'test', 1, 0, 0, '2019-05-03 10:10:24');
+INSERT INTO `aoq_header` (`aoq_id`, `aoq_date`, `pr_no`, `department_id`, `enduse_id`, `purpose_id`, `date_needed`, `requested_by`, `remarks`, `prepared_by`, `noted_by`, `approved_by`, `create_date`, `saved`) VALUES
+(1, '2019-05-06', '111', 3, 2, 2, '2019-05-13', 76, '', 1, 0, 0, '2019-05-06 11:14:08', 0);
 
 -- --------------------------------------------------------
 
@@ -60,17 +61,18 @@ CREATE TABLE IF NOT EXISTS `aoq_items` (
   `aoq_id` int(11) NOT NULL DEFAULT '0',
   `item_id` int(11) NOT NULL DEFAULT '0',
   `quantity` int(11) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `aoq_items`
 --
 
 INSERT INTO `aoq_items` (`aoq_items_id`, `aoq_id`, `item_id`, `quantity`) VALUES
-(1, 1, 337, 5),
-(2, 1, 334, 10),
-(3, 1, 14, 10),
-(4, 1, 380, 12);
+(1, 1, 334, 5),
+(2, 1, 337, 10),
+(3, 1, 14, 15),
+(4, 1, 2, 20),
+(5, 1, 17, 3);
 
 -- --------------------------------------------------------
 
@@ -82,7 +84,7 @@ CREATE TABLE IF NOT EXISTS `aoq_rfq` (
 `aoq_rfq_id` int(11) NOT NULL,
   `aoq_id` int(11) NOT NULL DEFAULT '0',
   `rfq_id` int(11) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `aoq_rfq`
@@ -91,7 +93,8 @@ CREATE TABLE IF NOT EXISTS `aoq_rfq` (
 INSERT INTO `aoq_rfq` (`aoq_rfq_id`, `aoq_id`, `rfq_id`) VALUES
 (1, 1, 1),
 (2, 1, 2),
-(3, 1, 4);
+(3, 1, 3),
+(4, 1, 4);
 
 -- --------------------------------------------------------
 
@@ -832,20 +835,20 @@ CREATE TABLE IF NOT EXISTS `rfq_detail` (
 --
 
 INSERT INTO `rfq_detail` (`rfq_detail_id`, `rfq_id`, `item_id`, `offer`, `unit_price`, `recommended`) VALUES
-(1, 1, 14, 'offer1', '10.00', 1),
-(2, 1, 2, 'offer2', '20.00', 0),
-(3, 1, 337, 'offer3', '30.00', 0),
-(4, 1, 334, 'offer4', '40.00', 0),
-(5, 2, 14, 'brand1', '20.00', 0),
-(6, 2, 334, 'brand2', '30.00', 1),
-(7, 2, 2, 'brand3', '40.00', 0),
-(8, 2, 337, 'brand4', '50.00', 0),
-(9, 3, 14, 'bo1', '30.00', 0),
-(10, 3, 334, 'bo2', '40.00', 0),
-(11, 3, 2, 'bo3', '50.00', 1),
-(12, 4, 334, 'b1', '40.00', 0),
-(13, 4, 337, 'b2', '50.00', 0),
-(14, 5, 17, NULL, '0.00', 0);
+(1, 1, 14, 'brand1', '10.00', 1),
+(2, 1, 2, 'brand2', '20.00', 0),
+(3, 1, 337, 'brand3', '30.00', 0),
+(4, 1, 334, 'brand4', '40.00', 0),
+(5, 2, 14, 'bo1', '30.00', 0),
+(6, 2, 334, 'bo2', '40.00', 0),
+(7, 2, 2, 'bo3', '50.00', 1),
+(8, 2, 337, 'bo4', '60.00', 0),
+(9, 3, 14, 'bb1', '50.00', 0),
+(10, 3, 334, 'bb2', '60.00', 0),
+(11, 3, 2, 'bb3', '70.00', 0),
+(12, 3, 380, 'bb4', '80.00', 1),
+(13, 4, 334, 'offer1', '20.00', 1),
+(14, 4, 337, 'offer2', '30.00', 0);
 
 -- --------------------------------------------------------
 
@@ -870,19 +873,19 @@ CREATE TABLE IF NOT EXISTS `rfq_head` (
   `approved_by` int(11) NOT NULL DEFAULT '0',
   `saved` int(11) NOT NULL DEFAULT '0',
   `completed` int(11) NOT NULL DEFAULT '0',
+  `aoq_done` int(11) NOT NULL DEFAULT '0',
   `create_date` varchar(20) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `rfq_head`
 --
 
-INSERT INTO `rfq_head` (`rfq_id`, `rfq_no`, `rfq_date`, `supplier_id`, `due_date`, `price_validity`, `payment_terms`, `delivery_date`, `warranty`, `supplier_tin`, `vat`, `prepared_by`, `noted_by`, `approved_by`, `saved`, `completed`, `create_date`) VALUES
-(1, NULL, '2019-05-02 05:19:16', 21, '2019-05-15', '60days', 'COD', '2019-05-09', '1 year', '111-222-333', 0, 1, 79, 66, 1, 1, '2019-05-02 05:19:16'),
-(2, NULL, '2019-05-02 05:20:52', 140, '2019-05-15', '10days', '60 days', '2019-05-14', '1 year', '22-33', 1, 1, 79, 66, 1, 1, '2019-05-02 05:20:52'),
-(3, NULL, '2019-05-02 05:21:37', 270, '2019-05-15', '20 days', 'COD', '2019-05-15', '7 days', '1111111', 0, 1, 79, 66, 1, 1, '2019-05-02 05:21:37'),
-(4, NULL, '2019-05-02 05:24:14', 40, '2019-05-15', '10days', '2 months', '2019-05-17', '1 year', '22222', 1, 1, 79, 66, 1, 1, '2019-05-02 05:24:14'),
-(5, NULL, '2019-05-02 08:14:18', 365, NULL, NULL, NULL, NULL, NULL, NULL, 0, 1, 0, 0, 0, 0, '2019-05-02 08:14:18');
+INSERT INTO `rfq_head` (`rfq_id`, `rfq_no`, `rfq_date`, `supplier_id`, `due_date`, `price_validity`, `payment_terms`, `delivery_date`, `warranty`, `supplier_tin`, `vat`, `prepared_by`, `noted_by`, `approved_by`, `saved`, `completed`, `aoq_done`, `create_date`) VALUES
+(1, NULL, '2019-05-06 10:35:26', 21, '2019-05-13', '30 days', '60 days', '2019-05-15', '1 year', '11-22-33', 1, 1, 51, 20, 1, 1, 0, '2019-05-06 10:35:26'),
+(2, NULL, '2019-05-06 10:37:03', 140, '2019-05-13', '2 months', '3 months', '2019-05-15', '1 year', '', 0, 1, 24, 118, 1, 1, 0, '2019-05-06 10:37:03'),
+(3, NULL, '2019-05-06 10:37:46', 270, '2019-05-13', '', '', '', '', '', 0, 1, 41, 68, 1, 1, 0, '2019-05-06 10:37:46'),
+(4, NULL, '2019-05-06 10:38:27', 40, '2019-05-13', '7 days', '1 year', '2019-05-14', '2 years', '', 0, 1, 17, 41, 1, 1, 0, '2019-05-06 10:38:27');
 
 -- --------------------------------------------------------
 
@@ -1918,12 +1921,12 @@ MODIFY `aoq_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 -- AUTO_INCREMENT for table `aoq_items`
 --
 ALTER TABLE `aoq_items`
-MODIFY `aoq_items_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+MODIFY `aoq_items_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `aoq_rfq`
 --
 ALTER TABLE `aoq_rfq`
-MODIFY `aoq_rfq_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+MODIFY `aoq_rfq_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `brand`
 --
@@ -1968,7 +1971,7 @@ MODIFY `rfq_detail_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=15;
 -- AUTO_INCREMENT for table `rfq_head`
 --
 ALTER TABLE `rfq_head`
-MODIFY `rfq_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
+MODIFY `rfq_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `rfq_series`
 --
