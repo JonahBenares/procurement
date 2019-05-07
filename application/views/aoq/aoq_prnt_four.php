@@ -155,7 +155,7 @@
 				</center>
 			</div>
 	    	<div style="background: #fff;">    		  			
-		    	<table class="table-bordSered" width="100%" style="background: #fff;border: 1px solid #000">
+		    	<table class="table-bsordered" width="100%" style="background: #fff;border: 1px solid #000">
 		    		<tr>
 		    			<td width="3%"><br></td>
 		    			<td width="3%"><br></td>
@@ -348,9 +348,10 @@
 		    		<tr>
 		    			<td class="" align="center">a.</td>
 		    			<td colspan="7" class="f10" align="center">Price Validity</td>
+		    			<td colspan="1" class="f10 bor-btm" align="left"><br></td>
 		    			<?php foreach($supplier AS $sup){ ?>
-		    			<td colspan="2" class="f10 bor-btm" align="left"><?php echo $sup['validity']; ?><br></td>
-		    			<td colspan="3" class="f10" align="left"><br></td>
+		    			<td colspan="4" class="f10 bor-btm" align="left"><?php echo $sup['validity']; ?><br></td>
+		    			<td colspan="2" class="f10" align="left"><br></td>
 		    			<?php } ?>
 		    			<!-- <td colspan="2" class="f10 bor-btm" align="left"><br></td>
 		    			<td colspan="3" class="f10" align="left"><br></td>
@@ -364,9 +365,10 @@
 		    		<tr>
 		    			<td class="" align="center">b.</td>
 		    			<td colspan="7" class="f10" align="center">Payment Terms</td>
+		    			<td colspan="1" class="f10 bor-btm" align="left"><br></td>
 		    			<?php foreach($supplier AS $sup){ ?>
-		    			<td colspan="2" class="f10 bor-btm" align="left"><?php echo $sup['terms']; ?><br></td>
-		    			<td colspan="3" class="f10" align="left"><br></td>
+		    			<td colspan="4" class="f10 bor-btm" align="left"><?php echo $sup['terms']; ?><br></td>
+		    			<td colspan="2" class="f10" align="left"><br></td>
 		    			<?php } ?>
 		    			<!-- <td colspan="2" class="f10 bor-btm" align="left"><br></td>
 		    			<td colspan="3" class="f10" align="left"><br></td>
@@ -380,9 +382,10 @@
 		    		<tr>
 		    			<td class="" align="center">c.</td>
 		    			<td colspan="7" class="f10" align="center">Date of Delivery</td>
+		    			<td colspan="1" class="f10 bor-btm" align="left"><br></td>
 		    			<?php foreach($supplier AS $sup){ ?>
-		    			<td colspan="2" class="f10 bor-btm" align="left"><?php echo date('F j, Y', strtotime($sup['delivery'])); ?><br></td>
-		    			<td colspan="3" class="f10" align="left"><br></td>
+		    			<td colspan="4" class="f10 bor-btm" align="left"><?php echo date('F j, Y', strtotime($sup['delivery'])); ?><br></td>
+		    			<td colspan="2" class="f10" align="left"><br></td>
 		    			<?php } ?>
 		    			<!-- <td colspan="2" class="f10 bor-btm" align="left"><br></td>
 		    			<td colspan="3" class="f10" align="left"><br></td>
@@ -396,9 +399,10 @@
 		    		<tr>
 		    			<td class="" align="center">d.</td>
 		    			<td colspan="7" class="f10" align="center">Item's Warranty</td>
+		    			<td colspan="1" class="f10 bor-btm" align="left"><br></td>
 		    			<?php foreach($supplier AS $sup){ ?>
-		    			<td colspan="2" class="f10 bor-btm" align="left"><?php echo $sup['warranty']; ?><br></td>
-		    			<td colspan="3" class="f10" align="left"><br></td>
+		    			<td colspan="4" class="f10 bor-btm" align="left"><?php echo $sup['warranty']; ?><br></td>
+		    			<td colspan="2" class="f10" align="left"><br></td>
 		    			<?php } ?>
 		    			<!-- <td colspan="2" class="f10 bor-btm" align="left"><br></td>
 		    			<td colspan="3" class="f10" align="left"><br></td>
