@@ -509,7 +509,7 @@
                 </div>                                   
                 <div class="form-group">
                     <h5 class="m-b-0" style="text-align: left">Qty:</h5>
-                    <input type='text' name="qty" class="form-control" required="">
+                    <input type='text' name="qty" class="form-control" required="" autocomplete="off">
                 </div>
 
 		      	</div>

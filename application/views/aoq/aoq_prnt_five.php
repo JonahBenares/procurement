@@ -140,13 +140,16 @@
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/mixins.css">
     <div  class="pad">
-    
+    	<form method='POST' action='<?php echo base_url(); ?>aoq/aoq_save'>
     		<div id="prnt_btn">
 	    		<center>
 			    	<div class="btn-group">
-						<a href="" class="btn btn-success btn-md p-l-100 p-r-100"><span class="fa fa-arrow-left"></span> Back</a>
+						<a href="<?php echo base_url(); ?>aoq/aoq_list" class="btn btn-success btn-md p-l-100 p-r-100"><span class="fa fa-arrow-left"></span> Back</a>
+						<?php if($saved==1){ ?>
 						<a  onclick="printPage()" class="btn btn-warning btn-md p-l-100 p-r-100"><span class="fa fa-print"></span> Print</a>
-						<a href="" class="btn btn-primary btn-md p-l-100 p-r-100"><span class="fa fa-floppy-o"></span> Save</a>    				
+						<?php } if($saved==0){ ?>
+						<input type='submit' class="btn btn-primary btn-md p-l-100 p-r-100" value="Save">
+						<?php } ?>    	       				
 					</div>
 					<p class="text-white p-l-250 p-r-250">Instructions: When printing ABSTRACT OF QUOTATION make sure the following options are set correctly -- <u>Browser</u>: Chrome, <u>Layout</u>: Landscape, <u>Paper Size</u>: A4 <u>Margin</u> : Custom (top: 0.11" , right:1.25", bottom: 0.11", left: 0.11") <u>Scale</u>: 100 and the option: Background graphics is checked</p>
 				</center>
@@ -217,47 +220,15 @@
 		    		<tr><td class="f10" colspan="33" align="center"><br></td></tr>
 		    		<tr>
 		    			<td colspan="8" class="f10"  align="center">
+		    				
+							 <?php if($saved==0){ ?>
 		    				<button id="add_btn" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-id="<?php echo $aoq_id; ?>">
 							  <span class="fa fa-plus"></span> Add Item
 							</button>
+							<?php } ?>
+							
 
-							<!-- Modal -->
-							<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-							  	<div class="modal-dialog" role="document">
-								    <div class="modal-content">
-								      	<div class="modal-header">
-									        <h5 class="modal-title" id="exampleModalLabel" style="text-align: left">Add Item 
-									        	<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-									          		<span aria-hidden="true">&times;</span>
-									        	</button>
-									        </h5>							       
-								      	</div>
-								      	<form method='POST' action="<?php echo base_url(); ?>aoq/add_item">
-								      	<div class="modal-body">
-								        <div class="form-group">
-	                                        <h5 class="m-b-0" style="text-align: left">Item Description:</h5>
-	                                        <select name="item" id="soflow-color" class="semi-square" required="">
-											  	<option value='' selected>-Select Item-</option>
-											  	<?php foreach($items AS $it){ ?>
-											  		<option value="<?php echo $it->item_id; ?>"><?php echo $it->item_name . ", " . $it->item_specs; ?></option>
-											  	<?php } ?>
-											</select>
-	                                    </div>                                   
-	                                    <div class="form-group">
-	                                        <h5 class="m-b-0" style="text-align: left">Qty:</h5>
-	                                        <input type='text' name="qty" class="form-control" required="">
-	                                    </div>
-
-								      	</div>
-								      	<div class="modal-footer">
-									        <input type="submit" class="btn btn-primary btn-block" value="Add">
-								      	</div>
-								      	<input type='hidden' name='aoq_id' value="<?php echo $aoq_id; ?>">
-								      	</form>
-								    </div>
-							  	</div>
-							</div>
-		    				
+							
 		    			</td>
 
 
@@ -269,16 +240,7 @@
 		    				<?php echo $sup['phone']; ?>
 		    			</td>
 		    			<?php } ?>
-		    			<td colspan="5" class="f10 table-borbold"  align="center">
-		    				<b><?php echo $sup['supplier_name']; ?></b><br>
-		    				<?php echo $sup['contact']; ?><br>
-		    				<?php echo $sup['phone']; ?>
-		    			</td>
-		    			<td colspan="5" class="f10 table-borbold"  align="center">
-		    				<b><?php echo $sup['supplier_name']; ?></b><br>
-		    				<?php echo $sup['contact']; ?><br>
-		    				<?php echo $sup['phone']; ?>
-		    			</td>
+		    			
 		    		
 		    		</tr>
 		    		<tr>
@@ -314,12 +276,14 @@
 
 		    			
 		    		</tr>
-		    		<?php foreach($aoq_item AS $it){ ?>
+		    		<?php 
+		    		if(!empty($aoq_item)){
+		    		foreach($aoq_item AS $it){ ?>
 		    		<tr>
 		    			<td class="f10 table-borreg" align="center">99</td>
 		    			<td colspan="5" class="f10 table-borreg" align="left"> <?php echo $it['item']; ?></td>
 		    			<td class="f10 table-borreg" align="center"><?php echo $it['qty']; ?></td>
-		    			<td class="f10 table-borreg" align="center">length</td>
+		    			<td class="f10 table-borreg" align="center"><?php echo $it['uom']; ?></td>
 
 		    			<!-- loop ka here -->
 		    			<?php foreach($supplier AS $sup){ 
@@ -338,16 +302,17 @@
 		    				 echo $CI->get_rfq_item("offer", $sup['supplier_id'], $it['item_id']); 
 		    			 } ?>
 		    			, <?php echo $CI->get_rfq_item("item", $sup['supplier_id'], $it['item_id']); ?></td>
-		    			<td class="f10 table-borreg yellow-back p-l-5 p-r-5" align="center">
+		    			<td class="f10 table-borreg  <?php echo (($it['min']==$up && $up!=0) ? 'yellow-back' :''); ?> p-l-5 p-r-5" align="center">
 		    			<?php echo number_format($up,2); ?></td>
-		    			<td class="f10 table-borreg green-back p-l-5 p-r-5" align="center"><?php echo number_format($total,2); ?></td>
+		    			<td class="f10 table-borreg <?php echo (($reco == '1') ? ' green-back' : ''); ?> p-l-5 p-r-5" align="center"><?php echo number_format($total,2); ?></td>
 		    			<td class="f10 table-borreg text-red" align="center"></td>
 		    			<!-- and delete the other two below salamats -->
 		    			<?php } ?>
 
 		    	
 		    		</tr>
-		    		<?php } ?>
+		    		<?php }
+		    		} ?>
 		    	
 		    		<tr>
 		    			<td class="f10 table-borreg" align="center"></td>
@@ -399,58 +364,38 @@
 		    		<tr>
 		    			<td class="" align="center">a.</td>
 		    			<td colspan="7" class="f10" align="center">Price Validity</td>
-		    			<td colspan="2" class="f10 bor-btm" align="left"><br></td>
+		    			<?php foreach($supplier AS $sup){ ?>
+		    			<td colspan="2" class="f10 bor-btm" align="left"><?php echo $sup['validity']; ?><br></td>
 		    			<td colspan="3" class="f10" align="left"><br></td>
-		    			<td colspan="2" class="f10 bor-btm" align="left"><br></td>
-		    			<td colspan="3" class="f10" align="left"><br></td>
-		    			<td colspan="2" class="f10 bor-btm" align="left"><br></td>
-		    			<td colspan="3" class="f10" align="left"><br></td>
-		    			<td colspan="2" class="f10 bor-btm" align="left"><br></td>
-		    			<td colspan="3" class="f10" align="left"><br></td>
-		    			<td colspan="2" class="f10 bor-btm" align="left"><br></td>
-		    			<td colspan="3" class="f10" align="left"><br></td>
+		    			<?php } ?>
+		    			
 		    		</tr>
 		    		<tr>
 		    			<td class="" align="center">b.</td>
 		    			<td colspan="7" class="f10" align="center">Payment Terms</td>
-		    			<td colspan="2" class="f10 bor-btm" align="left"><br></td>
+		    			<?php foreach($supplier AS $sup){ ?>
+		    			<td colspan="2" class="f10 bor-btm" align="left"><?php echo $sup['terms']; ?><br></td>
 		    			<td colspan="3" class="f10" align="left"><br></td>
-		    			<td colspan="2" class="f10 bor-btm" align="left"><br></td>
-		    			<td colspan="3" class="f10" align="left"><br></td>
-		    			<td colspan="2" class="f10 bor-btm" align="left"><br></td>
-		    			<td colspan="3" class="f10" align="left"><br></td>
-		    			<td colspan="2" class="f10 bor-btm" align="left"><br></td>
-		    			<td colspan="3" class="f10" align="left"><br></td>
-		    			<td colspan="2" class="f10 bor-btm" align="left"><br></td>
-		    			<td colspan="3" class="f10" align="left"><br></td>
+		    			<?php } ?>
+		    			
 		    		</tr>
 		    		<tr>
 		    			<td class="" align="center">c.</td>
 		    			<td colspan="7" class="f10" align="center">Date of Delivery</td>
-		    			<td colspan="2" class="f10 bor-btm" align="left"><br></td>
+		    			<?php foreach($supplier AS $sup){ ?>
+		    			<td colspan="2" class="f10 bor-btm" align="left"><?php echo date('F j, Y', strtotime($sup['delivery'])); ?><br></td>
 		    			<td colspan="3" class="f10" align="left"><br></td>
-		    			<td colspan="2" class="f10 bor-btm" align="left"><br></td>
-		    			<td colspan="3" class="f10" align="left"><br></td>
-		    			<td colspan="2" class="f10 bor-btm" align="left"><br></td>
-		    			<td colspan="3" class="f10" align="left"><br></td>
-		    			<td colspan="2" class="f10 bor-btm" align="left"><br></td>
-		    			<td colspan="3" class="f10" align="left"><br></td>
-		    			<td colspan="2" class="f10 bor-btm" align="left"><br></td>
-		    			<td colspan="3" class="f10" align="left"><br></td>
+		    			<?php } ?>
+		    			
 		    		</tr>
 		    		<tr>
 		    			<td class="" align="center">d.</td>
 		    			<td colspan="7" class="f10" align="center">Item's Warranty</td>
-		    			<td colspan="2" class="f10 bor-btm" align="left"><br></td>
+		    			<?php foreach($supplier AS $sup){ ?>
+		    			<td colspan="2" class="f10 bor-btm" align="left"><?php echo $sup['warranty']; ?><br></td>
 		    			<td colspan="3" class="f10" align="left"><br></td>
-		    			<td colspan="2" class="f10 bor-btm" align="left"><br></td>
-		    			<td colspan="3" class="f10" align="left"><br></td>
-		    			<td colspan="2" class="f10 bor-btm" align="left"><br></td>
-		    			<td colspan="3" class="f10" align="left"><br></td>
-		    			<td colspan="2" class="f10 bor-btm" align="left"><br></td>
-		    			<td colspan="3" class="f10" align="left"><br></td>
-		    			<td colspan="2" class="f10 bor-btm" align="left"><br></td>
-		    			<td colspan="3" class="f10" align="left"><br></td>
+		    			<?php } ?>
+		    			
 		    		</tr>
 		    		<tr><td class="f10" colspan="33" align="center"><br></td></tr>
 		    		<tr>
@@ -467,13 +412,35 @@
 		    		<tr><td class="f10" colspan="33" align="center"><br></td></tr>
 		    		<tr>
 		    			<td colspan="2"  class="" align="center"></td>
-		    			<td colspan="5" class="f10 bor-btm" align="center">Someone</td>
+		    			<td colspan="5" class="f10 bor-btm" align="center"><?php echo $_SESSION['fullname']; ?></td>
 		    			<td colspan="2" class="f10" align="left"><br></td>
-		    			<td colspan="6" class="f10 bor-btm" align="center">Someone</td>
+		    			<td colspan="6" class="f10 bor-btm" align="center"><?php echo $requested; ?></td>
 		    			<td colspan="2" class="f10" align="left"><br></td>
-		    			<td colspan="6" class="f10 bor-btm" align="center">Someone</td>
+		    			<td colspan="6" class="f10 bor-btm" align="center">
+		    				<?php if($saved==0){ ?>
+		    			<select name='approved' required>
+			    			<option value=''>-Select-</option>
+			    			<?php foreach($employee AS $emp){ ?>
+			    				<option value='<?php echo $emp->employee_id; ?>'><?php echo $emp->employee_name; ?></option>
+			    			<?php } ?>
+		    			</select>
+		    			<?php } else { 
+		    			 echo $approved; 
+		    			 } ?>
+		    			</td>
 		    			<td colspan="2" class="f10" align="left"><br></td>
-		    			<td colspan="6" class="f10 bor-btm" align="center">Someone</td>
+		    			<td colspan="6" class="f10 bor-btm" align="center">
+		    				<?php if($saved==0){ ?>
+		    				<select name='noted' required>
+			    			<option value=''>-Select-</option>
+			    			<?php foreach($employee AS $emp){ ?>
+			    				<option value='<?php echo $emp->employee_id; ?>'><?php echo $emp->employee_name; ?></option>
+			    			<?php } ?>
+		    			</select>
+		    			<?php } else { 
+		    			 echo $noted; 
+		    			 } ?>
+		    			</td>
 		    			<td colspan="2" class="f10" align="left"><br></td>
 		    		</tr>
 		    		<tr><td class="f10" colspan="33" align="center"><br></td></tr>
@@ -502,124 +469,50 @@
 		    		<tr><td class="f10" colspan="33" align="center"><br></td></tr>
 
 		    	</table>
-		    	<!-- <table class="table-bordered" width="100%" style="border:2px solid #000">
-		    		<tr>
-		    			<td width="5%"><br></td>
-		    			<td width="2%"><br></td>
-		    			<td width="3%"><br></td>
-		    			<td width="5%"><br></td>
-		    			<td width="5%"><br></td>
-		    			<td width="5%"><br></td>
-		    			<td width="5%"><br></td>
-		    			<td width="5%"><br></td>
-		    			<td width="5%"><br></td>
-		    			<td width="5%"><br></td>
-		    			<td width="5%"><br></td>
-		    			<td width="5%"><br></td>
-		    			<td width="5%"><br></td>
-		    			<td width="5%"><br></td>
-		    			<td width="5%"><br></td>
-		    			<td width="5%"><br></td>
-		    			<td width="5%"><br></td>
-		    			<td width="5%"><br></td>
-		    			<td width="5%"><br></td>
-		    			<td width="5%"><br></td>
-		    			<td width="5%"><br></td>
-		    		</tr>		    		
-		    		<tr><td class="f10"  align="center"><h5><b>ABSTRACT OF QUOTATION</b></h5></td></tr>
-		    		<tr>
-		    			<td class="f10" colspan="2" align="right">Department: &nbsp;</td>
-		    			<td class="f10" colspan="9">Test Tsest tsets test </td>		    			
-		    			<td class="f10" colspan="2" align="right">Date: &nbsp;</td>
-		    			<td class="f10" colspan="8">Purposeasds</td>
-		    		</tr>	
-		    		<tr>
-		    			<td class="f10" colspan="2" align="right">Purpose: &nbsp;</td>
-		    			<td class="f10" colspan="9">Test Tsest tsets test </td>		    			
-		    			<td class="f10" colspan="2" align="right">PR #: &nbsp;</td>
-		    			<td class="f10" colspan="8">Purposesasad </td>
-		    		</tr>
-		    		<tr>
-		    			<td class="f10" colspan="2" align="right">Enduse: &nbsp;</td>
-		    			<td class="f10" colspan="9">Test Tsest tsets test </td>		    			
-		    			<td class="f10" colspan="2" align="right">Date Needed: &nbsp;</td>
-		    			<td class="f10" colspan="8">Purasdpose</td>
-		    		</tr>	
-		    		<tr>
-		    			<td class="f10" colspan="2" align="right">Requested by: &nbsp;</td>
-		    			<td class="f10" colspan="19">Test Tsest tsets test </td>
-		    		</tr>
-		    		<tr>
-		    			<td class="f10" colspan="6" align="center"></td>
-
-
-		    			loop ka here 
-		    			<td class="f10 table-borbold" colspan="5" align="center">
-		    				<b>Visayan Construction Supply</b><br>
-		    				Mrs. Chua<br>
-		    				434-7277
-		    			</td>
-		    			and delete the other two below salamats
-
-		    			<td class="f10 table-borbold" colspan="5" align="center">
-		    				Visayan Construction Supply<br>
-		    				Mrs. Chua<br>
-		    				434-7277
-		    			</td>
-		    			<td class="f10 table-borbold" colspan="5" align="center">
-		    				Visayan Construction Supply<br>
-		    				Mrs. Chua<br>
-		    				434-7277
-		    			</td>
-		    		</tr>
-		    		<tr>
-		    			<td class="f9 table-borbold" align="center"></td>
-		    			<td class="f9 table-borbold" align="center"><b>#</td>
-		    			<td class="f9 table-borbold" align="center" colspan="2"><b>DESCRIPTION</td>
-		    			<td class="f9 table-borbold" align="center"><b>QTY</td>
-		    			<td class="f9 table-borbold" align="center"><b>UOM</td>
-		    			<td class="f9 table-borbold" align="center" colspan="2"><b>OFFER</b></td>
-		    			<td class="f9 table-borbold" align="center"><b>U/P</b></td>
-		    			<td class="f9 table-borbold" align="center"><b>AMOUNT</b></td>
-		    			<td class="f9 table-borbold" align="center"><b>COMMENTS</b></td>
-		    			<td class="f9 table-borbold" align="center" colspan="2"><b>OFFER</b></td>
-		    			<td class="f9 table-borbold" align="center"><b>U/P</b></td>
-		    			<td class="f9 table-borbold" align="center"><b>AMOUNT</b></td>
-		    			<td class="f9 table-borbold" align="center"><b>COMMENTS</b></td>
-		    			<td class="f9 table-borbold" align="center" colspan="2"><b>OFFER</b></td>
-		    			<td class="f9 table-borbold" align="center"><b>U/P</b></td>
-		    			<td class="f9 table-borbold" align="center"><b>AMOUNT</b></td>
-		    			<td class="f9 table-borbold" align="center"><b>COMMENTS</b></td>
-		    		</tr>
-		    		<tr>
-		    			<td class="f10 table-borreg" align="center"></td>
-		    			<td class="f10 table-borreg" align="center">1</td>
-		    			<td class="f10 table-borreg" align="left" colspan="2">Deformed steel BAr. 12mm dia x 6 m. gr 33</td>
-		    			<td class="f10 table-borreg" align="center">14</td>
-		    			<td class="f10 table-borreg" align="center">length</td>
-
-		    			loop ka here 
-		    			<td class="f10 table-borreg" align="left" colspan="2">Deformed steel BAr. 12mm dia x 6 m. gr 33</td>
-		    			<td class="f10 table-borreg" align="center">170.00</td>
-		    			<td class="f10 table-borreg" align="center">2380.00</td>
-		    			<td class="f10 table-borreg text-red" align="center">complying</td>
-		    			 and delete the other two below salamats
-
-		    			<td class="f10 table-borreg" align="left" colspan="2">Deformed steel BAr. 12mm dia x 6 m. gr 33</td>
-		    			<td class="f10 table-borreg" align="center">170.00</td>
-		    			<td class="f10 table-borreg" align="center">2380.00</td>
-		    			<td class="f10 table-borreg" align="center">complying</td>
-
-		    			<td class="f10 table-borreg" align="left" colspan="2">Deformed steel BAr. 12mm dia x 6 m. gr 33</td>
-		    			<td class="f10 table-borreg" align="center">170.00</td>
-		    			<td class="f10 table-borreg" align="center">2380.00</td>
-		    			<td class="f10 table-borreg" align="center">complying</td>
-		    		</tr>
-		    	</table> -->		    
+		    	    
 	    	</div>
-    	
+    	<input type='hidden' name='count' value="5">
+    		<input type='hidden' name='aoq_id' value="<?php echo $aoq_id; ?>">
+    	</form>
     </div>
-    
+    <!-- Modal -->
+	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  	<div class="modal-dialog" role="document">
+		    <div class="modal-content">
+		      	<div class="modal-header">
+			        <h5 class="modal-title" id="exampleModalLabel" style="text-align: left">Add Item 
+			        	<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			          		<span aria-hidden="true">&times;</span>
+			        	</button>
+			        </h5>							       
+		      	</div>
+		      	<form method='POST' action="<?php echo base_url(); ?>aoq/add_item">
+		      	<div class="modal-body">
+		        <div class="form-group">
+                    <h5 class="m-b-0" style="text-align: left">Item Description:</h5>
+                    <select name="item" id="soflow-color" class="semi-square" required="">
+					  	<option value='' selected>-Select Item-</option>
+					  	<?php foreach($items AS $it){ ?>
+					  		<option value="<?php echo $it->item_id; ?>"><?php echo $it->item_name . ", " . $it->item_specs; ?></option>
+					  	<?php } ?>
+					</select>
+                </div>                                   
+                <div class="form-group">
+                    <h5 class="m-b-0" style="text-align: left">Qty:</h5>
+                    <input type='text' name="qty" class="form-control" required="" autocomplete="off">
+                </div>
+
+		      	</div>
+		      	<div class="modal-footer">
+			        <input type="submit" class="btn btn-primary btn-block" value="Add">
+		      	</div>
+		      	<input type='hidden' name='aoq_id' value="<?php echo $aoq_id; ?>">
+		      	<input type='hidden' name='count' value="5">
+		      	</form>
+		    </div>
+	  	</div>
+	</div>
+		    				
     <script type="text/javascript">
     	function printPage() {
 		  window.print();

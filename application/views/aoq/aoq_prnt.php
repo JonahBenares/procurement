@@ -449,7 +449,7 @@
             </div>                                   
             <div class="form-group">
                 <h5 class="m-b-0" style="text-align: left">Qty:</h5>
-                <input type='text' name="qty" class="form-control" required="">
+                <input type='text' name="qty" class="form-control" required="" autocomplete="off">
             </div>
 
 	      	</div>
@@ -457,6 +457,7 @@
 		        <input type="submit" class="btn btn-primary btn-block" value="Add">
 	      	</div>
 	      	<input type='hidden' name='aoq_id' value="<?php echo $aoq_id; ?>">
+	      	<input type='hidden' name='count' value="3">
 	      	</form>
 	    </div>
 	  </div>

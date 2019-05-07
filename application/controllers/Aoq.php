@@ -128,6 +128,8 @@ class Aoq extends CI_Controller {
 			redirect(base_url().'aoq/aoq_prnt/'.$aoq_id);
 		} else if($count==4){
 			redirect(base_url().'aoq/aoq_prnt_four/'.$aoq_id);
+		} else if($count==5){
+			redirect(base_url().'aoq/aoq_prnt_five/'.$aoq_id);
 		}
 
     }
@@ -227,11 +229,11 @@ class Aoq extends CI_Controller {
 
     	if($this->super_model->update_where("aoq_header", $head, "aoq_id", $aoq_id)){
     		if($count==3){
-    			redirect(base_url().'aoq/aoq_prnt'.$aoq_id, 'refresh');
+    			redirect(base_url().'aoq/aoq_prnt/'.$aoq_id, 'refresh');
     		} else if($count==4){
-    			redirect(base_url().'aoq/aoq_prnt_four'.$aoq_id, 'refresh');
+    			redirect(base_url().'aoq/aoq_prnt_four/'.$aoq_id, 'refresh');
     		} else if($count==5){
-    			redirect(base_url().'aoq/aoq_prnt_five'.$aoq_id, 'refresh');
+    			redirect(base_url().'aoq/aoq_prnt_five/'.$aoq_id, 'refresh');
     		}
     	}
     }
@@ -243,6 +245,8 @@ class Aoq extends CI_Controller {
 			$enduse=$this->super_model->select_column_where('enduse','enduse_name','enduse_id', $head->enduse_id);
 			$purpose=$this->super_model->select_column_where('purpose','purpose_name','purpose_id', $head->purpose_id);
 			$requested=$this->super_model->select_column_where('employees','employee_name','employee_id', $head->requested_by);
+			$noted=$this->super_model->select_column_where('employees','employee_name','employee_id', $head->noted_by);
+			$approved=$this->super_model->select_column_where('employees','employee_name','employee_id', $head->approved_by);
 			$prepared=$this->super_model->select_column_where('employees','employee_name','employee_id', $head->prepared_by);
 			$data['head'][] = array(
 				'aoq_id'=>$head->aoq_id,
@@ -254,35 +258,55 @@ class Aoq extends CI_Controller {
 				'date_needed'=>$head->date_needed,
 				'requested'=>$requested,
 				'remarks'=>$head->remarks,
-				'prepared'=>$prepared
+				'prepared'=>$prepared,
+
 			);
+			$data['noted'] = $noted;
+			$data['approved'] = $approved;
+			$data['requested'] = $requested;
+			$data['saved']=$head->saved;
 		}
 
 		foreach($this->super_model->select_row_where("aoq_rfq", "aoq_id", $aoq_id) AS $rfq){
+			//echo $rfq->rfq_id;
 			$supplier_id=$this->super_model->select_column_where('rfq_head','supplier_id','rfq_id', $rfq->rfq_id);
 			$supplier=$this->super_model->select_column_where('vendor_head','vendor_name','vendor_id', $supplier_id);
 			$contact=$this->super_model->select_column_where('vendor_head','contact_person','vendor_id', $supplier_id);
 			$phone=$this->super_model->select_column_where('vendor_head','phone_number','vendor_id', $supplier_id);
+			$validity=$this->super_model->select_column_where('rfq_head','price_validity','rfq_id', $rfq->rfq_id);
+			$terms=$this->super_model->select_column_where('rfq_head','payment_terms','rfq_id', $rfq->rfq_id);
+			$delivery=$this->super_model->select_column_where('rfq_head','delivery_date','rfq_id', $rfq->rfq_id);
+			$warranty=$this->super_model->select_column_where('rfq_head','warranty','rfq_id', $rfq->rfq_id);
 			$data['supplier'][] = array(
 				'rfq_id'=>$rfq->rfq_id,
 				'supplier_id'=>$supplier_id,
 				'supplier_name'=>$supplier,
 				'contact'=>$contact,
-				'phone'=>$phone
+				'phone'=>$phone,
+				'validity'=>$validity,
+				'terms'=>$terms,
+				'delivery'=>$delivery,
+				'warranty'=>$warranty
 			);
 		}
 
 		foreach($this->super_model->select_row_where("aoq_items", "aoq_id", $aoq_id) AS $items){
 			$item_name=$this->super_model->select_column_where('item','item_name','item_id', $items->item_id);
 			$specs=$this->super_model->select_column_where('item','item_specs','item_id', $items->item_id);
+			$uom=$this->super_model->select_column_where('item','uom','item_id', $items->item_id);
+			$min =$this->super_model->get_min_where('rfq_detail','unit_price',"item_id = '$items->item_id' AND unit_price != '0'");
+			
 			$item = $item_name . ", " .$specs;
 			$data['aoq_item'][]=array(
 				'item_id'=>$items->item_id,
 				'item'=>$item,
-				'qty'=>$items->quantity
+				'uom'=>$uom,
+				'qty'=>$items->quantity,
+				'min'=>$min
 			);
 		}
 
+		$data['employee']=$this->super_model->select_all_order_by("employees", "employee_name", "ASC");
 		$data['items']=$this->super_model->select_all_order_by("item", "item_name", "ASC");
         $this->load->view('template/header');
         $this->load->view('aoq/aoq_prnt_five',$data);
@@ -382,7 +406,7 @@ class Aoq extends CI_Controller {
     		} else if($count==4){
     			redirect(base_url().'aoq/aoq_prnt_four/'.$aoq_id);
     		} else if($count==5){
-    			redirect(base_url().'aoq/aoq_prnt_five'.$aoq_id, 'refresh');
+    			redirect(base_url().'aoq/aoq_prnt_five/'.$aoq_id, 'refresh');
     		}
     	}
     }

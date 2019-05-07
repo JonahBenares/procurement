@@ -123,7 +123,7 @@ class Rfq extends CI_Controller {
 
 	public function rfq_list(){
 		$data =array();
-		foreach($this->super_model->select_custom_where("rfq_head", "saved='1' AND aoq_done='0'") AS $rfq){
+		foreach($this->super_model->select_custom_where("rfq_head", "saved='1' AND aoq_done='0' ORDER BY rfq_id DESC") AS $rfq){
 			$supplier = $this->super_model->select_column_where('vendor_head','vendor_name','vendor_id', $rfq->supplier_id);
 			$data['list'][] = array(
 				'rfq_id'=>$rfq->rfq_id,

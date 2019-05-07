@@ -10,7 +10,15 @@
         } 
     });
  });
+
+  function toggle_multi(source) {
+      checkboxes_multi = document.getElementsByClassName('rfq_list');
+      for(var i=0, n=checkboxes_multi.length;i<n;i++) {
+        checkboxes_multi[i].checked = source.checked;
+      }
+    }
  </script>   
+   
     <div class="breadcome-area mg-b-30 small-dn">
         <div class="container-fluid">
             <div class="row">
@@ -63,7 +71,7 @@
                                 <table class="table table-bordered table-hover">
                                     <thead>
                                         <tr>
-                                            <th width="5%"><input type="checkbox" class="form-control" name=""></th>
+                                            <th width="5%"><input type="checkbox" class="form-control" name="" onClick="toggle_multi(this)"></th>
                                             <th>RFQ #</th>
                                             <th>Supplier</th>
                                             <th>RFQ Date</th>
