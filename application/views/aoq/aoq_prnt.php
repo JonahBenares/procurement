@@ -250,10 +250,11 @@
 		    		</tr>
 		    		<?php 
 		    		if(!empty($aoq_item)){
+		    			$x=1;
 		    		foreach($aoq_item AS $it){ 
 		    			//echo $it['min'];?>
 		    		<tr>
-		    			<td class="f10 table-borreg" align="center">1</td>
+		    			<td class="f10 table-borreg" align="center"><?php echo $x; ?></td>
 		    			<td class="f10 table-borreg" align="left" colspan="3"><?php echo $it['item']; ?></td>
 		    			<td class="f10 table-borreg" align="center"><?php echo $it['qty']; ?></td>
 		    			<td class="f10 table-borreg" align="center"><?php echo $it['uom']; ?></td>
@@ -281,6 +282,7 @@
 		    			<?php } ?>
 		    		</tr>
 		    		<?php } 
+		    		$x++;
 		    		}?>
 		    		<tr>
 		    			<td class="f10 table-borreg" align="center"><br></td>
