@@ -53,9 +53,10 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="sparkline8-list shadow-reset">
-                        <div class="sparkline8-hd">
+                        <div class="sparkline8-hd p-b-0" >
                             <div class="main-sparkline8-hd">
                                 <h1>RFQ List</h1>
+                                <small>REQUEST FOR QUOTATION</small> 
                                 <div class="sparkline8-outline-icon">
                                 <input type='submit' class="btn btn-custon-three btn-primary" value='Create AOQ' > 
                                   <!--   <a class="btn btn-custon-three btn-primary" href=">

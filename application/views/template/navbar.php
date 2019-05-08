@@ -34,16 +34,23 @@
                             </div>
                         </li>
                         <li class="nav-item">
-                            <a href="<?php echo base_url(); ?>index.php/rfq/rfq_list"  role="button" class="nav-link dropdown-toggle">
+                            <a href="<?php echo base_url(); ?>index.php/rfq/rfq_list"  role="button" class="nav-link dropdown-toggle" title="Request for Quotation">
                                 <i class="fa big-icon fa-th-large"></i>
                                 <span class="mini-dn">RFQ</span> 
                                 <span class="indicator-right-menu mini-dn"></span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="<?php echo base_url(); ?>index.php/aoq/aoq_list"  role="button" class="nav-link dropdown-toggle">
+                            <a href="<?php echo base_url(); ?>index.php/aoq/aoq_list"  role="button" class="nav-link dropdown-toggle" title="Abstract of Quotation">
                                 <i class="fa big-icon fa-th-list"></i>
                                 <span class="mini-dn">AOQ</span> 
+                                <span class="indicator-right-menu mini-dn"></span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?php echo base_url(); ?>index.php/po/po_list"  role="button" class="nav-link dropdown-toggle" title="Purchase Order">
+                                <i class="fa big-icon fa-th"></i>
+                                <span class="mini-dn">PO</span> 
                                 <span class="indicator-right-menu mini-dn"></span>
                             </a>
                         </li>

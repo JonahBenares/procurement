@@ -33,6 +33,13 @@ class Po extends CI_Controller {
         $this->load->view('template/footer');
     }
 
+    public function po_list(){
+        $this->load->view('template/header');   
+        $this->load->view('template/navbar');     
+        $this->load->view('po/po_list');
+        $this->load->view('template/footer');
+    }
+
     public function delivery_receipt(){
         $this->load->view('template/header');        
         $this->load->view('po/delivery_receipt');

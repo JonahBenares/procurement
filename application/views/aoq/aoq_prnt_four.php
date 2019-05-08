@@ -145,6 +145,7 @@
 	    		<center>
 			    	<div class="btn-group">
 						<a href="<?php echo base_url(); ?>aoq/aoq_list" class="btn btn-success btn-md p-l-100 p-r-100"><span class="fa fa-arrow-left"></span> Back</a>
+						<a href="" class="btn btn-info btn-md p-l-100 p-r-100"><span class="fa fa-check"></span> Done</a>
 						<?php if($saved==1){ ?>
 						<a  onclick="printPage()" class="btn btn-warning btn-md p-l-100 p-r-100"><span class="fa fa-print"></span> Print</a>
 						<?php } if($saved==0){ ?>
@@ -155,7 +156,7 @@
 				</center>
 			</div>
 	    	<div style="background: #fff;">    		  			
-		    	<table class="table-bsordered" width="100%" style="background: #fff;border: 1px solid #000">
+		    	<table class="table-borsered" width="100%" style="background: #fff;border: 1px solid #000">
 		    		<tr>
 		    			<td width="3%"><br></td>
 		    			<td width="3%"><br></td>
@@ -295,8 +296,8 @@
 		    			, <?php echo $CI->get_rfq_item("item", $sup['supplier_id'], $it['item_id']); ?></td>
 		    			<td class="f10 table-borreg <?php echo (($it['min']==$up && $up!=0) ? 'yellow-back' :''); ?> p-l-5 p-r-5" align="center">
 		    			<?php echo number_format($up,2); ?></td>
-		    			<td class="f10 table-borreg <?php echo (($reco == '1') ? ' green-back' : ''); ?> p-l-5 p-r-5" align="center"><?php echo number_format($total,2); ?></td>
-		    			<td class="f10 table-borreg text-red" align="center"></td>
+		    			<td class="f10 table-borreg <?php echo (($reco == '1') ? ' green-back' : ''); ?> p-l-5 p-r-5" align="center"><?php echo number_format($total,2); ?><br><input type="checkbox" name=""></td>
+		    			<td class="f10 table-borreg text-red" align="center"><textarea cols="5" rows="3"></textarea></td>
 		    			<!-- and delete the other two below salamats -->
 		    			<?php } ?>		    	
 		    		</tr>
@@ -347,8 +348,7 @@
 		    		<tr><td class="f10" colspan="33" align="center"><br></td></tr>
 		    		<tr>
 		    			<td class="" align="center">a.</td>
-		    			<td colspan="7" class="f10" align="center">Price Validity</td>
-		    			<td colspan="1" class="f10 bor-btm" align="left"><br></td>
+		    			<td colspan="8" class="f10" align="center">Price Validity</td>
 		    			<?php foreach($supplier AS $sup){ ?>
 		    			<td colspan="4" class="f10 bor-btm" align="left"><?php echo $sup['validity']; ?><br></td>
 		    			<td colspan="2" class="f10" align="left"><br></td>
@@ -364,8 +364,7 @@
 		    		</tr>
 		    		<tr>
 		    			<td class="" align="center">b.</td>
-		    			<td colspan="7" class="f10" align="center">Payment Terms</td>
-		    			<td colspan="1" class="f10 bor-btm" align="left"><br></td>
+		    			<td colspan="8" class="f10" align="center">Payment Terms</td>
 		    			<?php foreach($supplier AS $sup){ ?>
 		    			<td colspan="4" class="f10 bor-btm" align="left"><?php echo $sup['terms']; ?><br></td>
 		    			<td colspan="2" class="f10" align="left"><br></td>
@@ -381,8 +380,7 @@
 		    		</tr>
 		    		<tr>
 		    			<td class="" align="center">c.</td>
-		    			<td colspan="7" class="f10" align="center">Date of Delivery</td>
-		    			<td colspan="1" class="f10 bor-btm" align="left"><br></td>
+		    			<td colspan="8" class="f10" align="center">Date of Delivery</td>
 		    			<?php foreach($supplier AS $sup){ ?>
 		    			<td colspan="4" class="f10 bor-btm" align="left"><?php echo date('F j, Y', strtotime($sup['delivery'])); ?><br></td>
 		    			<td colspan="2" class="f10" align="left"><br></td>
@@ -398,8 +396,7 @@
 		    		</tr>
 		    		<tr>
 		    			<td class="" align="center">d.</td>
-		    			<td colspan="7" class="f10" align="center">Item's Warranty</td>
-		    			<td colspan="1" class="f10 bor-btm" align="left"><br></td>
+		    			<td colspan="8" class="f10" align="center">Item's Warranty</td>
 		    			<?php foreach($supplier AS $sup){ ?>
 		    			<td colspan="4" class="f10 bor-btm" align="left"><?php echo $sup['warranty']; ?><br></td>
 		    			<td colspan="2" class="f10" align="left"><br></td>

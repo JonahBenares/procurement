@@ -145,6 +145,7 @@
 	    		<center>
 			    	<div class="btn-group">
 						<a href="<?php echo base_url(); ?>aoq/aoq_list" class="btn btn-success btn-md p-l-100 p-r-100"><span class="fa fa-arrow-left"></span> Back</a>
+						<a href="" class="btn btn-info btn-md p-l-100 p-r-100"><span class="fa fa-check"></span> Done</a>
 						<?php if($saved==1){ ?>
 						<a  onclick="printPage()" class="btn btn-warning btn-md p-l-100 p-r-100"><span class="fa fa-print"></span> Print</a>
 						<?php } if($saved==0){ ?>
@@ -305,8 +306,8 @@
 		    			, <?php echo $CI->get_rfq_item("item", $sup['supplier_id'], $it['item_id']); ?></td>
 		    			<td class="f10 table-borreg  <?php echo (($it['min']==$up && $up!=0) ? 'yellow-back' :''); ?> p-l-5 p-r-5" align="center">
 		    			<?php echo number_format($up,2); ?></td>
-		    			<td class="f10 table-borreg <?php echo (($reco == '1') ? ' green-back' : ''); ?> p-l-5 p-r-5" align="center"><?php echo number_format($total,2); ?></td>
-		    			<td class="f10 table-borreg text-red" align="center"></td>
+		    			<td class="f10 table-borreg <?php echo (($reco == '1') ? ' green-back' : ''); ?> p-l-5 p-r-5" align="center"><?php echo number_format($total,2); ?><br><input type="checkbox" name=""></td>
+		    			<td class="f10 table-borreg text-red" align="center"><textarea cols="5" rows="3"></textarea></td>
 		    			<!-- and delete the other two below salamats -->
 		    			<?php } ?>
 

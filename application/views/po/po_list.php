@@ -16,7 +16,7 @@
                                 <ul class="breadcome-menu">
                                     <li><a href="<?php echo base_url(); ?>index.php/masterfile/dashboard">Home</a> <span class="bread-slash">/</span>
                                     </li>
-                                    <li><span class="bread-blod">AOQ List</span>
+                                    <li><span class="bread-blod">PO List</span>
                                     </li>
                                 </ul>
                             </div>
@@ -26,18 +26,62 @@
             </div>
         </div>
     </div>
+    <div id="addPO" class="modal modal-adminpro-general default-popup-PrimaryModal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header header-color-modal bg-color-1">
+                    <h4 class="modal-title">Add PO</h4>
+                    <div class="modal-close-area modal-close-df">
+                        <a class="close" data-dismiss="modal" href="#"><i class="fa fa-close"></i></a>
+                    </div>
+                </div>
+                <form method="POST" action = "<?php echo base_url();?>index.php/items/insert_item">
+                    <div class="modal-body-lowpad">
+                        <div class="form-group">
+                            <p class="m-b-0">Date:</p>
+                            <input type="date" name="brand" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <p class="m-b-0">PO NO:</p>
+                            <input type="text" name="brand" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <p class="m-b-0">Supplier:</p>
+                            <input type="text" name="brand" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <p class="m-b-0">Address:</p>
+                            <input type="text" name="pn" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <p class="m-b-0">Contact Person:</p>
+                            <input type="text" name="pn" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <p class="m-b-0">Telephone #:</p>
+                            <input type="text" name="pn" class="form-control">
+                        </div>
+                        <center>
+                            <a href="<?php echo base_url(); ?>index.php/po/purchase_order" class="btn btn-custon-three btn-primary btn-block">Save</a>
+                            <!-- <input type = "submit" class="btn btn-custon-three btn-primary btn-block" value = "Save"> -->
+                        </center>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
     <div class="admin-dashone-data-table-area">
         <div class="container-fluid">
          <form name="myform" action="<?php echo base_url(); ?>index.php/aoq/add_aoq" method="post">
             <div class="row">
                 <div class="col-lg-12">
                     <div class="sparkline8-list shadow-reset">
-                        <div class="sparkline8-hd" style="padding-bottom: 0px">
-                            <div class="main-sparkline8-hd" >
-                                <h1>AOQ List</h1>
-                                <small>ABSTRACT OF QUOTATION</small> 
+                        <div class="sparkline8-hd">
+                            <div class="main-sparkline8-hd">
+                                <h1>PO List</h1>
+                                <small>PURCHASE ORDER</small>
                                 <div class="sparkline8-outline-icon">
-                                <!-- <input type='submit' class="btn btn-custon-three btn-primary" value='Create AOQ' >  -->
+                                <input type='button' class="btn btn-custon-three btn-primary" value='Add PO'  data-toggle="modal" data-target="#addPO"> 
                                   <!--   <a class="btn btn-custon-three btn-primary" href=">
                                         <span class="fa fa-plus p-l-0"></span>
                                         Create AOQ
