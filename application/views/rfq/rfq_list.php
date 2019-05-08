@@ -1,6 +1,7 @@
  
  <script type="text/javascript">
  $( document ).ready(function() {
+    $("#createAOQ").attr("disabled", true);
     var $checkboxes = $('input[type="checkbox"]');
     $checkboxes.change(function(){
         var countCheckedCheckboxes = $checkboxes.filter(':checked').length;
@@ -8,6 +9,9 @@
            this.checked = false;
            alert('You can only choose up to 5 RFQs.');
         } 
+         if(countCheckedCheckboxes  > 2){
+            $('#createAOQ').removeAttr("disabled");
+         }
     });
  });
 
@@ -58,7 +62,7 @@
                                 <h1>RFQ List</h1>
                                 <small>REQUEST FOR QUOTATION</small> 
                                 <div class="sparkline8-outline-icon">
-                                <input type='submit' class="btn btn-custon-three btn-primary" value='Create AOQ' > 
+                                <input type='submit' id='createAOQ' class="btn btn-custon-three btn-primary" value='Create AOQ' > 
                                   <!--   <a class="btn btn-custon-three btn-primary" href=">
                                         <span class="fa fa-plus p-l-0"></span>
                                         Create AOQ
