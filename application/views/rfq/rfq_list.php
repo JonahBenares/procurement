@@ -81,7 +81,7 @@
                                             <th>Supplier</th>
                                             <th>RFQ Date</th>
                                             <th>Items</th>
-                                            <th width="5%"><center><span class="fa fa-bars"></span></center></th>
+                                            <th width="10%"><center><span class="fa fa-bars"></span></center></th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -97,6 +97,7 @@
                                         $item = substr($item, 0, -2);
                                                 ?>
                                         <tr>
+                                        <?php if($li['served']==0){ ?>
                                             <td>
                                             <?php if($li['completed']==1){ ?>
                                             <input type="checkbox" class="form-control rfq_list" name="rfq[]" value="<?php echo $li['rfq_id']; ?>">
@@ -112,10 +113,12 @@
                                                     <a href="javascript:void(0)" onclick="incomingRfq('<?php echo base_url(); ?>','<?php echo $li['rfq_id']; ?>')" class="btn btn-custon-three btn-warning btn-xs">
                                                         <span class="fa fa-eye"></span>
                                                     </a>
+                                                    <a href="<?php echo base_url(); ?>rfq/update_served/<?php echo $li['rfq_id']?>" class="btn btn-custon-three btn-success btn-xs" >served
+                                                    </a>
                                                 </center>
                                             </td>
                                         </tr>       
-                                    <?php }
+                                    <?php } }
                                     } ?>                                 
                                     </tbody>
                                 </table>

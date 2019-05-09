@@ -75,6 +75,7 @@
     foreach($head AS $h){
     	$date=$h['rfq_date'];
     	$supplier=$h['supplier'];
+    	$rfq_no=$h['rfq_no'];
     	$phone=$h['phone'];
     	$saved=$h['saved'];
   ?>
@@ -133,7 +134,7 @@
 		    			<td class="f13 bor-btm" colspan="8"><?php echo date('F j, Y', strtotime($date)); ?></td>
 		    			<td class="f13" colspan="1"></td>
 		    			<td class="f13" colspan="3">RFQ No.:</td>
-		    			<td class="f13 bor-btm" colspan="6"></td>
+		    			<td class="f13 bor-btm" colspan="6"><?php echo $rfq_no; ?></td>
 		    		</tr>
 		    		<tr><td class="f13" colspan="20" align="center"></td></tr>
 		    		<tr>
