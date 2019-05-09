@@ -140,7 +140,13 @@
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/mixins.css">
     <div  class="pad">
-    	<form method='POST' action='<?php echo base_url(); ?>aoq/aoq_save'>
+    		<?php if($saved==1){
+			$url =  base_url().'aoq/aoq_complete';
+		} else {
+			$url =  base_url().'aoq/aoq_save';
+		}
+	?>
+    		<form method='POST' action='<?php echo $url ?>'>
     		<div id="prnt_btn">
 	    		<center>
 			    	<div class="btn-group">
@@ -311,7 +317,7 @@
 		    			, <?php echo $CI->get_rfq_item("item", $sup['supplier_id'], $it['item_id']); ?></td>
 		    			<td class="f10 table-borreg  <?php echo (($it['min']==$up && $up!=0) ? 'yellow-back' :''); ?> p-l-5 p-r-5" align="center">
 		    			<?php echo number_format($up,2); ?>
-		    			<?php if($saved=='1'){ ?>
+		    			<?php if($saved=='1' && $completed==0){ ?>
 		    			<br>
 		    				<input type="radio" name="reco<?php echo $a; ?>" value='<?php echo $sup['supplier_id']."_".$it['item_id']."_".$up."_".$it['qty'] ; ?>' required>
 		    				
@@ -339,7 +345,7 @@
 		    		<?php }
 		    		$x++;
 		    		} ?>
-		    	
+		    		<input type='hidden' name='count_item' value='<?php echo $a; ?>'>
 		    		<tr>
 		    			<td class="f10 table-borreg" align="center"></td>
 		    			<td colspan="5" class="f10 table-borreg" align="left"></td>
