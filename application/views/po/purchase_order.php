@@ -44,7 +44,7 @@
 			.pad{
         	padding:0px 0px 0px 0px
         	}
-			#prnt_btn{
+			#prnt_btn,#item-btn,#pr-btn{
 				display: none;
 			}
 			.emphasis{
@@ -69,7 +69,69 @@
 			margin: 0px 2px 0px 2px;
 		}
     </style>
-    
+    <!-- Modal -->
+	<div class="modal fade" id="add-pr" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Add PR
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+						</button>
+					</h5>					
+				</div>
+				<form>
+					<div class="modal-body">
+						<div class="form-group">
+							<p class="nomarg">PR NO:</p>
+							<input type="" class="form-control" name="">
+						</div>
+						<div class="form-group">
+							<p class="nomarg">Requestor:</p>
+							<input type="" class="form-control" name="">
+						</div>
+						<div class="form-group">
+							<p class="nomarg">Purpose:</p>
+							<input type="" class="form-control" name="">
+						</div>
+						<div class="form-group">
+							<p class="nomarg">Enduse:</p>
+							<input type="" class="form-control" name="">
+						</div>
+					</div>
+					<div class="modal-footer">
+					<button type="button" class="btn btn-primary btn-block">Add</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="add-item" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Add Item/s
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+						</button>
+					</h5>					
+				</div>
+				<form>
+					<div class="modal-body">
+						<div class="form-group">
+							<p class="nomarg">Item:</p>
+							<input type="" class="form-control" name="">
+						</div>
+					</div>
+					<div class="modal-footer">
+					<button type="button" class="btn btn-primary btn-block">Add</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
     <div  class="pad">
 
     	<form method='POST' action=''>  
@@ -118,76 +180,224 @@
 		    		<tr><td colspan="20" align="center"><h4><b>PURCHASE ORDER</b></h4></td></tr>
 		    		<tr><td class="f13" colspan="20" align="center"><br></td></tr>
 		    		<tr>
-		    			<td colspan="3"><h5 class="nomarg"><b>Date</b></h5></td>
-		    			<td colspan="13"><h5 class="nomarg"><b>April 26, 2019</b></h5></td>
-		    			<td colspan="4"><h5 class="nomarg"><b>P.O. No. PR-191-4763</b></h5></td>
+		    			<td colspan="3"><h6 class="nomarg"><b>Date</b></h6></td>
+		    			<td colspan="12"><h6 class="nomarg"><b>April 26, 2019</b></h6></td>
+		    			<td colspan="5"><h6 class="nomarg"><b>P.O. No. PR-191-4763</b></h6></td>
 		    		</tr>	
 		    		<tr>
-		    			<td colspan="3"><h5 class="nomarg"><b>Supplier:</b></h5></td>
-		    			<td colspan="13"><h5 class="nomarg bor-btm"><b>A-ONE INDUSTRIAL SALES</b></h5></td>
-		    			<td colspan="4"><h5 class="nomarg"><b></b></h5></td>
+		    			<td colspan="3"><h6 class="nomarg"><b>Supplier:</b></h6></td>
+		    			<td colspan="12"><h6 class="nomarg bor-btm"><b>A-ONE INDUSTRIAL SALES</b></h6></td>
+		    			<td colspan="5"><h6 class="nomarg"><b></b></h6></td>
 		    		</tr>
 		    		<tr>
-		    			<td colspan="3"><h5 class="nomarg"><b>Address:</b></h5></td>
-		    			<td colspan="13"><h5 class="nomarg bor-btm"><b>Lopez Jaena St., Libertad, Bacolod</b></h5></td>
-		    			<td colspan="4"><h5 class="nomarg"><b></b></h5></td>
+		    			<td colspan="3"><h6 class="nomarg"><b>Address:</b></h6></td>
+		    			<td colspan="12"><h6 class="nomarg bor-btm"><b>Lopez Jaena St., Libertad, Bacolod</b></h6></td>
+		    			<td colspan="5"><h6 class="nomarg"><b></b></h6></td>
 		    		</tr>
 		    		<tr>
-		    			<td colspan="3"><h5 class="nomarg"><b>Contact Person:</b></h5></td>
-		    			<td colspan="13"><h5 class="nomarg bor-btm"><b>Ms. Marge</b></h5></td>
-		    			<td colspan="4"><h5 class="nomarg"><b></b></h5></td>
+		    			<td colspan="3"><h6 class="nomarg"><b>Contact Person:</b></h6></td>
+		    			<td colspan="12"><h6 class="nomarg bor-btm"><b>Ms. Marge</b></h6></td>
+		    			<td colspan="5"><h6 class="nomarg"><b></b></h6></td>
 		    		</tr>
 		    		<tr>
-		    			<td colspan="3"><h5 class="nomarg"><b>Telephone #:</b></h5></td>
-		    			<td colspan="13"><h5 class="nomarg bor-btm"><b>(034) 432-0652 / 4761127</b></h5></td>
-		    			<td colspan="4"><h5 class="nomarg"><b></b></h5></td>
-		    		</tr>	    		
-		    		<tr><td class="f13" colspan="20" align="center"><br></td></tr>		
-		    		<tr>
-		    			<td colspan="" class="all-border" align="center"><b>#</b></td>
-		    			<td colspan="" class="all-border" align="center"><b>Qty</b></td>
-		    			<td colspan="" class="all-border" align="center"><b>Unit</b></td>
-		    			<td colspan="12" class="all-border" align="center"><b>Description</b></td>
-		    			<td colspan="2" class="all-border" align="center"><b>Unit Price</b></td>
-		    			<td colspan="3" class="all-border" align="center"></td>
+		    			<td colspan="3"><h6 class="nomarg"><b>Telephone #:</b></h6></td>
+		    			<td colspan="12"><h6 class="nomarg bor-btm"><b>(034) 432-0652 / 4761127</b></h6></td>
+		    			<td colspan="5"><h6 class="nomarg"><b></b></h6></td>
 		    		</tr>
-		    		<tr>
-		    			<td colspan="" class="all-border" align="center"><b>1</b></td>
-		    			<td colspan="" class="all-border" align="center"><b>999</b></td>
-		    			<td colspan="" class="all-border" align="center"><b>set</b></td>
-		    			<td colspan="12" class="all-border" align="left"><b class="nomarg">Power Tools; Brand:Ken, Model:69135</b></td>
-		    			<td colspan="2" class="all-border" align="center"><b>299,790.00</b></td>
-		    			<td colspan="3" class="all-border" align="right"><b class="nomarg">299,790.00</b></td>
-		    		</tr>
-		    		<tr>
-		    			<td colspan="" class="all-border" align="center"><b>1</b></td>
-		    			<td colspan="" class="all-border" align="center"><b>999</b></td>
-		    			<td colspan="" class="all-border" align="center"><b>set</b></td>
-		    			<td colspan="12" class="all-border" align="left"><b class="nomarg">Acetylene cutting outfit; Brand:Supercut</b></td>
-		    			<td colspan="2" class="all-border" align="center"><b>4,790.00</b></td>
-		    			<td colspan="3" class="all-border" align="right"><b class="nomarg">4,790.00</b></td>
-		    		</tr>
-		    		<tr>
-		    			<td colspan="" class="all-border" align="center"><b></b></td>
-		    			<td colspan="" class="all-border" align="center"><b></b></td>
-		    			<td colspan="" class="all-border" align="center"><b></b></td>
-		    			<td colspan="12" class="all-border" align="left">
-		    				<b class="nomarg">
-		    					<br>
-		    					Purpose: Consumables, Tools and Equipment's for Spare Stator Rewinding<br>
-		    					Enduse: Spare Ideal Generator<br>
-		    					Requestor: Julius Pangilinan / Kennah Sasamoto<br>
-		    					PR No: PR-191-2019		    					
-		    					
-		    				</b>
+		    		<tr id="pr-btn">
+		    			<td colspan="20" style="padding-left: 10px">
+		    				<button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#add-pr">
+							  Add PR
+							</button>
 		    			</td>
-		    			<td colspan="2" class="all-border" align="center"><b></b></td>
-		    			<td colspan="3" class="all-border" align="right"><b class="nomarg"></b></td>
-		    		</tr>
+		    		</tr>	
+		    		<!-- LOOp Here -->  		
 		    		<tr>
-		    			<td colspan="17" class="all-border" align="right"><b class="nomarg">TOTAL</b></td>
-		    			<td colspan="3" class="all-border" align="right"><b class="nomarg"><span class="pull-left">₱</span>1,999,790.00</b></td>
-		    		</tr>
+		    			<td class="f13" colspan="20" align="center" style="padding: 10px!important">
+		    				<table  class="table-bodrdered" width="100%" style="border:1px solid #000;">
+		    					<tr>
+					    			<td width="5%"></td>
+					    			<td width="5%"></td>
+					    			<td width="5%"></td>
+					    			<td width="5%"></td>
+					    			<td width="5%"></td>
+					    			<td width="5%"></td>
+					    			<td width="5%"></td>
+					    			<td width="5%"></td>
+					    			<td width="5%"></td>
+					    			<td width="5%"></td>
+					    			<td width="5%"></td>
+					    			<td width="5%"></td>
+					    			<td width="5%"></td>
+					    			<td width="5%"></td>
+					    			<td width="5%"></td>
+					    			<td width="5%"></td>
+					    			<td width="5%"></td>
+					    			<td width="5%"></td>
+					    			<td width="5%"></td>
+					    			<td width="5%"></td>
+					    		</tr>
+					    		<tr>
+					    			<td class="" colspan="2" align="Left">&nbsp;PR No:</td>
+					    			<td class="" colspan="6" align="Left">PR-191-2019</td>
+					    			<td class="" colspan="12" align="right">Requestor: Julius Pangilinan / Kennah Sasamoto &nbsp;</td>
+					    		</tr>
+					    		<tr>
+					    			<td class="" colspan="2" align="Left">&nbsp;Purpose:</td>
+					    			<td class="" colspan="18" align="Left">Consumables, Tools and Equipment's for Spare Stator Rewinding</td>
+					    		</tr>
+					    		<tr>
+					    			<td class="" colspan="2" align="Left">&nbsp;Enduse:</td>
+					    			<td class="" colspan="18" align="Left">Spare Ideal Generator</td>
+					    		</tr>
+					    		<tr id="item-btn">
+					    			<td colspan="20" style="padding-left: 10px">
+					    				<button type="button" class="btn btn-info btn-xs" data-toggle="modal" data-target="#add-item">
+										  Add Item/s
+										</button>
+					    			</td>
+					    		</tr>
+		    					<tr>
+					    			<td colspan="" class="all-border" align="center"><b>#</b></td>
+					    			<td colspan="" class="all-border" align="center"><b>Qty</b></td>
+					    			<td colspan="" class="all-border" align="center"><b>Unit</b></td>
+					    			<td colspan="12" class="all-border" align="center"><b>Description</b></td>
+					    			<td colspan="2" class="all-border" align="center"><b>Unit Price</b></td>
+					    			<td colspan="3" class="all-border" align="center"></td>
+					    		</tr>
+					    		<tr>
+					    			<td colspan="" class="all-border" align="center"><b>1</b></td>
+					    			<td colspan="" class="all-border" align="center"><b>999</b></td>
+					    			<td colspan="" class="all-border" align="center"><b>set</b></td>
+					    			<td colspan="12" class="all-border" align="left"><b class="nomarg">Power Tools; Brand:Ken, Model:69135</b></td>
+					    			<td colspan="2" class="all-border" align="center"><b>299,790.00</b></td>
+					    			<td colspan="3" class="all-border" align="right"><b class="nomarg">299,790.00</b></td>
+					    		</tr>
+					    		<tr>
+					    			<td colspan="" class="all-border" align="center"><b>1</b></td>
+					    			<td colspan="" class="all-border" align="center"><b>999</b></td>
+					    			<td colspan="" class="all-border" align="center"><b>set</b></td>
+					    			<td colspan="12" class="all-border" align="left"><b class="nomarg">Acetylene cutting outfit; Brand:Supercut</b></td>
+					    			<td colspan="2" class="all-border" align="center"><b>4,790.00</b></td>
+					    			<td colspan="3" class="all-border" align="right"><b class="nomarg">4,790.00</b></td>
+					    		</tr>
+					    		<tr>
+					    			<td colspan="17" class="all-border" align="right"><b class="nomarg">TOTAL</b></td>
+					    			<td colspan="3" class="all-border" align="right"><b class="nomarg"><span class="pull-left">₱</span>1,999,790.00</b></td>
+					    		</tr>
+		    				</table>
+			    		</td>
+			    	</tr>
+			    	<!-- LOOp Here --> 
+
+			    	<tr>
+		    			<td class="f13" colspan="20" align="center" style="padding: 10px!important">
+		    				<table  class="table-bodrdered" width="100%" style="border:1px solid #000;">
+		    					<tr>
+					    			<td width="5%"></td>
+					    			<td width="5%"></td>
+					    			<td width="5%"></td>
+					    			<td width="5%"></td>
+					    			<td width="5%"></td>
+					    			<td width="5%"></td>
+					    			<td width="5%"></td>
+					    			<td width="5%"></td>
+					    			<td width="5%"></td>
+					    			<td width="5%"></td>
+					    			<td width="5%"></td>
+					    			<td width="5%"></td>
+					    			<td width="5%"></td>
+					    			<td width="5%"></td>
+					    			<td width="5%"></td>
+					    			<td width="5%"></td>
+					    			<td width="5%"></td>
+					    			<td width="5%"></td>
+					    			<td width="5%"></td>
+					    			<td width="5%"></td>
+					    		</tr>
+					    		<tr>
+					    			<td class="" colspan="2" align="Left">&nbsp;PR No:</td>
+					    			<td class="" colspan="6" align="Left">PR-232-2019</td>
+					    			<td class="" colspan="12" align="right">Requestor: Hennelen Tanan &nbsp;</td>
+					    		</tr>
+					    		<tr>
+					    			<td class="" colspan="2" align="Left">&nbsp;Purpose:</td>
+					    			<td class="" colspan="18" align="Left">Consumables, Tools and Equipment's for Spare Stator Rewinding</td>
+					    		</tr>
+					    		<tr>
+					    			<td class="" colspan="2" align="Left">&nbsp;Enduse:</td>
+					    			<td class="" colspan="18" align="Left">Spare Ideal Generator</td>
+					    		</tr>
+					    		<tr id="item-btn">
+					    			<td colspan="20" style="padding-left: 10px">
+					    				<button type="button" class="btn btn-info btn-xs" data-toggle="modal" data-target="#add-item">
+										  Add Item/s
+										</button>
+					    			</td>
+					    		</tr>
+		    					<tr>
+					    			<td colspan="" class="all-border" align="center"><b>#</b></td>
+					    			<td colspan="" class="all-border" align="center"><b>Qty</b></td>
+					    			<td colspan="" class="all-border" align="center"><b>Unit</b></td>
+					    			<td colspan="12" class="all-border" align="center"><b>Description</b></td>
+					    			<td colspan="2" class="all-border" align="center"><b>Unit Price</b></td>
+					    			<td colspan="3" class="all-border" align="center"></td>
+					    		</tr>
+					    		<tr>
+					    			<td colspan="" class="all-border" align="center"><b>1</b></td>
+					    			<td colspan="" class="all-border" align="center"><b>34</b></td>
+					    			<td colspan="" class="all-border" align="center"><b>kilo</b></td>
+					    			<td colspan="12" class="all-border" align="left"><b class="nomarg">Power Tools; Brand:Ken, Model:69135</b></td>
+					    			<td colspan="2" class="all-border" align="center"><b>299,790.00</b></td>
+					    			<td colspan="3" class="all-border" align="right"><b class="nomarg">299,790.00</b></td>
+					    		</tr>
+					    		<tr>
+					    			<td colspan="" class="all-border" align="center"><b>1</b></td>
+					    			<td colspan="" class="all-border" align="center"><b>999</b></td>
+					    			<td colspan="" class="all-border" align="center"><b>set</b></td>
+					    			<td colspan="12" class="all-border" align="left"><b class="nomarg">Acetylene cutting outfit; Brand:Supercut</b></td>
+					    			<td colspan="2" class="all-border" align="center"><b>4,790.00</b></td>
+					    			<td colspan="3" class="all-border" align="right"><b class="nomarg">4,790.00</b></td>
+					    		</tr>
+					    		<tr>
+					    			<td colspan="17" class="all-border" align="right"><b class="nomarg">TOTAL</b></td>
+					    			<td colspan="3" class="all-border" align="right"><b class="nomarg"><span class="pull-left">₱</span>1,999,790.00</b></td>
+					    		</tr>
+		    				</table>
+			    		</td>
+			    	</tr>
+			    	<tr>
+		    			<td class="f13" colspan="20" align="center" style="padding: 10px!important">
+		    				<table  class="table-bodrdered" width="100%" style="border:0px solid #000;">
+		    					<tr>
+					    			<td width="5%"></td>
+					    			<td width="5%"></td>
+					    			<td width="5%"></td>
+					    			<td width="5%"></td>
+					    			<td width="5%"></td>
+					    			<td width="5%"></td>
+					    			<td width="5%"></td>
+					    			<td width="5%"></td>
+					    			<td width="5%"></td>
+					    			<td width="5%"></td>
+					    			<td width="5%"></td>
+					    			<td width="5%"></td>
+					    			<td width="5%"></td>
+					    			<td width="5%"></td>
+					    			<td width="5%"></td>
+					    			<td width="5%"></td>
+					    			<td width="5%"></td>
+					    			<td width="5%"></td>
+					    			<td width="5%"></td>
+					    			<td width="5%"></td>
+					    		</tr>
+					    		<tr>
+					    			<td colspan="17" class="all-border" align="right"><b class="nomarg">GRAND TOTAL</b></td>
+					    			<td colspan="3" class="all-border" align="right"><b class="nomarg"><span class="pull-left">₱</span>1,999,790.00</b></td>
+					    		</tr>
+		    				</table>
+			    		</td>
+			    	</tr>
 		    		<tr>
 		    			<td colspan="20">
 		    				<i>Price & Stocks verified as of 04.22.19</i>
