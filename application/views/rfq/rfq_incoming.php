@@ -132,7 +132,7 @@
 		    						<td class="f13" align="center"><b>Item Description</b></td>
 		    						<td class="f13" align="center"><b>Brand/Offer</b></td>
 		    						<td class="f13" align="center" width="20%"><b>Unit Price</b></td>
-		    						<td class="f13 reco" align="center" width="5%"><b>Reco</b></td>
+		    						<!-- <td class="f13 reco" align="center" width="5%"><b>Reco</b></td> -->
 		    					</tr>
 		    					<?php
 		    					$x=1; 
@@ -155,7 +155,7 @@
 		    							echo $item['price'];
 		    						} ?>
 		    						</td>
-		    						<td class="f13 reco" align="center">
+		    						<!-- <td class="f13 reco" align="center">
 		    						<?php if($completed==0){ ?>
 		    							<input type="checkbox" name="reco<?php echo $x; ?>" value='1' >
 		    						<?php } else {
@@ -163,7 +163,7 @@
 		    								echo "<span class='fa fa-check'></span>";
 		    							}
 		    						} ?>
-		    					</td>
+		    						</td> -->
 		    					</tr>
 		    					<input type='hidden' name='detail_id<?php echo $x; ?>' value='<?php echo $item['detail_id']; ?>'>
 		    				<?php

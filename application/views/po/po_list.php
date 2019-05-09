@@ -122,6 +122,10 @@
                                                     <a href="<?php echo base_url(); ?>aoq/aoq_prnt/<?php echo $head['aoq_id']; ?>" class="btn btn-custon-three btn-warning btn-xs" >
                                                         <span class="fa fa-eye"></span>
                                                     </a>
+                                                    <center>
+                                                    <a href="<?php echo base_url(); ?>aoq/aoq_prnt/" class="btn btn-custon-three btn-info btn-xs" >Cancel & Duplicate</a>
+                                                    <a href="<?php echo base_url(); ?>aoq/aoq_prnt/" class="btn btn-custon-three btn-danger btn-xs" >Cancel</a>
+                                                </center>
                                                 </center>
                                             </td>
                                         </tr>  
