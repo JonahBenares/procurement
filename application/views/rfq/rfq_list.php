@@ -81,7 +81,7 @@
                                             <th>Supplier</th>
                                             <th>RFQ Date</th>
                                             <th>Items</th>
-                                            <th width="5%"><center><span class="fa fa-bars"></span></center></th>
+                                            <th width="10%"><center><span class="fa fa-bars"></span></center></th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -111,6 +111,8 @@
                                                 <center>
                                                     <a href="javascript:void(0)" onclick="incomingRfq('<?php echo base_url(); ?>','<?php echo $li['rfq_id']; ?>')" class="btn btn-custon-three btn-warning btn-xs">
                                                         <span class="fa fa-eye"></span>
+                                                    </a>
+                                                    <a href="<?php echo base_url(); ?>aoq/aoq_prnt/" class="btn btn-custon-three btn-success btn-xs" >served
                                                     </a>
                                                 </center>
                                             </td>
