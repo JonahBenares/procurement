@@ -58,6 +58,7 @@
                                             <th>Enduse</th>
                                             <th>Requestor</th>
                                             <th>Date Needed</th>
+                                            <th>Status</th>
                                             <th><center><span class="fa fa-bars"></span></center></th>
                                         </tr>
                                     </thead>
@@ -72,7 +73,13 @@
                                             <td><?php echo $head['department']; ?></td>
                                             <td><?php echo $head['enduse']; ?></td>
                                             <td><?php echo $head['requestor']; ?></td>
-                                            <td><?php echo date('F j, Y', strtotime($head['date_needed']));; ?></td>
+                                            <td><?php echo date('F j, Y', strtotime($head['date_needed'])); ?></td>
+                                            <td><?php  
+                                            if($head['saved'] == '1' && $head['completed'] =='0') { 
+                                                echo "Pending";
+                                            } else if($head['saved'] == '1' && $head['completed'] =='1'){
+                                                echo "Completed";
+                                            }?></td>
                                             <td>
                                                 <center>
                                                     <a href="<?php echo base_url(); ?>aoq/aoq_prnt/<?php echo $head['aoq_id']; ?>" class="btn btn-custon-three btn-warning btn-xs" >

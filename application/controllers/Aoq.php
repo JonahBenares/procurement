@@ -57,6 +57,8 @@ class Aoq extends CI_Controller {
 				'enduse'=>$enduse,
 				'date_needed'=>$list->date_needed,
 				'requestor'=>$requested,
+				'saved'=>$list->saved,
+				'completed'=>$list->completed
 			);
 
 			foreach($this->super_model->select_row_where("aoq_rfq", "aoq_id", $list->aoq_id) AS $rfq){
@@ -157,11 +159,14 @@ class Aoq extends CI_Controller {
 				'remarks'=>$head->remarks,
 				'prepared'=>$prepared,
 
+
+
 			);
 			$data['noted'] = $noted;
 			$data['approved'] = $approved;
 			$data['requested'] = $requested;
 			$data['saved']=$head->saved;
+			$data['completed']=$head->completed;
 		}
 
 		foreach($this->super_model->select_row_where("aoq_rfq", "aoq_id", $aoq_id) AS $rfq){
@@ -237,6 +242,65 @@ class Aoq extends CI_Controller {
     		}
     	}
     }
+
+    public function aoq_complete(){
+    	$aoq_id=$this->input->post('aoq_id');
+    	$count_item=$this->input->post('count_item');
+    	$count_comment=$this->input->post('count_comment');
+    	$count=$this->input->post('count');
+
+
+    	for($a=1;$a<$count_comment;$a++){
+    		$comment = $this->input->post('comments'.$a);
+    		$supplier=$this->input->post('supplier'.$a);
+    		$item=$this->input->post('item'.$a);
+    		$com = array(
+    			'supplier_id'=>$supplier,
+    			'item_id'=>$item,
+    			'comment'=>$comment,
+    			'aoq_id'=>$aoq_id
+    		);
+    		$this->super_model->insert_into("aoq_comments", $com);
+    	}
+
+
+    	for($x=1;$x<$count_item;$x++){
+    		$reco =$this->input->post('reco'.$x);
+    		
+    		$reco = explode("_",$reco);
+    		$supplier = $reco[0];
+    		$item = $reco[1];
+    		$price = $reco[2];
+    		$qty = $reco[3];
+
+    		$data = array(
+    			'supplier_id'=>$supplier,
+    			'item_id'=>$item,
+    			'reco'=>'1',
+    			'aoq_id'=>$aoq_id,
+    			'unit_price'=>$price,
+    			'quantity'=>$qty
+    		);
+
+    		$this->super_model->insert_into("aoq_reco", $data);
+
+    	}
+
+    	$head = array(
+    		'completed'=>1
+    	);
+
+    	if($this->super_model->update_where("aoq_header", $head, "aoq_id", $aoq_id)){
+	    	if($count==3){
+				redirect(base_url().'aoq/aoq_prnt/'.$aoq_id, 'refresh');
+			} else if($count==4){
+				redirect(base_url().'aoq/aoq_prnt_four/'.$aoq_id, 'refresh');
+			} else if($count==5){
+				redirect(base_url().'aoq/aoq_prnt_five/'.$aoq_id, 'refresh');
+			}
+		}
+    }
+
     public function aoq_prnt_five(){
 		$aoq_id=$this->uri->segment(3);
 		$data['aoq_id']=$aoq_id;
@@ -265,6 +329,7 @@ class Aoq extends CI_Controller {
 			$data['approved'] = $approved;
 			$data['requested'] = $requested;
 			$data['saved']=$head->saved;
+			$data['completed']=$head->completed;
 		}
 
 		foreach($this->super_model->select_row_where("aoq_rfq", "aoq_id", $aoq_id) AS $rfq){
@@ -341,6 +406,7 @@ class Aoq extends CI_Controller {
 			$data['approved'] = $approved;
 			$data['requested'] = $requested;
 			$data['saved']=$head->saved;
+			$data['completed']=$head->completed;
 		}
 
 		foreach($this->super_model->select_row_where("aoq_rfq", "aoq_id", $aoq_id) AS $rfq){
@@ -422,6 +488,16 @@ class Aoq extends CI_Controller {
     			return $item->$column;
     		}
     		
+    	}
+    }
+
+    public function get_aoq_others($type, $supplier, $item, $aoq_id){
+    	if($type=='reco'){
+    		$rows = $this->super_model->count_custom_where("aoq_reco","supplier_id= '$supplier' AND item_id = '$item' AND aoq_id = '$aoq_id'");
+    		return $rows;
+    	} else if($type=='comments'){
+    		$comment = $this->super_model->select_column_custom_where("aoq_comments", "comment", "supplier_id = '$supplier' AND item_id = '$item' AND aoq_id = '$aoq_id'");
+    		return $comment;
     	}
     }
 

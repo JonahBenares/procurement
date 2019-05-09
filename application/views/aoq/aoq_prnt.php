@@ -147,14 +147,22 @@
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/mixins.css">
     <div  class="pad">
-
-    		<form method='POST' action='<?php echo base_url(); ?>aoq/aoq_save'>
+	<?php if($saved==1){
+			$url =  base_url().'aoq/aoq_complete';
+		} else {
+			$url =  base_url().'aoq/aoq_save';
+		}
+	?>
+    		<form method='POST' action='<?php echo $url ?>'>
     		<div id="prnt_btn">
 	    		<center>
 			    	<div class="btn-group">
 						<a href="<?php echo base_url(); ?>aoq/aoq_list" class="btn btn-success btn-md p-l-100 p-r-100"><span class="fa fa-arrow-left"></span> Back</a>
-						<a href="" class="btn btn-info btn-md p-l-100 p-r-100"><span class="fa fa-check"></span> Done</a>
-						<?php if($saved==1){ ?>
+						<?php if($saved==1){ 
+					
+						if($completed==0){ ?>
+							<input type='submit' class="btn btn-info btn-md p-l-100 p-r-100" value='Done'>
+						<?php } ?>
 						<a  onclick="printPage()" class="btn btn-warning btn-md p-l-100 p-r-100"><span class="fa fa-print"></span> Print</a>
 						<?php } if($saved==0){ ?>
 						<input type='submit' class="btn btn-primary btn-md p-l-100 p-r-100" value="Save">
@@ -223,7 +231,8 @@
 							
 		    			</td>
 
-		    			<?php foreach($supplier AS $sup){ ?>
+		    			<?php 
+		    			foreach($supplier AS $sup){ ?>
 		    			<td colspan="5" class="f10 table-borbold"  align="center">
 		    				<b><?php echo $sup['supplier_name']; ?></b><br>
 		    				<?php echo $sup['contact']; ?><br>
@@ -251,7 +260,9 @@
 		    		</tr>
 		    		<?php 
 		    		if(!empty($aoq_item)){
-		    			$x=1;
+		    		$x=1;
+		    		$a=1;
+		    		$b=1;
 		    		foreach($aoq_item AS $it){ 
 		    			//echo $it['min'];?>
 		    		<tr>
@@ -259,32 +270,53 @@
 		    			<td class="f10 table-borreg" align="left" colspan="3"><?php echo $it['item']; ?></td>
 		    			<td class="f10 table-borreg" align="center"><?php echo $it['qty']; ?></td>
 		    			<td class="f10 table-borreg" align="center"><?php echo $it['uom']; ?></td>
-		    			<?php foreach($supplier AS $sup){ 
+		    			<?php
+		    		
+		    			 foreach($supplier AS $sup){ 
 
 	    				$reco = $CI->get_rfq_item("recommended", $sup['supplier_id'], $it['item_id']); 
 	    				$up = $CI->get_rfq_item("unit_price", $sup['supplier_id'], $it['item_id']);
-						
+						$user_reco = $CI->get_aoq_others('reco', $sup['supplier_id'], $it['item_id'], $aoq_id);
+						$comment = $CI->get_aoq_others('comments', $sup['supplier_id'], $it['item_id'], $aoq_id);
 	    				$total = $it['qty']*$up;
 	    				?>		
 		    			<td class="f10 table-borreg" align="left" colspan="2">
-		    				<?php
-		    			if($reco==1){ ?>
 		    				<b class="text-red">
 		    				<?php echo $CI->get_rfq_item("offer", $sup['supplier_id'], $it['item_id']); ?>
 		    				</b>
-		    			<?php } else {
-		    				 echo $CI->get_rfq_item("offer", $sup['supplier_id'], $it['item_id']); 
-		    			 } ?>
 		    			, <?php echo $CI->get_rfq_item("item", $sup['supplier_id'], $it['item_id']); ?>
 		    			</td>
-		    			<td class="f10 table-borreg <?php echo (($it['min']==$up && $up!=0) ? 'yellow-back' :''); ?>" align="center"><?php echo number_format($up,2); ?></td>
-		    			<td class="f10 table-borreg <?php echo (($reco == '1') ? ' green-back' : ''); ?>" align="center"><?php echo number_format($total,2); ?><br><input type="checkbox" name=""></td>
-		    			<td class="f10 table-borreg text-red" align="center"><textarea cols="5" rows="3"></textarea></td>
+		    			<td class="f10 table-borreg <?php echo (($it['min']==$up && $up!=0) ? 'yellow-back' :''); ?>" align="center"><?php echo number_format($up,2); ?>
+		    				
+		    			<?php if($saved=='1' && $completed==0){ ?>
+		    				<br>	
+		    				<input type="radio" name="reco<?php echo $a; ?>" value='<?php echo $sup['supplier_id']."_".$it['item_id']."_".$up."_".$it['qty'] ; ?>' required>
+		    				
 		    			<?php } ?>
+		    			</td>
+		    			<td class="f10 table-borreg <?php echo (($user_reco != 0) ? ' green-back' : ''); ?>" align="center"><?php echo number_format($total,2); ?>
+		    			</td>
+		    			<td class="f10 table-borreg text-red" align="center">
+		    			<?php if($saved=='1' && $completed==0){ ?>
+		    				<textarea cols="5" rows="3" name='comments<?php echo $b; ?>'></textarea>
+		    				<input type='hidden' name='supplier<?php echo $b; ?>' value="<?php echo $sup['supplier_id']; ?>">
+		    				<input type='hidden' name='item<?php echo $b; ?>' value="<?php echo $it['item_id']; ?>">
+		    			<?php } else if($saved=='1' && $completed == '1'){ 
+		    				echo $comment;
+		    			} ?>
+		    			
+		    			</td>
+		    			
+		    			<?php  $b++;  } ?>
+		    			<input type='hidden' name='count_comment' value='<?php echo $b; ?>'>
+		    			<?php 
+		    			$a++;
+		    			 ?>
 		    		</tr>
 		    		<?php } 
 		    		$x++;
 		    		}?>
+		    		<input type='hidden' name='count_item' value='<?php echo $a; ?>'>
 		    		<tr>
 		    			<td class="f10 table-borreg" align="center"><br></td>
 		    			<td class="f10 table-borreg" align="left" colspan="3"></td>
