@@ -145,8 +145,11 @@
 	    		<center>
 			    	<div class="btn-group">
 						<a href="<?php echo base_url(); ?>aoq/aoq_list" class="btn btn-success btn-md p-l-100 p-r-100"><span class="fa fa-arrow-left"></span> Back</a>
-						<a href="" class="btn btn-info btn-md p-l-100 p-r-100"><span class="fa fa-check"></span> Done</a>
-						<?php if($saved==1){ ?>
+						
+						<?php if($saved==1){
+						 if($completed==0){ ?>
+							<input type='submit' class="btn btn-info btn-md p-l-100 p-r-100" value='Done'>
+						<?php } ?>
 						<a  onclick="printPage()" class="btn btn-warning btn-md p-l-100 p-r-100"><span class="fa fa-print"></span> Print</a>
 						<?php } if($saved==0){ ?>
 						<input type='submit' class="btn btn-primary btn-md p-l-100 p-r-100" value="Save">
@@ -273,6 +276,7 @@
 		    		if(!empty($aoq_item)){
 		    			$x=1;
 		    			$a=1;
+		    			$b=1;
 		    			foreach($aoq_item AS $it){ ?>
 		    		<tr>
 		    			<td class="f10 table-borreg" align="center"><?php echo $x; ?></td>
@@ -398,7 +402,7 @@
 		    			<td class="" align="center">c.</td>
 		    			<td colspan="8" class="f10" align="center">Date of Delivery</td>
 		    			<?php foreach($supplier AS $sup){ ?>
-		    			<td colspan="4" class="f10 bor-btm" align="left"><?php echo date('F j, Y', strtotime($sup['delivery'])); ?><br></td>
+		    			<td colspan="4" class="f10 bor-btm" align="left"><?php echo (($sup['delivery']!='') ? date('F j, Y', strtotime($sup['delivery'])) : ''); ?><br></td>
 		    			<td colspan="2" class="f10" align="left"><br></td>
 		    			<?php } ?>
 		    			<!-- <td colspan="2" class="f10 bor-btm" align="left"><br></td>

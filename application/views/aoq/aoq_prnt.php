@@ -369,7 +369,7 @@
 		    			<td class="" align="center">c.</td>
 		    			<td colspan="5" class="f10" align="center">Date of Delivery</td>
 		    			<?php foreach($supplier AS $sup){ ?>
-		    			<td colspan="2" class="f10 bor-btm" align="left"><?php echo date('F j, Y', strtotime($sup['delivery'])); ?><br></td>
+		    			<td colspan="2" class="f10 bor-btm" align="left"><?php echo (($sup['delivery']!='') ? date('F j, Y', strtotime($sup['delivery'])) : ''); ?><br></td>
 		    			<td colspan="3" class="f10" align="left"><br></td>
 		    			<?php } ?>
 		    			

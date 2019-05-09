@@ -82,7 +82,7 @@
     		<div  id="prnt_btn">
 	    		<center>
 			    	<div class="btn-group">
-						<a href="javascript:history.go(-1)" class="btn btn-success btn-md p-l-100 p-r-100"><span class="fa fa-arrow-left"></span> Back</a>
+						<a href="" onclick="return quitBox('quit');" class="btn btn-success btn-md p-l-100 p-r-100"><span class="fa fa-arrow-left"></span> Back</a>
 						<?php if($saved==1){ ?>
 						<a  onclick="printPage()" class="btn btn-warning btn-md p-l-100 p-r-100"><span class="fa fa-print"></span> Print</a>
 						<?php }  if($saved==0){?>
@@ -316,5 +316,15 @@
     <script type="text/javascript">
     	function printPage() {
 		  window.print();
+		}
+		function quitBox(cmd)
+		{   
+		    if (cmd=='quit')
+		    {
+		    	self.opener.location.reload();
+		        open(location, '_self').close();
+
+		    }   
+		    return false;   
 		}
     </script>
