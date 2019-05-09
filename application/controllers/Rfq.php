@@ -160,7 +160,8 @@ class Rfq extends CI_Controller {
 				'rfq_no'=>$rfq->rfq_no,
 				'rfq_date'=>$rfq->rfq_date,
 				'supplier'=>$supplier,
-				'completed'=>$rfq->completed
+				'completed'=>$rfq->completed,
+				'served'=>$rfq->served
 			);
 
 			foreach($this->super_model->select_row_where("rfq_detail", "rfq_id", $rfq->rfq_id) AS $it){
@@ -178,6 +179,17 @@ class Rfq extends CI_Controller {
         $this->load->view('template/navbar');
         $this->load->view('rfq/rfq_list',$data);
         $this->load->view('template/footer');
+    }
+
+    public function update_served(){
+    	$rfq_id=$this->uri->segment(3);
+    	$data = array(
+    		'served'=>1
+    	);
+
+    	if($this->super_model->update_where("rfq_head", $data, "rfq_id", $rfq_id)){
+    		redirect(base_url().'rfq/rfq_list', 'refresh');
+    	}
     }
 
     public function rfq_incoming(){
@@ -241,12 +253,12 @@ class Rfq extends CI_Controller {
     		for($a=1; $a<=$count; $a++){
     			$offer=$this->input->post('offer'.$a);
     			$price=$this->input->post('price'.$a);
-    			$reco=$this->input->post('reco'.$a);
+    			//$reco=$this->input->post('reco'.$a);
     			$detailid=$this->input->post('detail_id'.$a);
 	    		$details = array(
 	    			'offer'=>$offer,
 	    			'unit_price'=>$price,
-	    			'recommended'=>$reco
+	    			//'recommended'=>$reco
 	    		);
 	    		$this->super_model->update_where("rfq_detail", $details, "rfq_detail_id", $detailid);
     		}

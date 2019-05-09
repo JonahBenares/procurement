@@ -97,6 +97,7 @@
                                         $item = substr($item, 0, -2);
                                                 ?>
                                         <tr>
+                                        <?php if($li['served']==0){ ?>
                                             <td>
                                             <?php if($li['completed']==1){ ?>
                                             <input type="checkbox" class="form-control rfq_list" name="rfq[]" value="<?php echo $li['rfq_id']; ?>">
@@ -112,12 +113,12 @@
                                                     <a href="javascript:void(0)" onclick="incomingRfq('<?php echo base_url(); ?>','<?php echo $li['rfq_id']; ?>')" class="btn btn-custon-three btn-warning btn-xs">
                                                         <span class="fa fa-eye"></span>
                                                     </a>
-                                                    <a href="<?php echo base_url(); ?>aoq/aoq_prnt/" class="btn btn-custon-three btn-success btn-xs" >served
+                                                    <a href="<?php echo base_url(); ?>rfq/update_served/<?php echo $li['rfq_id']?>" class="btn btn-custon-three btn-success btn-xs" >served
                                                     </a>
                                                 </center>
                                             </td>
                                         </tr>       
-                                    <?php }
+                                    <?php } }
                                     } ?>                                 
                                     </tbody>
                                 </table>
