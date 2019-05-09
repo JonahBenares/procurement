@@ -90,7 +90,16 @@ class Items extends CI_Controller {
         $this->load->view('template/header');
         $data['id']=$this->uri->segment(3);
         $id=$this->uri->segment(3);
-        $data['item'] = $this->super_model->select_row_where('item', 'item_id', $id);
+        foreach($this->super_model->select_row_where('item', 'item_id', $id) AS $i){
+            $data['item'][]=array(
+                'item_id'=>$i->item_id,
+                'item_name'=>$i->item_name,
+                'unit'=>$this->super_model->select_column_where("unit",'unit_name','unit_id',$i->unit_id),
+                'item_spec'=>$i->item_specs,
+                'brand_name'=>$i->brand_name,
+                'pn_no'=>$i->part_no,
+            );
+        }
         $row = $this->super_model->count_rows_where("vendor_details",'item_id',$id);
         if($row!=0){
             foreach($this->super_model->select_row_where('vendor_details','item_id',$id) AS $v){

@@ -21,25 +21,31 @@
                                             <td><u><b>Item Description:</b></u></td>
                                         </tr>
                                         <tr>
-                                            <td><h5><?php echo $i->item_name;?></h5></td>
+                                            <td><h5><?php echo $i['item_name'];?></h5></td>
                                         </tr>
                                         <tr>
                                             <td><u><b>Specification:</b></u></td>
                                         </tr>
                                         <tr>
-                                            <td><p><?php echo $i->item_specs;?></p></td>
+                                            <td><p><?php echo $i['item_spec'];?></p></td>
+                                        </tr>
+                                        <tr>
+                                            <td><u><b>Unit:</b></u></td>
+                                        </tr>
+                                        <tr>
+                                            <td><p><?php echo $i['unit'];?></p></td>
                                         </tr>
                                         <tr>
                                             <td><u><b>Brand:</b></u></td>
                                         </tr>
                                         <tr>
-                                            <td><p><?php echo $i->brand_name;?></p></td>
+                                            <td><p><?php echo $i['brand_name'];?></p></td>
                                         </tr>
                                         <tr>
                                             <td><u><b>Part Number:</b></u></td>
                                         </tr>
                                         <tr>
-                                            <td><p><?php echo $i->part_no;?></p></td>                                            
+                                            <td><p><?php echo $i['pn_no'];?></p></td>                                            
                                         </tr>  
                                         <?php } ?>                                    
                                     </tbody>
