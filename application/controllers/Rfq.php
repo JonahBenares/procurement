@@ -53,18 +53,47 @@ class Rfq extends CI_Controller {
 			$max = $this->super_model->get_max("rfq_head", "rfq_id");
 			$rfq_id = $max+1;
 		}
+
+		$rfq_format = date("Ym");
+        //$prefix= $this->super_model->select_column_custom_where("rfq_head", "rfq_no", "create_date LIKE '%$rfq_format%'");
+        $rfqdet=implode("-", $rfq_format);
+        $rows=$this->super_model->count_custom_where("rfq_head","create_date LIKE '$rfqdet%'");
+        if($rows==0){
+            $rfq_no= $rfq_format."-1001";
+        } else {
+            $series = $this->super_model->get_max("rfq_series", "series","year_month LIKE '$rfqdet%'");
+            $next=$series+1;
+            $rfq_no = $rfq_format."-".$next;
+        }
+
+        $rfqdetails=explode("-", $rfq_no);
+        $rfq_prefix1=$rfqdetails[0];
+        $rfq_prefix=$rfq_prefix1;
+        $series = $rfqdetails[1];
+
+        $rfq_data= array(
+            'year_month'=>$rfq_prefix,
+            'series'=>$series
+        );
+        $this->super_model->insert_into("rfq_series", $rfq_data);
+
 		$head = array(
 			'rfq_id'=>$rfq_id,
 			'rfq_date'=>$timestamp,
 			'supplier_id'=>$vendor_id,
+			'rfq_no'=>$rfq_no,
 			'prepared_by'=>$_SESSION['user_id'],
 			'create_date'=>$timestamp
 		);
 		if($this->super_model->insert_into("rfq_head", $head)){
 			foreach($item_id AS $id){
+				foreach($this->super_model->select_row_where('item','item_id',$id) AS $u){
+					$uom = $u->unit_id;
+				}
 				$details = array(
 					'rfq_id'=>$rfq_id,
-					'item_id'=>$id
+					'item_id'=>$id,
+					'unit_id'=>$uom,
 				);
 
 			 $this->super_model->insert_into("rfq_detail", $details);
@@ -83,6 +112,7 @@ class Rfq extends CI_Controller {
 	 		$data['head'][] = array(
 	 			'due_date'=>$head->due_date,
 	 			'rfq_date'=>$head->rfq_date,
+	 			'rfq_no'=>$head->rfq_no,
 	 			'supplier'=>$this->super_model->select_column_where('vendor_head','vendor_name','vendor_id', $head->supplier_id),
 	 			'phone'=>$this->super_model->select_column_where('vendor_head','phone_number','vendor_id', $head->supplier_id),
 	 			'noted'=>$noted,
@@ -96,7 +126,7 @@ class Rfq extends CI_Controller {
 	 		//$item='';
 	 		$data['detail'][] = array(
 	 			'item'=>$item,
-	 			'unit'=>$this->super_model->select_column_where('item','uom','item_id', $detail->item_id) 
+	 			'unit'=>$this->super_model->select_column_where('unit','unit_name','unit_id', $detail->unit_id) 
 	 		);
 	 	}
 
@@ -187,7 +217,7 @@ class Rfq extends CI_Controller {
 	 			'offer'=>$detail->offer,
 	 			'price'=>$detail->unit_price,
 	 			'reco'=>$detail->recommended,
-	 			'unit'=>$this->super_model->select_column_where('item','uom','item_id', $detail->item_id) 
+	 			'unit'=>$this->super_model->select_column_where('unit','unit_name','unit_id', $detail->unit_id) 
 	 		);
 	 	}
 
