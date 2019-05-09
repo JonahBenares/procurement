@@ -196,7 +196,9 @@ class Aoq extends CI_Controller {
 		foreach($this->super_model->select_row_where("aoq_items", "aoq_id", $aoq_id) AS $items){
 			$item_name=$this->super_model->select_column_where('item','item_name','item_id', $items->item_id);
 			$specs=$this->super_model->select_column_where('item','item_specs','item_id', $items->item_id);
-			$uom=$this->super_model->select_column_where('item','uom','item_id', $items->item_id);
+			foreach($this->super_model->select_row_where("item", "item_id", $items->item_id) AS $i){
+				$uom=$this->super_model->select_column_where('unit','unit_name','unit_id', $i->unit_id);
+			}
 			$min =$this->super_model->get_min_where('rfq_detail','unit_price',"item_id = '$items->item_id' AND unit_price != '0'");
 			
 			$item = $item_name . ", " .$specs;
@@ -359,7 +361,9 @@ class Aoq extends CI_Controller {
 		foreach($this->super_model->select_row_where("aoq_items", "aoq_id", $aoq_id) AS $items){
 			$item_name=$this->super_model->select_column_where('item','item_name','item_id', $items->item_id);
 			$specs=$this->super_model->select_column_where('item','item_specs','item_id', $items->item_id);
-			$uom=$this->super_model->select_column_where('item','uom','item_id', $items->item_id);
+			foreach($this->super_model->select_row_where("item", "item_id", $items->item_id) AS $i){
+				$uom=$this->super_model->select_column_where('unit','unit_name','unit_id', $i->unit_id);
+			}
 			$min =$this->super_model->get_min_where('rfq_detail','unit_price',"item_id = '$items->item_id' AND unit_price != '0'");
 			
 			$item = $item_name . ", " .$specs;
@@ -436,7 +440,9 @@ class Aoq extends CI_Controller {
 		foreach($this->super_model->select_row_where("aoq_items", "aoq_id", $aoq_id) AS $items){
 			$item_name=$this->super_model->select_column_where('item','item_name','item_id', $items->item_id);
 			$specs=$this->super_model->select_column_where('item','item_specs','item_id', $items->item_id);
-			$uom=$this->super_model->select_column_where('item','uom','item_id', $items->item_id);
+			foreach($this->super_model->select_row_where("item", "item_id", $items->item_id) AS $i){
+				$uom=$this->super_model->select_column_where('unit','unit_name','unit_id', $i->unit_id);
+			}
 			$min =$this->super_model->get_min_where('rfq_detail','unit_price',"item_id = '$items->item_id' AND unit_price != '0'");
 			
 			$item = $item_name . ", " .$specs;
