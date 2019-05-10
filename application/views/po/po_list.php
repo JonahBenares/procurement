@@ -1,3 +1,4 @@
+     <script src="<?php echo base_url(); ?>assets/js/po.js"></script> 
      <div class="breadcome-area mg-b-30 small-dn">
         <div class="container-fluid">
             <div class="row">
@@ -35,37 +36,43 @@
                         <a class="close" data-dismiss="modal" href="#"><i class="fa fa-close"></i></a>
                     </div>
                 </div>
-                <form method="POST" action = "<?php echo base_url();?>index.php/items/insert_item">
+                <form method="POST" action = "<?php echo base_url();?>index.php/po/create_po">
                     <div class="modal-body-lowpad">
                         <div class="form-group">
                             <p class="m-b-0">Date:</p>
-                            <input type="date" name="brand" class="form-control">
+                            <input type="date" name="po_date" class="form-control">
                         </div>
                         <div class="form-group">
                             <p class="m-b-0">PO NO:</p>
-                            <input type="text" name="brand" class="form-control">
+                            <input type="text" name="po_no" class="form-control">
                         </div>
                         <div class="form-group">
                             <p class="m-b-0">Supplier:</p>
-                            <input type="text" name="brand" class="form-control">
+                            <select name="supplier" id='supplier' onchange="chooseSupplier()" class="form-control">
+                            <option value='' selected>-Choose Supplier/Vendor-</option>
+                            <?php foreach($supplier AS $sup){ ?>
+                                <option value="<?php echo $sup->vendor_id; ?>"><?php echo $sup->vendor_name; ?></option>
+                            <?php } ?>
+                            </select>
                         </div>
                         <div class="form-group">
                             <p class="m-b-0">Address:</p>
-                            <input type="text" name="pn" class="form-control">
+                            <span id='address'></span>
                         </div>
                         <div class="form-group">
                             <p class="m-b-0">Contact Person:</p>
-                            <input type="text" name="pn" class="form-control">
+                             <span id='contact'></span>
                         </div>
                         <div class="form-group">
                             <p class="m-b-0">Telephone #:</p>
-                            <input type="text" name="pn" class="form-control">
+                             <span id='phone'></span>
                         </div>
                         <center>
-                            <a href="<?php echo base_url(); ?>index.php/po/purchase_order" class="btn btn-custon-three btn-primary btn-block">Save</a>
-                            <!-- <input type = "submit" class="btn btn-custon-three btn-primary btn-block" value = "Save"> -->
+                           
+                            <input type = "submit" class="btn btn-custon-three btn-primary btn-block" value = "Save">
                         </center>
                     </div>
+                    <input type='hidden' name='baseurl' id='baseurl' value="<?php echo base_url(); ?>">
                 </form>
             </div>
         </div>

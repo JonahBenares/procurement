@@ -1,3 +1,4 @@
+  	<script src="<?php echo base_url(); ?>assets/js/po.js"></script> 
   	<head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -80,28 +81,39 @@
 						</button>
 					</h5>					
 				</div>
-				<form>
+				<form method="POST" action="<?php echo base_url(); ?>po/add_pr">
 					<div class="modal-body">
 						<div class="form-group">
 							<p class="nomarg">PR NO:</p>
-							<input type="" class="form-control" name="">
+							<select name='pr' id='pr' class="form-control" onchange='getPRInfo()'>
+							<option value="" selected=""></option>
+							<?php foreach($pr AS $p){ ?>
+								<option value="<?php echo $p->pr_no; ?>"><?php echo $p->pr_no; ?></option>
+							<?php } ?>
+							</select>
 						</div>
 						<div class="form-group">
 							<p class="nomarg">Requestor:</p>
-							<input type="" class="form-control" name="">
+							<span id='requestor'></span>
 						</div>
 						<div class="form-group">
 							<p class="nomarg">Purpose:</p>
-							<input type="" class="form-control" name="">
+							<span id='purpose'></span>
 						</div>
 						<div class="form-group">
 							<p class="nomarg">Enduse:</p>
-							<input type="" class="form-control" name="">
+							<span id='enduse'></span>
 						</div>
+						<input type="hidden" class="form-control" name="po_id" id="po_id">
 					</div>
 					<div class="modal-footer">
-					<button type="button" class="btn btn-primary btn-block">Add</button>
+					<input type="submit" class="btn btn-primary btn-block" value='Add'>
+					<input type='hidden' name='enduse_id' id='enduse_id' >
+					<input type='hidden' name='purpose_id' id='purpose_id' >
+					<input type='hidden' name='requested_by' id='requested_by'>
 					</div>
+					
+					<input type='hidden' name='baseurl' id='baseurl' value="<?php echo base_url(); ?>">
 				</form>
 			</div>
 		</div>
@@ -179,39 +191,43 @@
 		    		<tr><td class="f13" colspan="20" align="center">Plant Site: Purok San Jose, Barangay Calumangan, Bago City</td></tr>
 		    		<tr><td colspan="20" align="center"><h4><b>PURCHASE ORDER</b></h4></td></tr>
 		    		<tr><td class="f13" colspan="20" align="center"><br></td></tr>
+		    		<?php foreach($head AS $h){ ?>
 		    		<tr>
 		    			<td colspan="3"><h6 class="nomarg"><b>Date</b></h6></td>
-		    			<td colspan="12"><h6 class="nomarg"><b>April 26, 2019</b></h6></td>
-		    			<td colspan="5"><h6 class="nomarg"><b>P.O. No. PR-191-4763</b></h6></td>
+		    			<td colspan="12"><h6 class="nomarg"><b><?php echo date('F j, Y', strtotime($h['po_date'])); ?></b></h6></td>
+		    			<td colspan="5"><h6 class="nomarg"><b>P.O. No.: <?php echo $h['po_no']; ?></b></h6></td>
 		    		</tr>	
 		    		<tr>
 		    			<td colspan="3"><h6 class="nomarg"><b>Supplier:</b></h6></td>
-		    			<td colspan="12"><h6 class="nomarg bor-btm"><b>A-ONE INDUSTRIAL SALES</b></h6></td>
+		    			<td colspan="12"><h6 class="nomarg bor-btm"><b><?php echo $h['supplier']; ?></b></h6></td>
 		    			<td colspan="5"><h6 class="nomarg"><b></b></h6></td>
 		    		</tr>
 		    		<tr>
 		    			<td colspan="3"><h6 class="nomarg"><b>Address:</b></h6></td>
-		    			<td colspan="12"><h6 class="nomarg bor-btm"><b>Lopez Jaena St., Libertad, Bacolod</b></h6></td>
+		    			<td colspan="12"><h6 class="nomarg bor-btm"><b><?php echo $h['address']; ?></b></h6></td>
 		    			<td colspan="5"><h6 class="nomarg"><b></b></h6></td>
 		    		</tr>
 		    		<tr>
 		    			<td colspan="3"><h6 class="nomarg"><b>Contact Person:</b></h6></td>
-		    			<td colspan="12"><h6 class="nomarg bor-btm"><b>Ms. Marge</b></h6></td>
+		    			<td colspan="12"><h6 class="nomarg bor-btm"><b><?php echo $h['contact']; ?></b></h6></td>
 		    			<td colspan="5"><h6 class="nomarg"><b></b></h6></td>
 		    		</tr>
 		    		<tr>
 		    			<td colspan="3"><h6 class="nomarg"><b>Telephone #:</b></h6></td>
-		    			<td colspan="12"><h6 class="nomarg bor-btm"><b>(034) 432-0652 / 4761127</b></h6></td>
+		    			<td colspan="12"><h6 class="nomarg bor-btm"><b><?php echo $h['phone']; ?></b></h6></td>
 		    			<td colspan="5"><h6 class="nomarg"><b></b></h6></td>
 		    		</tr>
+		    	<?php } ?>
 		    		<tr id="pr-btn">
 		    			<td colspan="20" style="padding-left: 10px">
-		    				<button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#add-pr">
+
+		    				<a class="addPR btn btn-primary btn-xs" data-toggle="modal" href="#add-pr" data-id="<?php echo $po_id; ?>">
 							  Add PR
-							</button>
+							</a>
 		    			</td>
 		    		</tr>	
-		    		<!-- LOOp Here -->  		
+		    		<!-- LOOp Here -->  	
+		    		<?php foreach($prdetails AS $prd){ ?>	
 		    		<tr>
 		    			<td class="f13" colspan="20" align="center" style="padding: 10px!important">
 		    				<table  class="table-bodrdered" width="100%" style="border:1px solid #000;">
@@ -239,16 +255,16 @@
 					    		</tr>
 					    		<tr>
 					    			<td class="" colspan="2" align="Left">&nbsp;PR No:</td>
-					    			<td class="" colspan="6" align="Left">PR-191-2019</td>
-					    			<td class="" colspan="12" align="right">Requestor: Julius Pangilinan / Kennah Sasamoto &nbsp;</td>
+					    			<td class="" colspan="6" align="Left"><?php echo $prd['pr_no']; ?></td>
+					    			<td class="" colspan="12" align="right">Requestor: <?php echo $prd['requestor']; ?> &nbsp;</td>
 					    		</tr>
 					    		<tr>
 					    			<td class="" colspan="2" align="Left">&nbsp;Purpose:</td>
-					    			<td class="" colspan="18" align="Left">Consumables, Tools and Equipment's for Spare Stator Rewinding</td>
+					    			<td class="" colspan="18" align="Left"><?php echo $prd['purpose']; ?></td>
 					    		</tr>
 					    		<tr>
 					    			<td class="" colspan="2" align="Left">&nbsp;Enduse:</td>
-					    			<td class="" colspan="18" align="Left">Spare Ideal Generator</td>
+					    			<td class="" colspan="18" align="Left"><?php echo $prd['enduse']; ?></td>
 					    		</tr>
 					    		<tr id="item-btn">
 					    			<td colspan="20" style="padding-left: 10px">
@@ -288,84 +304,10 @@
 		    				</table>
 			    		</td>
 			    	</tr>
+			    	<?php } ?>
 			    	<!-- LOOp Here --> 
 
-			    	<tr>
-		    			<td class="f13" colspan="20" align="center" style="padding: 10px!important">
-		    				<table  class="table-bodrdered" width="100%" style="border:1px solid #000;">
-		    					<tr>
-					    			<td width="5%"></td>
-					    			<td width="5%"></td>
-					    			<td width="5%"></td>
-					    			<td width="5%"></td>
-					    			<td width="5%"></td>
-					    			<td width="5%"></td>
-					    			<td width="5%"></td>
-					    			<td width="5%"></td>
-					    			<td width="5%"></td>
-					    			<td width="5%"></td>
-					    			<td width="5%"></td>
-					    			<td width="5%"></td>
-					    			<td width="5%"></td>
-					    			<td width="5%"></td>
-					    			<td width="5%"></td>
-					    			<td width="5%"></td>
-					    			<td width="5%"></td>
-					    			<td width="5%"></td>
-					    			<td width="5%"></td>
-					    			<td width="5%"></td>
-					    		</tr>
-					    		<tr>
-					    			<td class="" colspan="2" align="Left">&nbsp;PR No:</td>
-					    			<td class="" colspan="6" align="Left">PR-232-2019</td>
-					    			<td class="" colspan="12" align="right">Requestor: Hennelen Tanan &nbsp;</td>
-					    		</tr>
-					    		<tr>
-					    			<td class="" colspan="2" align="Left">&nbsp;Purpose:</td>
-					    			<td class="" colspan="18" align="Left">Consumables, Tools and Equipment's for Spare Stator Rewinding</td>
-					    		</tr>
-					    		<tr>
-					    			<td class="" colspan="2" align="Left">&nbsp;Enduse:</td>
-					    			<td class="" colspan="18" align="Left">Spare Ideal Generator</td>
-					    		</tr>
-					    		<tr id="item-btn">
-					    			<td colspan="20" style="padding-left: 10px">
-					    				<button type="button" class="btn btn-info btn-xs" data-toggle="modal" data-target="#add-item">
-										  Add Item/s
-										</button>
-					    			</td>
-					    		</tr>
-		    					<tr>
-					    			<td colspan="" class="all-border" align="center"><b>#</b></td>
-					    			<td colspan="" class="all-border" align="center"><b>Qty</b></td>
-					    			<td colspan="" class="all-border" align="center"><b>Unit</b></td>
-					    			<td colspan="12" class="all-border" align="center"><b>Description</b></td>
-					    			<td colspan="2" class="all-border" align="center"><b>Unit Price</b></td>
-					    			<td colspan="3" class="all-border" align="center"></td>
-					    		</tr>
-					    		<tr>
-					    			<td colspan="" class="all-border" align="center"><b>1</b></td>
-					    			<td colspan="" class="all-border" align="center"><b>34</b></td>
-					    			<td colspan="" class="all-border" align="center"><b>kilo</b></td>
-					    			<td colspan="12" class="all-border" align="left"><b class="nomarg">Power Tools; Brand:Ken, Model:69135</b></td>
-					    			<td colspan="2" class="all-border" align="center"><b>299,790.00</b></td>
-					    			<td colspan="3" class="all-border" align="right"><b class="nomarg">299,790.00</b></td>
-					    		</tr>
-					    		<tr>
-					    			<td colspan="" class="all-border" align="center"><b>1</b></td>
-					    			<td colspan="" class="all-border" align="center"><b>999</b></td>
-					    			<td colspan="" class="all-border" align="center"><b>set</b></td>
-					    			<td colspan="12" class="all-border" align="left"><b class="nomarg">Acetylene cutting outfit; Brand:Supercut</b></td>
-					    			<td colspan="2" class="all-border" align="center"><b>4,790.00</b></td>
-					    			<td colspan="3" class="all-border" align="right"><b class="nomarg">4,790.00</b></td>
-					    		</tr>
-					    		<tr>
-					    			<td colspan="17" class="all-border" align="right"><b class="nomarg">TOTAL</b></td>
-					    			<td colspan="3" class="all-border" align="right"><b class="nomarg"><span class="pull-left">₱</span>1,999,790.00</b></td>
-					    		</tr>
-		    				</table>
-			    		</td>
-			    	</tr>
+			    	
 			    	<tr>
 		    			<td class="f13" colspan="20" align="center" style="padding: 10px!important">
 		    				<table  class="table-bodrdered" width="100%" style="border:0px solid #000;">
