@@ -131,10 +131,12 @@
 				</div>
 				<form>
 					<div class="modal-body">
-						<div class="form-group">
-							<p class="nomarg">Item:</p>
-							<input type="" class="form-control" name="">
-						</div>
+						<table class="table-bordered" width="100%">
+							<tr>
+								<td width="5%"><input type="checkbox" class="form-control" name=""></td>
+								<td style="padding-left:5px">Item Name here</td>
+							</tr>
+						</table>
 					</div>
 					<div class="modal-footer">
 					<button type="button" class="btn btn-primary btn-block">Add</button>
