@@ -138,6 +138,12 @@ class Po extends CI_Controller {
         $this->load->view('template/footer');
     }
 
+    public function add_itempo(){
+        $this->load->view('template/header');        
+        $this->load->view('po/add_itempo');
+        $this->load->view('template/footer');
+    }
+
 }
 
 ?>

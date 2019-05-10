@@ -119,7 +119,7 @@
 		</div>
 	</div>
 
-	<div class="modal fade" id="add-item" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<!-- <div class="modal fade" id="add-item" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -144,7 +144,7 @@
 				</form>
 			</div>
 		</div>
-	</div>
+	</div> -->
 
     <div  class="pad">
 
@@ -270,7 +270,7 @@
 					    		</tr>
 					    		<tr id="item-btn">
 					    			<td colspan="20" style="padding-left: 10px">
-					    				<button type="button" class="btn btn-info btn-xs" data-toggle="modal" data-target="#add-item">
+					    				<button type="button" class="btn btn-info btn-xs" onclick="addItemPo('<?php echo base_url(); ?>') ">
 										  Add Item/s
 										</button>
 					    			</td>
