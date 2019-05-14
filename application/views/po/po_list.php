@@ -57,15 +57,15 @@
                         </div>
                         <div class="form-group">
                             <p class="m-b-0">Address:</p>
-                            <span id='address'></span>
+                            <b><span id='address'></span></b>
                         </div>
                         <div class="form-group">
                             <p class="m-b-0">Contact Person:</p>
-                             <span id='contact'></span>
+                            <b><span id='contact'></span></b>
                         </div>
                         <div class="form-group">
                             <p class="m-b-0">Telephone #:</p>
-                             <span id='phone'></span>
+                            <b><span id='phone'></span></b>
                         </div>
                          <div class="form-group">
                             <p class="m-b-0">Notes:</p>
@@ -127,8 +127,8 @@
                                                      <a href="<?php echo base_url(); ?>po/purchase_order_saved/<?php echo $head['po_id']; ?>" class="btn btn-custon-three btn-warning btn-xs">
                                                         <span class="fa fa-eye"></span>
                                                     </a>
-                                                    <a href="<?php echo base_url(); ?>aoq/aoq_prnt/" class="btn btn-custon-three btn-info btn-xs" >Cancel & Duplicate</a>
-                                                    <a href="<?php echo base_url(); ?>aoq/aoq_prnt/" class="btn btn-custon-three btn-danger btn-xs" >Cancel</a>
+                                                    <a href="<?php echo base_url(); ?>po/cancel_and_duplicate/<?php echo $head['po_id']; ?>" class="btn btn-custon-three btn-info btn-xs" onclick="return confirm('Are you sure you want to cancel and duplicate PO?')">Cancel & Duplicate</a>
+                                                    <a href="<?php echo base_url(); ?>po/cancel_po/<?php echo $head['po_id']; ?>" class="btn btn-custon-three btn-danger btn-xs" onclick="return confirm('Are you sure you want to cancel PO?')">Cancel</a>
                                                 </center>
                                             </td>
                                         </tr>  

@@ -37,6 +37,12 @@
 		.bor-btm{
 			border-bottom: 1px solid #000;
 		}
+		.bor-top{
+			border-top: 1px solid #000;
+		}
+		.bor-right{
+			border-right: 1px solid #000;
+		}
 		.sel-des{
 			border: 0px!important;
 		}
@@ -57,6 +63,9 @@
 			.text-red{
 				color: red!important;
 			}
+			.bor-right{
+			border-right: 1px solid #000;
+		}
 		}
 		.text-white{
 			color: #fff;
@@ -91,7 +100,7 @@
 				</center>
 			</div>
 	    	<div style="background: #fff;">    		  			
-		    	<table class="table-bordsered" width="100%" style="border:0px solid #000">
+		    	<table class="table-bordsered" width="100%" style="border:1px solid #000">
 		    		<tr>
 		    			<td width="5%"><br></td>
 		    			<td width="5%"><br></td>
@@ -118,101 +127,133 @@
 		    			<td colspan="5" align="center"><img width="150px" src="<?php echo base_url(); ?>assets/img/logo_cenpri.png"></td>
 		    			<td colspan="15"><h4 style="margin-left: 30px"><b>CENTRAL NEGROS POWER RELIABILITY, INC.</b></h4></td>
 		    		</tr>
-		    		<tr><td class="f13" colspan="20" align="center">Office: 88 Corner Rizal-Mabini Sts., Bacolod City</td></tr>
-		    		<tr><td class="f13" colspan="20" align="center">Tel. No.: (034) 435-1932/476-7382</td></tr>
-		    		<tr><td class="f13" colspan="20" align="center">Telefax: (034) 435-1932</td></tr>
-		    		<tr><td class="f13" colspan="20" align="center">Plant Site: Purok San Jose, Barangay Calumangan, Bago City</td></tr>
-		    		<tr><td class="f13" colspan="20" align="center"><br></td></tr>
-		    		<tr><td colspan="20" align="center"><h5><b class="text-red">DELIVERY RECEIPT</b></h5></td></tr>
+		    		<tr><td colspan="20" align="center"><h5><b>REQUEST FOR DISBURSTMENT</b></h5></td></tr>
 		    		<!-- <tr><td class="f13" colspan="20" align="center"><br></td></tr> -->
 		    		<tr>
-		    			<td colspan="10" class="all-border "><b class="text-red nomarg">DR No. 4321</b></td>
-		    			<td colspan="10" class="all-border "><b class="nomarg">PO No: PR-191-4763</b></td>
+		    			<td colspan="3"><b class="nomarg">Company:</b></td>
+		    			<td colspan="9" class="bor-btm"><b class="nomarg">CENPRI-SITE</b></td>
+		    			<td colspan="3" align="right"><b class="nomarg">APV No.:</b></td>
+		    			<td colspan="5" class="bor-btm"><b class="nomarg">PO No: PR-191-4763</b></td>
 		    		</tr>
 		    		<tr>
-		    			<td colspan="10" class="all-border "><b class="nomarg">Date : April 27, 2019</b></td>
-		    			<td colspan="10" class="all-border "><b class="nomarg">PR No: PR-191-2019</b></td>
+		    			<td colspan="3"><b class="nomarg">Pay To:</b></td>
+		    			<td colspan="9" class="bor-btm"><b class="nomarg">A-ONE INDUSTRIAL SALES</b></td>
+		    			<td colspan="3" align="right"><b class="nomarg">Date:</b></td>
+		    			<td colspan="5" class="bor-btm"><b class="nomarg">April 27,2019</b></td>
 		    		</tr>
 		    		<tr>
-		    			<td colspan="20" class="all-border"><b class="nomarg">Purpose: Consumables, Tools and Equipment's for Spare Stator Rewinding</b></td>
+		    			<td colspan="3"><b class="nomarg">Check Name:</b></td>
+		    			<td colspan="9" class="bor-btm"><b class="nomarg">A-ONE INDUSTRIAL SALES</b></td>
+		    			<td colspan="3" align="right"><b class="nomarg">Due Date:</b></td>
+		    			<td colspan="5" class="bor-btm"><b class="nomarg">April 27,2019</b></td>
 		    		</tr>
 		    		<tr>
-		    			<td colspan="20" class="all-border"><b class="nomarg">End Use: Spare Ideal Generator</b></td>
+		    			<td></td>
+		    			<td class="bor-btm" align="center"><span class="fa fa-check"></span></td>
+		    			<td><b class="nomarg">Cash</b></td>
+		    			<td class="bor-btm" align="center"><span class="fa fa-check"></span></td>
+		    			<td><b class="nomarg">Check</b></td>
+		    			<td></td>
+		    			<td colspan="2"><b class="nomarg">Bank / no.</b></td>
+		    			<td colspan="4" class="bor-btm"><b class="nomarg">288934664</b></td>
+		    			<td colspan="3" align="right"><b class="nomarg">Check Due:</b></td>
+		    			<td colspan="5" class="bor-btm"><b class="nomarg">April 27,2019</b></td>
 		    		</tr>
 		    		<tr>
-		    			<td colspan="20" class="all-border"><b class="nomarg">Requestor: Julius Pangilinan / Kennah Sasamoto</b></td>
+		    			<td colspan="20"><br></td>
 		    		</tr>
 		    		<tr>
-		    			<td class="all-border" align="center"><b class="nomarg">#</b></td>
-		    			<td class="all-border" align="center" colspan="6"><b class="nomarg">Supplier</b></td>
-		    			<td class="all-border" align="center" colspan="6"><b class="nomarg">Description</b></td>
-		    			<td class="all-border" align="center"><b class="nomarg">Delivered</b></td>
-		    			<td class="all-border" align="center"><b class="nomarg">Received</b></td>
-		    			<td class="all-border" align="center" colspan="2"><b class="nomarg">UOM</b></td>
+		    			<td class="all-border" align="center" colspan="17"><b class="nomarg">Explanation</b></td>
 		    			<td class="all-border" align="center" colspan="3"><b class="nomarg">Remarks</b></td>
 		    		</tr>
 		    		<tr>
-		    			<td class="all-border" align="center">1</td>
-		    			<td class="all-border" align="left" colspan="6">A-ONE INDUSTRIAL SALES</td>
-		    			<td class="all-border" align="left" colspan="6">Power tools; Brand: Ken, Model: 69135</td>
-		    			<td class="all-border" align="center">1</td>
-		    			<td class="all-border" align="center"></td>
-		    			<td class="all-border" align="center" colspan="2">set</td>
-		    			<td class="all-border" align="center" colspan="3"></td>
+		    			<td align="center" colspan="17" class="bor-right"><br></td>
+		    			<td align="center" colspan="3"><br></td>
 		    		</tr>
 		    		<tr>
-		    			<td class="all-border" align="center">2</td>
-		    			<td class="all-border" align="left" colspan="6">A-ONE INDUSTRIAL SALES</td>
-		    			<td class="all-border" align="left" colspan="6">Acetylene cutting outfit, Brand: Supercut</td>
-		    			<td class="all-border" align="center">1</td>
-		    			<td class="all-border" align="center"></td>
-		    			<td class="all-border" align="center" colspan="2">unit</td>
-		    			<td class="all-border" align="center" colspan="3"></td>
+		    			<td align="left" colspan="17" class="bor-right"><b class="nomarg">Payment for:</b></td>
+		    			<td align="right" colspan="3"></td>
+		    		</tr>
+		    		<tr>
+		    			<td align="left" colspan="17" class="bor-right">
+		    				<b class="nomarg">1 set, Power tools; Brand: Ken, Model: 69135, @Php 2,790.00 per set</b>
+		    			</td>
+		    			<td align="right" colspan="3">
+		    				<span class="pull-left nomarg">₱</span>
+		    				<span class="nomarg" id=''><b>2,790.00</b></span>
+		    			</td>
+		    		</tr>
+		    		<tr>
+		    			<td align="left" colspan="17" class="bor-right">
+		    				<b class="nomarg">1 unit, Acetylene cutting outfit; Brand: Supercut, Model: 69135, @Php 4,520.00 per unit</b>
+		    			</td>
+		    			<td align="right" colspan="3" >
+		    				<span class="pull-left nomarg">₱</span>
+		    				<span class="nomarg" id=''><b>4,520.00</b></span>
+		    			</td>
+		    		</tr>
+		    		<tr>
+		    			<td align="left" colspan="17" class="bor-right"></td>
+		    			<td align="right" colspan="3" class="bor-top">
+		    				<span class="pull-left nomarg">₱</span>
+		    				<span class="nomarg" id=''><b>2,790.00</b></span>
+		    			</td>
+		    		</tr>
+		    		<tr>
+		    			<td align="right" colspan="17" class="bor-right"><b class="nomarg">Less: 1% EWT</b></td>
+		    			<td align="right" colspan="3">
+		    				<span class="pull-left nomarg">₱</span>
+		    				<span class="nomarg" id=''><b style="font-weight: 900">(65.27)</b></span>
+		    			</td>
+		    		</tr>
+		    		<tr>
+		    			<td align="left" colspan="17" class="bor-right">
+		    				<b class="nomarg">Purpose: Consumables, Tools and Equipment's for spare stator rewinding</b>
+		    			</td>
+		    			<td align="right" colspan="3"></td>
+		    		</tr>
+		    		<tr>
+		    			<td align="left" colspan="17" class="bor-right">
+		    				<b class="nomarg">End Use: Spare Ideal Generator</b>
+		    			</td>
+		    			<td align="right" colspan="3"></td>
+		    		</tr>
+		    		<tr>
+		    			<td align="left" colspan="17" class="bor-right">
+		    				<b class="nomarg">Requestor: Juluis Pangilinan / Kennah Sasamoto; PR-191-2019</b>
+		    			</td>
+		    			<td align="right" colspan="3"></td>
+		    		</tr>
+		    		<tr>
+		    			<td align="center" colspan="17" class="bor-right"><br></td>
+		    			<td align="center" colspan="3"><br></td>
+		    		</tr>
+		    		<tr>
+		    			<td align="left" colspan="7" ><b class="nomarg">P.O. No: PR-191-4763</b></td>
+		    			<td align="right" colspan="10" class="bor-right"><b class="nomarg" style="font-weight: 900">Total Amount Due</b></td>
+		    			<td align="right" colspan="3" style="border-bottom: 2px solid #000">
+		    				<span class="pull-left nomarg">₱</span>
+		    				<span class="nomarg" id=''><b style="font-weight: 900">7,244.73</b></span>
+		    			</td>
+		    		</tr>
+		    		<tr>
+		    			<td align="center" colspan="17" class="bor-right bor-btm"><br></td>
+		    			<td align="center" colspan="3" class="bor-btm"><br></td>
 		    		</tr>
 		    		<tr><td class="f13" colspan="20" align="center"><br></td></tr>
 		    		<tr>
-		    			<td></td>
-		    			<td colspan="6"><b>Prepared by:</b></td>
-		    			<td colspan="5"></td>
-		    			<td colspan="6"><b>Received by:</b></td>
-		    			<td colspan="2"></td>
-		    		</tr>
+		    			<td colspan="5"><b class="nomarg">Prepared by:</b></td>
+		    			<td colspan="5"><b>Checked by:</b></td>
+		    			<td colspan="5"><b>Endorsed by:</b></td>
+		    			<td colspan="5"><b>Approved by:</b></td>
+		    		</tr>	
+		    		<tr><td class="f13" colspan="20" align="center"><br></td></tr>	
 		    		<tr>
-		    			<td></td>
-		    			<td colspan="6" class="bor-btm"><b><br></b></td>
-		    			<td colspan="5"></td>
-		    			<td colspan="6" class="bor-btm">Stephen Jardinico</td>
-		    			<td colspan="2"></td>
-		    		</tr>
-		    		<tr>
-		    			<td></td>
-		    			<td colspan="6">Kervic S. Biñas</td>
-		    			<td colspan="5"></td>
-		    			<td colspan="6">Print Name & Signature with Date Received</td>
-		    			<td colspan="2"></td>
-		    		</tr>
-		    		<tr><td class="f13" colspan="20" align="center"><br></td></tr>
-		    		<tr>
-		    			<td></td>
-		    			<td colspan="6"><b></b></td>
-		    			<td colspan="5"></td>
-		    			<td colspan="6"><b>Witnessed by:</b></td>
-		    			<td colspan="2"></td>
-		    		</tr>
-		    		<tr>
-		    			<td></td>
-		    			<td colspan="6"><b><br></b></td>
-		    			<td colspan="5"></td>
-		    			<td colspan="6" class="bor-btm">Mary Grace Bugna</td>
-		    			<td colspan="2"></td>
-		    		</tr>
-		    		<tr>
-		    			<td></td>
-		    			<td colspan="6"></td>
-		    			<td colspan="5"></td>
-		    			<td colspan="6">Print Name & Signature with Date Received</td>
-		    			<td colspan="2"></td>
-		    		</tr>
+		    			<td colspan="5"><b class="nomarg">Kervic S. Biñas</b></td>
+		    			<td colspan="5"><b>Annavi Lacambra</b></td>
+		    			<td colspan="5"><b>Zyndyryn B. Rosales</b></td>
+		    			<td colspan="5"><b>David C. Tan</b></td>
+		    		</tr>	    		
 		    		<tr><td class="f13" colspan="20" align="center"><br></td></tr>		
 		    	</table>		    
 	    	</div>

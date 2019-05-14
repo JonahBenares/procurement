@@ -147,10 +147,57 @@ class Po extends CI_Controller {
         $this->load->view('template/footer');
     }
 
+
+    public function cancel_po(){
+        $po_id=$this->uri->segment(3);
+        $data = array(
+            'cancelled'=>1
+        );
+
+        if($this->super_model->update_where("po_head", $data, "po_id", $po_id)){
+            redirect(base_url().'po/po_list', 'refresh');
+        }
+    }
+
+     public function cancel_and_duplicate(){
+        $po_id=$this->uri->segment(3);
+        $po = $this->super_model->get_max("po_head", "po_id");
+        $next_po = $po + 1;
+           foreach($this->super_model->select_row_where("po_head", "po_id", $po_id) AS $header){
+                $head = array(
+                    'po_id'=>$next_po,
+                    'po_date'=>$header->po_date,
+                    'po_no'=>$header->po_no,
+                    'supplier_id'=>$header->supplier_id,
+                    'notes'=>$header->notes,
+                    'prepared_by'=>$header->prepared_by,
+                    'approved_by'=>$header->approved_by,
+                    'saved'=>'1'
+                );
+           }
+
+            foreach($this->super_model->select_row_where("po_pr", "po_id", $po_id) AS $popr){
+                $pr = array(
+                    'po_id'=>$next_po,
+                    'po_date'=>$header->po_date,
+                    'po_no'=>$header->po_no,
+                    'supplier_id'=>$header->supplier_id,
+                    'notes'=>$header->notes,
+                    'prepared_by'=>$header->prepared_by,
+                    'approved_by'=>$header->approved_by,
+                    'saved'=>'1'
+                );
+           }
+
+        if($this->super_model->update_where("po_head", $data, "po_id", $po_id)){
+            redirect(base_url().'po/po_list', 'refresh');
+        }
+    }
+
     public function po_list(){
         $data['supplier']=$this->super_model->select_all_order_by("vendor_head", "vendor_name", "ASC");
        
-         foreach($this->super_model->select_all_order_by("po_head", "po_id", "DESC") AS $head){
+         foreach($this->super_model->select_custom_where("po_head", "saved='1' AND cancelled='0' ORDER BY po_id DESC") AS $head){
              $pr='';
             foreach($this->super_model->select_row_where("po_pr", "po_id", $head->po_id) AS $prd){
             $pr .= "-".$prd->pr_no."<br>";
@@ -173,6 +220,7 @@ class Po extends CI_Controller {
         $this->load->view('template/footer');
     }
 
+ 
     public function remove_pr(){
         $po_pr_id=$this->uri->segment(3);
         $po_id=$this->uri->segment(4);
