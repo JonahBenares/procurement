@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: May 09, 2019 at 10:55 AM
+-- Generation Time: May 14, 2019 at 07:41 AM
 -- Server version: 5.6.21
 -- PHP Version: 5.6.3
 
@@ -32,23 +32,22 @@ CREATE TABLE IF NOT EXISTS `aoq_comments` (
   `supplier_id` int(11) NOT NULL DEFAULT '0',
   `item_id` int(11) NOT NULL DEFAULT '0',
   `comment` text
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `aoq_comments`
 --
 
 INSERT INTO `aoq_comments` (`aoq_comment_id`, `aoq_id`, `supplier_id`, `item_id`, `comment`) VALUES
-(1, 1, 5, 334, 'c1'),
-(2, 1, 40, 334, 'c3'),
-(3, 1, 140, 334, 'c5'),
-(4, 1, 270, 334, 'c7'),
-(5, 1, 21, 334, 'c9'),
-(6, 1, 5, 337, 'c2'),
-(7, 1, 40, 337, 'c4'),
-(8, 1, 140, 337, 'c6'),
-(9, 1, 270, 337, 'c8'),
-(10, 1, 21, 337, 'c10');
+(1, 1, 270, 334, 'comment1'),
+(2, 1, 140, 334, 'comment3'),
+(3, 1, 40, 334, 'comment5'),
+(4, 1, 270, 337, 'comment2'),
+(5, 1, 140, 337, 'comment4'),
+(6, 1, 40, 337, 'comment6'),
+(7, 2, 21, 335, 'compying1'),
+(8, 2, 140, 335, ''),
+(9, 2, 40, 335, 'compying2');
 
 -- --------------------------------------------------------
 
@@ -71,15 +70,17 @@ CREATE TABLE IF NOT EXISTS `aoq_header` (
   `approved_by` int(11) NOT NULL DEFAULT '0',
   `create_date` varchar(20) DEFAULT NULL,
   `saved` int(11) NOT NULL DEFAULT '0',
-  `completed` int(11) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+  `completed` int(11) NOT NULL DEFAULT '0',
+  `served` int(11) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `aoq_header`
 --
 
-INSERT INTO `aoq_header` (`aoq_id`, `aoq_date`, `pr_no`, `department_id`, `enduse_id`, `purpose_id`, `date_needed`, `requested_by`, `remarks`, `prepared_by`, `noted_by`, `approved_by`, `create_date`, `saved`, `completed`) VALUES
-(1, '2019-05-09', '12312', 3, 2, 2, '2019-05-16', 41, '', 1, 24, 68, '2019-05-09 10:23:56', 1, 1);
+INSERT INTO `aoq_header` (`aoq_id`, `aoq_date`, `pr_no`, `department_id`, `enduse_id`, `purpose_id`, `date_needed`, `requested_by`, `remarks`, `prepared_by`, `noted_by`, `approved_by`, `create_date`, `saved`, `completed`, `served`) VALUES
+(1, '2019-05-14', '1111', 3, 2, 2, '2019-05-14', 17, '', 1, 118, 17, '2019-05-14 05:41:40', 1, 1, 0),
+(2, '2019-05-14', '2222', 3, 2, 2, '2019-05-21', 24, '', 1, 20, 24, '2019-05-14 05:46:17', 1, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -92,15 +93,16 @@ CREATE TABLE IF NOT EXISTS `aoq_items` (
   `aoq_id` int(11) NOT NULL DEFAULT '0',
   `item_id` int(11) NOT NULL DEFAULT '0',
   `quantity` int(11) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `aoq_items`
 --
 
 INSERT INTO `aoq_items` (`aoq_items_id`, `aoq_id`, `item_id`, `quantity`) VALUES
-(1, 1, 334, 15),
-(2, 1, 337, 20);
+(1, 1, 334, 100),
+(2, 1, 337, 50),
+(3, 2, 335, 60);
 
 -- --------------------------------------------------------
 
@@ -113,18 +115,21 @@ CREATE TABLE IF NOT EXISTS `aoq_reco` (
   `supplier_id` int(11) NOT NULL DEFAULT '0',
   `item_id` int(11) NOT NULL DEFAULT '0',
   `reco` int(11) NOT NULL DEFAULT '0',
+  `offer` text,
   `unit_price` decimal(10,2) NOT NULL DEFAULT '0.00',
   `quantity` int(11) NOT NULL DEFAULT '0',
+  `balance` int(11) NOT NULL DEFAULT '0',
   `aoq_id` int(11) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `aoq_reco`
 --
 
-INSERT INTO `aoq_reco` (`aoq_reco_id`, `supplier_id`, `item_id`, `reco`, `unit_price`, `quantity`, `aoq_id`) VALUES
-(1, 40, 334, 1, '10.00', 15, 1),
-(2, 21, 337, 1, '50.00', 20, 1);
+INSERT INTO `aoq_reco` (`aoq_reco_id`, `supplier_id`, `item_id`, `reco`, `offer`, `unit_price`, `quantity`, `balance`, `aoq_id`) VALUES
+(1, 40, 334, 1, 'brand.offer1', '80.00', 100, 0, 1),
+(2, 40, 337, 1, 'brand.offer2', '150.00', 50, 0, 1),
+(3, 40, 335, 1, 'brand/offer4', '140.00', 60, 0, 2);
 
 -- --------------------------------------------------------
 
@@ -136,18 +141,19 @@ CREATE TABLE IF NOT EXISTS `aoq_rfq` (
 `aoq_rfq_id` int(11) NOT NULL,
   `aoq_id` int(11) NOT NULL DEFAULT '0',
   `rfq_id` int(11) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `aoq_rfq`
 --
 
 INSERT INTO `aoq_rfq` (`aoq_rfq_id`, `aoq_id`, `rfq_id`) VALUES
-(1, 1, 9),
-(2, 1, 8),
-(3, 1, 7),
-(4, 1, 6),
-(5, 1, 5);
+(1, 1, 3),
+(2, 1, 2),
+(3, 1, 1),
+(4, 2, 6),
+(5, 2, 5),
+(6, 2, 4);
 
 -- --------------------------------------------------------
 
@@ -831,10 +837,19 @@ CREATE TABLE IF NOT EXISTS `po_head` (
   `po_date` varchar(20) DEFAULT NULL,
   `po_no` varchar(200) DEFAULT NULL,
   `supplier_id` int(11) NOT NULL DEFAULT '0',
+  `notes` text,
   `prepared_by` int(11) NOT NULL DEFAULT '0',
   `approved_by` int(11) NOT NULL DEFAULT '0',
   `saved` int(11) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `po_head`
+--
+
+INSERT INTO `po_head` (`po_id`, `po_date`, `po_no`, `supplier_id`, `notes`, `prepared_by`, `approved_by`, `saved`) VALUES
+(1, '2019-05-14', '111 222 a', 40, 'test notes', 1, 17, 1),
+(2, '2019-05-14', '1111 2222 b', 40, '', 1, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -846,10 +861,23 @@ CREATE TABLE IF NOT EXISTS `po_items` (
 `po_items_id` int(11) NOT NULL,
   `po_pr_id` int(11) NOT NULL,
   `po_id` int(11) NOT NULL,
+  `aoq_reco_id` int(11) NOT NULL DEFAULT '0',
   `item_id` int(11) NOT NULL,
+  `offer` text,
   `quantity` int(11) NOT NULL,
   `unit_price` decimal(10,2) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `po_items`
+--
+
+INSERT INTO `po_items` (`po_items_id`, `po_pr_id`, `po_id`, `aoq_reco_id`, `item_id`, `offer`, `quantity`, `unit_price`) VALUES
+(1, 1, 1, 1, 334, 'brand.offer1', 80, '85.00'),
+(2, 1, 1, 2, 337, 'brand.offer2', 20, '150.00'),
+(3, 2, 1, 3, 335, 'brand/offer4', 60, '140.00'),
+(4, 3, 2, 1, 334, 'brand.offer1', 20, '80.00'),
+(5, 3, 2, 2, 337, 'brand.offer2', 30, '150.00');
 
 -- --------------------------------------------------------
 
@@ -859,11 +887,21 @@ CREATE TABLE IF NOT EXISTS `po_items` (
 
 CREATE TABLE IF NOT EXISTS `po_pr` (
 `po_pr_id` int(11) NOT NULL,
+  `po_id` int(11) NOT NULL DEFAULT '0',
   `pr_no` varchar(100) DEFAULT NULL,
-  `department_id` int(11) NOT NULL DEFAULT '0',
+  `requested_by` int(11) NOT NULL DEFAULT '0',
   `enduse_id` int(11) NOT NULL DEFAULT '0',
   `purpose_id` int(11) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `po_pr`
+--
+
+INSERT INTO `po_pr` (`po_pr_id`, `po_id`, `pr_no`, `requested_by`, `enduse_id`, `purpose_id`) VALUES
+(1, 1, '1111', 17, 2, 2),
+(2, 1, '2222', 24, 2, 2),
+(3, 2, '1111', 17, 2, 2);
 
 -- --------------------------------------------------------
 
@@ -927,24 +965,22 @@ CREATE TABLE IF NOT EXISTS `rfq_detail` (
   `offer` text,
   `unit_price` decimal(10,2) NOT NULL DEFAULT '0.00',
   `recommended` int(11) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `rfq_detail`
 --
 
 INSERT INTO `rfq_detail` (`rfq_detail_id`, `rfq_id`, `item_id`, `unit_id`, `offer`, `unit_price`, `recommended`) VALUES
-(16, 5, 14, 0, 'brand1', '40.00', 0),
-(17, 5, 337, 0, 'brand2', '50.00', 0),
-(18, 5, 334, 0, 'brand3', '60.00', 0),
-(19, 6, 14, 0, 'bo1', '30.00', 0),
-(20, 6, 334, 0, 'bo2', '40.00', 0),
-(21, 7, 14, 0, 'o1', '20.00', 0),
-(22, 7, 334, 0, 'o2', '30.00', 0),
-(23, 7, 337, 0, 'o3', '40.00', 0),
-(24, 8, 334, 0, 'b1', '10.00', 0),
-(25, 8, 337, 0, 'b2', '20.00', 0),
-(26, 9, 305, 0, 'aa', '12.00', 0);
+(1, 1, 334, 0, 'brand.offer1', '80.00', 0),
+(2, 1, 337, 0, 'brand.offer2', '150.00', 0),
+(3, 2, 334, 0, 'offer1', '120.00', 0),
+(4, 2, 337, 0, 'offer2', '140.00', 0),
+(5, 3, 334, 0, 'brand1', '100.00', 0),
+(6, 3, 380, 0, 'brand2', '200.00', 0),
+(7, 4, 335, 0, 'brand/offer4', '140.00', 0),
+(8, 5, 124, 0, 'offer1', '120.00', 0),
+(9, 6, 335, 0, 'brand1', '100.00', 0);
 
 -- --------------------------------------------------------
 
@@ -972,18 +1008,19 @@ CREATE TABLE IF NOT EXISTS `rfq_head` (
   `served` int(11) NOT NULL DEFAULT '0',
   `aoq_done` int(11) NOT NULL DEFAULT '0',
   `create_date` varchar(20) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `rfq_head`
 --
 
 INSERT INTO `rfq_head` (`rfq_id`, `rfq_no`, `rfq_date`, `supplier_id`, `due_date`, `price_validity`, `payment_terms`, `delivery_date`, `warranty`, `supplier_tin`, `vat`, `prepared_by`, `noted_by`, `approved_by`, `saved`, `completed`, `served`, `aoq_done`, `create_date`) VALUES
-(5, NULL, '2019-05-09 04:47:51', 21, '2019-05-14', '', '', '', '', '', 0, 1, 41, 76, 1, 1, 0, 1, '2019-05-09 04:47:51'),
-(6, NULL, '2019-05-09 04:50:05', 270, '2019-05-16', '', '', '', '', '', 0, 1, 118, 24, 1, 1, 0, 1, '2019-05-09 04:50:05'),
-(7, NULL, '2019-05-09 04:50:37', 140, '2019-05-16', '5 days', '30 days', '2019-05-15', '2 years', '111', 0, 1, 20, 17, 1, 1, 0, 1, '2019-05-09 04:50:37'),
-(8, NULL, '2019-05-09 04:51:04', 40, '2019-05-16', '10 days', '60 days', '2019-05-15', '1 year', '', 0, 1, 24, 76, 1, 1, 0, 1, '2019-05-09 04:51:04'),
-(9, '201905-1', '2019-05-09 10:22:47', 5, '2019-05-09', '', '', '', '', '', 0, 1, 24, 76, 1, 1, 0, 1, '2019-05-09 10:22:47');
+(1, '201905-1001', '2019-05-14 05:38:48', 40, '2019-05-14', '', '', '2019-05-22', '', '', 0, 1, 118, 20, 1, 1, 0, 1, '2019-05-14 05:38:48'),
+(2, '201905-1002', '2019-05-14 05:39:08', 140, '2019-05-21', '', '', '2019-05-22', '', '', 0, 1, 118, 41, 1, 1, 0, 1, '2019-05-14 05:39:08'),
+(3, '201905-1003', '2019-05-14 05:39:32', 270, '2019-05-14', '', '', '2019-05-21', '', '', 0, 1, 118, 41, 1, 1, 0, 1, '2019-05-14 05:39:32'),
+(4, '201905-1004', '2019-05-14 05:43:59', 40, '2019-05-28', '', '', '2019-05-21', '', '', 0, 1, 41, 17, 1, 1, 0, 1, '2019-05-14 05:43:59'),
+(5, '201905-1005', '2019-05-14 05:44:22', 140, '2019-05-21', '', '', '2019-05-21', '', '', 0, 1, 17, 118, 1, 1, 0, 1, '2019-05-14 05:44:22'),
+(6, '201905-1006', '2019-05-14 05:45:08', 21, '2019-05-14', '', '', '2019-05-27', '', '', 0, 1, 24, 17, 1, 1, 0, 1, '2019-05-14 05:45:08');
 
 -- --------------------------------------------------------
 
@@ -995,14 +1032,19 @@ CREATE TABLE IF NOT EXISTS `rfq_series` (
 `rfq_series_id` int(11) NOT NULL,
   `year_month` varchar(20) DEFAULT NULL,
   `series` int(11) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `rfq_series`
 --
 
 INSERT INTO `rfq_series` (`rfq_series_id`, `year_month`, `series`) VALUES
-(1, '201905', 1);
+(1, '201905', 1001),
+(2, '201905', 1002),
+(3, '201905', 1003),
+(4, '201905', 1004),
+(5, '201905', 1005),
+(6, '201905', 1006);
 
 -- --------------------------------------------------------
 
@@ -1843,7 +1885,7 @@ INSERT INTO `vendor_head` (`vendor_id`, `vendor_name`, `product_services`, `cate
 (362, 'GB Turbophil Turbocharger Service Repair & Parts Supply', 'Turbocharger repair parts and services', 0, 'Suba-Masulog Road, Lapu-Lapu City, Cebu', '(32)2606392', '', '', '', '', 'Contractor', 'Mr. Samuel John Rios - 0918-803-8644', '', 'Inactive'),
 (363, 'Mustard Seed Systems Corporation - Bacolod', 'Door Access, Switch Hub, Ncomputing', 0, 'Door no. 5 SK Realty Building, Kamagong cor. 6th St, Bacolod City', '(034) 432 1650 / 707-1342', '', '', 'mary09mseedsystem@gmail.com', 'COD', 'Supplier / Contractor', 'Ms. Mary', '', 'Active'),
 (364, 'PJL Auto  Center, Inc.', 'A Goodyear Servitek, is your one stop shop for all your vehicle needs and repairs.  It offers a wide selection of automotive tires, lubricants, and imported batteries as wells as car parts and accessories. It also provides repairs and maintenance services such as nitrogen tire fill, computerized engine system diagnosis, computerized wheel alignment, battery life testing, tire changing, wheel balancing, under chassis repair, chamber correction, suspension service, brake system servicing, oil change, total engine overhaul, fuel injection cleaning, air condition repair, among others. We also offer emergency rescue service for your vehicles. And with our highly trained, knowledgeable, and service oriented staff, we are here to address your every automotive need.', 0, 'Lacson Street, Brgy. Mandalagan, Bacolod City', '(034) 441-1222, 441-1444', '', '', 'contact@pjlgroup.ph', '', '', '', '', 'Active'),
-(365, ' Tough Performance AutoWorkz', 'Wheel Alignment, Wheel Balancing, Change oil, Car Electrical Repair, Under Chassis Repair, Engine Tune-up, Suspension Modification, Car Body Repair and Painting, Car Audio Accessories, Change Car, Car Tint', 0, 'Circumferential Road, Brgy. Bata (In front of Adam''s Lodge), Bacolod City', '(034) 432 0544 ', '', '', '', '', '', '', '', 'Active'),
+(365, 'Tough Performance AutoWorkz', 'Wheel Alignment, Wheel Balancing, Change oil, Car Electrical Repair, Under Chassis Repair, Engine Tune-up, Suspension Modification, Car Body Repair and Painting, Car Audio Accessories, Change Car, Car Tint', 0, 'Circumferential Road, Brgy. Bata (In front of Adam''s Lodge), Bacolod City', '(034) 432 0544 ', '', '', '', '', '', '', '', 'Active'),
 (366, 'TOWER Motors SHOP', 'Automotive Repair and Services', 0, 'Purok Hollowblocks, Lacson extension, Alabado street, Bacolod City', ' (034) 707 9947', '', '', '', '', '', '', '', 'Active'),
 (367, 'Valing Auto Repair Shop', 'Automotive Repair and Services, Services Offered: Overhauling Engine Brake System Under Chassis And Other Mechanical Repair', 0, ' Lucerne Berne St., Helvetia Heights Subd., Bacolod City', '709 7224', '', '', '', '', '', '', '', 'Active'),
 (368, 'H. Y. Hablo Services Company', 'Trucking Services', 0, 'Henrietta Village, Bacolod City', '0922-897-9326', '', '', '', 'COD', 'Trucking Services', 'Sir Yoyo', 'VAT Reg. TIN 450-101-583-0000', 'Active'),
@@ -2051,27 +2093,27 @@ ALTER TABLE `vendor_head`
 -- AUTO_INCREMENT for table `aoq_comments`
 --
 ALTER TABLE `aoq_comments`
-MODIFY `aoq_comment_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=11;
+MODIFY `aoq_comment_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT for table `aoq_header`
 --
 ALTER TABLE `aoq_header`
-MODIFY `aoq_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+MODIFY `aoq_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `aoq_items`
 --
 ALTER TABLE `aoq_items`
-MODIFY `aoq_items_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+MODIFY `aoq_items_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `aoq_reco`
 --
 ALTER TABLE `aoq_reco`
-MODIFY `aoq_reco_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+MODIFY `aoq_reco_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `aoq_rfq`
 --
 ALTER TABLE `aoq_rfq`
-MODIFY `aoq_rfq_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
+MODIFY `aoq_rfq_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `brand`
 --
@@ -2101,17 +2143,17 @@ MODIFY `item_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=533;
 -- AUTO_INCREMENT for table `po_head`
 --
 ALTER TABLE `po_head`
-MODIFY `po_id` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `po_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `po_items`
 --
 ALTER TABLE `po_items`
-MODIFY `po_items_id` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `po_items_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `po_pr`
 --
 ALTER TABLE `po_pr`
-MODIFY `po_pr_id` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `po_pr_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `product_category`
 --
@@ -2126,17 +2168,17 @@ MODIFY `purpose_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 -- AUTO_INCREMENT for table `rfq_detail`
 --
 ALTER TABLE `rfq_detail`
-MODIFY `rfq_detail_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=27;
+MODIFY `rfq_detail_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT for table `rfq_head`
 --
 ALTER TABLE `rfq_head`
-MODIFY `rfq_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=10;
+MODIFY `rfq_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `rfq_series`
 --
 ALTER TABLE `rfq_series`
-MODIFY `rfq_series_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+MODIFY `rfq_series_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `unit`
 --
