@@ -57,15 +57,15 @@
                         </div>
                         <div class="form-group">
                             <p class="m-b-0">Address:</p>
-                            <span id='address'></span>
+                            <b><span id='address'></span></b>
                         </div>
                         <div class="form-group">
                             <p class="m-b-0">Contact Person:</p>
-                             <span id='contact'></span>
+                            <b><span id='contact'></span></b>
                         </div>
                         <div class="form-group">
                             <p class="m-b-0">Telephone #:</p>
-                             <span id='phone'></span>
+                            <b><span id='phone'></span></b>
                         </div>
                          <div class="form-group">
                             <p class="m-b-0">Notes:</p>
