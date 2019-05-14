@@ -95,7 +95,7 @@
                                                         <span class="fa fa-eye"></span>
                                                     </a>
                                                 <?php } ?>
-                                                    <a href="<?php echo base_url(); ?>aoq/aoq_prnt/<?php echo $head['aoq_id']; ?>" class="btn btn-custon-three btn-success btn-xs" >served
+                                                    <a href="<?php echo base_url(); ?>aoq/update_served/<?php echo $head['aoq_id']; ?>" class="btn btn-custon-three btn-success btn-xs"  onclick="return confirm('Are you sure?')">Served
                                                     </a>
                                                 </center>
                                             </td>

@@ -330,6 +330,7 @@
 					    		</tr>
 		    				</table>
 			    		</td>
+			    		<input type="hidden" name = "prepared_by" value = "<?php echo $_SESSION['user_id'];?>">
 			    	</tr>
 			    	<?php } else { ?>
 			    		<tr>

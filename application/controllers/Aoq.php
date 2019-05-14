@@ -44,7 +44,7 @@ class Aoq extends CI_Controller {
 	public function aoq_list(){
 		
 		$data=array();
-		foreach($this->super_model->select_row_where("aoq_header", "saved", "1") AS $list){
+		foreach($this->super_model->select_custom_where("aoq_header", "saved='1' AND served='0'") AS $list){
 			$rows = $this->super_model->count_rows_where("aoq_rfq","aoq_id",$list->aoq_id);
 			$department=$this->super_model->select_column_where('department','department_name','department_id', $list->department_id);
 			$enduse=$this->super_model->select_column_where('enduse','enduse_name','enduse_id', $list->enduse_id);
@@ -500,6 +500,17 @@ class Aoq extends CI_Controller {
     			return $item->$column;
     		}
     		
+    	}
+    }
+
+    public function update_served(){
+    	$aoq_id=$this->uri->segment(3);
+    	$data = array(
+    		'served'=>1
+    	);
+
+    	if($this->super_model->update_where("aoq_header", $data, "aoq_id", $aoq_id)){
+    		redirect(base_url().'aoq/aoq_list', 'refresh');
     	}
     }
 

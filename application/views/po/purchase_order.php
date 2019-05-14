@@ -84,7 +84,7 @@
 				<form method="POST" action="<?php echo base_url(); ?>po/add_pr">
 					<div class="modal-body">
 						<div class="form-group">
-							<p class="nomarg">PR NO:</p>
+							<h5 class="nomarg">PR NO:</h5>
 							<select name='pr' id='pr' class="form-control" onchange='getPRInfo()'>
 							<option value="" selected=""></option>
 							<?php foreach($pr AS $p){ ?>
@@ -93,17 +93,17 @@
 							</select>
 						</div>
 						<div class="form-group">
-							<p class="nomarg">Requestor:</p>
-							<span id='requestor'></span>
+							<h5 class="nomarg">Requestor:</h5>
+							<h5 class="nomarg"><b><span id='requestor'></span></b></h5>
 						</div>
 						<div class="form-group">
-							<p class="nomarg">Purpose:</p>
-							<span id='purpose'></span>
+							<h5 class="nomarg">Purpose:</h5>
+							<h5 class="nomarg"><b><span id='purpose'></span></b></h5>
 						</div>
 
 						<div class="form-group">
-							<p class="nomarg">Enduse:</p>
-							<span id='enduse'></span>
+							<h5 class="nomarg">Enduse:</h5>
+							<h5 class="nomarg"><b><span id='enduse'></span></b></h5>
 						</div>
 						<input type="hidden" class="form-control" name="po_id" id="po_id">
 					</div>
@@ -299,7 +299,7 @@
 					    			<td colspan="17" class="all-border" align="right"><b class="nomarg">TOTAL</b></td>
 					    			<td colspan="3" class="all-border" align="right"><b class="nomarg"><input type='text' class='prtotal' id='total_pr<?php echo $a; ?>' value="<?php //echo number_format($prprice,2); ?>" readonly style='text-align:right'></b></td>
 					    		<!--</tr>-->
-
+					    		<input type="hidden" name = "prepared_by" value = "<?php echo $_SESSION['user_id'];?>">
 					    		<input type='hidden' name='count_item'  value='<?php echo $x; ?>'>
 		    				</table>
 			    		</td>

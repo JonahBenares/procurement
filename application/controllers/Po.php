@@ -147,10 +147,57 @@ class Po extends CI_Controller {
         $this->load->view('template/footer');
     }
 
+
+    public function cancel_po(){
+        $po_id=$this->uri->segment(3);
+        $data = array(
+            'cancelled'=>1
+        );
+
+        if($this->super_model->update_where("po_head", $data, "po_id", $po_id)){
+            redirect(base_url().'po/po_list', 'refresh');
+        }
+    }
+
+     public function cancel_and_duplicate(){
+        $po_id=$this->uri->segment(3);
+        $po = $this->super_model->get_max("po_head", "po_id");
+        $next_po = $po + 1;
+           foreach($this->super_model->select_row_where("po_head", "po_id", $po_id) AS $header){
+                $head = array(
+                    'po_id'=>$next_po,
+                    'po_date'=>$header->po_date,
+                    'po_no'=>$header->po_no,
+                    'supplier_id'=>$header->supplier_id,
+                    'notes'=>$header->notes,
+                    'prepared_by'=>$header->prepared_by,
+                    'approved_by'=>$header->approved_by,
+                    'saved'=>'1'
+                );
+           }
+
+            foreach($this->super_model->select_row_where("po_pr", "po_id", $po_id) AS $popr){
+                $pr = array(
+                    'po_id'=>$next_po,
+                    'po_date'=>$header->po_date,
+                    'po_no'=>$header->po_no,
+                    'supplier_id'=>$header->supplier_id,
+                    'notes'=>$header->notes,
+                    'prepared_by'=>$header->prepared_by,
+                    'approved_by'=>$header->approved_by,
+                    'saved'=>'1'
+                );
+           }
+
+        if($this->super_model->update_where("po_head", $data, "po_id", $po_id)){
+            redirect(base_url().'po/po_list', 'refresh');
+        }
+    }
+
     public function po_list(){
         $data['supplier']=$this->super_model->select_all_order_by("vendor_head", "vendor_name", "ASC");
        
-         foreach($this->super_model->select_all_order_by("po_head", "po_id", "DESC") AS $head){
+         foreach($this->super_model->select_custom_where("po_head", "saved='1' AND cancelled='0' ORDER BY po_id DESC") AS $head){
              $pr='';
             foreach($this->super_model->select_row_where("po_pr", "po_id", $head->po_id) AS $prd){
             $pr .= "-".$prd->pr_no."<br>";
@@ -173,6 +220,7 @@ class Po extends CI_Controller {
         $this->load->view('template/footer');
     }
 
+ 
     public function remove_pr(){
         $po_pr_id=$this->uri->segment(3);
         $po_id=$this->uri->segment(4);
@@ -283,6 +331,7 @@ class Po extends CI_Controller {
     public function po_complete(){
         $count_item = $this->input->post('count_item');
         $poid = $this->input->post('po_id');
+        $prepared_by = $this->input->post('prepared_by');
         for($x=1;$x<$count_item;$x++){
             $qty = $this->input->post('quantity'.$x);
             if($qty!=0){
@@ -303,10 +352,58 @@ class Po extends CI_Controller {
                     $reco = array(
                         'balance'=>$new_balance
                     );
-                    $this->super_model->update_where("aoq_reco", $reco, "aoq_reco_id", $aoq_reco_id);
+                    $this->super_model->update_where("aoq_reco", $reco, "aoq_reco_id", $aoq_reco_id); 
                 }
-            }   
+
+                /*$head_rows = $this->super_model->count_rows("dr_head");
+                if($head_rows==0){
+                    $dr_id=1;
+                } else {
+                    $maxid=$this->super_model->get_max("dr_head", "dr_id");
+                    $dr_id=$maxid;
+                }
+
+                $dr_det =array(
+                    'dr_id'=>$dr_id,
+                    'po_pr_id'=>$this->input->post('po_pr_id'.$x),
+                    'pr_no'=>'',
+                );
+
+                if($this->super_model->insert_into("dr_details", $dr_det)){
+                    $rows = $this->super_model->count_rows("dr_details");
+                    if($rows==0){
+                        $dr_details_id=1;
+                    } else {
+                        $maxid=$this->super_model->get_max("dr_details", "dr_details_id");
+                        $dr_details_id=$maxid;
+                    }
+
+                    $row = $this->super_model->count_rows("po_items");
+                    if($row==0){
+                        $po_items_id=1;
+                    } else {
+                        $maxid=$this->super_model->get_max("po_items", "po_items_id");
+                        $po_items_id=$maxid;
+                    }
+
+                    $dr_itm =array(
+                        'dr_details_id'=>$dr_details_id,
+                        'dr_id'=>$dr_id,
+                        'po_items_id'=>$po_items_id,
+                    );
+                    $this->super_model->insert_into("dr_items", $dr_itm);
+                }
+*/
+
+            } 
         }
+
+        /*$dr = array(
+            'po_id'=>$poid,
+            'prepared_by'=>$prepared_by,
+            'create_date'=>date('Y-m-d H:i:s'),
+        );
+        $this->super_model->insert_into("dr_head", $dr);*/
 
         $head =array(
             'saved'=>1,
