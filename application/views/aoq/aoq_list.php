@@ -69,7 +69,7 @@
                                         <tr>
                                             <td><?php echo date('F j, Y', strtotime($head['aoq_date'])); ?></td>
                                             <td><?php echo $head['pr']; ?></td>
-                                            <td><?php echo $supplier; ?></td>
+                                            <td><?php echo $head['supplier']; ?></td>
                                             <td><?php echo $head['department']; ?></td>
                                             <td><?php echo $head['enduse']; ?></td>
                                             <td><?php echo $head['requestor']; ?></td>

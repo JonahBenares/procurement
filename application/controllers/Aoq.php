@@ -49,6 +49,13 @@ class Aoq extends CI_Controller {
 			$department=$this->super_model->select_column_where('department','department_name','department_id', $list->department_id);
 			$enduse=$this->super_model->select_column_where('enduse','enduse_name','enduse_id', $list->enduse_id);
 			$requested=$this->super_model->select_column_where('employees','employee_name','employee_id', $list->requested_by);
+			$supplier='';
+			foreach($this->super_model->select_row_where("aoq_rfq", "aoq_id", $list->aoq_id) AS $rfq){
+				$supplier_id=$this->super_model->select_column_where('rfq_head','supplier_id','rfq_id', $rfq->rfq_id);
+				$supplier.="-".$this->super_model->select_column_where('vendor_head','vendor_name','vendor_id', $supplier_id). "<br> ";
+			}
+			$sup = substr($supplier, 0, -2);
+			//$data['supplier']=$sup;
 			$data['header'][]=array(
 				'aoq_id'=>$list->aoq_id,
 				'aoq_date'=>$list->aoq_date,
@@ -59,16 +66,11 @@ class Aoq extends CI_Controller {
 				'requestor'=>$requested,
 				'saved'=>$list->saved,
 				'completed'=>$list->completed,
-				'rows'=>$rows
+				'rows'=>$rows,
+				'supplier'=>$sup
 			);
-			$supplier='';
-			foreach($this->super_model->select_row_where("aoq_rfq", "aoq_id", $list->aoq_id) AS $rfq){
-				$supplier_id=$this->super_model->select_column_where('rfq_head','supplier_id','rfq_id', $rfq->rfq_id);
-				$supplier.="-".$this->super_model->select_column_where('vendor_head','vendor_name','vendor_id', $supplier_id). "<br> ";
-				
-			}
-			$sup = substr($supplier, 0, -2);
-			$data['supplier']=$sup;
+			
+			
 		}
 
         $this->load->view('template/header');
