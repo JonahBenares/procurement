@@ -151,15 +151,17 @@
 	    		<center>
 			    	<div class="btn-group">
 						<a href="<?php echo base_url(); ?>aoq/aoq_list" class="btn btn-success btn-md p-l-100 p-r-100"><span class="fa fa-arrow-left"></span> Back</a>
-						
-						<?php if($saved==1){
+						<?php if($saved==1){ 
+					
 							if($completed==0){ ?>
 							<input type='submit' class="btn btn-info btn-md p-l-100 p-r-100" value='Done'>
-							<?php } ?>
-						<a  onclick="printPage()" class="btn btn-warning btn-md p-l-100 p-r-100"><span class="fa fa-print"></span> Print</a>
-						<?php } if($saved==0){ ?>
+							<?php } if($completed==1){ ?>
+							<a  onclick="printPage()" class="btn btn-warning btn-md p-l-100 p-r-100"><span class="fa fa-print"></span> Print</a>
+
+						<?php }
+						 } if($saved==0){ ?>
 						<input type='submit' class="btn btn-primary btn-md p-l-100 p-r-100" value="Save">
-						<?php } ?>    	       				
+						<?php } ?>    				
 					</div>
 					<p class="text-white p-l-250 p-r-250">Instructions: When printing ABSTRACT OF QUOTATION make sure the following options are set correctly -- <u>Browser</u>: Chrome, <u>Layout</u>: Landscape, <u>Paper Size</u>: A4 <u>Margin</u> : Custom (top: 0.11" , right:1.25", bottom: 0.11", left: 0.11") <u>Scale</u>: 100 and the option: Background graphics is checked</p>
 				</center>

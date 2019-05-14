@@ -42,7 +42,7 @@ class Aoq extends CI_Controller {
 	}
 
 	public function aoq_list(){
-		$supplier='';
+		
 		$data=array();
 		foreach($this->super_model->select_row_where("aoq_header", "saved", "1") AS $list){
 			$rows = $this->super_model->count_rows_where("aoq_rfq","aoq_id",$list->aoq_id);
@@ -61,7 +61,7 @@ class Aoq extends CI_Controller {
 				'completed'=>$list->completed,
 				'rows'=>$rows
 			);
-
+			$supplier='';
 			foreach($this->super_model->select_row_where("aoq_rfq", "aoq_id", $list->aoq_id) AS $rfq){
 				$supplier_id=$this->super_model->select_column_where('rfq_head','supplier_id','rfq_id', $rfq->rfq_id);
 				$supplier.="-".$this->super_model->select_column_where('vendor_head','vendor_name','vendor_id', $supplier_id). "<br> ";
@@ -284,7 +284,8 @@ class Aoq extends CI_Controller {
     			'aoq_id'=>$aoq_id,
     			'unit_price'=>$price,
     			'offer'=>$offer,
-    			'quantity'=>$qty
+    			'quantity'=>$qty,
+    			'balance'=>$qty
     		);
 
     		$this->super_model->insert_into("aoq_reco", $data);

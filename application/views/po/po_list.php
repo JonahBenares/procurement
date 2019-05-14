@@ -67,6 +67,10 @@
                             <p class="m-b-0">Telephone #:</p>
                              <span id='phone'></span>
                         </div>
+                         <div class="form-group">
+                            <p class="m-b-0">Notes:</p>
+                            <textarea name="notes" class="form-control"></textarea>
+                        </div>
                         <center>
                            
                             <input type = "submit" class="btn btn-custon-three btn-primary btn-block" value = "Save">
@@ -102,13 +106,10 @@
                                 <table id="table" data-toggle="table" data-pagination="true" data-search="true" data-show-columns="true" data-show-pagination-switch="true" data-show-refresh="true" data-key-events="true" data-show-toggle="true" data-resizable="true" data-cookie="true" data-cookie-id-table="saveId" data-show-export="true" data-click-to-select="true" data-toolbar="#toolbar">
                                     <thead>
                                         <tr>
-                                            <th>AOQ Date</th>
-                                            <th>PR#</th>
+                                            <th>PO Date</th>
+                                            <th>PO #</th>
                                             <th>Supplier</th>
-                                            <th>Department</th>
-                                            <th>Enduse</th>
-                                            <th>Requestor</th>
-                                            <th>Date Needed</th>
+                                            <th>PR #</th>
                                             <th><center><span class="fa fa-bars"></span></center></th>
                                         </tr>
                                     </thead>
@@ -117,22 +118,17 @@
                                     if(!empty($header)){
                                     foreach($header AS $head){ ?>
                                         <tr>
-                                            <td><?php echo date('F j, Y', strtotime($head['aoq_date'])); ?></td>
+                                            <td><?php echo date('F j, Y', strtotime($head['po_date'])); ?></td>
+                                            <td><?php echo $head['po_no']; ?></td>
+                                            <td><?php echo $head['supplier']; ?></td>
                                             <td><?php echo $head['pr']; ?></td>
-                                            <td><?php echo $supplier; ?></td>
-                                            <td><?php echo $head['department']; ?></td>
-                                            <td><?php echo $head['enduse']; ?></td>
-                                            <td><?php echo $head['requestor']; ?></td>
-                                            <td><?php echo date('F j, Y', strtotime($head['date_needed']));; ?></td>
                                             <td>
                                                 <center>
-                                                    <a href="<?php echo base_url(); ?>aoq/aoq_prnt/<?php echo $head['aoq_id']; ?>" class="btn btn-custon-three btn-warning btn-xs" >
+                                                     <a href="<?php echo base_url(); ?>po/purchase_order_saved/<?php echo $head['po_id']; ?>" class="btn btn-custon-three btn-warning btn-xs">
                                                         <span class="fa fa-eye"></span>
                                                     </a>
-                                                    <center>
                                                     <a href="<?php echo base_url(); ?>aoq/aoq_prnt/" class="btn btn-custon-three btn-info btn-xs" >Cancel & Duplicate</a>
                                                     <a href="<?php echo base_url(); ?>aoq/aoq_prnt/" class="btn btn-custon-three btn-danger btn-xs" >Cancel</a>
-                                                </center>
                                                 </center>
                                             </td>
                                         </tr>  

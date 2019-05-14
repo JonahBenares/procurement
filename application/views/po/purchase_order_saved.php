@@ -100,7 +100,6 @@
 							<p class="nomarg">Purpose:</p>
 							<span id='purpose'></span>
 						</div>
-
 						<div class="form-group">
 							<p class="nomarg">Enduse:</p>
 							<span id='enduse'></span>
@@ -128,7 +127,7 @@
     		<div  id="prnt_btn">
 	    		<center>
 			    	<div class="abtn-group">
-						<a href="javascript:history.go(-1)" class="btn btn-success btn-md p-l-100 p-r-100"><span class="fa fa-arrow-left"></span> Back</a>
+						<a href="<?php echo base_url(); ?>po/po_list" class="btn btn-success btn-md p-l-100 p-r-100"><span class="fa fa-arrow-left"></span> Back</a>
 						<?php if($saved==1){ ?>
 						<a  onclick="printPage()" class="btn btn-warning btn-md p-l-100 p-r-100"><span class="fa fa-print"></span> Print</a>
 						<?php } else if($saved==0){ ?>
@@ -199,14 +198,7 @@
 		    			<td colspan="5"><h6 class="nomarg"><b></b></h6></td>
 		    		</tr>
 		    	<?php } ?>
-		    		<tr id="pr-btn">
-		    			<td colspan="20" style="padding-left: 10px">
-
-		    				<a class="addPR btn btn-primary btn-xs" data-toggle="modal" href="#add-pr" data-id="<?php echo $po_id; ?>">
-							  Add PR
-							</a>
-		    			</td>
-		    		</tr>	
+		    	
 		    		<!-- LOOp Here -->  	
 		    		<?php 
 		    		if(!empty($prdetails)){
@@ -245,8 +237,7 @@
 					    		</tr>
 					    		<tr>
 					    			<td class="" colspan="2" align="Left">&nbsp;Purpose:</td>
-					    			<td class="" colspan="6" align="Left"><?php echo $prd['purpose']; ?></td>
-					    			<td class="" colspan="12" align="right"><a href='<?php echo base_url(); ?>po/remove_pr/<?php echo $prd['po_pr_id']; ?>/<?php echo $po_id; ?>' style='color:red' onclick="return confirm('Are you sure you want to remove PR?')">[Remove PR]</a></td>
+					    			<td class="" colspan="18" align="Left"><?php echo $prd['purpose']; ?></td>
 					    		</tr>
 					    		<tr>
 					    			<td class="" colspan="2" align="Left">&nbsp;Enduse:</td>
@@ -271,23 +262,20 @@
 					    		
 					    		$pr_price=array();
 					    		 foreach($items AS $it){ 
-					    		 	if($prd['pr_no']==$it['pr_no']){
+					    		 	if($prd['po_pr_id']==$it['po_pr_id']){
 					    		 	$tprice = $it['quantity'] * $it['price'];
 					    		 	$pr_price[] = $tprice; ?>
 					    		<tr>
 					    			<td colspan="" class="all-border" align="center"><b><?php echo $x; ?></b></td>
-					    			<td colspan="" class="all-border" align="center"><b><input type='text' name='quantity<?php echo $x; ?>' id='quantity<?php echo $x; ?>' class='quantity' value='<?php echo $it['quantity']; ?>' style='width:50px; color:red' onblur='changePrice(<?php echo $x; ?>,<?php echo $a; ?>)'></b></td>
+					    			<td colspan="" class="all-border" align="center"><b><?php echo $it['quantity']; ?></b></td>
 					    			<td colspan="" class="all-border" align="center"><b><?php echo $it['unit']; ?></b></td>
 					    			<td colspan="12" class="all-border" align="left"><b class="nomarg"><?php echo $it['offer'].", ".$it['item']." " . $it['item_specs']; ?></b></td>
-					    			<td colspan="2" class="all-border" align="center"><b><input type='text' name='price<?php echo $x; ?>' id='price<?php echo $x; ?>'  value='<?php echo $it['price']; ?>' onblur='changePrice(<?php echo $x; ?>,<?php echo $a; ?>)' style='color:red; width:100px'></b></td>
-					    			<td colspan="3" class="all-border" align="right"><b class="nomarg"><input type='text' name='tprice<?php echo $x; ?>' id='tprice<?php echo $x; ?>' class='tprice' value="<?php echo number_format($tprice,2); ?>" style='text-align:right' readonly></b></td>
+					    			<td colspan="2" class="all-border" align="center"><b><?php echo number_format($it['price'],2); ?></b></td>
+					    			<td colspan="3" class="all-border" align="right"><b class="nomarg"><?php echo number_format($tprice,2); ?></b></td>
 					    			
 					    			
-					    			<input type='hidden' name='reco_id<?php echo $x; ?>'  value='<?php echo $it['reco_id']; ?>'>
-					    			<input type='hidden' name='item_id<?php echo $x; ?>'  value='<?php echo $it['item_id']; ?>'>
-					    			<input type='hidden' name='offer<?php echo $x; ?>'  value='<?php echo $it['offer']; ?>'>
 					    		</tr>
-					    		<input type='hidden' name='po_pr_id<?php echo $x; ?>'  value='<?php echo $prd['po_pr_id']; ?>'>
+					    	
 					    		<?php 
 					    		$x++;
 					    			}
@@ -295,12 +283,9 @@
 
 					    		$prprice = array_sum($pr_price);
 					    		$total[] = $prprice; ?>
-					    		<!--<tr>
-					    			<td colspan="17" class="all-border" align="right"><b class="nomarg">TOTAL</b></td>
-					    			<td colspan="3" class="all-border" align="right"><b class="nomarg"><input type='text' class='prtotal' id='total_pr<?php echo $a; ?>' value="<?php //echo number_format($prprice,2); ?>" readonly style='text-align:right'></b></td>
-					    		<!--</tr>-->
+					    	
 
-					    		<input type='hidden' name='count_item'  value='<?php echo $x; ?>'>
+					    	
 		    				</table>
 			    		</td>
 			    	</tr>
@@ -410,12 +395,7 @@
 		    			<td colspan="7"><b><?php echo $_SESSION['fullname']; ?></b></td>
 		    			<td colspan="2"></td>
 		    			<td colspan="7"><b>
-		    			<select name='approved' class="select-des emphasis">
-			    			<option value=''>-Select Employee-</option>
-			    			<?php foreach($employee AS $emp){ ?>
-			    				<option value='<?php echo $emp->employee_id; ?>'><?php echo $emp->employee_name; ?></option>
-			    			<?php } ?>
-		    			</select></b></td>
+		    			<?php echo $approved; ?></b></td>
 		    			<td colspan="2"></td>
 		    		</tr>
 		    		<tr><td colspan="20"><br></td></tr>

@@ -31,6 +31,8 @@ class Po extends CI_Controller {
         $po_id=$this->uri->segment(3);
         $data['po_id']=$po_id;
         $supplier=$this->super_model->select_column_where('po_head', 'supplier_id', 'po_id', $po_id);
+        $data['saved']=$this->super_model->select_column_where('po_head', 'saved', 'po_id', $po_id);
+        $data['notes']=$this->super_model->select_column_where('po_head', 'notes', 'po_id', $po_id);
         foreach($this->super_model->select_row_where("po_head", "po_id", $po_id) AS $head){
             
             $data['head'][]=array(
@@ -42,6 +44,8 @@ class Po extends CI_Controller {
                 'phone'=>$this->super_model->select_column_where('vendor_head', 'phone_number', 'vendor_id', $head->supplier_id),
                 'contact'=>$this->super_model->select_column_where('vendor_head', 'contact_person', 'vendor_id',$head->supplier_id)
             );
+
+
         }
         $data['pr'] = $this->super_model->select_row_where_order_by("aoq_header", "served", "0", "pr_no", "ASC");
 
@@ -70,7 +74,7 @@ class Po extends CI_Controller {
                         'offer'=>$reco->offer,
                         'unit'=>$this->super_model->select_column_where('unit', 'unit_name', 'unit_id', $unit_id),
                         'price'=>$reco->unit_price,
-                        'quantity'=>$reco->quantity,
+                        'quantity'=>$reco->balance,
                         'aoq_id'=>$reco->aoq_id
                     );
                }
@@ -84,12 +88,97 @@ class Po extends CI_Controller {
         $this->load->view('template/footer');
     }
 
+    public function purchase_order_saved(){
+        $po_id=$this->uri->segment(3);
+        $data['po_id']=$po_id;
+        $supplier=$this->super_model->select_column_where('po_head', 'supplier_id', 'po_id', $po_id);
+        $data['saved']=$this->super_model->select_column_where('po_head', 'saved', 'po_id', $po_id);
+        $approved_id=$this->super_model->select_column_where('po_head', 'approved_by', 'po_id', $po_id);
+        $data['approved']=$this->super_model->select_column_where('employees', 'employee_name', 'employee_id', $approved_id);
+        $data['notes']=$this->super_model->select_column_where('po_head', 'notes', 'po_id', $po_id);
+        foreach($this->super_model->select_row_where("po_head", "po_id", $po_id) AS $head){
+            
+            $data['head'][]=array(
+                'po_date'=>$head->po_date,
+                'po_no'=>$head->po_no,
+                'supplier'=>$this->super_model->select_column_where('vendor_head', 'vendor_name', 'vendor_id', $head->supplier_id),
+                'supplier_id'=>$head->supplier_id,
+                'address'=>$this->super_model->select_column_where('vendor_head', 'address', 'vendor_id',$head->supplier_id),
+                'phone'=>$this->super_model->select_column_where('vendor_head', 'phone_number', 'vendor_id', $head->supplier_id),
+                'contact'=>$this->super_model->select_column_where('vendor_head', 'contact_person', 'vendor_id',$head->supplier_id)
+            );
+
+
+        }
+        $data['pr'] = $this->super_model->select_row_where_order_by("aoq_header", "served", "0", "pr_no", "ASC");
+
+        foreach($this->super_model->select_row_where("po_pr", "po_id", $po_id) AS $prdet){
+            $purpose= $this->super_model->select_column_where('purpose', 'purpose_name', 'purpose_id', $prdet->purpose_id);
+            $requestor= $this->super_model->select_column_where('employees', 'employee_name', 'employee_id', $prdet->requested_by);
+            $enduse= $this->super_model->select_column_where('enduse', 'enduse_name', 'enduse_id', $prdet->enduse_id);
+            $data['prdetails'][]=array(
+                'po_pr_id'=>$prdet->po_pr_id,
+                'po_id'=>$prdet->po_id,
+                'pr_no'=>$prdet->pr_no,
+                'purpose'=>$purpose,
+                'requestor'=>$requestor,
+                'enduse'=>$enduse
+              
+            );
+            foreach($this->super_model->select_row_where("po_items", "po_pr_id", $prdet->po_pr_id) AS $pritems){
+                $unit_id=$this->super_model->select_column_where('item', 'unit_id', 'item_id', $pritems->item_id);
+                $data['items'][]=array(
+
+                    'po_pr_id'=>$pritems->po_pr_id,
+                    'item_id'=>$pritems->item_id,
+                    'item'=>$this->super_model->select_column_where('item', 'item_name', 'item_id', $pritems->item_id),
+                    'item_specs'=>$this->super_model->select_column_where('item', 'item_specs', 'item_id', $pritems->item_id),
+                    'offer'=>$pritems->offer,
+                    'quantity'=>$pritems->quantity,
+                    'price'=>$pritems->unit_price,
+                    'unit'=>$this->super_model->select_column_where('unit', 'unit_name', 'unit_id', $unit_id),
+                );
+            }
+        }
+
+        $data['employee']=$this->super_model->select_all_order_by("employees", "employee_name", "ASC");
+        $this->load->view('template/header');        
+        $this->load->view('po/purchase_order_saved',$data);
+        $this->load->view('template/footer');
+    }
+
     public function po_list(){
         $data['supplier']=$this->super_model->select_all_order_by("vendor_head", "vendor_name", "ASC");
+       
+         foreach($this->super_model->select_all_order_by("po_head", "po_id", "DESC") AS $head){
+             $pr='';
+            foreach($this->super_model->select_row_where("po_pr", "po_id", $head->po_id) AS $prd){
+            $pr .= "-".$prd->pr_no."<br>";
+            }
+            $data['header'][]=array(
+                'po_id'=>$head->po_id,
+                'po_date'=>$head->po_date,
+                'po_no'=>$head->po_no,
+                'supplier'=>$this->super_model->select_column_where('vendor_head', 'vendor_name', 'vendor_id', $head->supplier_id),
+                'supplier_id'=>$head->supplier_id,
+                'pr'=>$pr
+              
+            );
+
+
+        }
         $this->load->view('template/header');   
         $this->load->view('template/navbar');     
         $this->load->view('po/po_list',$data);
         $this->load->view('template/footer');
+    }
+
+    public function remove_pr(){
+        $po_pr_id=$this->uri->segment(3);
+        $po_id=$this->uri->segment(4);
+        if($this->super_model->delete_where("po_pr", "po_pr_id", $po_pr_id)){
+            redirect(base_url().'po/purchase_order/'.$po_id, 'refresh');
+        }
     }
 
     public function getsupplier(){
@@ -131,6 +220,7 @@ class Po extends CI_Controller {
             'po_id'=>$po_id,
             'po_date'=>$this->input->post('po_date'),
             'po_no'=>$this->input->post('po_no'),
+            'notes'=>$this->input->post('notes'),
             'supplier_id'=>$this->input->post('supplier'),
             'prepared_by'=>$_SESSION['user_id']
         );
@@ -191,17 +281,25 @@ class Po extends CI_Controller {
         for($x=1;$x<$count_item;$x++){
             $qty = $this->input->post('quantity'.$x);
             if($qty!=0){
+                $aoq_reco_id = $this->input->post('reco_id'.$x);
                 $data =array(
                     'po_pr_id'=>$this->input->post('po_pr_id'.$x),
                     'po_id'=>$this->input->post('po_id'),
-                    'aoq_reco_id'=>$this->input->post('reco_id'.$x),
+                    'aoq_reco_id'=>$aoq_reco_id,
                     'item_id'=>$this->input->post('item_id'.$x),
                     'offer'=>$this->input->post('offer'.$x),
                     'quantity'=>$qty,
                     'unit_price'=>$this->input->post('price'.$x)
                 );
 
-                $this->super_model->insert_into("po_items", $data);
+                if($this->super_model->insert_into("po_items", $data)){
+                    $balance= $this->super_model->select_column_where('aoq_reco', 'balance', 'aoq_reco_id', $aoq_reco_id);
+                    $new_balance = $balance - $qty;
+                    $reco = array(
+                        'balance'=>$new_balance
+                    );
+                    $this->super_model->update_where("aoq_reco", $reco, "aoq_reco_id", $aoq_reco_id);
+                }
             }   
         }
 
@@ -211,7 +309,7 @@ class Po extends CI_Controller {
         );
 
         if($this->super_model->update_where("po_head", $head, "po_id", $poid)){
-            redirect(base_url().'po/purchase_order/'.$poid, 'refresh');
+            redirect(base_url().'po/purchase_order_saved/'.$poid);
         }
     }
 
