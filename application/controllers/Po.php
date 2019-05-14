@@ -248,6 +248,11 @@ class Po extends CI_Controller {
         $this->load->view('po/delivery_receipt');
         $this->load->view('template/footer');
     }
+    public function rfd_prnt(){
+        $this->load->view('template/header');        
+        $this->load->view('po/rfd_prnt');
+        $this->load->view('template/footer');
+    }
 
     public function add_itempo(){
         $pr_no=$this->uri->segment(3);

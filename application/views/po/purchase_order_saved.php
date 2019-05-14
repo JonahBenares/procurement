@@ -129,7 +129,9 @@
 			    	<div class="abtn-group">
 						<a href="<?php echo base_url(); ?>po/po_list" class="btn btn-success btn-md p-l-100 p-r-100"><span class="fa fa-arrow-left"></span> Back</a>
 						<?php if($saved==1){ ?>
-						<a  onclick="printPage()" class="btn btn-warning btn-md p-l-100 p-r-100"><span class="fa fa-print"></span> Print</a>
+						<a  onclick="printPage()" class="btn btn-warning btn-md p-l-50 p-r-50"><span class="fa fa-print"></span> Print <u><b>PO</b></u></a>
+						<a  href="<?php echo base_url(); ?>po/delivery_receipt" class="btn btn-warning btn-md p-l-50 p-r-50"><span class="fa fa-print"></span> Print <u><b>DR</b></u></a>
+						<a  href="<?php echo base_url(); ?>po/rfd_prnt" class="btn btn-warning btn-md p-l-50 p-r-50"><span class="fa fa-print"></span> Print <u><b>RFD</b></u></a>
 						<?php } else if($saved==0){ ?>
 						<input type='submit' class="btn btn-primary btn-md p-l-100 p-r-100" value="Save">	
 						<?php } ?>

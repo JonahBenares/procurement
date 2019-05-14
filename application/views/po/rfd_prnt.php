@@ -129,8 +129,6 @@
 		    			<td colspan="10" class="all-border "><b class="text-red nomarg">DR No. 4321</b></td>
 		    			<td colspan="10" class="all-border "><b class="nomarg">PO No: PR-191-4763</b></td>
 		    		</tr>
-		    		<!-- Loop starts here-->
-		    		<tr><td colspan="20" align="center"><br></td></tr>
 		    		<tr>
 		    			<td colspan="10" class="all-border "><b class="nomarg">Date : April 27, 2019</b></td>
 		    			<td colspan="10" class="all-border "><b class="nomarg">PR No: PR-191-2019</b></td>
@@ -171,7 +169,6 @@
 		    			<td class="all-border" align="center" colspan="2">unit</td>
 		    			<td class="all-border" align="center" colspan="3"></td>
 		    		</tr>
-		    		<!-- Loop end here-->
 		    		<tr><td class="f13" colspan="20" align="center"><br></td></tr>
 		    		<tr>
 		    			<td></td>
