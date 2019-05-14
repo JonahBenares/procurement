@@ -278,11 +278,12 @@
 	    				$up = $CI->get_rfq_item("unit_price", $sup['supplier_id'], $it['item_id']);
 						$user_reco = $CI->get_aoq_others('reco', $sup['supplier_id'], $it['item_id'], $aoq_id);
 						$comment = $CI->get_aoq_others('comments', $sup['supplier_id'], $it['item_id'], $aoq_id);
+						$offer= $CI->get_rfq_item("offer", $sup['supplier_id'], $it['item_id']);
 	    				$total = $it['qty']*$up;
 	    				?>		
 		    			<td class="f10 table-borreg" align="left" colspan="2">
 		    				<b class="text-red">
-		    				<?php echo $CI->get_rfq_item("offer", $sup['supplier_id'], $it['item_id']); ?>
+		    				<?php echo $offer; ?>
 		    				</b>
 		    			, <?php echo $CI->get_rfq_item("item", $sup['supplier_id'], $it['item_id']); ?>
 		    			</td>
@@ -290,7 +291,7 @@
 		    				
 		    			<?php if($saved=='1' && $completed==0){ ?>
 		    				<br>	
-		    				<input type="radio" name="reco<?php echo $a; ?>" value='<?php echo $sup['supplier_id']."_".$it['item_id']."_".$up."_".$it['qty'] ; ?>' required>
+		    				<input type="radio" name="reco<?php echo $a; ?>" value='<?php echo $sup['supplier_id']."_".$it['item_id']."_".$up."_".$it['qty']."_".$offer ; ?>' required>
 		    				
 		    			<?php } ?>
 		    			</td>

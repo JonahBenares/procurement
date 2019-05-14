@@ -275,6 +275,7 @@ class Aoq extends CI_Controller {
     		$item = $reco[1];
     		$price = $reco[2];
     		$qty = $reco[3];
+    		$offer = $reco[4];
 
     		$data = array(
     			'supplier_id'=>$supplier,
@@ -282,6 +283,7 @@ class Aoq extends CI_Controller {
     			'reco'=>'1',
     			'aoq_id'=>$aoq_id,
     			'unit_price'=>$price,
+    			'offer'=>$offer,
     			'quantity'=>$qty
     		);
 

@@ -119,36 +119,11 @@
 		</div>
 	</div>
 
-	<!-- <div class="modal fade" id="add-item" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">Add Item/s
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-						</button>
-					</h5>					
-				</div>
-				<form>
-					<div class="modal-body">
-						<table class="table-bordered" width="100%">
-							<tr>
-								<td width="5%"><input type="checkbox" class="form-control" name=""></td>
-								<td style="padding-left:5px">Item Name here</td>
-							</tr>
-						</table>
-					</div>
-					<div class="modal-footer">
-					<button type="button" class="btn btn-primary btn-block">Add</button>
-					</div>
-				</form>
-			</div>
-		</div>
-	</div> -->
+	
 
     <div  class="pad">
 
-    	<form method='POST' action=''>  
+    	<form method='POST' action='<?php echo base_url(); ?>po/po_complete'>  
     		<div  id="prnt_btn">
 	    		<center>
 			    	<div class="btn-group">
@@ -229,7 +204,11 @@
 		    			</td>
 		    		</tr>	
 		    		<!-- LOOp Here -->  	
-		    		<?php foreach($prdetails AS $prd){ ?>	
+		    		<?php 
+		    		if(!empty($prdetails)){
+		    			$a=1;
+		    			$x=1;
+		    			foreach($prdetails AS $prd){ ?>	
 		    		<tr>
 		    			<td class="f13" colspan="20" align="center" style="padding: 10px!important">
 		    				<table  class="table-bodrdered" width="100%" style="border:1px solid #000;">
@@ -268,13 +247,13 @@
 					    			<td class="" colspan="2" align="Left">&nbsp;Enduse:</td>
 					    			<td class="" colspan="18" align="Left"><?php echo $prd['enduse']; ?></td>
 					    		</tr>
-					    		<tr id="item-btn">
+					    	<!--	<tr id="item-btn">
 					    			<td colspan="20" style="padding-left: 10px">
-					    				<button type="button" class="btn btn-info btn-xs" onclick="addItemPo('<?php echo base_url(); ?>') ">
+					    				<button type="button" class="btn btn-info btn-xs" onclick="addItemPo() ">
 										  Add Item/s
 										</button>
 					    			</td>
-					    		</tr>
+					    		</tr>-->
 		    					<tr>
 					    			<td colspan="" class="all-border" align="center"><b>#</b></td>
 					    			<td colspan="" class="all-border" align="center"><b>Qty</b></td>
@@ -283,30 +262,48 @@
 					    			<td colspan="2" class="all-border" align="center"><b>Unit Price</b></td>
 					    			<td colspan="3" class="all-border" align="center"></td>
 					    		</tr>
+					    		<?php
+					    		
+					    		$pr_price=array();
+					    		 foreach($items AS $it){ 
+					    		 	if($prd['pr_no']==$it['pr_no']){
+					    		 	$tprice = $it['quantity'] * $it['price'];
+					    		 	$pr_price[] = $tprice; ?>
 					    		<tr>
-					    			<td colspan="" class="all-border" align="center"><b>1</b></td>
-					    			<td colspan="" class="all-border" align="center"><b>999</b></td>
-					    			<td colspan="" class="all-border" align="center"><b>set</b></td>
-					    			<td colspan="12" class="all-border" align="left"><b class="nomarg">Power Tools; Brand:Ken, Model:69135</b></td>
-					    			<td colspan="2" class="all-border" align="center"><b>299,790.00</b></td>
-					    			<td colspan="3" class="all-border" align="right"><b class="nomarg">299,790.00</b></td>
+					    			<td colspan="" class="all-border" align="center"><b><?php echo $x; ?></b></td>
+					    			<td colspan="" class="all-border" align="center"><b><input type='text' name='quantity<?php echo $x; ?>' id='quantity<?php echo $x; ?>' class='quantity' value='<?php echo $it['quantity']; ?>' style='width:50px; color:red' onblur='changePrice(<?php echo $x; ?>,<?php echo $a; ?>)'></b></td>
+					    			<td colspan="" class="all-border" align="center"><b><?php echo $it['unit']; ?></b></td>
+					    			<td colspan="12" class="all-border" align="left"><b class="nomarg"><?php echo $it['offer'].", ".$it['item']." " . $it['item_specs']; ?></b></td>
+					    			<td colspan="2" class="all-border" align="center"><b><?php echo number_format($it['price'],2); ?></b></td>
+					    			<td colspan="3" class="all-border" align="right"><b class="nomarg"><input type='text' name='tprice<?php echo $x; ?>' id='tprice<?php echo $x; ?>' class='tprice' value="<?php echo number_format($tprice,2); ?>" style='text-align:right' readonly></b></td>
+					    			
+					    			<input type='hidden' name='price<?php echo $x; ?>' id='price<?php echo $x; ?>'  value='<?php echo $it['price']; ?>'>
+					    			<input type='hidden' name='reco_id<?php echo $x; ?>'  value='<?php echo $it['reco_id']; ?>'>
+					    			<input type='hidden' name='item_id<?php echo $x; ?>'  value='<?php echo $it['item_id']; ?>'>
+					    			<input type='hidden' name='offer<?php echo $x; ?>'  value='<?php echo $it['offer']; ?>'>
 					    		</tr>
-					    		<tr>
-					    			<td colspan="" class="all-border" align="center"><b>1</b></td>
-					    			<td colspan="" class="all-border" align="center"><b>999</b></td>
-					    			<td colspan="" class="all-border" align="center"><b>set</b></td>
-					    			<td colspan="12" class="all-border" align="left"><b class="nomarg">Acetylene cutting outfit; Brand:Supercut</b></td>
-					    			<td colspan="2" class="all-border" align="center"><b>4,790.00</b></td>
-					    			<td colspan="3" class="all-border" align="right"><b class="nomarg">4,790.00</b></td>
-					    		</tr>
-					    		<tr>
+					    		<input type='hidden' name='po_pr_id<?php echo $x; ?>'  value='<?php echo $prd['po_pr_id']; ?>'>
+					    		<?php 
+					    		$x++;
+					    			}
+					    		} 
+
+					    		$prprice = array_sum($pr_price);
+					    		$total[] = $prprice; ?>
+					    		<!--<tr>
 					    			<td colspan="17" class="all-border" align="right"><b class="nomarg">TOTAL</b></td>
-					    			<td colspan="3" class="all-border" align="right"><b class="nomarg"><span class="pull-left">₱</span>1,999,790.00</b></td>
-					    		</tr>
+					    			<td colspan="3" class="all-border" align="right"><b class="nomarg"><input type='text' class='prtotal' id='total_pr<?php echo $a; ?>' value="<?php //echo number_format($prprice,2); ?>" readonly style='text-align:right'></b></td>
+					    		<!--</tr>-->
+
+					    		<input type='hidden' name='count_item'  value='<?php echo $x; ?>'>
 		    				</table>
 			    		</td>
 			    	</tr>
-			    	<?php } ?>
+			    	<?php 
+			    	$a++;
+			    	} 
+			    	$total = array_sum($total);
+			    	?>
 			    	<!-- LOOp Here --> 
 
 			    	
@@ -337,11 +334,42 @@
 					    		</tr>
 					    		<tr>
 					    			<td colspan="17" class="all-border" align="right"><b class="nomarg">GRAND TOTAL</b></td>
-					    			<td colspan="3" class="all-border" align="right"><b class="nomarg"><span class="pull-left">₱</span>1,999,790.00</b></td>
+					    			<td colspan="3" class="all-border" align="right"><b class="nomarg"><span class="pull-left">₱</span><span id='grandtotal'><?php echo number_format($total,2); ?></span></b></td>
 					    		</tr>
 		    				</table>
 			    		</td>
 			    	</tr>
+			    	<?php } else { ?>
+			    		<tr>
+		    			<td class="f13" colspan="20" align="center" style="padding: 10px!important">
+		    				<table  class="table-bodrdered" width="100%" style="border:0px solid #000;">
+		    					<tr>
+					    			<td width="5%"></td>
+					    			<td width="5%"></td>
+					    			<td width="5%"></td>
+					    			<td width="5%"></td>
+					    			<td width="5%"></td>
+					    			<td width="5%"></td>
+					    			<td width="5%"></td>
+					    			<td width="5%"></td>
+					    			<td width="5%"></td>
+					    			<td width="5%"></td>
+					    			<td width="5%"></td>
+					    			<td width="5%"></td>
+					    			<td width="5%"></td>
+					    			<td width="5%"></td>
+					    			<td width="5%"></td>
+					    			<td width="5%"></td>
+					    			<td width="5%"></td>
+					    			<td width="5%"></td>
+					    			<td width="5%"></td>
+					    			<td width="5%"></td>
+					    		</tr>
+					    		
+		    				</table>
+			    		</td>
+			    	</tr>
+			    	<?php } ?> 
 		    		<tr>
 		    			<td colspan="20">
 		    				<i>Price & Stocks verified as of 04.22.19</i>
@@ -374,9 +402,15 @@
 		    		</tr>
 		    		<tr>
 		    			<td colspan="2"></td>
-		    			<td colspan="7"><b>Someone here</b></td>
+		    			<td colspan="7"><b><?php echo $_SESSION['fullname']; ?></b></td>
 		    			<td colspan="2"></td>
-		    			<td colspan="7"><b>Someone here</b></td>
+		    			<td colspan="7"><b>
+		    			<select name='approved' class="select-des emphasis">
+			    			<option value=''>-Select Employee-</option>
+			    			<?php foreach($employee AS $emp){ ?>
+			    				<option value='<?php echo $emp->employee_id; ?>'><?php echo $emp->employee_name; ?></option>
+			    			<?php } ?>
+		    			</select></b></td>
 		    			<td colspan="2"></td>
 		    		</tr>
 		    		<tr><td colspan="20"><br></td></tr>
@@ -396,7 +430,7 @@
 		    		<tr><td colspan="20"><br></td></tr>
 		    	</table>	    
 	    	</div>
-	    	<input type='hidden' name='rfq_id' value=''>
+	    	<input type='hidden' name='po_id' value='<?php echo $po_id; ?>'>
     	</form>
     </div>
     <script type="text/javascript">

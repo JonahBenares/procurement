@@ -30,7 +30,9 @@ class Po extends CI_Controller {
     public function purchase_order(){
         $po_id=$this->uri->segment(3);
         $data['po_id']=$po_id;
+        $supplier=$this->super_model->select_column_where('po_head', 'supplier_id', 'po_id', $po_id);
         foreach($this->super_model->select_row_where("po_head", "po_id", $po_id) AS $head){
+            
             $data['head'][]=array(
                 'po_date'=>$head->po_date,
                 'po_no'=>$head->po_no,
@@ -56,8 +58,27 @@ class Po extends CI_Controller {
                 'enduse'=>$enduse
               
             );
+            foreach($this->super_model->select_row_where("aoq_header", "pr_no", $prdet->pr_no) AS $list){
+               foreach($this->super_model->select_custom_where("aoq_reco", "aoq_id = '$list->aoq_id' AND supplier_id = '$supplier'") AS $reco){
+                $unit_id=$this->super_model->select_column_where('item', 'unit_id', 'item_id', $reco->item_id);
+                    $data['items'][] = array(
+                        'pr_no'=>$list->pr_no,
+                        'reco_id'=>$reco->aoq_reco_id,
+                        'item_id'=>$reco->item_id,
+                        'item'=>$this->super_model->select_column_where('item', 'item_name', 'item_id', $reco->item_id),
+                        'item_specs'=>$this->super_model->select_column_where('item', 'item_specs', 'item_id', $reco->item_id),
+                        'offer'=>$reco->offer,
+                        'unit'=>$this->super_model->select_column_where('unit', 'unit_name', 'unit_id', $unit_id),
+                        'price'=>$reco->unit_price,
+                        'quantity'=>$reco->quantity,
+                        'aoq_id'=>$reco->aoq_id
+                    );
+               }
+
+             }
         }
 
+        $data['employee']=$this->super_model->select_all_order_by("employees", "employee_name", "ASC");
         $this->load->view('template/header');        
         $this->load->view('po/purchase_order',$data);
         $this->load->view('template/footer');
@@ -139,9 +160,59 @@ class Po extends CI_Controller {
     }
 
     public function add_itempo(){
+        $pr_no=$this->uri->segment(3);
+        $supplier=$this->uri->segment(4);
+        $data['pr_no']=$pr_no;
+        $data['supplier']=$supplier;
+
+        foreach($this->super_model->select_row_where("aoq_header", "pr_no", $pr_no) AS $list){
+           foreach($this->super_model->select_custom_where("aoq_reco", "aoq_id = '$list->aoq_id' AND supplier_id = '$supplier'") AS $reco){
+                $data['items'][] = array(
+                    'reco_id'=>$reco->aoq_reco_id,
+                    'item_id'=>$reco->item_id,
+                    'item'=>$this->super_model->select_column_where('item', 'item_name', 'item_id', $reco->item_id),
+                    'item_specs'=>$this->super_model->select_column_where('item', 'item_specs', 'item_id', $reco->item_id),
+                    'offer'=>$reco->offer,
+                    'price'=>$reco->unit_price,
+                    'quantity'=>$reco->quantity,
+                    'aoq_id'=>$reco->aoq_id
+                );
+           }
+
+        }
         $this->load->view('template/header');        
-        $this->load->view('po/add_itempo');
+        $this->load->view('po/add_itempo',$data);
         $this->load->view('template/footer');
+    }
+
+    public function po_complete(){
+        $count_item = $this->input->post('count_item');
+        $poid = $this->input->post('po_id');
+        for($x=1;$x<$count_item;$x++){
+            $qty = $this->input->post('quantity'.$x);
+            if($qty!=0){
+                $data =array(
+                    'po_pr_id'=>$this->input->post('po_pr_id'.$x),
+                    'po_id'=>$this->input->post('po_id'),
+                    'aoq_reco_id'=>$this->input->post('reco_id'.$x),
+                    'item_id'=>$this->input->post('item_id'.$x),
+                    'offer'=>$this->input->post('offer'.$x),
+                    'quantity'=>$qty,
+                    'unit_price'=>$this->input->post('price'.$x)
+                );
+
+                $this->super_model->insert_into("po_items", $data);
+            }   
+        }
+
+        $head =array(
+            'saved'=>1,
+            'approved_by'=>$this->input->post('approved')
+        );
+
+        if($this->super_model->update_where("po_head", $head, "po_id", $poid)){
+            redirect(base_url().'po/purchase_order/'.$poid, 'refresh');
+        }
     }
 
 }
