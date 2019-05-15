@@ -177,15 +177,15 @@ class Po extends CI_Controller {
            }
 
             foreach($this->super_model->select_row_where("po_pr", "po_id", $po_id) AS $popr){
+                $po_pr_id = $this->super_model->get_max("po_pr", "po_pr_id");
+                $next_po_pr = $po_pr_id + 1;
                 $pr = array(
+                    'po_pr_id'=>$next_po_pr,
                     'po_id'=>$next_po,
-                    'po_date'=>$header->po_date,
-                    'po_no'=>$header->po_no,
-                    'supplier_id'=>$header->supplier_id,
-                    'notes'=>$header->notes,
-                    'prepared_by'=>$header->prepared_by,
-                    'approved_by'=>$header->approved_by,
-                    'saved'=>'1'
+                    'pr_no'=>$popr->pr_no,
+                    'requested_by'=>$popr->requested_by,
+                    'enduse_id'=>$popr->enduse_id,
+                    'purpose_id'=>$popr->purpose_id  ,
                 );
            }
 
