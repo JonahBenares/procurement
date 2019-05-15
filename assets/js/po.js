@@ -48,6 +48,13 @@ $(document).on("click", ".addPR", function () {
      $(".modal-body #po_id").val(po_id);
   
 });
+
+$(document).on("click", ".cancelPO", function () {
+     var po_id = $(this).data('id');
+     $(".modal #po_id").val(po_id);
+  
+});
+
 function addItemPo(baseurl,pr) {
     window.open(baseurl+"index.php/po/add_itempo/"+pr, "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=50,left=450,width=800,height=500");
 }
