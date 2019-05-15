@@ -152,7 +152,7 @@
                                                     </a>
                                                     <a href="<?php echo base_url(); ?>po/cancel_and_duplicate/<?php echo $head['po_id']; ?>" class="btn btn-custon-three btn-info btn-xs" onclick="return confirm('Are you sure you want to cancel and duplicate PO?')">Cancel & Duplicate</a>
                                                     <a href="<?php echo base_url(); ?>po/cancel_po/<?php echo $head['po_id']; ?>" class="btn btn-custon-three btn-danger btn-xs" onclick="return confirm('Are you sure you want to cancel PO?')" data-toggle="modal" data-target="#cancelPO">Cancel</a>
-                                                    <a href="" class="btn btn-custon-three btn-danger btn-xs"  data-toggle="modal" data-target="#cancelPO">Cancel</a>
+                                                    <a href="" class="btn btn-custon-three btn-danger btn-xs"  data-toggle="modal" data-target="#cancelPO" title="WITH MODAL REASON">Cancel</a>
                                                 </center>
                                             </td>
                                         </tr>  
