@@ -331,6 +331,7 @@ class Po extends CI_Controller {
     public function po_complete(){
         $count_item = $this->input->post('count_item');
         $poid = $this->input->post('po_id');
+        $prepared_by = $this->input->post('prepared_by');
         for($x=1;$x<$count_item;$x++){
             $qty = $this->input->post('quantity'.$x);
             if($qty!=0){
@@ -351,10 +352,58 @@ class Po extends CI_Controller {
                     $reco = array(
                         'balance'=>$new_balance
                     );
-                    $this->super_model->update_where("aoq_reco", $reco, "aoq_reco_id", $aoq_reco_id);
+                    $this->super_model->update_where("aoq_reco", $reco, "aoq_reco_id", $aoq_reco_id); 
                 }
-            }   
+
+                /*$head_rows = $this->super_model->count_rows("dr_head");
+                if($head_rows==0){
+                    $dr_id=1;
+                } else {
+                    $maxid=$this->super_model->get_max("dr_head", "dr_id");
+                    $dr_id=$maxid;
+                }
+
+                $dr_det =array(
+                    'dr_id'=>$dr_id,
+                    'po_pr_id'=>$this->input->post('po_pr_id'.$x),
+                    'pr_no'=>'',
+                );
+
+                if($this->super_model->insert_into("dr_details", $dr_det)){
+                    $rows = $this->super_model->count_rows("dr_details");
+                    if($rows==0){
+                        $dr_details_id=1;
+                    } else {
+                        $maxid=$this->super_model->get_max("dr_details", "dr_details_id");
+                        $dr_details_id=$maxid;
+                    }
+
+                    $row = $this->super_model->count_rows("po_items");
+                    if($row==0){
+                        $po_items_id=1;
+                    } else {
+                        $maxid=$this->super_model->get_max("po_items", "po_items_id");
+                        $po_items_id=$maxid;
+                    }
+
+                    $dr_itm =array(
+                        'dr_details_id'=>$dr_details_id,
+                        'dr_id'=>$dr_id,
+                        'po_items_id'=>$po_items_id,
+                    );
+                    $this->super_model->insert_into("dr_items", $dr_itm);
+                }
+*/
+
+            } 
         }
+
+        /*$dr = array(
+            'po_id'=>$poid,
+            'prepared_by'=>$prepared_by,
+            'create_date'=>date('Y-m-d H:i:s'),
+        );
+        $this->super_model->insert_into("dr_head", $dr);*/
 
         $head =array(
             'saved'=>1,

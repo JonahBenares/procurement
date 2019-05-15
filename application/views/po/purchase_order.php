@@ -299,7 +299,7 @@
 					    			<td colspan="17" class="all-border" align="right"><b class="nomarg">TOTAL</b></td>
 					    			<td colspan="3" class="all-border" align="right"><b class="nomarg"><input type='text' class='prtotal' id='total_pr<?php echo $a; ?>' value="<?php //echo number_format($prprice,2); ?>" readonly style='text-align:right'></b></td>
 					    		<!--</tr>-->
-
+					    		<input type="hidden" name = "prepared_by" value = "<?php echo $_SESSION['user_id'];?>">
 					    		<input type='hidden' name='count_item'  value='<?php echo $x; ?>'>
 		    				</table>
 			    		</td>
