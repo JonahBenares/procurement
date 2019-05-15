@@ -147,6 +147,13 @@ class Po extends CI_Controller {
         $this->load->view('template/footer');
     }
 
+    public function cancelled_po(){
+        $this->load->view('template/header');        
+        $this->load->view('template/navbar');        
+        $this->load->view('po/cancelled_po');
+        $this->load->view('template/footer');
+    }
+
 
     public function cancel_po(){
         $po_id=$this->uri->segment(3);
