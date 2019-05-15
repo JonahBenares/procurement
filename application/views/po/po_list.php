@@ -81,6 +81,29 @@
             </div>
         </div>
     </div>
+    <div id="cancelPO" class="modal modal-adminpro-general default-popup-PrimaryModal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header header-color-modal bg-color-1">
+                    <h4 class="modal-title">Cancel PO</h4>
+                    <div class="modal-close-area modal-close-df">
+                        <a class="close" data-dismiss="modal" href="#"><i class="fa fa-close"></i></a>
+                    </div>
+                </div>
+                <form method="POST" action = "<?php echo base_url();?>index.php/po/create_po">
+                    <div class="modal-body-lowpad">
+                        <div class="form-group">
+                            <p class="m-b-0">Reason:</p>
+                            <textarea name="reason" class="form-control"></textarea>
+                        </div>
+                        <center>                           
+                            <input type = "submit" class="btn btn-custon-three btn-primary btn-block" value = "Save">
+                        </center>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
     <div class="admin-dashone-data-table-area">
         <div class="container-fluid">
          <form name="myform" action="<?php echo base_url(); ?>index.php/aoq/add_aoq" method="post">
@@ -128,7 +151,8 @@
                                                         <span class="fa fa-eye"></span>
                                                     </a>
                                                     <a href="<?php echo base_url(); ?>po/cancel_and_duplicate/<?php echo $head['po_id']; ?>" class="btn btn-custon-three btn-info btn-xs" onclick="return confirm('Are you sure you want to cancel and duplicate PO?')">Cancel & Duplicate</a>
-                                                    <a href="<?php echo base_url(); ?>po/cancel_po/<?php echo $head['po_id']; ?>" class="btn btn-custon-three btn-danger btn-xs" onclick="return confirm('Are you sure you want to cancel PO?')">Cancel</a>
+                                                    <a href="<?php echo base_url(); ?>po/cancel_po/<?php echo $head['po_id']; ?>" class="btn btn-custon-three btn-danger btn-xs" onclick="return confirm('Are you sure you want to cancel PO?')" data-toggle="modal" data-target="#cancelPO">Cancel</a>
+                                                    <a href="" class="btn btn-custon-three btn-danger btn-xs"  data-toggle="modal" data-target="#cancelPO">Cancel</a>
                                                 </center>
                                             </td>
                                         </tr>  
