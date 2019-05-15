@@ -147,6 +147,7 @@ class Po extends CI_Controller {
         $this->load->view('template/footer');
     }
 
+
     public function override_po(){
         $po_id=$this->uri->segment(3);
          $data = array(
@@ -157,6 +158,14 @@ class Po extends CI_Controller {
             redirect(base_url().'po/purchase_order/'.$po_id);
         }
     }
+
+    public function cancelled_po(){
+        $this->load->view('template/header');        
+        $this->load->view('template/navbar');        
+        $this->load->view('po/cancelled_po');
+        $this->load->view('template/footer');
+    }
+
 
     public function cancel_po(){
         $po_id=$this->input->post('po_id');
