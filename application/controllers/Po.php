@@ -155,6 +155,7 @@ class Po extends CI_Controller {
         $data['po_id']=$po_id;
         $supplier=$this->super_model->select_column_where('po_head', 'supplier_id', 'po_id', $po_id);
         $data['saved']=$this->super_model->select_column_where('po_head', 'saved', 'po_id', $po_id);
+        $data['cancelled']=$this->super_model->select_column_where('po_head', 'cancelled', 'po_id', $po_id);
         $approved_id=$this->super_model->select_column_where('po_head', 'approved_by', 'po_id', $po_id);
         $data['approved']=$this->super_model->select_column_where('employees', 'employee_name', 'employee_id', $approved_id);
         $data['notes']=$this->super_model->select_column_where('po_head', 'notes', 'po_id', $po_id);
@@ -459,6 +460,7 @@ class Po extends CI_Controller {
      public function po_complete(){
         $count_item = $this->input->post('count_item');
         $poid = $this->input->post('po_id');
+        $create=date('Y-m-d H:i:s');
         $prepared_by = $this->input->post('prepared_by');
         for($x=1;$x<$count_item;$x++){
             $qty = $this->input->post('quantity'.$x);
@@ -501,55 +503,58 @@ class Po extends CI_Controller {
                     }
                 }
 
-                /*$head_rows = $this->super_model->count_rows("dr_head");
-                if($head_rows==0){
-                    $dr_id=1;
-                } else {
-                    $maxid=$this->super_model->get_max("dr_head", "dr_id");
-                    $dr_id=$maxid;
-                }
-
-                $dr_det =array(
-                    'dr_id'=>$dr_id,
-                    'po_pr_id'=>$this->input->post('po_pr_id'.$x),
-                    'pr_no'=>'',
-                );
-
-                if($this->super_model->insert_into("dr_details", $dr_det)){
-                    $rows = $this->super_model->count_rows("dr_details");
-                    if($rows==0){
-                        $dr_details_id=1;
-                    } else {
-                        $maxid=$this->super_model->get_max("dr_details", "dr_details_id");
-                        $dr_details_id=$maxid;
-                    }
-
-                    $row = $this->super_model->count_rows("po_items");
-                    if($row==0){
-                        $po_items_id=1;
-                    } else {
-                        $maxid=$this->super_model->get_max("po_items", "po_items_id");
-                        $po_items_id=$maxid;
-                    }
-
-                    $dr_itm =array(
-                        'dr_details_id'=>$dr_details_id,
-                        'dr_id'=>$dr_id,
-                        'po_items_id'=>$po_items_id,
-                    );
-                    $this->super_model->insert_into("dr_items", $dr_itm);
-                }
-*/
-
             } 
         }
 
-        /*$dr = array(
+        $head_rows = $this->super_model->count_rows("dr_head");
+            if($head_rows==0){
+            $dr_id=1;
+            $dr_no = 1000;
+        } else {
+            $maxid=$this->super_model->get_max("dr_head", "dr_id");
+            $maxno=$this->super_model->get_max("dr_head", "dr_no");
+            $dr_id=$maxid+1;
+            $dr_no = $maxno + 1;
+        }
+
+        $drhead = array(
+            'dr_id'=>$dr_id,
+            'dr_no'=>$dr_no,
             'po_id'=>$poid,
             'prepared_by'=>$prepared_by,
-            'create_date'=>date('Y-m-d H:i:s'),
+            'create_date'=>$create
         );
-        $this->super_model->insert_into("dr_head", $dr);*/
+        $this->super_model->insert_into("dr_head", $drhead);
+
+       foreach($this->super_model->select_row_where("po_pr", "po_id", $poid) AS $list){
+         $head_details = $this->super_model->count_rows("dr_details");
+            if($head_details==0){
+            $dr_details_id=1;
+         } else {
+            $maxdetid=$this->super_model->get_max("dr_details", "dr_details_id");
+            $dr_details_id=$maxdetid+1;
+         }
+
+            $drdetails = array(
+                'dr_details_id'=>$dr_details_id,
+                'dr_id'=>$dr_id,
+                'pr_no'=>$list->pr_no,
+                'po_pr_id'=>$list->po_pr_id,
+            );
+
+            if($this->super_model->insert_into("dr_details", $drdetails)){
+                 foreach($this->super_model->select_row_where("po_items", "po_pr_id", $list->po_pr_id) AS $it){
+                    $dritems = array(
+                        'dr_details_id'=>$dr_details_id,
+                        'dr_id'=>$dr_id,
+                        'po_items_id'=>$it->po_items_id,
+                    );
+
+                    $this->super_model->insert_into("dr_items", $dritems);
+                 }
+            }
+       }
+
 
         $head =array(
             'saved'=>1,

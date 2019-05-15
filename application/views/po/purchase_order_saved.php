@@ -147,8 +147,8 @@
 						<?php if($saved==1){ ?>
 						<a  href='<?php echo base_url(); ?>po/override_po/<?php echo $po_id; ?>' onclick="return confirm('Are you sure you want to override PO?')" class="btn btn-info btn-md p-l-25 p-r-25"><span class="fa fa-pencil"></span> Override <u><b>PO</b></u></a>
 						<a  onclick="printPage()" class="btn btn-warning btn-md p-l-25 p-r-25"><span class="fa fa-print"></span> Print <u><b>PO</b></u></a>
-						<a  href="<?php echo base_url(); ?>po/delivery_receipt" class="btn btn-warning btn-md p-l-25 p-r-25"><span class="fa fa-print"></span> Print <u><b>DR</b></u></a>
-						<a  href="<?php echo base_url(); ?>po/rfd_prnt" class="btn btn-warning btn-md p-l-25 p-r-25"><span class="fa fa-print"></span> Print <u><b>RFD</b></u></a>
+						<a  href="<?php echo base_url(); ?>po/delivery_receipt/<?php echo $po_id; ?>" class="btn btn-warning btn-md p-l-25 p-r-25"><span class="fa fa-print"></span> Print <u><b>DR</b></u></a>
+						<a  href="<?php echo base_url(); ?>po/rfd_prnt/<?php echo $po_id; ?>" class="btn btn-warning btn-md p-l-25 p-r-25"><span class="fa fa-print"></span> Print <u><b>RFD</b></u></a>
 						<?php } else if($saved==0){ ?>
 						<input type='submit' class="btn btn-primary btn-md p-l-100 p-r-100" value="Save">	
 						<?php } ?>
@@ -156,7 +156,7 @@
 					<p class="text-white">Instructions: When printing PURCHASE ORDER make sure the following options are set correctly -- <u>Browser</u>: Chrome, <u>Layout</u>: Portrait, <u>Paper Size</u>: A4, <u>Margin</u> : Default, <u>Scale</u>: 100 and the option: Background graphics is checked</p>
 				</center>
 			</div>
-	    	<div style="background: #fff;" class="cancel">    		  			
+	    	<div style="background: #fff;" <?php echo (($cancelled =='1') ? ' class="cancel"' : ''); ?>>    		  			
 		    	<table class="table-borddered" width="100%" style="border:2px solid #000">
 		    		<tr>
 		    			<td width="5%"><br></td>
@@ -385,12 +385,14 @@
 		    				<i><?php echo $notes; ?></i>
 		    			</td>
 		    		</tr>
+		    		<?php if($cancelled=='1'){ ?>
 		    		<tr>
 		    			<td colspan="2"><h6 class="nomarg text-red"><b>Cancel Date:</b></h6></td>
 		    			<td colspan="2"><h6 class="nomarg text-red"><b>12-12-12</b></h6></td>
 		    			<td colspan="2" align="right"><h6 class="nomarg text-red"><b>Reason:</b></h6></td>
 		    			<td colspan="14"><h6 class="nomarg text-red"><b>Reason Here</b></h6></td>
 		    		</tr>
+		    		<?php } ?>
 		    		<tr>
 		    			<td colspan="20" >
 		    				<br>Terms & Conditions:<br>
