@@ -18,6 +18,12 @@
             background: #2d2c2c!important;
             font-size:12px!important;
         }
+        .cancel{
+        	background-image: url('../assets/img/cancel.png')!important;
+        	background-repeat:no-repeat!important;
+        	background-size: contain!important;
+        	background-position: center center!important;
+        }
         .pad{
         	padding:0px 250px 0px 250px
         }
@@ -57,6 +63,12 @@
 			.text-red{
 				color: red!important;
 			}
+			.cancel{
+	        	background-image: url('../assets/img/cancel.png')!important;
+	        	background-repeat:no-repeat!important;
+	        	background-size: contain!important;
+	        	background-position: center center!important;
+	        }
 		}
 		.text-white{
 			color: #fff;
@@ -87,10 +99,10 @@
 						<a  onclick="printPage()" class="btn btn-warning btn-md p-l-100 p-r-100"><span class="fa fa-print"></span> Print</a>
 						<input type='submit' class="btn btn-primary btn-md p-l-100 p-r-100" value="Save">	
 					</div>
-					<p class="text-white">Instructions: When printing DELIVERY RECEIPT make sure the following options are set correctly -- <u>Browser</u>: Chrome, <u>Layout</u>: Portrait, <u>Paper Size</u>: A4 <u>Margin</u> : Default <u>Scale</u>: 100</p>
+					<p class="text-white">Instructions: When printing DELIVERY RECEIPT make sure the following options are set correctly -- <u>Browser</u>: Chrome, <u>Layout</u>: Portrait, <u>Paper Size</u>: A4 <u>Margin</u> : Default <u>Scale</u>: 100 and the option: Background graphics is checked</p>
 				</center>
 			</div>
-	    	<div style="background: #fff;">    		  			
+	    	<div style="background: #fff;" class="cancel">    		  			
 		    	<table class="table-bordsered" width="100%" style="border:0px solid #000">
 		    		<tr>
 		    			<td width="5%"><br></td>
