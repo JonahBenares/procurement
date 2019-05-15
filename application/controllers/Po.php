@@ -147,6 +147,16 @@ class Po extends CI_Controller {
         $this->load->view('template/footer');
     }
 
+    public function override_po(){
+        $po_id=$this->uri->segment(3);
+         $data = array(
+            'saved'=>0
+        );
+
+        if($this->super_model->update_where("po_head", $data, "po_id", $po_id)){
+            redirect(base_url().'po/purchase_order/'.$po_id);
+        }
+    }
 
     public function cancel_po(){
         $po_id=$this->input->post('po_id');
@@ -164,7 +174,8 @@ class Po extends CI_Controller {
     }
 
      public function cancel_and_duplicate(){
-        $po_id=$this->uri->segment(3);
+        $po_id=$this->input->post('po_id');
+        $create = date('Y-m-d H:i:s');
         $po = $this->super_model->get_max("po_head", "po_id");
         $next_po = $po + 1;
            foreach($this->super_model->select_row_where("po_head", "po_id", $po_id) AS $header){
@@ -176,7 +187,6 @@ class Po extends CI_Controller {
                     'notes'=>$header->notes,
                     'prepared_by'=>$header->prepared_by,
                     'approved_by'=>$header->approved_by,
-                    'saved'=>'1'
                 );
                 $this->super_model->insert_into("po_head", $head);
            }
@@ -208,7 +218,9 @@ class Po extends CI_Controller {
            }
 
         $data = array(
-            'cancelled'=>1
+            'cancelled'=>1,
+            'cancel_reason'=>$this->input->post('reason'),
+            'cancelled_date'=>$create
         );
 
         if($this->super_model->update_where("po_head", $data, "po_id", $po_id)){

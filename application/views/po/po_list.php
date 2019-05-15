@@ -93,11 +93,35 @@
                 <form method="POST" action = "<?php echo base_url();?>index.php/po/cancel_po">
                     <div class="modal-body-lowpad">
                         <div class="form-group">
-                            <p class="m-b-0">Reason:</p>
+                            <p class="m-b-0">Reason for Cancelling PO:</p>
                             <textarea name="reason" class="form-control"></textarea>
                         </div>
                         <center>       
-                            <input type = "text" id='po_id' name='po_id' >                 
+                            <input type = "hidden" id='po_id' name='po_id' >                 
+                            <input type = "text" class="btn btn-custon-three btn-primary btn-block" value = "Save">
+                        </center>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+     <div id="cancelDuplicatePO" class="modal modal-adminpro-general default-popup-PrimaryModal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header header-color-modal bg-color-1">
+                    <h4 class="modal-title">Cancel and Duplicate PO</h4>
+                    <div class="modal-close-area modal-close-df">
+                        <a class="close" data-dismiss="modal" href="#"><i class="fa fa-close"></i></a>
+                    </div>
+                </div>
+                <form method="POST" action = "<?php echo base_url();?>index.php/po/cancel_and_duplicate">
+                    <div class="modal-body-lowpad">
+                        <div class="form-group">
+                            <p class="m-b-0">Reason for Cancelling PO:</p>
+                            <textarea name="reason" class="form-control"></textarea>
+                        </div>
+                        <center>       
+                            <input type = "hidden" id='po_id' name='po_id' >                 
                             <input type = "submit" class="btn btn-custon-three btn-primary btn-block" value = "Save">
                         </center>
                     </div>
@@ -151,7 +175,7 @@
                                                      <a href="<?php echo base_url(); ?>po/purchase_order_saved/<?php echo $head['po_id']; ?>" class="btn btn-custon-three btn-warning btn-xs">
                                                         <span class="fa fa-eye"></span>
                                                     </a>
-                                                    <a href="<?php echo base_url(); ?>po/cancel_and_duplicate/<?php echo $head['po_id']; ?>" class="btn btn-custon-three btn-info btn-xs" onclick="return confirm('Are you sure you want to cancel and duplicate PO?')">Cancel & Duplicate</a>
+                                                    <a class="cancelDuplicatePO btn btn-custon-three btn-danger btn-xs" data-toggle="modal" data-target="#cancelDuplicatePO" data-id="<?php echo $head['po_id']; ?>">Cancel & Duplicate</a>
                                                     <a class="cancelPO btn btn-custon-three btn-danger btn-xs" data-toggle="modal" data-target="#cancelPO" data-id="<?php echo $head['po_id']; ?>">Cancel</a>
                                                     <!--<a href="" class="btn btn-custon-three btn-danger btn-xs"  data-toggle="modal" data-target="#cancelPO" title="WITH MODAL REASON">Cancel</a>-->
                                                 </center>
