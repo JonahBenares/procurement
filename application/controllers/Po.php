@@ -88,6 +88,68 @@ class Po extends CI_Controller {
         $this->load->view('template/footer');
     }
 
+
+    public function purchase_order_override(){
+        $po_id=$this->uri->segment(3);
+        $data['po_id']=$po_id;
+        $supplier=$this->super_model->select_column_where('po_head', 'supplier_id', 'po_id', $po_id);
+        $data['saved']=$this->super_model->select_column_where('po_head', 'saved', 'po_id', $po_id);
+        $data['notes']=$this->super_model->select_column_where('po_head', 'notes', 'po_id', $po_id);
+        $approved_id=$this->super_model->select_column_where('po_head', 'approved_by', 'po_id', $po_id);
+        $data['approved_id']=$approved_id;
+       // $data['approved']=$this->super_model->select_column_where('employees', 'employee_name', 'employee_id', $approved_id);
+        foreach($this->super_model->select_row_where("po_head", "po_id", $po_id) AS $head){
+            
+            $data['head'][]=array(
+                'po_date'=>$head->po_date,
+                'po_no'=>$head->po_no,
+                'supplier'=>$this->super_model->select_column_where('vendor_head', 'vendor_name', 'vendor_id', $head->supplier_id),
+                'supplier_id'=>$head->supplier_id,
+                'address'=>$this->super_model->select_column_where('vendor_head', 'address', 'vendor_id',$head->supplier_id),
+                'phone'=>$this->super_model->select_column_where('vendor_head', 'phone_number', 'vendor_id', $head->supplier_id),
+                'contact'=>$this->super_model->select_column_where('vendor_head', 'contact_person', 'vendor_id',$head->supplier_id)
+            );
+
+
+        }
+        $data['pr'] = $this->super_model->select_row_where_order_by("aoq_header", "served", "0", "pr_no", "ASC");
+
+        foreach($this->super_model->select_row_where("po_pr", "po_id", $po_id) AS $prdet){
+            $purpose= $this->super_model->select_column_where('purpose', 'purpose_name', 'purpose_id', $prdet->purpose_id);
+            $requestor= $this->super_model->select_column_where('employees', 'employee_name', 'employee_id', $prdet->requested_by);
+            $enduse= $this->super_model->select_column_where('enduse', 'enduse_name', 'enduse_id', $prdet->enduse_id);
+            $data['prdetails'][]=array(
+                'po_pr_id'=>$prdet->po_pr_id,
+                'po_id'=>$prdet->po_id,
+                'pr_no'=>$prdet->pr_no,
+                'purpose'=>$purpose,
+                'requestor'=>$requestor,
+                'enduse'=>$enduse
+              
+            );
+            foreach($this->super_model->select_row_where("po_items", "po_pr_id", $prdet->po_pr_id) AS $pritems){
+                $unit_id=$this->super_model->select_column_where('item', 'unit_id', 'item_id', $pritems->item_id);
+                $data['items'][]=array(
+                    'po_items_id'=>$pritems->po_items_id,
+                    'reco_id'=>$pritems->aoq_reco_id,
+                    'po_pr_id'=>$pritems->po_pr_id,
+                    'item_id'=>$pritems->item_id,
+                    'item'=>$this->super_model->select_column_where('item', 'item_name', 'item_id', $pritems->item_id),
+                    'item_specs'=>$this->super_model->select_column_where('item', 'item_specs', 'item_id', $pritems->item_id),
+                    'offer'=>$pritems->offer,
+                    'quantity'=>$pritems->quantity,
+                    'price'=>$pritems->unit_price,
+                    'unit'=>$this->super_model->select_column_where('unit', 'unit_name', 'unit_id', $unit_id),
+                );
+            }
+        }
+
+        $data['employee']=$this->super_model->select_all_order_by("employees", "employee_name", "ASC");
+        $this->load->view('template/header');        
+        $this->load->view('po/purchase_order_override',$data);
+        $this->load->view('template/footer');
+    }
+
     public function purchase_order_saved(){
         $po_id=$this->uri->segment(3);
         $data['po_id']=$po_id;
@@ -155,7 +217,7 @@ class Po extends CI_Controller {
         );
 
         if($this->super_model->update_where("po_head", $data, "po_id", $po_id)){
-            redirect(base_url().'po/purchase_order/'.$po_id);
+            redirect(base_url().'po/purchase_order_override/'.$po_id);
         }
     }
 
@@ -171,6 +233,17 @@ class Po extends CI_Controller {
         $po_id=$this->input->post('po_id');
         $reason=$this->input->post('reason');
         $create = date('Y-m-d H:i:s');
+
+        foreach($this->super_model->select_row_where("po_items", "po_id", $po_id) AS $items){
+            $cur_balance = $this->super_model->select_column_where('aoq_reco', 'balance', 'aoq_reco_id', $items->aoq_reco_id);
+            $new_balance = $cur_balance + $items->quantity;
+
+            $new_qty = array(
+                'balance'=>$new_balance
+            );
+            if($this->super_model->update_where("aoq_reco", $new_qty, "aoq_reco_id", $items->aoq_reco_id));
+        }
+
         $data = array(
             'cancelled'=>1,
             'cancel_reason'=>$reason,
@@ -185,6 +258,17 @@ class Po extends CI_Controller {
      public function cancel_and_duplicate(){
         $po_id=$this->input->post('po_id');
         $create = date('Y-m-d H:i:s');
+
+        foreach($this->super_model->select_row_where("po_items", "po_id", $po_id) AS $items){
+            $cur_balance = $this->super_model->select_column_where('aoq_reco', 'balance', 'aoq_reco_id', $items->aoq_reco_id);
+            $new_balance = $cur_balance + $items->quantity;
+
+            $new_qty = array(
+                'balance'=>$new_balance
+            );
+            if($this->super_model->update_where("aoq_reco", $new_qty, "aoq_reco_id", $items->aoq_reco_id));
+        }
+
         $po = $this->super_model->get_max("po_head", "po_id");
         $next_po = $po + 1;
            foreach($this->super_model->select_row_where("po_head", "po_id", $po_id) AS $header){
@@ -196,6 +280,7 @@ class Po extends CI_Controller {
                     'notes'=>$header->notes,
                     'prepared_by'=>$header->prepared_by,
                     'approved_by'=>$header->approved_by,
+                    'saved'=>'1'
                 );
                 $this->super_model->insert_into("po_head", $head);
            }
@@ -371,31 +456,49 @@ class Po extends CI_Controller {
         $this->load->view('template/footer');
     }
 
-    public function po_complete(){
+     public function po_complete(){
         $count_item = $this->input->post('count_item');
         $poid = $this->input->post('po_id');
         $prepared_by = $this->input->post('prepared_by');
         for($x=1;$x<$count_item;$x++){
             $qty = $this->input->post('quantity'.$x);
+            $po_pr_id = $this->input->post('po_pr_id'.$x);
+            $aoq_reco_id = $this->input->post('reco_id'.$x);
             if($qty!=0){
-                $aoq_reco_id = $this->input->post('reco_id'.$x);
-                $data =array(
-                    'po_pr_id'=>$this->input->post('po_pr_id'.$x),
-                    'po_id'=>$this->input->post('po_id'),
-                    'aoq_reco_id'=>$aoq_reco_id,
-                    'item_id'=>$this->input->post('item_id'.$x),
-                    'offer'=>$this->input->post('offer'.$x),
-                    'quantity'=>$qty,
-                    'unit_price'=>$this->input->post('price'.$x)
-                );
+                $count_exist = $this->super_model->count_custom_where("po_items","po_pr_id = '$po_pr_id' AND po_id = '$poid' AND aoq_reco_id = '$aoq_reco_id'" );
+                if($count_exist==0){
+                    
+                        $data =array(
+                            'po_pr_id'=>$po_pr_id,
+                            'po_id'=>$this->input->post('po_id'),
+                            'aoq_reco_id'=>$aoq_reco_id,
+                            'item_id'=>$this->input->post('item_id'.$x),
+                            'offer'=>$this->input->post('offer'.$x),
+                            'quantity'=>$qty,
+                            'unit_price'=>$this->input->post('price'.$x)
+                        );
+                    if($this->super_model->insert_into("po_items", $data)){
+                        $balance= $this->super_model->select_column_where('aoq_reco', 'balance', 'aoq_reco_id', $aoq_reco_id);
+                        $new_balance = $balance - $qty;
+                        $reco = array(
+                            'balance'=>$new_balance
+                        );
+                        $this->super_model->update_where("aoq_reco", $reco, "aoq_reco_id", $aoq_reco_id); 
+                    }
+                } else {
+                       $data =array(
+                            'quantity'=>$qty,
+                            'unit_price'=>$this->input->post('price'.$x)
+                        );
 
-                if($this->super_model->insert_into("po_items", $data)){
-                    $balance= $this->super_model->select_column_where('aoq_reco', 'balance', 'aoq_reco_id', $aoq_reco_id);
-                    $new_balance = $balance - $qty;
-                    $reco = array(
-                        'balance'=>$new_balance
-                    );
-                    $this->super_model->update_where("aoq_reco", $reco, "aoq_reco_id", $aoq_reco_id); 
+                     if($this->super_model->update_custom_where("po_items", $data, "po_pr_id = '$po_pr_id' AND po_id = '$poid' AND aoq_reco_id = '$aoq_reco_id'")){
+                        $balance= $this->super_model->select_column_where('aoq_reco', 'balance', 'aoq_reco_id', $aoq_reco_id);
+                        $new_balance = $balance - $qty;
+                        $reco = array(
+                            'balance'=>$new_balance
+                        );
+                        $this->super_model->update_where("aoq_reco", $reco, "aoq_reco_id", $aoq_reco_id); 
+                    }
                 }
 
                 /*$head_rows = $this->super_model->count_rows("dr_head");
@@ -447,6 +550,57 @@ class Po extends CI_Controller {
             'create_date'=>date('Y-m-d H:i:s'),
         );
         $this->super_model->insert_into("dr_head", $dr);*/
+
+        $head =array(
+            'saved'=>1,
+            'approved_by'=>$this->input->post('approved')
+        );
+
+        if($this->super_model->update_where("po_head", $head, "po_id", $poid)){
+            redirect(base_url().'po/purchase_order_saved/'.$poid);
+        }
+    }
+
+    public function po_override(){
+        $count_item = $this->input->post('count_item');
+        $poid = $this->input->post('po_id');
+        $prepared_by = $this->input->post('prepared_by');
+        for($x=1;$x<$count_item;$x++){
+            $qty = $this->input->post('quantity'.$x);
+            $po_items_id = $this->input->post('po_items_id'.$x);
+            $aoq_reco_id = $this->input->post('reco_id'.$x);
+
+            foreach($this->super_model->select_row_where("po_items", "po_items_id", $po_items_id) AS $list){
+                $old_qty = $list->quantity;
+                $old_balance= $this->super_model->select_column_where('aoq_reco', 'balance', 'aoq_reco_id', $list->aoq_reco_id);
+                $new_balance = $old_qty + $old_balance;
+
+                $replenish = array(
+                    'balance'=>$new_balance
+                );
+                $this->super_model->update_custom_where("aoq_reco", $replenish, "aoq_reco_id = '$list->aoq_reco_id'");
+
+            }
+            if($qty!=0){
+             
+                       $data =array(
+                            'quantity'=>$qty,
+                            'unit_price'=>$this->input->post('price'.$x)
+                        );
+
+                     if($this->super_model->update_custom_where("po_items", $data, "po_items_id = '$po_items_id'")){
+                        $balance= $this->super_model->select_column_where('aoq_reco', 'balance', 'aoq_reco_id', $aoq_reco_id);
+                        $new_balance = $balance - $qty;
+                        $reco = array(
+                            'balance'=>$new_balance
+                        );
+                        $this->super_model->update_where("aoq_reco", $reco, "aoq_reco_id", $aoq_reco_id); 
+                    }
+                }
+
+
+            } 
+        
 
         $head =array(
             'saved'=>1,

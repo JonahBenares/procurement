@@ -44,7 +44,7 @@
                         </div>
                         <div class="form-group">
                             <p class="m-b-0">PO NO:</p>
-                            <input type="text" name="po_no" class="form-control">
+                            <input type="text" name="po_no" class="form-control" autocomplete="off">
                         </div>
                         <div class="form-group">
                             <p class="m-b-0">Supplier:</p>
