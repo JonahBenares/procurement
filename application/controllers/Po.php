@@ -156,9 +156,13 @@ class Po extends CI_Controller {
 
 
     public function cancel_po(){
-        $po_id=$this->uri->segment(3);
+        $po_id=$this->input->post('po_id');
+        $reason=$this->input->post('reason');
+        $create = date('Y-m-d H:i:s');
         $data = array(
-            'cancelled'=>1
+            'cancelled'=>1,
+            'cancel_reason'=>$reason,
+            'cancelled_date'=>$create
         );
 
         if($this->super_model->update_where("po_head", $data, "po_id", $po_id)){
@@ -181,20 +185,38 @@ class Po extends CI_Controller {
                     'approved_by'=>$header->approved_by,
                     'saved'=>'1'
                 );
+                $this->super_model->insert_into("po_head", $head);
            }
 
             foreach($this->super_model->select_row_where("po_pr", "po_id", $po_id) AS $popr){
+                $po_pr_id = $this->super_model->get_max("po_pr", "po_pr_id");
+                $next_po_pr = $po_pr_id + 1;
                 $pr = array(
+                    'po_pr_id'=>$next_po_pr,
                     'po_id'=>$next_po,
-                    'po_date'=>$header->po_date,
-                    'po_no'=>$header->po_no,
-                    'supplier_id'=>$header->supplier_id,
-                    'notes'=>$header->notes,
-                    'prepared_by'=>$header->prepared_by,
-                    'approved_by'=>$header->approved_by,
-                    'saved'=>'1'
+                    'pr_no'=>$popr->pr_no,
+                    'requested_by'=>$popr->requested_by,
+                    'enduse_id'=>$popr->enduse_id,
+                    'purpose_id'=>$popr->purpose_id,
                 );
+                $this->super_model->insert_into("po_pr", $pr);
+                foreach($this->super_model->select_row_where("po_items", "po_pr_id", $popr->po_pr_id) AS $poitems){
+                    $items = array(
+                        'po_pr_id'=>$next_po_pr,
+                        'po_id'=>$next_po,
+                        'aoq_reco_id'=>$poitems->aoq_reco_id,
+                        'item_id'=>$poitems->item_id,
+                        'offer'=>$poitems->offer,
+                        'quantity'=>$poitems->quantity,
+                        'unit_price'=>$poitems->unit_price,
+                    );
+                      $this->super_model->insert_into("po_items", $items);
+                }
            }
+
+        $data = array(
+            'cancelled'=>1
+        );
 
         if($this->super_model->update_where("po_head", $data, "po_id", $po_id)){
             redirect(base_url().'po/po_list', 'refresh');
