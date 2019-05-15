@@ -110,12 +110,13 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="sparkline8-list shadow-reset">
-                        <div class="sparkline8-hd">
+                        <div class="sparkline8-hd" style="background: #ff6262">
                             <div class="main-sparkline8-hd">
-                                <h1>PO List</h1>
-                                <small>PURCHASE ORDER</small>
+                                <h1 class="text-white">CANCELLED PO List</h1>
+                                <small class="text-white">PURCHASE ORDER</small>
                                 <div class="sparkline8-outline-icon">
-                                <input type='button' class="btn btn-custon-three btn-primary" value='Add PO'  data-toggle="modal" data-target="#addPO"> 
+                                    <h2><span class="fa fa-ban"></span></h2>
+                                <!-- <input type='button' class="btn btn-custon-three btn-primary" value='Add PO'  data-toggle="modal" data-target="#addPO">  -->
                                   <!--   <a class="btn btn-custon-three btn-primary" href=">
                                         <span class="fa fa-plus p-l-0"></span>
                                         Create AOQ
@@ -133,31 +134,29 @@
                                             <th>PO #</th>
                                             <th>Supplier</th>
                                             <th>PR #</th>
+                                            <th>Cancel Date</th>
+                                            <th>Reason</th>
                                             <th><center><span class="fa fa-bars"></span></center></th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                    <?php 
-                                    if(!empty($header)){
-                                    foreach($header AS $head){ ?>
                                         <tr>
-                                            <td><?php echo date('F j, Y', strtotime($head['po_date'])); ?></td>
-                                            <td><?php echo $head['po_no']; ?></td>
-                                            <td><?php echo $head['supplier']; ?></td>
-                                            <td><?php echo $head['pr']; ?></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
                                             <td>
                                                 <center>
-                                                     <a href="<?php echo base_url(); ?>po/purchase_order_saved/<?php echo $head['po_id']; ?>" class="btn btn-custon-three btn-warning btn-xs">
+                                                     <a href="<?php echo base_url(); ?>po/purchase_order_saved/" class="btn btn-custon-three btn-warning btn-xs">
                                                         <span class="fa fa-eye"></span>
                                                     </a>
-                                                    <a href="<?php echo base_url(); ?>po/cancel_and_duplicate/<?php echo $head['po_id']; ?>" class="btn btn-custon-three btn-info btn-xs" onclick="return confirm('Are you sure you want to cancel and duplicate PO?')">Cancel & Duplicate</a>
-                                                    <a href="<?php echo base_url(); ?>po/cancel_po/<?php echo $head['po_id']; ?>" class="btn btn-custon-three btn-danger btn-xs" onclick="return confirm('Are you sure you want to cancel PO?')" data-toggle="modal" data-target="#cancelPO">Cancel</a>
-                                                    <a href="" class="btn btn-custon-three btn-danger btn-xs"  data-toggle="modal" data-target="#cancelPO" title="WITH MODAL REASON">Cancel</a>
+                                                    <a href="" class="btn btn-custon-three btn-info btn-xs" onclick="return confirm('Are you sure you want to cancel and duplicate PO?')">Cancel & Duplicate</a>
+                                                    <a href="<?php echo base_url(); ?>po/cancel_po/" class="btn btn-custon-three btn-danger btn-xs" onclick="return confirm('Are you sure you want to cancel PO?')" data-toggle="modal" data-target="#cancelPO">Cancel</a>
                                                 </center>
                                             </td>
-                                        </tr>  
-                                        <?php } 
-                                        } ?>                                   
+                                        </tr>                             
                                     </tbody>
                                 </table>
 

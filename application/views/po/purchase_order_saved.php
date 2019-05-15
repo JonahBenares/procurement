@@ -19,6 +19,12 @@
             background: #2d2c2c!important;
             font-size:12px!important;
         }
+        .cancel{
+        	background-image: url('../../assets/img/cancel.png')!important;
+        	background-repeat:no-repeat!important;
+        	background-size: contain!important;
+        	background-position: center center!important;
+        }
         .pad{
         	padding:0px 250px 0px 250px
         }
@@ -51,6 +57,16 @@
 			.emphasis{
 				border: 0px solid #fff!important;
 			}
+			html, body{
+	            background: #fff!important;
+	            font-size:12px!important;
+	        }
+	        .cancel{
+	        	background-image: url('../../assets/img/cancel.png')!important;
+	        	background-repeat:no-repeat!important;
+	        	background-size: contain!important;
+	        	background-position: center center!important;
+	        }
 		}
 		.text-white{
 			color: #fff;
@@ -121,7 +137,7 @@
 
 	
 
-    <div  class="pad">
+    <div  class="pad ">
 
     	<form method='POST' action='<?php echo base_url(); ?>po/po_complete'>  
     		<div  id="prnt_btn">
@@ -137,10 +153,10 @@
 						<input type='submit' class="btn btn-primary btn-md p-l-100 p-r-100" value="Save">	
 						<?php } ?>
 					</div>
-					<p class="text-white">Instructions: When printing PURCHASE ORDER make sure the following options are set correctly -- <u>Browser</u>: Chrome, <u>Layout</u>: Portrait, <u>Paper Size</u>: A4, <u>Margin</u> : Default, <u>Scale</u>: 100</p>
+					<p class="text-white">Instructions: When printing PURCHASE ORDER make sure the following options are set correctly -- <u>Browser</u>: Chrome, <u>Layout</u>: Portrait, <u>Paper Size</u>: A4, <u>Margin</u> : Default, <u>Scale</u>: 100 and the option: Background graphics is checked</p>
 				</center>
 			</div>
-	    	<div style="background: #fff;">    		  			
+	    	<div style="background: #fff;" class="cancel">    		  			
 		    	<table class="table-borddered" width="100%" style="border:2px solid #000">
 		    		<tr>
 		    			<td width="5%"><br></td>
@@ -334,7 +350,7 @@
 			    		<input type="hidden" name = "prepared_by" value = "<?php echo $_SESSION['user_id'];?>">
 			    	</tr>
 			    	<?php } else { ?>
-			    		<tr>
+			    	<tr>
 		    			<td class="f13" colspan="20" align="center" style="padding: 10px!important">
 		    				<table  class="table-bodrdered" width="100%" style="border:0px solid #000;">
 		    					<tr>
@@ -368,6 +384,12 @@
 		    			<td colspan="20">
 		    				<i><?php echo $notes; ?></i>
 		    			</td>
+		    		</tr>
+		    		<tr>
+		    			<td colspan="2"><h6 class="nomarg text-red"><b>Cancel Date:</b></h6></td>
+		    			<td colspan="2"><h6 class="nomarg text-red"><b>12-12-12</b></h6></td>
+		    			<td colspan="2" align="right"><h6 class="nomarg text-red"><b>Reason:</b></h6></td>
+		    			<td colspan="14"><h6 class="nomarg text-red"><b>Reason Here</b></h6></td>
 		    		</tr>
 		    		<tr>
 		    			<td colspan="20" >
