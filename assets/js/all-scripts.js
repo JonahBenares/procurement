@@ -40,6 +40,23 @@ function confirmationDelete(anchor){
     window.location=anchor.attr("href");
 }
 
+function isNumberKey(txt, evt){
+   var charCode = (evt.which) ? evt.which : evt.keyCode;
+    if (charCode == 46) {
+        //Check if the text already contains the . character
+        if (txt.value.indexOf('.') === -1) {
+            return true;
+        } else {
+            return false;
+        }
+    } else {
+        if (charCode > 31
+             && (charCode < 48 || charCode > 57))
+            return false;
+    }
+    return true;
+}
+
 // function addRfq(baseurl,rfq) {
 //     window.open(baseurl+"index.php/rfq/add_rfq/"+rfq, "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=50,left=450,width=500,height=500");
 // }

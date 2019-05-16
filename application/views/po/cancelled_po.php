@@ -140,23 +140,27 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                    <?php 
+                                        if(!empty($header)){
+                                            foreach($header AS $head){ 
+                                                if($head['cancelled']==1){
+                                    ?>
                                         <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
+                                            <td><?php echo date('F j, Y', strtotime($head['po_date'])); ?></td>
+                                            <td><?php echo $head['po_no']; ?></td>
+                                            <td><?php echo $head['supplier']; ?></td>
+                                            <td><?php echo $head['pr']; ?></td>
+                                            <td><?php echo $head['cancelled_date']; ?></td>
+                                            <td><?php echo $head['cancel_reason']; ?></td>
                                             <td>
                                                 <center>
-                                                     <a href="<?php echo base_url(); ?>po/purchase_order_saved/" class="btn btn-custon-three btn-warning btn-xs">
+                                                     <a href="<?php echo base_url(); ?>po/purchase_order_saved/<?php echo $head['po_id']; ?>" class="btn btn-custon-three btn-warning btn-xs">
                                                         <span class="fa fa-eye"></span>
                                                     </a>
-                                                    <a href="" class="btn btn-custon-three btn-info btn-xs" onclick="return confirm('Are you sure you want to cancel and duplicate PO?')">Cancel & Duplicate</a>
-                                                    <a href="<?php echo base_url(); ?>po/cancel_po/" class="btn btn-custon-three btn-danger btn-xs" onclick="return confirm('Are you sure you want to cancel PO?')" data-toggle="modal" data-target="#cancelPO">Cancel</a>
                                                 </center>
                                             </td>
-                                        </tr>                             
+                                        </tr>
+                                    <?php } } } ?>                             
                                     </tbody>
                                 </table>
 

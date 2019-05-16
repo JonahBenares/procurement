@@ -65,32 +65,48 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        <?php 
+                                            if(!empty($header)){
+                                                foreach($header AS $head){ 
+                                                    if($head['served']==1){ 
+                                        ?>
                                         <tr>
-                                            <td></td>
-                                            <td>g</td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td>"Completed"</td>
-                                            <td></td>                                            
+                                            <td><?php echo date('F j, Y', strtotime($head['aoq_date'])); ?></td>
+                                            <td><?php echo $head['pr']; ?></td>
+                                            <td><?php echo $head['supplier']; ?></td>
+                                            <td><?php echo $head['department']; ?></td>
+                                            <td><?php echo $head['enduse']; ?></td>
+                                            <td><?php echo $head['requestor']; ?></td>
+                                            <td><?php echo date('F j, Y', strtotime($head['date_needed'])); ?></td>
+                                            <td>
+                                                <?php  
+                                                    if($head['saved'] == '1' && $head['completed'] =='0') { 
+                                                        echo "Pending";
+                                                    } else if($head['saved'] == '1' && $head['completed'] =='1'){
+                                                        echo "Completed";
+                                                    }
+                                                ?>
+                                            </td>
+                                            <td><?php echo date('F j, Y', strtotime($head['date_served'])); ?></td>                                            
                                             <td>
                                                 <center>
-                                                    <a href="<?php echo base_url(); ?>aoq/aoq_prnt/" class="btn btn-custon-three btn-warning btn-xs" >
-                                                        <span class="fa fa-eye"> 3</span>
-                                                    </a>
-                                                    <a href="<?php echo base_url(); ?>aoq/aoq_prnt_four/" class="btn btn-custon-three btn-warning btn-xs" >
-                                                        <span class="fa fa-eye"> 4</span>
-                                                    </a>
-                                                    <a href="<?php echo base_url(); ?>aoq/aoq_prnt_five/" class="btn btn-custon-three btn-warning btn-xs" >
-                                                        <span class="fa fa-eye"> 5</span>
-                                                    </a>
-                                                    <a href="<?php echo base_url(); ?>aoq/update_served/" class="btn btn-custon-three btn-success btn-xs"  onclick="return confirm('Are you sure?')">Served
-                                                    </a>
+                                                    <?php if($head['rows']==3){ ?>
+                                                        <a href="<?php echo base_url(); ?>aoq/aoq_prnt/<?php echo $head['aoq_id']; ?>" class="btn btn-custon-three btn-warning btn-xs" >
+                                                            <span class="fa fa-eye"></span>
+                                                        </a>
+                                                    <?php } else if($head['rows']==4){ ?>
+                                                        <a href="<?php echo base_url(); ?>aoq/aoq_prnt_four/<?php echo $head['aoq_id']; ?>" class="btn btn-custon-three btn-warning btn-xs" >
+                                                            <span class="fa fa-eye"></span>
+                                                        </a>
+                                                    <?php } else if($head['rows']==5){ ?>
+                                                        <a href="<?php echo base_url(); ?>aoq/aoq_prnt_five/<?php echo $head['aoq_id']; ?>" class="btn btn-custon-three btn-warning btn-xs" >
+                                                            <span class="fa fa-eye"></span>
+                                                        </a>
+                                                    <?php } ?>
                                                 </center>
                                             </td>
-                                        </tr>                       
+                                        </tr> 
+                                        <?php } } } ?>                      
                                     </tbody>
                                 </table>
 

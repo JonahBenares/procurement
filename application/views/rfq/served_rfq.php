@@ -61,22 +61,36 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td>
-                                                <center>
-                                                    <a href="" class="btn btn-custon-three btn-warning btn-xs">
-                                                        <span class="fa fa-eye"></span>
-                                                    </a>
-                                                    <a href="<?php echo base_url(); ?>rfq/update_served/" class="btn btn-custon-three btn-success btn-xs" onclick="return confirm('Are you sure?')">Served
-                                                    </a>
-                                                </center>
-                                            </td>
-                                        </tr>                                 
+                                    <?php 
+                                        if(!empty($list)){
+                                            foreach($list AS $li) { 
+                                                $item='';
+                                                foreach($items AS $it){ 
+                                                    if($it['rfq_id']==$li['rfq_id']){
+                                                        $item .="- ".$it['item_name']. "<br> ";
+                                                    }
+                                                }
+                                                $item = substr($item, 0, -2);
+                                    ?>
+                                    
+                                    <?php if($li['served']==1){ ?>
+                                    <tr>
+                                        <td><?php echo $li['rfq_no']; ?></td>
+                                        <td><?php echo $li['supplier']; ?></td>
+                                        <td><?php echo date('M d, Y',strtotime($li['rfq_date'])); ?></td>
+                                        <td>
+                                            <?php echo $item; ?>
+                                        </td>
+                                        <td><?php if(!empty($li['date_served'])){ echo date('M d, Y',strtotime($li['date_served'])); } else { echo ''; } ?></td>
+                                        <td>
+                                            <center>
+                                                <a href="javascript:void(0)" onclick="incomingRfq('<?php echo base_url(); ?>','<?php echo $li['rfq_id']; ?>')" class="btn btn-custon-three btn-warning btn-xs">
+                                                    <span class="fa fa-eye"></span>
+                                                </a>
+                                            </center>
+                                        </td> 
+                                    </tr>      
+                                    <?php } } } ?>                                  
                                     </tbody>
                                 </table>
                             </div>                           

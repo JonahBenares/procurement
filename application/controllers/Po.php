@@ -224,8 +224,26 @@ class Po extends CI_Controller {
 
     public function cancelled_po(){
         $this->load->view('template/header');        
-        $this->load->view('template/navbar');        
-        $this->load->view('po/cancelled_po');
+        $this->load->view('template/navbar');
+        $data['supplier']=$this->super_model->select_all_order_by("vendor_head", "vendor_name", "ASC");
+        foreach($this->super_model->select_custom_where("po_head", "saved='1' AND cancelled='1' ORDER BY po_id DESC") AS $head){
+            $pr='';
+            foreach($this->super_model->select_row_where("po_pr", "po_id", $head->po_id) AS $prd){
+                $pr .= "-".$prd->pr_no."<br>";
+            }
+            $data['header'][]=array(
+                'po_id'=>$head->po_id,
+                'po_date'=>$head->po_date,
+                'po_no'=>$head->po_no,
+                'supplier'=>$this->super_model->select_column_where('vendor_head', 'vendor_name', 'vendor_id', $head->supplier_id),
+                'supplier_id'=>$head->supplier_id,
+                'cancelled'=>$head->cancelled,
+                'cancel_reason'=>$head->cancel_reason,
+                'cancelled_date'=>$head->cancelled_date,
+                'pr'=>$pr
+            );
+        }       
+        $this->load->view('po/cancelled_po',$data);
         $this->load->view('template/footer');
     }
 

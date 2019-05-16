@@ -87,6 +87,10 @@
                                                             <input type="text" name="contact" class="form-control">
                                                         </div>
                                                         <div class="form-group">
+                                                            <p class="m-b-0">EWT(%):</p>
+                                                            <input type="text" name="ewt" class="form-control" onkeypress="return isNumberKey(this, event)">
+                                                        </div>
+                                                        <div class="form-group">
                                                             <p class="m-b-0">Notes:</p>
                                                             <input type="text" name="notes" class="form-control">
                                                         </div>
@@ -94,8 +98,8 @@
                                                             <p class="m-b-0">Status:</p>
                                                             <select type="text" name="status" class="form-control">
                                                                 <option value = "">--Select Status--</option>
-                                                                <option value = "1">Active</option>
-                                                                <option value = "2">Inactive</option>
+                                                                <option value = "Active">Active</option>
+                                                                <option value = "Inactive">Inactive</option>
                                                             </select>
                                                         </div>
                                                         <center>
@@ -154,6 +158,10 @@
                                                             <input type="text" name="notes" class="form-control">
                                                         </div>
                                                         <div class="form-group">
+                                                            <p class="m-b-0">EWT(%):</p>
+                                                            <input type="text" name="ewt" class="form-control" onkeypress="return isNumberKey(this, event)">
+                                                        </div>
+                                                        <div class="form-group">
                                                             <p class="m-b-0">Status:</p>
                                                             <select type="text" name="status" class="form-control">
                                                                 <option value = "">--Select Status--</option>
@@ -196,6 +204,7 @@
                                             <th>Terms</th>
                                             <th>Type</th>
                                             <th>Notes</th>
+                                            <th>EWT(%)</th>
                                             <th>Status</th>
                                             <th><center>Action</center></th>
                                         </tr>
@@ -216,6 +225,7 @@
                                             <td><?php echo $v['terms']?></td>
                                             <td><?php echo $v['type']?></td>
                                             <td><?php echo $v['notes']?></td>
+                                            <td><?php echo $v['ewt']?></td>
                                             <td><?php if($v['status'] == 'Active'){ echo 'Active'; }else { echo 'Inactive'; } ?></td>
                                             <td>
                                                 <center>
