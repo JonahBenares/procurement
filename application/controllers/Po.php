@@ -421,8 +421,45 @@ class Po extends CI_Controller {
     }
 
     public function delivery_receipt(){
+        $po_id=$this->uri->segment(3);
+        $data['po_id']=$po_id;
+        $data['po_date']=date('F j, Y', strtotime($this->super_model->select_column_where('po_head', 'po_date', 'po_id', $po_id)));
+        $supplier_id=$this->super_model->select_column_where('po_head', 'supplier_id', 'po_id', $po_id);
+        $supplier=$this->super_model->select_column_where('vendor_head', 'vendor_name', 'vendor_id', $supplier_id);
+        foreach($this->super_model->select_row_where("dr_head", "po_id", $po_id) AS $head){
+            $data['dr_no']=$head->dr_no;
+            $data['po_no']=$this->super_model->select_column_where('po_head', 'po_no', 'po_id', $po_id);
+            $data['prepared_by']=$this->super_model->select_column_where('users', 'fullname', 'user_id', $head->prepared_by);
+        }
+
+        foreach($this->super_model->select_row_where("po_pr", "po_id", $po_id) AS $prdet){
+            $purpose= $this->super_model->select_column_where('purpose', 'purpose_name', 'purpose_id', $prdet->purpose_id);
+            $requestor= $this->super_model->select_column_where('employees', 'employee_name', 'employee_id', $prdet->requested_by);
+            $enduse= $this->super_model->select_column_where('enduse', 'enduse_name', 'enduse_id', $prdet->enduse_id);
+            $data['detail'][]=array(
+                'po_pr_id'=>$prdet->po_pr_id,
+                'pr_no'=>$prdet->pr_no,
+                'purpose'=>$purpose,
+                'requestor'=>$requestor,
+                'enduse'=>$enduse
+            );
+         
+            foreach($this->super_model->select_row_where('po_items', 'po_pr_id',$prdet->po_pr_id) AS $itm){
+                $unit_id = $this->super_model->select_column_where('item', 'unit_id', 'item_id', $itm->item_id);
+                $data['items'][] = array(
+                    'po_pr_id'=>$itm->po_pr_id,
+                    'item'=>$this->super_model->select_column_where('item', 'item_name', 'item_id', $itm->item_id),
+                    'uom'=>$this->super_model->select_column_where('unit', 'unit_id', 'unit_id', $unit_id),
+                    'supplier'=>$supplier,
+                    'offer'=>$itm->offer,
+                    'quantity'=>$itm->quantity,
+                    'price'=>$itm->unit_price
+                );   
+
+            }
+        }
         $this->load->view('template/header');        
-        $this->load->view('po/delivery_receipt');
+        $this->load->view('po/delivery_receipt',$data);
         $this->load->view('template/footer');
     }
     public function rfd_prnt(){

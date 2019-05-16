@@ -97,7 +97,7 @@
 			    	<div class="btn-group">
 						<a href="javascript:history.go(-1)" class="btn btn-success btn-md p-l-100 p-r-100"><span class="fa fa-arrow-left"></span> Back</a>
 						<a  onclick="printPage()" class="btn btn-warning btn-md p-l-100 p-r-100"><span class="fa fa-print"></span> Print</a>
-						<input type='submit' class="btn btn-primary btn-md p-l-100 p-r-100" value="Save">	
+						<!-- <input type='submit' class="btn btn-primary btn-md p-l-100 p-r-100" value="Save">	 -->
 					</div>
 					<p class="text-white">Instructions: When printing DELIVERY RECEIPT make sure the following options are set correctly -- <u>Browser</u>: Chrome, <u>Layout</u>: Portrait, <u>Paper Size</u>: A4 <u>Margin</u> : Default <u>Scale</u>: 100 and the option: Background graphics is checked</p>
 				</center>
@@ -138,23 +138,24 @@
 		    		<tr><td colspan="20" align="center"><h5><b class="text-red">DELIVERY RECEIPT</b></h5></td></tr>
 		    		<!-- <tr><td class="f13" colspan="20" align="center"><br></td></tr> -->
 		    		<tr>
-		    			<td colspan="10" class="all-border "><b class="text-red nomarg">DR No. 4321</b></td>
-		    			<td colspan="10" class="all-border "><b class="nomarg">PO No: PR-191-4763</b></td>
+		    			<td colspan="10" class="all-border "><b class="text-red nomarg">DR No. <?php echo $dr_no; ?></b></td>
+		    			<td colspan="10" class="all-border "><b class="nomarg">PO No: <?php echo $po_no; ?></b></td>
 		    		</tr>
 		    		<!-- Loop starts here-->
+		    		<?php foreach($detail AS $det){ ?>
 		    		<tr><td colspan="20" align="center"><br></td></tr>
 		    		<tr>
-		    			<td colspan="10" class="all-border "><b class="nomarg">Date : April 27, 2019</b></td>
-		    			<td colspan="10" class="all-border "><b class="nomarg">PR No: PR-191-2019</b></td>
+		    			<td colspan="10" class="all-border "><b class="nomarg">Date : <?php echo $po_date; ?></b></td>
+		    			<td colspan="10" class="all-border "><b class="nomarg">PR No: <?php echo $det['pr_no']; ?></b></td>
 		    		</tr>
 		    		<tr>
-		    			<td colspan="20" class="all-border"><b class="nomarg">Purpose: Consumables, Tools and Equipment's for Spare Stator Rewinding</b></td>
+		    			<td colspan="20" class="all-border"><b class="nomarg">Purpose: <?php echo $det['purpose']; ?></b></td>
 		    		</tr>
 		    		<tr>
-		    			<td colspan="20" class="all-border"><b class="nomarg">End Use: Spare Ideal Generator</b></td>
+		    			<td colspan="20" class="all-border"><b class="nomarg">End Use: <?php echo $det['enduse']; ?></b></td>
 		    		</tr>
 		    		<tr>
-		    			<td colspan="20" class="all-border"><b class="nomarg">Requestor: Julius Pangilinan / Kennah Sasamoto</b></td>
+		    			<td colspan="20" class="all-border"><b class="nomarg">Requestor: <?php echo $det['requestor']; ?></b></td>
 		    		</tr>
 		    		<tr>
 		    			<td class="all-border" align="center"><b class="nomarg">#</b></td>
@@ -165,24 +166,21 @@
 		    			<td class="all-border" align="center" colspan="2"><b class="nomarg">UOM</b></td>
 		    			<td class="all-border" align="center" colspan="3"><b class="nomarg">Remarks</b></td>
 		    		</tr>
-		    		<tr>
-		    			<td class="all-border" align="center">1</td>
-		    			<td class="all-border" align="left" colspan="6">A-ONE INDUSTRIAL SALES</td>
-		    			<td class="all-border" align="left" colspan="6">Power tools; Brand: Ken, Model: 69135</td>
-		    			<td class="all-border" align="center">1</td>
+		    		<?php
+		    		$x=1;
+		    		 foreach($items AS $it) { ?>
+		       		<tr>
+		    			<td class="all-border" align="center"><?php echo $x; ?></td>
+		    			<td class="all-border" align="left" colspan="6"><?php echo $it['supplier']; ?></td>
+		    			<td class="all-border" align="left" colspan="6"><?php echo $it['offer'].", " .$it['item']; ?></td>
+		    			<td class="all-border" align="center"><?php echo $it['quantity']; ?></td>
 		    			<td class="all-border" align="center"></td>
-		    			<td class="all-border" align="center" colspan="2">set</td>
+		    			<td class="all-border" align="center" colspan="2"><?php echo $it['uom']; ?></td>
 		    			<td class="all-border" align="center" colspan="3"></td>
 		    		</tr>
-		    		<tr>
-		    			<td class="all-border" align="center">2</td>
-		    			<td class="all-border" align="left" colspan="6">A-ONE INDUSTRIAL SALES</td>
-		    			<td class="all-border" align="left" colspan="6">Acetylene cutting outfit, Brand: Supercut</td>
-		    			<td class="all-border" align="center">1</td>
-		    			<td class="all-border" align="center"></td>
-		    			<td class="all-border" align="center" colspan="2">unit</td>
-		    			<td class="all-border" align="center" colspan="3"></td>
-		    		</tr>
+		    		
+		    		<?php $x++; }
+		    		} ?>
 		    		<!-- Loop end here-->
 		    		<tr><td class="f13" colspan="20" align="center"><br></td></tr>
 		    		<tr>
@@ -196,12 +194,12 @@
 		    			<td></td>
 		    			<td colspan="6" class="bor-btm"><b><br></b></td>
 		    			<td colspan="5"></td>
-		    			<td colspan="6" class="bor-btm">Stephen Jardinico</td>
+		    			<td colspan="6" class="bor-btm"></td>
 		    			<td colspan="2"></td>
 		    		</tr>
 		    		<tr>
 		    			<td></td>
-		    			<td colspan="6">Kervic S. Biñas</td>
+		    			<td colspan="6"><?php echo $prepared_by; ?></td>
 		    			<td colspan="5"></td>
 		    			<td colspan="6">Print Name & Signature with Date Received</td>
 		    			<td colspan="2"></td>
@@ -218,7 +216,7 @@
 		    			<td></td>
 		    			<td colspan="6"><b><br></b></td>
 		    			<td colspan="5"></td>
-		    			<td colspan="6" class="bor-btm">Mary Grace Bugna</td>
+		    			<td colspan="6" class="bor-btm"></td>
 		    			<td colspan="2"></td>
 		    		</tr>
 		    		<tr>
