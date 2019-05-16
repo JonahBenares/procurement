@@ -150,6 +150,7 @@ class Aoq extends CI_Controller {
 	public function aoq_prnt(){
 		$aoq_id=$this->uri->segment(3);
 		$data['aoq_id']=$aoq_id;
+		$data['served']=$this->super_model->select_column_where('aoq_header','served','aoq_id', $aoq_id);
 		foreach($this->super_model->select_row_where("aoq_header", "aoq_id", $aoq_id) AS $head){
 			$department=$this->super_model->select_column_where('department','department_name','department_id', $head->department_id);
 			$enduse=$this->super_model->select_column_where('enduse','enduse_name','enduse_id', $head->enduse_id);
@@ -320,6 +321,7 @@ class Aoq extends CI_Controller {
     public function aoq_prnt_five(){
 		$aoq_id=$this->uri->segment(3);
 		$data['aoq_id']=$aoq_id;
+		$data['served']=$this->super_model->select_column_where('aoq_header','served','aoq_id', $aoq_id);
 		foreach($this->super_model->select_row_where("aoq_header", "aoq_id", $aoq_id) AS $head){
 			$department=$this->super_model->select_column_where('department','department_name','department_id', $head->department_id);
 			$enduse=$this->super_model->select_column_where('enduse','enduse_name','enduse_id', $head->enduse_id);
@@ -399,6 +401,7 @@ class Aoq extends CI_Controller {
      public function aoq_prnt_four(){
 		$aoq_id=$this->uri->segment(3);
 		$data['aoq_id']=$aoq_id;
+		$data['served']=$this->super_model->select_column_where('aoq_header','served','aoq_id', $aoq_id);
 		foreach($this->super_model->select_row_where("aoq_header", "aoq_id", $aoq_id) AS $head){
 			$department=$this->super_model->select_column_where('department','department_name','department_id', $head->department_id);
 			$enduse=$this->super_model->select_column_where('enduse','enduse_name','enduse_id', $head->enduse_id);

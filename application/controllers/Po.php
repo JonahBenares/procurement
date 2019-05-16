@@ -463,9 +463,104 @@ class Po extends CI_Controller {
         $this->load->view('template/footer');
     }
     public function rfd_prnt(){
+        $po_id=$this->uri->segment(3);
+        $data['po_id']=$po_id;
+      //  $data['saved']=$this->super_model->select_column_where('rfd', 'saved', 'po_id', $po_id);
+        $data['saved']= $this->super_model->select_count('rfd', 'po_id', $po_id);
+      
+        $saved=$this->super_model->select_column_where('rfd', 'saved', 'po_id', $po_id);
+        $supplier_id=$this->super_model->select_column_where('po_head', 'supplier_id', 'po_id', $po_id);
+        $supplier=$this->super_model->select_column_where('vendor_head', 'vendor_name', 'vendor_id', $supplier_id);
+        $data['supplier']=$this->super_model->select_column_where('vendor_head', 'vendor_name', 'vendor_id', $supplier_id);
+        $data['ewt']=$this->super_model->select_column_where('vendor_head', 'ewt', 'vendor_id', $supplier_id);
+        $data['prepared']=$this->super_model->select_column_where('users', 'fullname', 'user_id', $_SESSION['user_id']);
+        $data['po_no']=$this->super_model->select_column_where('po_head', 'po_no', 'po_id', $po_id);
+        $data['employee']=$this->super_model->select_all_order_by("employees", "employee_name", "ASC");
+
+        foreach($this->super_model->select_row_where("po_items", "po_id", $po_id) AS $itm){
+             $unit_id = $this->super_model->select_column_where('item', 'unit_id', 'item_id', $itm->item_id);
+             $data['items'][] = array(
+                    'po_pr_id'=>$itm->po_pr_id,
+                    'item'=>$this->super_model->select_column_where('item', 'item_name', 'item_id', $itm->item_id),
+                    'item_specs'=>$this->super_model->select_column_where('item', 'item_specs', 'item_id', $itm->item_id),
+                    'uom'=>$this->super_model->select_column_where('unit', 'unit_id', 'unit_id', $unit_id),
+                    'supplier'=>$supplier,
+                    'offer'=>$itm->offer,
+                    'quantity'=>$itm->quantity,
+                    'price'=>$itm->unit_price
+             );   
+        }
+
+         foreach($this->super_model->select_row_where("po_pr", "po_id", $po_id) AS $prdet){
+            $purpose= $this->super_model->select_column_where('purpose', 'purpose_name', 'purpose_id', $prdet->purpose_id);
+            $requestor= $this->super_model->select_column_where('employees', 'employee_name', 'employee_id', $prdet->requested_by);
+            $enduse= $this->super_model->select_column_where('enduse', 'enduse_name', 'enduse_id', $prdet->enduse_id);
+            $data['detail'][]=array(
+                'po_pr_id'=>$prdet->po_pr_id,
+                'pr_no'=>$prdet->pr_no,
+                'purpose'=>$purpose,
+                'requestor'=>$requestor,
+                'enduse'=>$enduse
+            );
+        }
+
+       
+            foreach($this->super_model->select_row_where("rfd", "po_id", $po_id) AS $rfd){
+                $data['company']=$rfd->company;
+                $data['pay_to']=$rfd->pay_to;
+                $data['check_name']=$rfd->check_name;
+                $data['apv_no']=$rfd->apv_no;
+                $data['cash']=$rfd->cash;
+                $data['check']=$rfd->check;
+                $data['rfd_date']=$rfd->rfd_date;
+                $data['due_date']=$rfd->due_date;
+                $data['check_date']=$rfd->check_date;
+                $data['bank_no']=$rfd->bank_no;
+                $data['checked']=$this->super_model->select_column_where('employees', 'employee_name', 'employee_id', $rfd->checked_by);
+                $data['endorsed']=$this->super_model->select_column_where('employees', 'employee_name', 'employee_id', $rfd->endorsed_by);
+                $data['approved']=$this->super_model->select_column_where('employees', 'employee_name', 'employee_id', $rfd->approved_by);
+            }
+     
         $this->load->view('template/header');        
-        $this->load->view('po/rfd_prnt');
+        $this->load->view('po/rfd_prnt',$data);
         $this->load->view('template/footer');
+    }
+
+
+    public function save_rfd(){
+        $po_id=$this->input->post('po_id');
+        $cash = $this->input->post('cash');
+        if($cash ==1){
+            $cash=1;
+            $check=0;
+        } else {
+            $cash=0;
+            $check=1;
+        }
+        $data =array(
+            'rfd_date'=>$this->input->post('rfd_date'),
+            'apv_no'=>$this->input->post('apv_no'),
+            'company'=>$this->input->post('company'),
+            'pay_to'=>$this->input->post('pay_to'),
+            'check_name'=>$this->input->post('check_name'),
+            'cash'=>$cash,
+            'check'=>$check,
+            'bank_no'=>$this->input->post('bank_no'),
+            'po_id'=>$po_id,
+            'check_date'=>$this->input->post('check_due'),
+            'due_date'=>$this->input->post('due_date'),
+            'gross_amount'=>$this->input->post('gross_amount'),
+            'less_amount'=>$this->input->post('less_amount'),
+            'net_amount'=>$this->input->post('net_amount'),
+            'prepared_by'=>$_SESSION['user_id'],
+            'checked_by'=>$this->input->post('checked'),
+            'endorsed_by'=>$this->input->post('endorsed'),
+            'approved_by'=>$this->input->post('approved'),
+            'saved'=>'1'
+        );
+        if($this->super_model->insert_into("rfd", $data)){
+            redirect(base_url().'po/rfd_prnt/'.$po_id, 'refresh');
+        }
     }
 
     public function add_itempo(){

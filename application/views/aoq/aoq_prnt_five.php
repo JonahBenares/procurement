@@ -178,7 +178,7 @@
 					<p class="text-white p-l-250 p-r-250">Instructions: When printing ABSTRACT OF QUOTATION make sure the following options are set correctly -- <u>Browser</u>: Chrome, <u>Layout</u>: Landscape, <u>Paper Size</u>: A4 <u>Margin</u> : Custom (top: 0.11" , right:1.25", bottom: 0.11", left: 0.11") <u>Scale</u>: 100 and the option: Background graphics is checked</p>
 				</center>
 			</div>
-	    	<div style="background: #fff;" class="served">    		  			
+	    	<div style="background: #fff;" <?php echo (($served==1) ? 'class="served"' : ''); ?>>    		  			
 		    	<table class="table-bodrdered" width="100%" style="background: #fff;border: 1px solid #000">
 		    		<tr>
 		    			<td width="3%"><br></td>

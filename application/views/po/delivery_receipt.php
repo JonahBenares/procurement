@@ -168,7 +168,8 @@
 		    		</tr>
 		    		<?php
 		    		$x=1;
-		    		 foreach($items AS $it) { ?>
+		    		 foreach($items AS $it) { 
+		    		 	if($it['po_pr_id'] == $det['po_pr_id']) { ?>
 		       		<tr>
 		    			<td class="all-border" align="center"><?php echo $x; ?></td>
 		    			<td class="all-border" align="left" colspan="6"><?php echo $it['supplier']; ?></td>
@@ -180,6 +181,7 @@
 		    		</tr>
 		    		
 		    		<?php $x++; }
+		    		}
 		    		} ?>
 		    		<!-- Loop end here-->
 		    		<tr><td class="f13" colspan="20" align="center"><br></td></tr>

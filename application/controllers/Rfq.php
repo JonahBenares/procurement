@@ -203,6 +203,7 @@ class Rfq extends CI_Controller {
     	$rfq_id=$this->uri->segment(3);
     	$data['rfq_id']=$rfq_id;
     	$data['completed'] = $this->super_model->select_column_where('rfq_head','completed','rfq_id', $rfq_id);
+    	$data['served'] = $this->super_model->select_column_where('rfq_head','served','rfq_id', $rfq_id);
 	 	foreach($this->super_model->select_row_where("rfq_head", "rfq_id", $rfq_id) AS $head){
 	 		$noted=$this->super_model->select_column_where('employees','employee_name','employee_id', $head->noted_by); 
 	 		$approved=$this->super_model->select_column_where('employees','employee_name','employee_id', $head->approved_by);

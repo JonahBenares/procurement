@@ -283,7 +283,7 @@
 					    			<td colspan="3" class="all-border" align="right"><b class="nomarg"><input type='text' name='tprice<?php echo $x; ?>' id='tprice<?php echo $x; ?>' class='tprice' value="<?php echo number_format($tprice,2); ?>" style='text-align:right' readonly></b></td>
 					    			
 					    			
-					    			<input type='text' name='reco_id<?php echo $x; ?>'  value='<?php echo $it['reco_id']; ?>'>
+					    			<input type='hidden' name='reco_id<?php echo $x; ?>'  value='<?php echo $it['reco_id']; ?>'>
 					    			<input type='hidden' name='item_id<?php echo $x; ?>'  value='<?php echo $it['item_id']; ?>'>
 					    			<input type='hidden' name='offer<?php echo $x; ?>'  value='<?php echo $it['offer']; ?>'>
 					    			<input type='hidden' name='po_items_id<?php echo $x; ?>'  value='<?php echo $it['po_items_id']; ?>'>
