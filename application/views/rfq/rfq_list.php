@@ -62,7 +62,7 @@
                                 <h1>RFQ List</h1>
                                 <small>REQUEST FOR QUOTATION</small> 
                                 <div class="sparkline8-outline-icon">
-                                 <a href="<?php echo base_url(); ?>index.php/rfq/served_rfq" class="btn btn-custon-three btn-success" ><span class="fa fa-archive p-l-0"></span> Served AOQ</a> 
+                                 <a href="<?php echo base_url(); ?>index.php/rfq/served_rfq" class="btn btn-custon-three btn-success" ><span class="fa fa-archive p-l-0"></span> Served RFQ</a> 
                                 <input type='submit' id='createAOQ' class="btn btn-custon-three btn-primary" value='Create AOQ' >
 
                                   <!--   <a class="btn btn-custon-three btn-primary" href=">

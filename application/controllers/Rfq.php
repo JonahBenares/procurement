@@ -184,6 +184,27 @@ class Rfq extends CI_Controller {
     public function served_rfq(){
         $this->load->view('template/header');
         $this->load->view('template/navbar');
+        foreach($this->super_model->select_custom_where("rfq_head", "saved='1' ORDER BY rfq_id DESC") AS $rfq){
+			$supplier = $this->super_model->select_column_where('vendor_head','vendor_name','vendor_id', $rfq->supplier_id);
+			$data['list'][] = array(
+				'rfq_id'=>$rfq->rfq_id,
+				'rfq_no'=>$rfq->rfq_no,
+				'rfq_date'=>$rfq->rfq_date,
+				'supplier'=>$supplier,
+				'completed'=>$rfq->completed,
+				'served'=>$rfq->served
+			);
+
+			foreach($this->super_model->select_row_where("rfq_detail", "rfq_id", $rfq->rfq_id) AS $it){
+				$item = $this->super_model->select_column_where('item','item_name','item_id', $it->item_id);
+				//$item_name .= $item. ", ";
+				$data['items'][] = array(
+					'rfq_id'=>$it->rfq_id,
+					'item_name'=>$item
+				);
+			}
+
+		}
         $this->load->view('rfq/served_rfq');
         $this->load->view('template/footer');
     }
