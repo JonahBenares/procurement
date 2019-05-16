@@ -278,7 +278,7 @@ class Po extends CI_Controller {
         $po_id=$this->input->post('po_id');
         $create = date('Y-m-d H:i:s');
 
-        foreach($this->super_model->select_row_where("po_items", "po_id", $po_id) AS $items){
+       /* foreach($this->super_model->select_row_where("po_items", "po_id", $po_id) AS $items){
             $cur_balance = $this->super_model->select_column_where('aoq_reco', 'balance', 'aoq_reco_id', $items->aoq_reco_id);
             $new_balance = $cur_balance + $items->quantity;
 
@@ -286,7 +286,7 @@ class Po extends CI_Controller {
                 'balance'=>$new_balance
             );
             if($this->super_model->update_where("aoq_reco", $new_qty, "aoq_reco_id", $items->aoq_reco_id));
-        }
+        }*/
 
         $po = $this->super_model->get_max("po_head", "po_id");
         $next_po = $po + 1;
@@ -329,6 +329,56 @@ class Po extends CI_Controller {
                       $this->super_model->insert_into("po_items", $items);
                 }
            }
+
+        $head_rows = $this->super_model->count_rows("dr_head");
+            if($head_rows==0){
+            $dr_id=1;
+            $dr_no = 1000;
+        } else {
+            $maxid=$this->super_model->get_max("dr_head", "dr_id");
+            $maxno=$this->super_model->get_max("dr_head", "dr_no");
+            $dr_id=$maxid+1;
+            $dr_no = $maxno + 1;
+        }
+
+        $drhead = array(
+            'dr_id'=>$dr_id,
+            'dr_no'=>$dr_no,
+            'po_id'=>$next_po,
+            'prepared_by'=>$_SESSION['user_id'],
+            'create_date'=>$create
+        );
+        $this->super_model->insert_into("dr_head", $drhead);
+
+       foreach($this->super_model->select_row_where("po_pr", "po_id", $next_po) AS $list){
+         $head_details = $this->super_model->count_rows("dr_details");
+            if($head_details==0){
+            $dr_details_id=1;
+         } else {
+            $maxdetid=$this->super_model->get_max("dr_details", "dr_details_id");
+            $dr_details_id=$maxdetid+1;
+         }
+
+            $drdetails = array(
+                'dr_details_id'=>$dr_details_id,
+                'dr_id'=>$dr_id,
+                'pr_no'=>$list->pr_no,
+                'po_pr_id'=>$list->po_pr_id,
+            );
+
+            if($this->super_model->insert_into("dr_details", $drdetails)){
+                 foreach($this->super_model->select_row_where("po_items", "po_pr_id", $list->po_pr_id) AS $it){
+                    $dritems = array(
+                        'dr_details_id'=>$dr_details_id,
+                        'dr_id'=>$dr_id,
+                        'po_items_id'=>$it->po_items_id,
+                    );
+
+                    $this->super_model->insert_into("dr_items", $dritems);
+                 }
+            }
+       }
+
 
         $data = array(
             'cancelled'=>1,
@@ -443,6 +493,7 @@ class Po extends CI_Controller {
         $data['po_id']=$po_id;
         $data['po_date']=date('F j, Y', strtotime($this->super_model->select_column_where('po_head', 'po_date', 'po_id', $po_id)));
         $supplier_id=$this->super_model->select_column_where('po_head', 'supplier_id', 'po_id', $po_id);
+        $data['cancelled']=$this->super_model->select_column_where('po_head', 'cancelled', 'po_id', $po_id);
         $supplier=$this->super_model->select_column_where('vendor_head', 'vendor_name', 'vendor_id', $supplier_id);
         foreach($this->super_model->select_row_where("dr_head", "po_id", $po_id) AS $head){
             $data['dr_no']=$head->dr_no;
@@ -485,7 +536,7 @@ class Po extends CI_Controller {
         $data['po_id']=$po_id;
       //  $data['saved']=$this->super_model->select_column_where('rfd', 'saved', 'po_id', $po_id);
         $data['saved']= $this->super_model->select_count('rfd', 'po_id', $po_id);
-      
+        $data['cancelled']=$this->super_model->select_column_where('po_head', 'cancelled', 'po_id', $po_id);
         $saved=$this->super_model->select_column_where('rfd', 'saved', 'po_id', $po_id);
         $supplier_id=$this->super_model->select_column_where('po_head', 'supplier_id', 'po_id', $po_id);
         $supplier=$this->super_model->select_column_where('vendor_head', 'vendor_name', 'vendor_id', $supplier_id);
@@ -746,11 +797,14 @@ class Po extends CI_Controller {
                      if($this->super_model->update_custom_where("po_items", $data, "po_items_id = '$po_items_id'")){
                         $balance= $this->super_model->select_column_where('aoq_reco', 'balance', 'aoq_reco_id', $aoq_reco_id);
                         $new_balance = $balance - $qty;
+                          echo $aoq_reco_id. "= ".$balance. " - ". $qty ."= " . $new_balance ."<br>";
                         $reco = array(
                             'balance'=>$new_balance
                         );
                         $this->super_model->update_where("aoq_reco", $reco, "aoq_reco_id", $aoq_reco_id); 
                     }
+                } else if($qty==0){
+                    $this->super_model->delete_where("po_items", "po_items_id", $po_items_id);
                 }
 
 

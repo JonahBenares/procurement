@@ -22,7 +22,7 @@
         	padding:0px 250px 0px 250px
         }
         .cancel{
-        	background-image: url('../assets/img/cancel.png')!important;
+        	background-image: url('../../assets/img/cancel.png')!important;
         	background-repeat:no-repeat!important;
         	background-size: contain!important;
         	background-position: center center!important;
@@ -114,7 +114,7 @@
 					<p class="text-white">Instructions: When printing DELIVERY RECEIPT make sure the following options are set correctly -- <u>Browser</u>: Chrome, <u>Layout</u>: Portrait, <u>Paper Size</u>: A4 <u>Margin</u> : Default <u>Scale</u>: 100 and the option: Background graphics is checked</p>
 				</center>
 			</div>
-	    	<div style="background: #fff;" class="cancel">    		  			
+	    	<div style="background: #fff;" <?php echo (($cancelled==1) ? 'class="cancel"' : ''); ?>>    		  			
 		    	<table class="table-borddered" width="100%" style="border:1px solid #000">
 		    		<tr>
 		    			<td width="5%"><br></td>

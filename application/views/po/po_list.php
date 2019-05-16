@@ -90,7 +90,7 @@
                         <a class="close" data-dismiss="modal" href="#"><i class="fa fa-close"></i></a>
                     </div>
                 </div>
-                <form method="POST" action = "<?php echo base_url();?>index.php/po/cancel_po">
+                <form method="POST" action = "<?php echo base_url();?>po/cancel_po">
                     <div class="modal-body-lowpad">
                         <div class="form-group">
                             <p class="m-b-0">Reason for Cancelling PO:</p>
@@ -98,7 +98,7 @@
                         </div>
                         <center>       
                             <input type = "hidden" id='po_id' name='po_id' >                 
-                            <input type = "text" class="btn btn-custon-three btn-primary btn-block" value = "Save">
+                            <input type = "submit" class="btn btn-custon-three btn-primary btn-block" value = "Save">
                         </center>
                     </div>
                 </form>
@@ -114,7 +114,7 @@
                         <a class="close" data-dismiss="modal" href="#"><i class="fa fa-close"></i></a>
                     </div>
                 </div>
-                <form method="POST" action = "<?php echo base_url();?>index.php/po/cancel_and_duplicate">
+                <form method="POST" action = "<?php echo base_url();?>po/cancel_and_duplicate">
                     <div class="modal-body-lowpad">
                         <div class="form-group">
                             <p class="m-b-0">Reason for Cancelling PO:</p>
