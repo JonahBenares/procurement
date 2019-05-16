@@ -140,7 +140,7 @@
                                 <h1>PO List</h1>
                                 <small>PURCHASE ORDER</small>
                                 <div class="sparkline8-outline-icon">
-                                <a href="<?php echo base_url(); ?>po/cancelled_po/<" class="btn btn-custon-three btn-danger"><span class="p-l-0 fa fa-ban"></span> Cancelled PO</a> 
+                                <a href="<?php echo base_url(); ?>po/cancelled_po" class="btn btn-custon-three btn-danger"><span class="p-l-0 fa fa-ban"></span> Cancelled PO</a> 
                                 <input type='button' class="btn btn-custon-three btn-primary" value='Add PO'  data-toggle="modal" data-target="#addPO"> 
                                   <!--   <a class="btn btn-custon-three btn-primary" href=">
                                         <span class="fa fa-plus p-l-0"></span>

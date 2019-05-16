@@ -53,6 +53,10 @@
                                                             <textarea name="notes" class="form-control"><?php echo $v->notes;?></textarea>
                                                         </div>
                                                         <div class="form-group">
+                                                            <p class="m-b-0">EWT(%):</p>
+                                                            <input name="ewt" class="form-control" value = "<?php echo $v->ewt;?>" onkeypress="return isNumberKey(this, event)">
+                                                        </div>
+                                                        <div class="form-group">
                                                             <p class="m-b-0">Status:</p>
                                                             <select type="text" name="status" class="form-control">
                                                                 <option value = "Active" <?php echo (($v->status == 'Active') ? ' selected' : '');?>>Active</option>
