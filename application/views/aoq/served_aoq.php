@@ -16,8 +16,8 @@
                                 <ul class="breadcome-menu">
                                     <li><a href="<?php echo base_url(); ?>index.php/masterfile/dashboard">Home</a> <span class="bread-slash">/</span>
                                     </li>
-                                    <li><span class="bread-blod">AOQ List</span>
-                                    </li>
+                                    <li><a href="<?php echo base_url(); ?>index.php/aoq/aoq_list">AOQ List</a> <span class="bread-slash">/</span></li>
+                                    <li><span class="bread-blod">AOQ List</span></li>
                                 </ul>
                             </div>
                         </div>
@@ -32,12 +32,12 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="sparkline8-list shadow-reset">
-                        <div class="sparkline8-hd" style="padding-bottom: 0px">
+                        <div class="sparkline8-hd" style=" background: #44c372">
                             <div class="main-sparkline8-hd" >
-                                <h1>AOQ List</h1>
-                                <small>ABSTRACT OF QUOTATION</small> 
+                                <h1 class="text-white">SERVED AOQ List</h1>
+                                <small class="text-white">ABSTRACT OF QUOTATION</small> 
                                 <div class="sparkline8-outline-icon">
-                                <a href="<?php echo base_url(); ?>index.php/aoq/served_aoq" class="btn btn-custon-three btn-success" ><span class="fa fa-archive p-l-0"></span> Served AOQ</a>
+                                <h2><span class="fa fa-archive"></span></h2>
                                   <!--   <a class="btn btn-custon-three btn-primary" href=">
                                         <span class="fa fa-plus p-l-0"></span>
                                         Create AOQ
@@ -59,49 +59,38 @@
                                             <th>Requestor</th>
                                             <th>Date Needed</th>
                                             <th>Status</th>
+                                            <th>Date Served</th>
+
                                             <th><center><span class="fa fa-bars"></span></center></th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                    <?php 
-                                    if(!empty($header)){
-                                    foreach($header AS $head){ ?>
                                         <tr>
-                                            <td><?php echo date('F j, Y', strtotime($head['aoq_date'])); ?></td>
-                                            <td><?php echo $head['pr']; ?></td>
-                                            <td><?php echo $head['supplier']; ?></td>
-                                            <td><?php echo $head['department']; ?></td>
-                                            <td><?php echo $head['enduse']; ?></td>
-                                            <td><?php echo $head['requestor']; ?></td>
-                                            <td><?php echo date('F j, Y', strtotime($head['date_needed'])); ?></td>
-                                            <td><?php  
-                                            if($head['saved'] == '1' && $head['completed'] =='0') { 
-                                                echo "Pending";
-                                            } else if($head['saved'] == '1' && $head['completed'] =='1'){
-                                                echo "Completed";
-                                            }?></td>
+                                            <td></td>
+                                            <td>g</td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td>"Completed"</td>
+                                            <td></td>                                            
                                             <td>
                                                 <center>
-                                                <?php if($head['rows']==3){ ?>
-                                                    <a href="<?php echo base_url(); ?>aoq/aoq_prnt/<?php echo $head['aoq_id']; ?>" class="btn btn-custon-three btn-warning btn-xs" >
-                                                        <span class="fa fa-eye"></span>
+                                                    <a href="<?php echo base_url(); ?>aoq/aoq_prnt/" class="btn btn-custon-three btn-warning btn-xs" >
+                                                        <span class="fa fa-eye"> 3</span>
                                                     </a>
-                                                <?php } else if($head['rows']==4){ ?>
-                                                    <a href="<?php echo base_url(); ?>aoq/aoq_prnt_four/<?php echo $head['aoq_id']; ?>" class="btn btn-custon-three btn-warning btn-xs" >
-                                                        <span class="fa fa-eye"></span>
+                                                    <a href="<?php echo base_url(); ?>aoq/aoq_prnt_four/" class="btn btn-custon-three btn-warning btn-xs" >
+                                                        <span class="fa fa-eye"> 4</span>
                                                     </a>
-                                                <?php } else if($head['rows']==5){ ?>
-                                                    <a href="<?php echo base_url(); ?>aoq/aoq_prnt_five/<?php echo $head['aoq_id']; ?>" class="btn btn-custon-three btn-warning btn-xs" >
-                                                        <span class="fa fa-eye"></span>
+                                                    <a href="<?php echo base_url(); ?>aoq/aoq_prnt_five/" class="btn btn-custon-three btn-warning btn-xs" >
+                                                        <span class="fa fa-eye"> 5</span>
                                                     </a>
-                                                <?php } ?>
-                                                    <a href="<?php echo base_url(); ?>aoq/update_served/<?php echo $head['aoq_id']; ?>" class="btn btn-custon-three btn-success btn-xs"  onclick="return confirm('Are you sure?')">Served
+                                                    <a href="<?php echo base_url(); ?>aoq/update_served/" class="btn btn-custon-three btn-success btn-xs"  onclick="return confirm('Are you sure?')">Served
                                                     </a>
                                                 </center>
                                             </td>
-                                        </tr>  
-                                        <?php } 
-                                        } ?>                                   
+                                        </tr>                       
                                     </tbody>
                                 </table>
 

@@ -17,8 +17,8 @@
                                 <ul class="breadcome-menu">
                                     <li><a href="<?php echo base_url(); ?>index.php/masterfile/dashboard">Home</a> <span class="bread-slash">/</span>
                                     </li>
-                                    <li><span class="bread-blod">PO List</span>
-                                    </li>
+                                    <li><a href="<?php echo base_url(); ?>index.php/po/po_list">PO List </a> <span class="bread-slash">/</span></li>
+                                    <li><span class="bread-blod">Cancelled PO List</span></li>
                                 </ul>
                             </div>
                         </div>

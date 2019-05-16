@@ -13,6 +13,12 @@
         	padding:0px 0px 0px 0px
         	}
         }
+        .served{
+        	background-image: url('../../assets/img/served_aoq.png')!important;
+        	background-repeat:no-repeat!important;
+        	background-size: contain!important;
+        	background-position: center center!important;
+        }
         .table-bordered>tbody>tr>td, 
         .table-bordered>tbody>tr>th, 
         .table-bordered>tfoot>tr>td, 
@@ -69,6 +75,12 @@
 			.green-back{
 				background-image: url('../../assets/img/green.png')!important;
 			}
+			.served{
+	        	background-image: url('../../assets/img/served_aoq.png')!important;
+	        	background-repeat:no-repeat!important;
+	        	background-size: contain!important;
+	        	background-position: center center!important;
+	        }
 		}
 		.text-white{
 			color: #fff;
@@ -173,7 +185,7 @@
 					<p class="text-white p-l-250 p-r-250">Instructions: When printing ABSTRACT OF QUOTATION make sure the following options are set correctly -- <u>Browser</u>: Chrome, <u>Layout</u>: Landscape, <u>Paper Size</u>: A4 <u>Margin</u> : Custom (top: 0.11" , right:1.25", bottom: 0.11", left: 0.11") <u>Scale</u>: 100 and the option: Background graphics is checked</p>
 				</center>
 			</div>
-	    	<div style="background: #fff;"> 
+	    	<div style="background: #fff;" class="served"> 
 		    	<table class="table-borddered" width="100%" style="border:2px solid #000">
 		    		<tr>
 		    			<td width="2%"><br></td>

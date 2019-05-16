@@ -181,6 +181,13 @@ class Rfq extends CI_Controller {
         $this->load->view('template/footer');
     }
 
+    public function served_rfq(){
+        $this->load->view('template/header');
+        $this->load->view('template/navbar');
+        $this->load->view('rfq/served_rfq');
+        $this->load->view('template/footer');
+    }
+
     public function update_served(){
     	$rfq_id=$this->uri->segment(3);
     	$data = array(
