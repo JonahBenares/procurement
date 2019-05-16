@@ -79,6 +79,14 @@ class Aoq extends CI_Controller {
         $this->load->view('template/footer');
     }
 
+    public function served_aoq(){
+        $this->load->view('template/header');
+        $this->load->view('template/navbar');
+        $this->load->view('aoq/served_aoq');
+        $this->load->view('template/footer');
+    }
+
+
 	public function add_aoq(){
     	$data['rfq'] = $this->input->post('rfq');
     	$data['employee']=$this->super_model->select_all_order_by("employees", "employee_name", "ASC");
