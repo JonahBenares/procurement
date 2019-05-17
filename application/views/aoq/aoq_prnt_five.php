@@ -13,6 +13,9 @@
         	padding:0px 0px 0px 0px
         	}
         }
+        .pad-lr{
+        	padding: 0px 2px;
+        }
         .served{
         	background-image: url('../../assets/img/served_aoq.png')!important;
         	background-repeat:no-repeat!important;
@@ -322,7 +325,7 @@
 						$offer= $CI->get_rfq_item("offer", $sup['supplier_id'], $it['item_id']);
 	    				$total = $it['qty']*$up;
 	    				?>
-		    			<td colspan="2" class="f10 table-borreg" align="left">
+		    			<td colspan="2" class="f10 table-borreg pad-lr" align="left">
 		    			
 		    			
 		    				<b class="text-red">

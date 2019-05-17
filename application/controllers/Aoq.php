@@ -148,7 +148,7 @@ class Aoq extends CI_Controller {
 			'purpose_id'=>$this->input->post('purpose'),
 			'date_needed'=>$this->input->post('date_needed'),
 			'requested_by'=>$this->input->post('requested_by'),
-			'remarks'=>$this->input->post('remarks'),
+		/*	'remarks'=>$this->input->post('remarks'),*/
 			'prepared_by'=>$_SESSION['user_id'],
 			'create_date'=>$date
 		);
@@ -230,6 +230,19 @@ class Aoq extends CI_Controller {
 				'warranty'=>$warranty
 			);
 		}
+		foreach($this->super_model->select_row_where("aoq_rfq", "aoq_id",  $aoq_id) AS $r){
+			foreach($this->super_model->select_row_where("rfq_detail", "rfq_id",  $r->rfq_id) AS $rf){
+				$item_name=$this->super_model->select_column_where('item','item_name','item_id', $rf->item_id);
+
+				//echo $aoq_id . " = " . $item_name . " - " .$rf->unit_price . "<br>";
+				$allprice[] = array(
+					'item_id'=>$rf->item_id,
+					'price'=>$rf->unit_price
+				);
+			}
+					
+		}
+		$x=0;
 
 		foreach($this->super_model->select_row_where("aoq_items", "aoq_id", $aoq_id) AS $items){
 			$item_name=$this->super_model->select_column_where('item','item_name','item_id', $items->item_id);
@@ -237,8 +250,17 @@ class Aoq extends CI_Controller {
 			foreach($this->super_model->select_row_where("item", "item_id", $items->item_id) AS $i){
 				$uom=$this->super_model->select_column_where('unit','unit_name','unit_id', $i->unit_id);
 			}
-			$min =$this->super_model->get_min_where('rfq_detail','unit_price',"item_id = '$items->item_id' AND unit_price != '0'");
-			
+			//$min =$this->super_model->get_min_where('rfq_detail','unit_price',"item_id = '$items->item_id' AND unit_price != '0'");
+			foreach($allprice AS $var=>$key){
+				foreach($key AS $v=>$k){
+					$item_name=$this->super_model->select_column_where('item','item_name','item_id', $key['item_id']);
+					if($key['item_id']==$items->item_id){
+						$minprice[$x][] = $key['price'];
+					}
+				}				
+			}
+			$min=min($minprice[$x]);
+
 			$item = $item_name . ", " .$specs;
 			$data['aoq_item'][]=array(
 				'item_id'=>$items->item_id,
@@ -247,6 +269,7 @@ class Aoq extends CI_Controller {
 				'qty'=>$items->quantity,
 				'min'=>$min
 			);
+			$x++;
 		}
 
 		$data['employee']=$this->super_model->select_all_order_by("employees", "employee_name", "ASC");
@@ -400,14 +423,36 @@ class Aoq extends CI_Controller {
 			);
 		}
 
+		foreach($this->super_model->select_row_where("aoq_rfq", "aoq_id",  $aoq_id) AS $r){
+			foreach($this->super_model->select_row_where("rfq_detail", "rfq_id",  $r->rfq_id) AS $rf){
+				$item_name=$this->super_model->select_column_where('item','item_name','item_id', $rf->item_id);
+
+				//echo $aoq_id . " = " . $item_name . " - " .$rf->unit_price . "<br>";
+				$allprice[] = array(
+					'item_id'=>$rf->item_id,
+					'price'=>$rf->unit_price
+				);
+			}
+					
+		}
+		$x=0;
 		foreach($this->super_model->select_row_where("aoq_items", "aoq_id", $aoq_id) AS $items){
 			$item_name=$this->super_model->select_column_where('item','item_name','item_id', $items->item_id);
 			$specs=$this->super_model->select_column_where('item','item_specs','item_id', $items->item_id);
 			foreach($this->super_model->select_row_where("item", "item_id", $items->item_id) AS $i){
 				$uom=$this->super_model->select_column_where('unit','unit_name','unit_id', $i->unit_id);
 			}
-			$min =$this->super_model->get_min_where('rfq_detail','unit_price',"item_id = '$items->item_id' AND unit_price != '0'");
-			
+			//$min =$this->super_model->get_min_where('rfq_detail','unit_price',"item_id = '$items->item_id' AND unit_price != '0'");
+			foreach($allprice AS $var=>$key){
+				foreach($key AS $v=>$k){
+					$item_name=$this->super_model->select_column_where('item','item_name','item_id', $key['item_id']);
+					if($key['item_id']==$items->item_id){
+						$minprice[$x][] = $key['price'];
+					}
+				}				
+			}
+			$min=min($minprice[$x]);
+
 			$item = $item_name . ", " .$specs;
 			$data['aoq_item'][]=array(
 				'item_id'=>$items->item_id,
@@ -416,6 +461,7 @@ class Aoq extends CI_Controller {
 				'qty'=>$items->quantity,
 				'min'=>$min
 			);
+			$x++;
 		}
 
 		$data['employee']=$this->super_model->select_all_order_by("employees", "employee_name", "ASC");
@@ -478,16 +524,39 @@ class Aoq extends CI_Controller {
 				'delivery'=>$delivery,
 				'warranty'=>$warranty
 			);
+
 		}
 
+
+		foreach($this->super_model->select_row_where("aoq_rfq", "aoq_id",  $aoq_id) AS $r){
+			foreach($this->super_model->select_row_where("rfq_detail", "rfq_id",  $r->rfq_id) AS $rf){
+				$item_name=$this->super_model->select_column_where('item','item_name','item_id', $rf->item_id);
+
+				//echo $aoq_id . " = " . $item_name . " - " .$rf->unit_price . "<br>";
+				$allprice[] = array(
+					'item_id'=>$rf->item_id,
+					'price'=>$rf->unit_price
+				);
+			}
+					
+		}
+
+		$x=0;
 		foreach($this->super_model->select_row_where("aoq_items", "aoq_id", $aoq_id) AS $items){
 			$item_name=$this->super_model->select_column_where('item','item_name','item_id', $items->item_id);
-			$specs=$this->super_model->select_column_where('item','item_specs','item_id', $items->item_id);
+			$specs=$this->super_model->select_column_where('item','item_specs','item_id', $items->item_id);			
 			foreach($this->super_model->select_row_where("item", "item_id", $items->item_id) AS $i){
 				$uom=$this->super_model->select_column_where('unit','unit_name','unit_id', $i->unit_id);
 			}
-			$min =$this->super_model->get_min_where('rfq_detail','unit_price',"item_id = '$items->item_id' AND unit_price != '0'");
-			
+			foreach($allprice AS $var=>$key){
+				foreach($key AS $v=>$k){
+					$item_name=$this->super_model->select_column_where('item','item_name','item_id', $key['item_id']);
+					if($key['item_id']==$items->item_id){
+						$minprice[$x][] = $key['price'];
+					}
+				}				
+			}
+			$min=min($minprice[$x]);
 			$item = $item_name . ", " .$specs;
 			$data['aoq_item'][]=array(
 				'item_id'=>$items->item_id,
@@ -496,6 +565,7 @@ class Aoq extends CI_Controller {
 				'qty'=>$items->quantity,
 				'min'=>$min
 			);
+			$x++;
 		}
 
 		$data['employee']=$this->super_model->select_all_order_by("employees", "employee_name", "ASC");

@@ -47,7 +47,9 @@ class Po extends CI_Controller {
 
 
         }
-        $data['pr'] = $this->super_model->select_row_where_order_by("aoq_header", "served", "0", "pr_no", "ASC");
+     /*   $data['pr'] = $this->super_model->select_row_where_order_by("aoq_header", "served", "0", "pr_no", "ASC");*/
+
+        $data['pr'] = $this->super_model->select_custom_where("aoq_header", "completed='1' AND served='0' ORDER BY pr_no ASC");
 
         foreach($this->super_model->select_row_where("po_pr", "po_id", $po_id) AS $prdet){
             $purpose= $this->super_model->select_column_where('purpose', 'purpose_name', 'purpose_id', $prdet->purpose_id);
@@ -395,6 +397,7 @@ class Po extends CI_Controller {
         $data['supplier']=$this->super_model->select_all_order_by("vendor_head", "vendor_name", "ASC");
        
          foreach($this->super_model->select_custom_where("po_head", "saved='1' AND cancelled='0' ORDER BY po_id DESC") AS $head){
+             $rfd=$this->super_model->count_rows_where("rfd","po_id",$head->po_id);
              $pr='';
             foreach($this->super_model->select_row_where("po_pr", "po_id", $head->po_id) AS $prd){
             $pr .= "-".$prd->pr_no."<br>";
@@ -405,7 +408,8 @@ class Po extends CI_Controller {
                 'po_no'=>$head->po_no,
                 'supplier'=>$this->super_model->select_column_where('vendor_head', 'vendor_name', 'vendor_id', $head->supplier_id),
                 'supplier_id'=>$head->supplier_id,
-                'pr'=>$pr
+                'pr'=>$pr,
+                'rfd'=>$rfd
               
             );
 

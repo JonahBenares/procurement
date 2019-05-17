@@ -27,7 +27,149 @@
         </div>
     </div>
     <!-- Breadcome End-->
+
+                
     
+     <div class="welcome-adminpro-area">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                    <div class="income-dashone-total income-monthly shadow-reset nt-mg-b-30 res-mg-t-30">
+                        <div class="income-title">
+                            <div class="main-income-head">
+                                <h2>RFQ</h2>
+                                <div class="main-income-phara">
+                                    <p>Pending</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="income-dashone-pro">
+                            <div class="income-rate-total">
+                                <div class="price-adminpro-rate">
+                                    <h3><span class="counter"><?php echo $pending_rfq; ?></span></h3>
+                                </div>
+                                <div class="price-graph">
+                                    <span id="sparkline1"></span>
+                                </div>
+                            </div>
+                            <div class="income-range">
+                                <p>Pending RFQ Percentage</p>
+                                <span class="income-percentange"><?php echo number_format($percent_rfq,2); ?>% <i class="fa fa-bolt"></i></span>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                    </div>
+                    <div class="income-dashone-total orders-monthly shadow-reset nt-mg-b-30">
+                        <div class="income-title">
+                            <div class="main-income-head">
+                                <h2>RFD</h2>
+                                <div class="main-income-phara order-cl">
+                                    <p>Pending</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="income-dashone-pro">
+                            <div class="income-rate-total">
+                                <div class="price-adminpro-rate">
+                                    <h3><span class="counter"><?php echo $pending_rfd; ?></span></h3>
+                                </div>
+                                <div class="price-graph">
+                                    <span id="sparkline6"></span>
+                                </div>
+                            </div>
+                            <div class="income-range order-cl">
+                                <p>Pending RFD Percentage</p>
+                                <span class="income-percentange"><?php echo number_format($percent_rfd,2); ?>% <i class="fa fa-level-up"></i></span>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                    </div>                    
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                    <div class="income-dashone-total visitor-monthly shadow-reset nt-mg-b-30">
+                            <div class="income-title">
+                                <div class="main-income-head">
+                                    <h2>For TE</h2>
+                                    <div class="main-income-phara visitor-cl">
+                                        <p>Pending</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="income-dashone-pro">
+                                <div class="income-rate-total">
+                                    <div class="price-adminpro-rate">
+                                        <h3><span class="counter"><?php echo $for_te; ?></span></h3>
+                                    </div>
+                                    <div class="price-graph">
+                                        <span id="sparkline2"></span>
+                                    </div>
+                                </div>
+                                <div class="income-range visitor-cl">
+                                    <p>TE Percentage</p>
+                                    <span class="income-percentange"><?php echo $percent_te; ?>% <i class="fa fa-level-up"></i></span>
+                                </div>
+                                <div class="clear"></div>
+                            </div>
+                    </div>
+                    <div class="income-dashone-total user-monthly shadow-reset nt-mg-b-30">
+                        <div class="income-title">
+                            <div class="main-income-head">
+                                <h2>User activity</h2>
+                                <div class="main-income-phara low-value-cl">
+                                    <p>Low Value</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="income-dashone-pro">
+                            <div class="income-rate-total">
+                                <div class="price-adminpro-rate">
+                                    <h3><span class="counter">88,200</span></h3>
+                                </div>
+                                <div class="price-graph">
+                                    <span id="sparkline5"></span>
+                                </div>
+                            </div>
+                            <div class="income-range low-value-cl">
+                                <p>In first month</p>
+                                <span class="income-percentange">33% <i class="fa fa-level-down"></i></span>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 desplay-n-tablet">
+                    <div class="dashone-adminprowrap shadow-reset mg-b-30">
+                        <div class="dash-adminpro-project-title">
+                            <h2>Project progress</h2>
+                            <p>You have two project right now.</p>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="dashone-doughnut">
+                                    <div id="sparklinedask1"></div>
+                                    <h3>Design</h3>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="dashone-doughnut">
+                                    <div id="sparklinedask2"></div>
+                                    <h3>Development</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="project-dashone-phara">
+                                    <p>Lorem Ipsum is simply dummy one text of the printing and the typesetting industry.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- welcome Project, sale area start-->
     <div class="welcome-adminpro-area">
         <div class="container-fluid">
