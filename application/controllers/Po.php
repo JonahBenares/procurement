@@ -47,7 +47,9 @@ class Po extends CI_Controller {
 
 
         }
-        $data['pr'] = $this->super_model->select_row_where_order_by("aoq_header", "served", "0", "pr_no", "ASC");
+     /*   $data['pr'] = $this->super_model->select_row_where_order_by("aoq_header", "served", "0", "pr_no", "ASC");*/
+
+        $data['pr'] = $this->super_model->select_custom_where("aoq_header", "completed='1' AND served='0' ORDER BY pr_no ASC");
 
         foreach($this->super_model->select_row_where("po_pr", "po_id", $po_id) AS $prdet){
             $purpose= $this->super_model->select_column_where('purpose', 'purpose_name', 'purpose_id', $prdet->purpose_id);
