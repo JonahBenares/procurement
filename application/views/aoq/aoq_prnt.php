@@ -490,7 +490,7 @@
 	      	<div class="modal-body">
 	        <div class="form-group">
                 <h5 class="m-b-0" style="text-align: left">Item Description:</h5>
-                <select name="item" id="soflow-color" class="semi-square" required="">
+                <select name="item" id="soflow-color" class="semi-square" required="" autofocus>
 				  	<option value='' selected>-Select Item-</option>
 				  	<?php foreach($items AS $it){ ?>
 				  		<option value="<?php echo $it->item_id; ?>"><?php echo $it->item_name . ", " . $it->item_specs; ?></option>

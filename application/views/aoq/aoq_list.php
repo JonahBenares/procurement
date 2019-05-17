@@ -76,13 +76,13 @@
                                             <td><?php echo date('F j, Y', strtotime($head['date_needed'])); ?></td>
                                             <td><?php  
                                             if($head['saved'] == '1' && $head['completed'] =='0') { 
-                                                echo "Pending";
+                                                echo "For TE";
                                             } else if($head['saved'] == '1' && $head['completed'] =='1'){
                                                 echo "Completed";
                                             }?></td>
                                             <td>
                                                 <center>
-                                                <?php if($head['rows']==3){ ?>
+                                                <?php if($head['rows']<=3){ ?>
                                                     <a href="<?php echo base_url(); ?>aoq/aoq_prnt/<?php echo $head['aoq_id']; ?>" class="btn btn-custon-three btn-warning btn-xs" >
                                                         <span class="fa fa-eye"></span>
                                                     </a>

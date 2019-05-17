@@ -77,14 +77,14 @@
                                                                 <?php }  ?> 
                                                             </select>
                                                         </div>
-                                                        <div class="form-group">
+                                                       <!--  <div class="form-group">
                                                             <p class="m-b-0">Remarks:</p>
                                                             <textarea cols="3" name="remarks" class="form-control" ></textarea>
-                                                        </div>
+                                                        </div>-->
                                                         <center>
                                                             <input type='submit' name='submit' value='Proceed' class="btn btn-custon-three btn-primary btn-block">
-                                                            <!-- <a href="<?php echo base_url(); ?>index.php/aoq/aoq_prnt" class="btn btn-custon-three btn-primary btn-block">Proceed</a> -->
-                                                        </center>
+                                                           
+                                                        </center> 
                                                     </div>
                                                    <?php
                                                     foreach($rfq as $r)

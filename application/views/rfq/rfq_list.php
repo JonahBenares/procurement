@@ -9,7 +9,7 @@
            this.checked = false;
            alert('You can only choose up to 5 RFQs.');
         } 
-         if(countCheckedCheckboxes  > 2){
+         if(countCheckedCheckboxes  >= 1){
             $('#createAOQ').removeAttr("disabled");
          }
     });

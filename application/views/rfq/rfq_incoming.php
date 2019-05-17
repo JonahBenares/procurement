@@ -230,7 +230,7 @@
 		    			<?php if($completed==0){ ?>
 		    				<input type="date" name="delivery_date" class="sel-des" autocomplete="off">
 		    			<?php } else {
-		    				echo date('F j, Y', strtotime($h['delivery_date']));
+		    				echo (!empty($h['delivery_date']) ? date('F j, Y', strtotime($h['delivery_date'])) : '');
 		    			} ?></td>
 		    			<td class="f13" colspan="3"></td>
 

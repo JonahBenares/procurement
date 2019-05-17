@@ -148,7 +148,7 @@ class Aoq extends CI_Controller {
 			'purpose_id'=>$this->input->post('purpose'),
 			'date_needed'=>$this->input->post('date_needed'),
 			'requested_by'=>$this->input->post('requested_by'),
-			'remarks'=>$this->input->post('remarks'),
+		/*	'remarks'=>$this->input->post('remarks'),*/
 			'prepared_by'=>$_SESSION['user_id'],
 			'create_date'=>$date
 		);
@@ -164,7 +164,7 @@ class Aoq extends CI_Controller {
 		}
 
 		$count = count($rfq);
-		if($count==3){
+		if($count<=3){
 			redirect(base_url().'aoq/aoq_prnt/'.$aoq_id);
 		} else if($count==4){
 			redirect(base_url().'aoq/aoq_prnt_four/'.$aoq_id);
@@ -335,7 +335,7 @@ class Aoq extends CI_Controller {
     	);
 
     	if($this->super_model->update_where("aoq_header", $head, "aoq_id", $aoq_id)){
-	    	if($count==3){
+	    	if($count<=3){
 				redirect(base_url().'aoq/aoq_prnt/'.$aoq_id, 'refresh');
 			} else if($count==4){
 				redirect(base_url().'aoq/aoq_prnt_four/'.$aoq_id, 'refresh');
@@ -517,7 +517,7 @@ class Aoq extends CI_Controller {
     	//$this->super_model->insert_into("aoq_items", $items);
 
     	if($this->super_model->insert_into("aoq_items", $items)){
-    		if($count==3){
+    		if($count<=3){
     			redirect(base_url().'aoq/aoq_prnt/'.$aoq_id);
     		} else if($count==4){
     			redirect(base_url().'aoq/aoq_prnt_four/'.$aoq_id);
