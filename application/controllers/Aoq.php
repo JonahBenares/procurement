@@ -148,7 +148,7 @@ class Aoq extends CI_Controller {
 			'purpose_id'=>$this->input->post('purpose'),
 			'date_needed'=>$this->input->post('date_needed'),
 			'requested_by'=>$this->input->post('requested_by'),
-			'remarks'=>$this->input->post('remarks'),
+		/*	'remarks'=>$this->input->post('remarks'),*/
 			'prepared_by'=>$_SESSION['user_id'],
 			'create_date'=>$date
 		);

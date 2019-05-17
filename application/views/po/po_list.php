@@ -159,6 +159,7 @@
                                             <th>PO #</th>
                                             <th>Supplier</th>
                                             <th>PR #</th>
+                                            <th>Status</th>
                                             <th><center><span class="fa fa-bars"></span></center></th>
                                         </tr>
                                     </thead>
@@ -171,6 +172,7 @@
                                             <td><?php echo $head['po_no']; ?></td>
                                             <td><?php echo $head['supplier']; ?></td>
                                             <td><?php echo $head['pr']; ?></td>
+                                            <td><?php echo (($head['rfd']==0) ? 'Pending RFD' : ''); ?></td>
                                             <td>
                                                 <center>
                                                      <a href="<?php echo base_url(); ?>po/purchase_order_saved/<?php echo $head['po_id']; ?>" class="btn btn-custon-three btn-warning btn-xs">

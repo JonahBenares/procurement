@@ -178,7 +178,7 @@
 		    			<?php if($h['saved']==0){ ?>
 		    			 <input class="emphasis" type="date" name="due_date" >
 		    			 <?php } else { 
-		    			 	echo date('F j, Y', strtotime($h['due_date']));
+		    			 	echo (!empty($h['due_date']) ? date('F j, Y', strtotime($h['due_date'])) :'');
 		    			  } ?>
 		    			 </td></tr>	    	
 		    		<tr><td class="f13" colspan="20">2. Please Fill - Up :</td></tr>	    	

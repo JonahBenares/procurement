@@ -270,6 +270,7 @@
 					    		<?php
 					    		
 					    		$pr_price=array();
+					    		if(!empty($items)){
 					    		 foreach($items AS $it){ 
 					    		 	if($prd['pr_no']==$it['pr_no']){
 					    		 	$tprice = $it['quantity'] * $it['price'];
@@ -292,7 +293,7 @@
 					    		$x++;
 					    			}
 					    		} 
-
+					    	}
 					    		$prprice = array_sum($pr_price);
 					    		$total[] = $prprice; ?>
 					    		<!--<tr>

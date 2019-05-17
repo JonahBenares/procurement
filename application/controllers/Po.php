@@ -395,6 +395,7 @@ class Po extends CI_Controller {
         $data['supplier']=$this->super_model->select_all_order_by("vendor_head", "vendor_name", "ASC");
        
          foreach($this->super_model->select_custom_where("po_head", "saved='1' AND cancelled='0' ORDER BY po_id DESC") AS $head){
+             $rfd=$this->super_model->count_rows_where("rfd","po_id",$head->po_id);
              $pr='';
             foreach($this->super_model->select_row_where("po_pr", "po_id", $head->po_id) AS $prd){
             $pr .= "-".$prd->pr_no."<br>";
@@ -405,7 +406,8 @@ class Po extends CI_Controller {
                 'po_no'=>$head->po_no,
                 'supplier'=>$this->super_model->select_column_where('vendor_head', 'vendor_name', 'vendor_id', $head->supplier_id),
                 'supplier_id'=>$head->supplier_id,
-                'pr'=>$pr
+                'pr'=>$pr,
+                'rfd'=>$rfd
               
             );
 
