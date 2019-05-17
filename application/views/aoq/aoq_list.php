@@ -82,7 +82,7 @@
                                             }?></td>
                                             <td>
                                                 <center>
-                                                <?php if($head['rows']==3){ ?>
+                                                <?php if($head['rows']<=3){ ?>
                                                     <a href="<?php echo base_url(); ?>aoq/aoq_prnt/<?php echo $head['aoq_id']; ?>" class="btn btn-custon-three btn-warning btn-xs" >
                                                         <span class="fa fa-eye"></span>
                                                     </a>
