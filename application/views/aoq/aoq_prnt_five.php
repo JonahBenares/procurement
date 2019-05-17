@@ -151,6 +151,7 @@
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/font-awesome.min.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/mixins.css">
+    <script src="<?php echo base_url(); ?>assets/js/all-scripts.js"></script> 
     <div  class="pad">
     		<?php if($saved==1){
 			$url =  base_url().'aoq/aoq_complete';
@@ -546,7 +547,7 @@
                 </div>                                   
                 <div class="form-group">
                     <h5 class="m-b-0" style="text-align: left">Qty:</h5>
-                    <input type='text' name="qty" class="form-control" required="" autocomplete="off">
+                    <input type='text' name="qty" class="form-control" required="" autocomplete="off"  onkeypress="return isNumberKey(this, event)">
                 </div>
 
 		      	</div>

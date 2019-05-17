@@ -11,6 +11,7 @@
 	    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/font-awesome.min.css">
 	    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/bootstrap.min.css">
 	    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/mixins.css">
+	    <script src="<?php echo base_url(); ?>assets/js/all-scripts.js"></script> 
 	</head>
   	<style type="text/css">
         html, body{
@@ -166,7 +167,7 @@
 		    						</td>
 		    						<td class="f13" align="center">
 		    						<?php if($completed==0){ ?>
-		    							<input type="text" name="price<?php echo $x; ?>" class="sel-des" autocomplete="off" required>
+		    							<input type="text" name="price<?php echo $x; ?>" class="sel-des" autocomplete="off" required onkeypress="return isNumberKey(this, event)">
 		    							<?php } else {
 		    							echo $item['price'];
 		    						} ?>
