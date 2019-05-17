@@ -17,8 +17,8 @@
                                 <ul class="breadcome-menu">
                                     <li><a href="<?php echo base_url(); ?>index.php/masterfile/dashboard">Home</a> <span class="bread-slash">/</span>
                                     </li>
-                                    <li><span class="bread-blod">PO List</span>
-                                    </li>
+                                    <li><a href="<?php echo base_url(); ?>index.php/po/po_list">PO List </a> <span class="bread-slash">/</span></li>
+                                    <li><span class="bread-blod">Cancelled PO List</span></li>
                                 </ul>
                             </div>
                         </div>
@@ -44,7 +44,7 @@
                         </div>
                         <div class="form-group">
                             <p class="m-b-0">PO NO:</p>
-                            <input type="text" name="po_no" class="form-control" autocomplete="off">
+                            <input type="text" name="po_no" class="form-control">
                         </div>
                         <div class="form-group">
                             <p class="m-b-0">Supplier:</p>
@@ -90,38 +90,13 @@
                         <a class="close" data-dismiss="modal" href="#"><i class="fa fa-close"></i></a>
                     </div>
                 </div>
-                <form method="POST" action = "<?php echo base_url();?>po/cancel_po">
+                <form method="POST" action = "<?php echo base_url();?>index.php/po/create_po">
                     <div class="modal-body-lowpad">
                         <div class="form-group">
-                            <p class="m-b-0">Reason for Cancelling PO:</p>
+                            <p class="m-b-0">Reason:</p>
                             <textarea name="reason" class="form-control"></textarea>
                         </div>
-                        <center>       
-                            <input type = "hidden" id='po_id' name='po_id' >                 
-                            <input type = "submit" class="btn btn-custon-three btn-primary btn-block" value = "Save">
-                        </center>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-     <div id="cancelDuplicatePO" class="modal modal-adminpro-general default-popup-PrimaryModal fade" role="dialog">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header header-color-modal bg-color-1">
-                    <h4 class="modal-title">Cancel and Duplicate PO</h4>
-                    <div class="modal-close-area modal-close-df">
-                        <a class="close" data-dismiss="modal" href="#"><i class="fa fa-close"></i></a>
-                    </div>
-                </div>
-                <form method="POST" action = "<?php echo base_url();?>po/cancel_and_duplicate">
-                    <div class="modal-body-lowpad">
-                        <div class="form-group">
-                            <p class="m-b-0">Reason for Cancelling PO:</p>
-                            <textarea name="reason" class="form-control"></textarea>
-                        </div>
-                        <center>       
-                            <input type = "hidden" id='po_id' name='po_id' >                 
+                        <center>                           
                             <input type = "submit" class="btn btn-custon-three btn-primary btn-block" value = "Save">
                         </center>
                     </div>
@@ -135,13 +110,13 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="sparkline8-list shadow-reset">
-                        <div class="sparkline8-hd">
+                        <div class="sparkline8-hd" style="background: #ff6262">
                             <div class="main-sparkline8-hd">
-                                <h1>PO List</h1>
-                                <small>PURCHASE ORDER</small>
+                                <h1 class="text-white">CANCELLED PO List</h1>
+                                <small class="text-white">PURCHASE ORDER</small>
                                 <div class="sparkline8-outline-icon">
-                                <a href="<?php echo base_url(); ?>po/cancelled_po" class="btn btn-custon-three btn-danger"><span class="p-l-0 fa fa-ban"></span> Cancelled PO</a> 
-                                <input type='button' class="btn btn-custon-three btn-primary" value='Add PO'  data-toggle="modal" data-target="#addPO"> 
+                                    <h2><span class="fa fa-ban"></span></h2>
+                                <!-- <input type='button' class="btn btn-custon-three btn-primary" value='Add PO'  data-toggle="modal" data-target="#addPO">  -->
                                   <!--   <a class="btn btn-custon-three btn-primary" href=">
                                         <span class="fa fa-plus p-l-0"></span>
                                         Create AOQ
@@ -159,31 +134,33 @@
                                             <th>PO #</th>
                                             <th>Supplier</th>
                                             <th>PR #</th>
+                                            <th>Cancel Date</th>
+                                            <th>Reason</th>
                                             <th><center><span class="fa fa-bars"></span></center></th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                     <?php 
-                                    if(!empty($header)){
-                                    foreach($header AS $head){ ?>
+                                        if(!empty($header)){
+                                            foreach($header AS $head){ 
+                                                if($head['cancelled']==1){
+                                    ?>
                                         <tr>
                                             <td><?php echo date('F j, Y', strtotime($head['po_date'])); ?></td>
                                             <td><?php echo $head['po_no']; ?></td>
                                             <td><?php echo $head['supplier']; ?></td>
                                             <td><?php echo $head['pr']; ?></td>
+                                            <td><?php echo $head['cancelled_date']; ?></td>
+                                            <td><?php echo $head['cancel_reason']; ?></td>
                                             <td>
                                                 <center>
                                                      <a href="<?php echo base_url(); ?>po/purchase_order_saved/<?php echo $head['po_id']; ?>" class="btn btn-custon-three btn-warning btn-xs">
                                                         <span class="fa fa-eye"></span>
                                                     </a>
-                                                    <a class="cancelDuplicatePO btn btn-custon-three btn-info btn-xs" data-toggle="modal" data-target="#cancelDuplicatePO" data-id="<?php echo $head['po_id']; ?>">Cancel & Duplicate</a>
-                                                    <a class="cancelPO btn btn-custon-three btn-danger btn-xs" data-toggle="modal" data-target="#cancelPO" data-id="<?php echo $head['po_id']; ?>">Cancel</a>
-                                                    <!--<a href="" class="btn btn-custon-three btn-danger btn-xs"  data-toggle="modal" data-target="#cancelPO" title="WITH MODAL REASON">Cancel</a>-->
                                                 </center>
                                             </td>
-                                        </tr>  
-                                        <?php } 
-                                        } ?>                                   
+                                        </tr>
+                                    <?php } } } ?>                             
                                     </tbody>
                                 </table>
 

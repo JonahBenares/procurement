@@ -21,6 +21,12 @@
         .pad{
         	padding:0px 250px 0px 250px
         }
+        .cancel{
+        	background-image: url('../../assets/img/cancel.png')!important;
+        	background-repeat:no-repeat!important;
+        	background-size: contain!important;
+        	background-position: center center!important;
+        }	
         .table-bordered>tbody>tr>td, 
         .table-bordered>tbody>tr>th, 
         .table-bordered>tfoot>tr>td, 
@@ -64,8 +70,14 @@
 				color: red!important;
 			}
 			.bor-right{
-			border-right: 1px solid #000;
-		}
+				border-right: 1px solid #000;
+			}
+			.cancel{
+	        	background-image: url('../assets/img/cancel.png')!important;
+	        	background-repeat:no-repeat!important;
+	        	background-size: contain!important;
+	        	background-position: center center!important;
+	        }
 		}
 		.text-white{
 			color: #fff;
@@ -88,19 +100,22 @@
     
     <div  class="pad">
 
-    	<form method='POST' action=''>  
+    	<form method='POST' action='<?php echo base_url(); ?>po/save_rfd'>  
     		<div  id="prnt_btn">
 	    		<center>
 			    	<div class="btn-group">
 						<a href="javascript:history.go(-1)" class="btn btn-success btn-md p-l-100 p-r-100"><span class="fa fa-arrow-left"></span> Back</a>
+						<?php if($saved==1){ ?>
 						<a  onclick="printPage()" class="btn btn-warning btn-md p-l-100 p-r-100"><span class="fa fa-print"></span> Print</a>
+						<?php } else { ?>
 						<input type='submit' class="btn btn-primary btn-md p-l-100 p-r-100" value="Save">	
+						<?php } ?>
 					</div>
-					<p class="text-white">Instructions: When printing DELIVERY RECEIPT make sure the following options are set correctly -- <u>Browser</u>: Chrome, <u>Layout</u>: Portrait, <u>Paper Size</u>: A4 <u>Margin</u> : Default <u>Scale</u>: 100</p>
+					<p class="text-white">Instructions: When printing DELIVERY RECEIPT make sure the following options are set correctly -- <u>Browser</u>: Chrome, <u>Layout</u>: Portrait, <u>Paper Size</u>: A4 <u>Margin</u> : Default <u>Scale</u>: 100 and the option: Background graphics is checked</p>
 				</center>
 			</div>
-	    	<div style="background: #fff;">    		  			
-		    	<table class="table-bordsered" width="100%" style="border:1px solid #000">
+	    	<div style="background: #fff;" <?php echo (($cancelled==1) ? 'class="cancel"' : ''); ?>>    		  			
+		    	<table class="table-borddered" width="100%" style="border:1px solid #000">
 		    		<tr>
 		    			<td width="5%"><br></td>
 		    			<td width="5%"><br></td>
@@ -127,37 +142,88 @@
 		    			<td colspan="5" align="center"><img width="150px" src="<?php echo base_url(); ?>assets/img/logo_cenpri.png"></td>
 		    			<td colspan="15"><h4 style="margin-left: 30px"><b>CENTRAL NEGROS POWER RELIABILITY, INC.</b></h4></td>
 		    		</tr>
-		    		<tr><td colspan="20" align="center"><h5><b>REQUEST FOR DISBURSTMENT</b></h5></td></tr>
+		    		<tr><td colspan="20" align="center"><h5><b>REQUEST FOR DISBURSEMENT</b></h5></td></tr>
 		    		<!-- <tr><td class="f13" colspan="20" align="center"><br></td></tr> -->
 		    		<tr>
 		    			<td colspan="3"><b class="nomarg">Company:</b></td>
-		    			<td colspan="9" class="bor-btm"><b class="nomarg">CENPRI-SITE</b></td>
+		    			<td colspan="9" class="bor-btm">
+		    			<?php if($saved==0){ ?>
+		    			<input type="text" style="width:100%" name="company" autocomplete="off">
+		    			<?php } else { 
+		    				echo "<b class='nomarg'>" . $company . "</b>";
+		    			 } ?></td>
 		    			<td colspan="3" align="right"><b class="nomarg">APV No.:</b></td>
-		    			<td colspan="5" class="bor-btm"><b class="nomarg">PO No: PR-191-4763</b></td>
+		    			<td colspan="5" class="bor-btm">
+		    			<?php if($saved==0){ ?>
+		    				<input type="text" style="width:100%" name="apv_no" autocomplete="off">
+		    			<?php } else { 
+		    				echo "<b class='nomarg'>" . $apv_no  . "</b>";
+		    			 } ?></td>
 		    		</tr>
 		    		<tr>
 		    			<td colspan="3"><b class="nomarg">Pay To:</b></td>
-		    			<td colspan="9" class="bor-btm"><b class="nomarg">A-ONE INDUSTRIAL SALES</b></td>
+		    			<td colspan="9" class="bor-btm"><b class="nomarg">
+		    			<?php if($saved==0){ 
+		    			 	echo $supplier;
+		    			} else { 
+		    				echo $pay_to;
+		    			 } ?></b></td>
 		    			<td colspan="3" align="right"><b class="nomarg">Date:</b></td>
-		    			<td colspan="5" class="bor-btm"><b class="nomarg">April 27,2019</b></td>
+		    			<td colspan="5" class="bor-btm">
+		    			<?php if($saved==0){ ?>
+		    				<input type="date" style="width:100%" name="rfd_date">
+		    			<?php } else { 
+		    				echo "<b class='nomarg'>" . date('F j, Y', strtotime($rfd_date)). "</b>" ;
+		    			 } ?></b></td>
 		    		</tr>
 		    		<tr>
 		    			<td colspan="3"><b class="nomarg">Check Name:</b></td>
-		    			<td colspan="9" class="bor-btm"><b class="nomarg">A-ONE INDUSTRIAL SALES</b></td>
+		    			<td colspan="9" class="bor-btm">
+		    			<?php if($saved==0){ ?>
+		    			<input type="text" style="width:100%" name="check_name" value="<?php echo $supplier; ?>" autocomplete="off">
+		    			<?php } else { 
+		    				echo "<b class='nomarg'>" . $check_name . "</b>";
+		    			 } ?></td>
 		    			<td colspan="3" align="right"><b class="nomarg">Due Date:</b></td>
-		    			<td colspan="5" class="bor-btm"><b class="nomarg">April 27,2019</b></td>
+		    			<td colspan="5" class="bor-btm">
+		    				<?php if($saved==0){ ?>
+		    			<input type="date" style="width:100%" name="due_date">
+		    			<?php } else { 
+		    				echo "<b class='nomarg'>" . date('F j, Y', strtotime($due_date)) . "</b>";
+		    			 } ?></td>
 		    		</tr>
 		    		<tr>
 		    			<td></td>
-		    			<td class="bor-btm" align="center"><span class="fa fa-check"></span></td>
+		    			<td class="bor-btm" align="center">
+		    			<?php if($saved==0){ ?>
+		    				<input type="radio"  name="cash" value='1'>
+		    			<?php } else { 
+		    				if($cash==1) echo "<span class='fa fa-check'></span>";
+		    			} ?></td>
 		    			<td><b class="nomarg">Cash</b></td>
-		    			<td class="bor-btm" align="center"><span class="fa fa-check"></span></td>
+		    			<td class="bor-btm" align="center">
+		    			<?php if($saved==0){ ?>
+		    			<input type="radio" name="cash" value='2'>
+		    			<?php } else { 
+		    				if($check==1) echo "<span class='fa fa-check'></span>";
+		    			} ?>
+		    			</td>
 		    			<td><b class="nomarg">Check</b></td>
 		    			<td></td>
 		    			<td colspan="2"><b class="nomarg">Bank / no.</b></td>
-		    			<td colspan="4" class="bor-btm"><b class="nomarg">288934664</b></td>
+		    			<td colspan="4" class="bor-btm">
+		    			<?php if($saved==0){ ?>
+		    			<input type="text" style="width:100%" name="bank_no" autocomplete="off">
+		    			<?php } else { 
+		    				echo "<b class='nomarg'>" . $bank_no  ;
+		    			 } ?></td>
 		    			<td colspan="3" align="right"><b class="nomarg">Check Due:</b></td>
-		    			<td colspan="5" class="bor-btm"><b class="nomarg">April 27,2019</b></td>
+		    			<td colspan="5" class="bor-btm">
+		    				<?php if($saved==0){ ?>
+		    			<input type="date" style="width:100%" name="check_due">
+		    			<?php } else { 
+		    				echo "<b class='nomarg'>" .  date('F j, Y', strtotime($check_date))  . "</b>";
+		    			 } ?></td>
 		    		</tr>
 		    		<tr>
 		    			<td colspan="20"><br></td>
@@ -174,53 +240,49 @@
 		    			<td align="left" colspan="17" class="bor-right"><b class="nomarg">Payment for:</b></td>
 		    			<td align="right" colspan="3"></td>
 		    		</tr>
+		    		<?php foreach($items AS $it){ 
+		    			$total = $it['price'] * $it['quantity']; 
+		    			$gross[]=$total;?>
 		    		<tr>
 		    			<td align="left" colspan="17" class="bor-right">
-		    				<b class="nomarg">1 set, Power tools; Brand: Ken, Model: 69135, @Php 2,790.00 per set</b>
+		    				<b class="nomarg"><?php echo $it['quantity'] . " " . $it['uom']. ", ". $it['item'] . " " . $it['item_specs'].", @Php " . number_format($it['price'],2) . " per " . $it['uom']; ?></b>
 		    			</td>
 		    			<td align="right" colspan="3">
 		    				<span class="pull-left nomarg">₱</span>
-		    				<span class="nomarg" id=''><b>2,790.00</b></span>
+		    				<span class="nomarg" id=''><b><?php echo number_format($total,2); ?></b></span>
 		    			</td>
 		    		</tr>
+		    		<?php } 
+		    		$less_amount = array_sum($gross) * ($ewt/100);
+		    		$net = array_sum($gross) - $less_amount;
+		    		?>
+		    		<input type="hidden" name="pay_to" value="<?php echo $supplier; ?>">
+		    		<input type='hidden' name='gross_amount' value="<?php echo array_sum($gross); ?>">
+		    		<input type='hidden' name='less_amount' value="<?php echo $less_amount; ?>">
+		    		<input type='hidden' name='net_amount' value="<?php echo $net; ?>">
 		    		<tr>
-		    			<td align="left" colspan="17" class="bor-right">
-		    				<b class="nomarg">1 unit, Acetylene cutting outfit; Brand: Supercut, Model: 69135, @Php 4,520.00 per unit</b>
-		    			</td>
-		    			<td align="right" colspan="3" >
-		    				<span class="pull-left nomarg">₱</span>
-		    				<span class="nomarg" id=''><b>4,520.00</b></span>
-		    			</td>
-		    		</tr>
-		    		<tr>
-		    			<td align="left" colspan="17" class="bor-right"></td>
-		    			<td align="right" colspan="3" class="bor-top">
-		    				<span class="pull-left nomarg">₱</span>
-		    				<span class="nomarg" id=''><b>2,790.00</b></span>
-		    			</td>
-		    		</tr>
-		    		<tr>
-		    			<td align="right" colspan="17" class="bor-right"><b class="nomarg">Less: 1% EWT</b></td>
+		    			<td align="right" colspan="17" class="bor-right"><b class="nomarg">Less: <?php echo $ewt; ?>% EWT</b></td>
 		    			<td align="right" colspan="3">
 		    				<span class="pull-left nomarg">₱</span>
-		    				<span class="nomarg" id=''><b style="font-weight: 900">(65.27)</b></span>
+		    				<span class="nomarg" id=''><b style="font-weight: 900">(<?php echo number_format($less_amount,2); ?>)</b></span>
 		    			</td>
 		    		</tr>
+		    		<?php foreach($detail AS $det){ ?>
 		    		<tr>
 		    			<td align="left" colspan="17" class="bor-right">
-		    				<b class="nomarg">Purpose: Consumables, Tools and Equipment's for spare stator rewinding</b>
+		    				<b class="nomarg">Purpose: <?php echo $det['purpose']; ?></b>
 		    			</td>
 		    			<td align="right" colspan="3"></td>
 		    		</tr>
 		    		<tr>
 		    			<td align="left" colspan="17" class="bor-right">
-		    				<b class="nomarg">End Use: Spare Ideal Generator</b>
+		    				<b class="nomarg">End Use: <?php echo $det['enduse']; ?></b>
 		    			</td>
 		    			<td align="right" colspan="3"></td>
 		    		</tr>
 		    		<tr>
 		    			<td align="left" colspan="17" class="bor-right">
-		    				<b class="nomarg">Requestor: Juluis Pangilinan / Kennah Sasamoto; PR-191-2019</b>
+		    				<b class="nomarg">Requestor: <?php echo $det['requestor']; ?>; <?php echo $det['pr_no']; ?></b>
 		    			</td>
 		    			<td align="right" colspan="3"></td>
 		    		</tr>
@@ -228,12 +290,14 @@
 		    			<td align="center" colspan="17" class="bor-right"><br></td>
 		    			<td align="center" colspan="3"><br></td>
 		    		</tr>
+		    		<?php } ?>
+		    		
 		    		<tr>
-		    			<td align="left" colspan="7" ><b class="nomarg">P.O. No: PR-191-4763</b></td>
+		    			<td align="left" colspan="7" ><b class="nomarg">P.O. No: <?php echo $po_no; ?></b></td>
 		    			<td align="right" colspan="10" class="bor-right"><b class="nomarg" style="font-weight: 900">Total Amount Due</b></td>
 		    			<td align="right" colspan="3" style="border-bottom: 2px solid #000">
 		    				<span class="pull-left nomarg">₱</span>
-		    				<span class="nomarg" id=''><b style="font-weight: 900">7,244.73</b></span>
+		    				<span class="nomarg" id=''><b style="font-weight: 900"><?php echo number_format($net,2); ?></b></span>
 		    			</td>
 		    		</tr>
 		    		<tr>
@@ -249,15 +313,54 @@
 		    		</tr>	
 		    		<tr><td class="f13" colspan="20" align="center"><br></td></tr>	
 		    		<tr>
-		    			<td colspan="5"><b class="nomarg">Kervic S. Biñas</b></td>
-		    			<td colspan="5"><b>Annavi Lacambra</b></td>
-		    			<td colspan="5"><b>Zyndyryn B. Rosales</b></td>
-		    			<td colspan="5"><b>David C. Tan</b></td>
+		    			<td colspan="5"><b class="nomarg"><?php echo $prepared; ?></b></td>
+		    			<td colspan="5">
+		    			<b>
+		    			<?php if($saved==0){ ?>
+		    			<select name='checked' class="select-des emphasis">
+			    			<option value=''>-Select Employee-</option>
+			    			<?php foreach($employee AS $emp){ ?>
+			    				<option value='<?php echo $emp->employee_id; ?>'><?php echo $emp->employee_name; ?></option>
+			    			<?php } ?>
+		    			</select>
+		    			<?php } else {
+		    				echo $checked;
+		    			} ?>
+		    			</b>
+		    			</td>
+		    			<td colspan="5">
+		    			<b>
+		    			<?php if($saved==0){ ?>
+		    			<select name='endorsed' class="select-des emphasis">
+			    			<option value=''>-Select Employee-</option>
+			    			<?php foreach($employee AS $emp){ ?>
+			    				<option value='<?php echo $emp->employee_id; ?>'><?php echo $emp->employee_name; ?></option>
+			    			<?php } ?>
+		    			</select>
+		    			<?php } else {
+		    				echo $endorsed;
+		    			} ?>
+		    			</b>
+		    			</td>
+		    			<td colspan="5">
+		    			<b>
+		    			<?php if($saved==0){ ?>
+		    			<select name='approved' class="select-des emphasis">
+			    			<option value=''>-Select Employee-</option>
+			    			<?php foreach($employee AS $emp){ ?>
+			    				<option value='<?php echo $emp->employee_id; ?>'><?php echo $emp->employee_name; ?></option>
+			    			<?php } ?>
+		    			</select>
+		    			<?php } else {
+		    				echo $approved;
+		    			} ?>
+		    			</b>
+		    			</td>
 		    		</tr>	    		
 		    		<tr><td class="f13" colspan="20" align="center"><br></td></tr>		
 		    	</table>		    
 	    	</div>
-	    	<input type='hidden' name='rfq_id' value='>'>
+	    	<input type='hidden' name='po_id' value='<?php echo $po_id; ?>'>
     	</form>
     </div>
     <script type="text/javascript">

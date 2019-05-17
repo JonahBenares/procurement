@@ -61,6 +61,7 @@ class Vendors extends CI_Controller {
                 'type'=>$et->type,
                 'contact'=>$et->contact_person,
                 'notes'=>$et->notes,
+                'ewt'=>$et->ewt,
                 'status'=>$et->status
             );
         }
@@ -78,6 +79,7 @@ class Vendors extends CI_Controller {
         $type = trim($this->input->post('type')," ");
         $contact = trim($this->input->post('contact')," ");
         $note = trim($this->input->post('note')," ");
+        $ewt = trim($this->input->post('ewt')," ");
         $status = trim($this->input->post('status')," ");
         $data = array(
             'vendor_name'=>$vendor,
@@ -89,6 +91,7 @@ class Vendors extends CI_Controller {
             'type'=>$type,
             'contact_person'=>$contact,
             'notes'=>$note,
+            'ewt'=>$ewt,
             'status'=>$status,
         );
         if($this->super_model->insert_into("vendor_head", $data)){
@@ -116,6 +119,7 @@ class Vendors extends CI_Controller {
             'type'=>$this->input->post('type'),
             'contact_person'=>$this->input->post('contact'),
             'notes'=>$this->input->post('notes'),
+            'ewt'=>$this->input->post('ewt'),
             'status'=>$this->input->post('status'),
         );
         $vendor_id = $this->input->post('vendor_id');
@@ -250,6 +254,12 @@ class Vendors extends CI_Controller {
             $data['notes'] = $this->input->post('notes');
         } else {
             $data['notes'] = "null";
+        }
+
+        if(!empty($this->input->post('ewt'))){
+            $data['ewt'] = $this->input->post('ewt');
+        } else {
+            $data['ewt'] = "null";
         } 
 
         if(!empty($this->input->post('status'))){
@@ -315,6 +325,12 @@ class Vendors extends CI_Controller {
             $filter .= "Notes - ".$notes.", ";
         }
 
+        if(!empty($this->input->post('ewt'))){
+            $ewt = $this->input->post('ewt');
+            $sql.=" vendor_head.ewt LIKE '%$ewt%' AND";
+            $filter .= "EWT(%) - ".$ewt.", ";
+        }
+
         if(!empty($this->input->post('status'))){
             $status = $this->input->post('status');
             $sql.=" vendor_head.status = '$status' AND";
@@ -335,6 +351,7 @@ class Vendors extends CI_Controller {
                 'type'=>$et->type,
                 'contact'=>$et->contact_person,
                 'notes'=>$et->notes,
+                'ewt'=>$et->ewt,
                 'status'=>$et->status
             );
         }
@@ -355,6 +372,7 @@ class Vendors extends CI_Controller {
             $terms = $info->terms;
             $type = $info->type;
             $notes = $info->notes;
+            $ewt = $info->ewt;
         }
         $objPHPExcel = new PHPExcel();
         $exportfilename="Vendor Profile.xlsx";
@@ -375,8 +393,10 @@ class Vendors extends CI_Controller {
         $objPHPExcel->setActiveSheetIndex(0)->setCellValue('B6', $terms);
         $objPHPExcel->setActiveSheetIndex(0)->setCellValue('C6', "Type:");
         $objPHPExcel->setActiveSheetIndex(0)->setCellValue('D6', $type);
-        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('A7', "Notes:");
-        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('B7', $notes);
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('A7', "EWT(%):");
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('B7', $ewt);
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('C7', "Notes:");
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('D7', $notes);
         $objPHPExcel->setActiveSheetIndex(0)->setCellValue('A9', "ITEM LIST");
         $objPHPExcel->setActiveSheetIndex(0)->setCellValue('A10', "Item Name");
         $objPHPExcel->setActiveSheetIndex(0)->setCellValue('C10', "Brand");
@@ -408,6 +428,8 @@ class Vendors extends CI_Controller {
         $objPHPExcel->getActiveSheet()->getStyle('D5')->getFont()->setBold(true);
         $objPHPExcel->getActiveSheet()->getStyle('B6')->getFont()->setBold(true);
         $objPHPExcel->getActiveSheet()->getStyle('D6')->getFont()->setBold(true);
+        $objPHPExcel->getActiveSheet()->getStyle('B7')->getFont()->setBold(true);
+        $objPHPExcel->getActiveSheet()->getStyle('D7')->getFont()->setBold(true);
         $objPHPExcel->getActiveSheet()->getStyle('A8')->getFont()->setBold(true);
         $objPHPExcel->getActiveSheet()->getStyle('A9')->getFont()->setBold(true);
         $objPHPExcel->getActiveSheet()->getStyle('A10')->getFont()->setBold(true);
@@ -420,7 +442,7 @@ class Vendors extends CI_Controller {
         $objPHPExcel->getActiveSheet()->mergeCells('A9:D9');
         $objPHPExcel->getActiveSheet()->mergeCells('A10:B10');
         $objPHPExcel->getActiveSheet()->mergeCells('C10:D10');
-        $objPHPExcel->getActiveSheet()->mergeCells('B7:D7');
+       //$objPHPExcel->getActiveSheet()->mergeCells('C7:D7');
 
         $objPHPExcel->getActiveSheet()->getStyle('A8:B8')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
         $objPHPExcel->getActiveSheet()->getStyle('A9')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);

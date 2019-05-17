@@ -42,7 +42,6 @@ class Aoq extends CI_Controller {
 	}
 
 	public function aoq_list(){
-		
 		$data=array();
 		foreach($this->super_model->select_custom_where("aoq_header", "saved='1' AND served='0'") AS $list){
 			$rows = $this->super_model->count_rows_where("aoq_rfq","aoq_id",$list->aoq_id);
@@ -78,6 +77,42 @@ class Aoq extends CI_Controller {
         $this->load->view('aoq/aoq_list',$data);
         $this->load->view('template/footer');
     }
+
+    public function served_aoq(){
+        $this->load->view('template/header');
+        $this->load->view('template/navbar');
+        $data=array();
+		foreach($this->super_model->select_custom_where("aoq_header", "saved='1' AND served='1'") AS $list){
+			$rows = $this->super_model->count_rows_where("aoq_rfq","aoq_id",$list->aoq_id);
+			$department=$this->super_model->select_column_where('department','department_name','department_id', $list->department_id);
+			$enduse=$this->super_model->select_column_where('enduse','enduse_name','enduse_id', $list->enduse_id);
+			$requested=$this->super_model->select_column_where('employees','employee_name','employee_id', $list->requested_by);
+			$supplier='';
+			foreach($this->super_model->select_row_where("aoq_rfq", "aoq_id", $list->aoq_id) AS $rfq){
+				$supplier_id=$this->super_model->select_column_where('rfq_head','supplier_id','rfq_id', $rfq->rfq_id);
+				$supplier.="-".$this->super_model->select_column_where('vendor_head','vendor_name','vendor_id', $supplier_id). "<br> ";
+			}
+			$sup = substr($supplier, 0, -2);
+			$data['header'][]=array(
+				'aoq_id'=>$list->aoq_id,
+				'aoq_date'=>$list->aoq_date,
+				'pr'=>$list->pr_no,
+				'department'=>$department,
+				'enduse'=>$enduse,
+				'date_needed'=>$list->date_needed,
+				'requestor'=>$requested,
+				'saved'=>$list->saved,
+				'served'=>$list->served,
+				'date_served'=>$list->date_served,
+				'completed'=>$list->completed,
+				'rows'=>$rows,
+				'supplier'=>$sup
+			);
+		}
+        $this->load->view('aoq/served_aoq',$data);
+        $this->load->view('template/footer');
+    }
+
 
 	public function add_aoq(){
     	$data['rfq'] = $this->input->post('rfq');
@@ -142,6 +177,7 @@ class Aoq extends CI_Controller {
 	public function aoq_prnt(){
 		$aoq_id=$this->uri->segment(3);
 		$data['aoq_id']=$aoq_id;
+		$data['served']=$this->super_model->select_column_where('aoq_header','served','aoq_id', $aoq_id);
 		foreach($this->super_model->select_row_where("aoq_header", "aoq_id", $aoq_id) AS $head){
 			$department=$this->super_model->select_column_where('department','department_name','department_id', $head->department_id);
 			$enduse=$this->super_model->select_column_where('enduse','enduse_name','enduse_id', $head->enduse_id);
@@ -312,6 +348,7 @@ class Aoq extends CI_Controller {
     public function aoq_prnt_five(){
 		$aoq_id=$this->uri->segment(3);
 		$data['aoq_id']=$aoq_id;
+		$data['served']=$this->super_model->select_column_where('aoq_header','served','aoq_id', $aoq_id);
 		foreach($this->super_model->select_row_where("aoq_header", "aoq_id", $aoq_id) AS $head){
 			$department=$this->super_model->select_column_where('department','department_name','department_id', $head->department_id);
 			$enduse=$this->super_model->select_column_where('enduse','enduse_name','enduse_id', $head->enduse_id);
@@ -391,6 +428,7 @@ class Aoq extends CI_Controller {
      public function aoq_prnt_four(){
 		$aoq_id=$this->uri->segment(3);
 		$data['aoq_id']=$aoq_id;
+		$data['served']=$this->super_model->select_column_where('aoq_header','served','aoq_id', $aoq_id);
 		foreach($this->super_model->select_row_where("aoq_header", "aoq_id", $aoq_id) AS $head){
 			$department=$this->super_model->select_column_where('department','department_name','department_id', $head->department_id);
 			$enduse=$this->super_model->select_column_where('enduse','enduse_name','enduse_id', $head->enduse_id);
@@ -506,6 +544,7 @@ class Aoq extends CI_Controller {
     public function update_served(){
     	$aoq_id=$this->uri->segment(3);
     	$data = array(
+    		'date_served'=>date('Y-m-d H:i:s'),
     		'served'=>1
     	);
 

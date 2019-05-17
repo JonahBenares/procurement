@@ -181,9 +181,40 @@ class Rfq extends CI_Controller {
         $this->load->view('template/footer');
     }
 
+    public function served_rfq(){
+        $this->load->view('template/header');
+        $this->load->view('template/navbar');
+        $data=array();
+        foreach($this->super_model->select_custom_where("rfq_head", "saved='1' ORDER BY rfq_id DESC") AS $rfq){
+			$supplier = $this->super_model->select_column_where('vendor_head','vendor_name','vendor_id', $rfq->supplier_id);
+			$data['list'][] = array(
+				'rfq_id'=>$rfq->rfq_id,
+				'rfq_no'=>$rfq->rfq_no,
+				'rfq_date'=>$rfq->rfq_date,
+				'date_served'=>$rfq->date_served,
+				'supplier'=>$supplier,
+				'completed'=>$rfq->completed,
+				'served'=>$rfq->served
+			);
+
+			foreach($this->super_model->select_row_where("rfq_detail", "rfq_id", $rfq->rfq_id) AS $it){
+				$item = $this->super_model->select_column_where('item','item_name','item_id', $it->item_id);
+				//$item_name .= $item. ", ";
+				$data['items'][] = array(
+					'rfq_id'=>$it->rfq_id,
+					'item_name'=>$item
+				);
+			}
+
+		}
+        $this->load->view('rfq/served_rfq',$data);
+        $this->load->view('template/footer');
+    }
+
     public function update_served(){
     	$rfq_id=$this->uri->segment(3);
     	$data = array(
+    		'date_served'=>date('Y-m-d H:i:s'),
     		'served'=>1
     	);
 
@@ -196,6 +227,7 @@ class Rfq extends CI_Controller {
     	$rfq_id=$this->uri->segment(3);
     	$data['rfq_id']=$rfq_id;
     	$data['completed'] = $this->super_model->select_column_where('rfq_head','completed','rfq_id', $rfq_id);
+    	$data['served'] = $this->super_model->select_column_where('rfq_head','served','rfq_id', $rfq_id);
 	 	foreach($this->super_model->select_row_where("rfq_head", "rfq_id", $rfq_id) AS $head){
 	 		$noted=$this->super_model->select_column_where('employees','employee_name','employee_id', $head->noted_by); 
 	 		$approved=$this->super_model->select_column_where('employees','employee_name','employee_id', $head->approved_by);

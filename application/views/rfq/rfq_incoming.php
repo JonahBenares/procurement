@@ -25,6 +25,12 @@
         	padding:0px 0px 0px 0px
         	}
         }
+        .served{
+        	background-image: url('../../../assets/img/served.png')!important;
+        	background-repeat:no-repeat!important;
+        	background-size: contain!important;
+        	background-position: center center!important;
+        }
         .table-bordered>tbody>tr>td, 
         .table-bordered>tbody>tr>th, 
         .table-bordered>tfoot>tr>td, 
@@ -48,6 +54,16 @@
 			#prnt_btn, .reco{
 				display: none;
 			}
+			html, body{
+	            background: #fff!important;
+	            font-size:12px!important;
+	        }
+			.served{
+	        	background-image: url('../../../assets/img/served.png')!important;
+	        	background-repeat:no-repeat!important;
+	        	background-size: contain!important;
+	        	background-position: center center!important;
+	        }
 		}
 		.text-white{
 			color: #fff;
@@ -69,7 +85,7 @@
 					<p class="text-white">Instructions: When printing REQUEST FOR QUOTATION make sure the following options are set correctly -- <u>Browser</u>: Chrome, <u>Layout</u>: Portrait, <u>Paper Size</u>: A4, <u>Margin</u> : Default, <u>Scale</u>: 100</p>
 				</center>
 			</div>
-	    	<div style="background: #fff;">    		  			
+	    	<div style="background: #fff;" <?php echo (($served == 1) ? 'class="served"' : ''); ?>>    		  			
 		    	<table class="table-bodrdered" width="100%" style="border:2px solid #000">
 		    		<tr>
 		    			<td width="5%"><br></td>

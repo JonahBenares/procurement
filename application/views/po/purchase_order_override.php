@@ -19,12 +19,6 @@
             background: #2d2c2c!important;
             font-size:12px!important;
         }
-        .cancel{
-        	background-image: url('../../assets/img/cancel.png')!important;
-        	background-repeat:no-repeat!important;
-        	background-size: contain!important;
-        	background-position: center center!important;
-        }
         .pad{
         	padding:0px 250px 0px 250px
         }
@@ -57,16 +51,6 @@
 			.emphasis{
 				border: 0px solid #fff!important;
 			}
-			html, body{
-	            background: #fff!important;
-	            font-size:12px!important;
-	        }
-	        .cancel{
-	        	background-image: url('../../assets/img/cancel.png')!important;
-	        	background-repeat:no-repeat!important;
-	        	background-size: contain!important;
-	        	background-position: center center!important;
-	        }
 		}
 		.text-white{
 			color: #fff;
@@ -100,7 +84,7 @@
 				<form method="POST" action="<?php echo base_url(); ?>po/add_pr">
 					<div class="modal-body">
 						<div class="form-group">
-							<p class="nomarg">PR NO:</p>
+							<h5 class="nomarg">PR NO:</h5>
 							<select name='pr' id='pr' class="form-control" onchange='getPRInfo()'>
 							<option value="" selected=""></option>
 							<?php foreach($pr AS $p){ ?>
@@ -109,16 +93,17 @@
 							</select>
 						</div>
 						<div class="form-group">
-							<p class="nomarg">Requestor:</p>
-							<span id='requestor'></span>
+							<h5 class="nomarg">Requestor:</h5>
+							<h5 class="nomarg"><b><span id='requestor'></span></b></h5>
 						</div>
 						<div class="form-group">
-							<p class="nomarg">Purpose:</p>
-							<span id='purpose'></span>
+							<h5 class="nomarg">Purpose:</h5>
+							<h5 class="nomarg"><b><span id='purpose'></span></b></h5>
 						</div>
+
 						<div class="form-group">
-							<p class="nomarg">Enduse:</p>
-							<span id='enduse'></span>
+							<h5 class="nomarg">Enduse:</h5>
+							<h5 class="nomarg"><b><span id='enduse'></span></b></h5>
 						</div>
 						<input type="hidden" class="form-control" name="po_id" id="po_id">
 					</div>
@@ -137,26 +122,23 @@
 
 	
 
-    <div  class="pad ">
+    <div  class="pad">
 
-    	<form method='POST' action='<?php echo base_url(); ?>po/po_complete'>  
+    	<form method='POST' action='<?php echo base_url(); ?>po/po_override'>  
     		<div  id="prnt_btn">
 	    		<center>
 			    	<div class="abtn-group">
-						<a href="<?php echo base_url(); ?>po/po_list" class="btn btn-success btn-md p-l-100 p-r-100"><span class="fa fa-arrow-left"></span> Back</a>
+						<a href="javascript:history.go(-1)" class="btn btn-success btn-md p-l-100 p-r-100"><span class="fa fa-arrow-left"></span> Back</a>
 						<?php if($saved==1){ ?>
-						<a  href='<?php echo base_url(); ?>po/override_po/<?php echo $po_id; ?>' onclick="return confirm('Are you sure you want to override PO?')" class="btn btn-info btn-md p-l-25 p-r-25"><span class="fa fa-pencil"></span> Override <u><b>PO</b></u></a>
-						<a  onclick="printPage()" class="btn btn-warning btn-md p-l-25 p-r-25"><span class="fa fa-print"></span> Print <u><b>PO</b></u></a>
-						<a  href="<?php echo base_url(); ?>po/delivery_receipt/<?php echo $po_id; ?>" class="btn btn-warning btn-md p-l-25 p-r-25"><span class="fa fa-print"></span> Print <u><b>DR</b></u></a>
-						<a  href="<?php echo base_url(); ?>po/rfd_prnt/<?php echo $po_id; ?>" class="btn btn-warning btn-md p-l-25 p-r-25"><span class="fa fa-print"></span> Print <u><b>RFD</b></u></a>
+						<a  onclick="printPage()" class="btn btn-warning btn-md p-l-100 p-r-100"><span class="fa fa-print"></span> Print</a>
 						<?php } else if($saved==0){ ?>
 						<input type='submit' class="btn btn-primary btn-md p-l-100 p-r-100" value="Save">	
 						<?php } ?>
 					</div>
-					<p class="text-white">Instructions: When printing PURCHASE ORDER make sure the following options are set correctly -- <u>Browser</u>: Chrome, <u>Layout</u>: Portrait, <u>Paper Size</u>: A4, <u>Margin</u> : Default, <u>Scale</u>: 100 and the option: Background graphics is checked</p>
+					<p class="text-white">Instructions: When printing PURCHASE ORDER make sure the following options are set correctly -- <u>Browser</u>: Chrome, <u>Layout</u>: Portrait, <u>Paper Size</u>: A4, <u>Margin</u> : Default, <u>Scale</u>: 100</p>
 				</center>
 			</div>
-	    	<div style="background: #fff;" <?php echo (($cancelled =='1') ? ' class="cancel"' : ''); ?>>    		  			
+	    	<div style="background: #fff;">    		  			
 		    	<table class="table-borddered" width="100%" style="border:2px solid #000">
 		    		<tr>
 		    			<td width="5%"><br></td>
@@ -217,7 +199,14 @@
 		    			<td colspan="5"><h6 class="nomarg"><b></b></h6></td>
 		    		</tr>
 		    	<?php } ?>
-		    	
+		    		<tr id="pr-btn">
+		    			<td colspan="20" style="padding-left: 10px">
+
+		    				<a class="addPR btn btn-primary btn-xs" data-toggle="modal" href="#add-pr" data-id="<?php echo $po_id; ?>">
+							  Add PR
+							</a>
+		    			</td>
+		    		</tr>	
 		    		<!-- LOOp Here -->  	
 		    		<?php 
 		    		if(!empty($prdetails)){
@@ -256,7 +245,8 @@
 					    		</tr>
 					    		<tr>
 					    			<td class="" colspan="2" align="Left">&nbsp;Purpose:</td>
-					    			<td class="" colspan="18" align="Left"><?php echo $prd['purpose']; ?></td>
+					    			<td class="" colspan="6" align="Left"><?php echo $prd['purpose']; ?></td>
+					    			<td class="" colspan="12" align="right"><a href='<?php echo base_url(); ?>po/remove_pr/<?php echo $prd['po_pr_id']; ?>/<?php echo $po_id; ?>' style='color:red' onclick="return confirm('Are you sure you want to remove PR?')">[Remove PR]</a></td>
 					    		</tr>
 					    		<tr>
 					    			<td class="" colspan="2" align="Left">&nbsp;Enduse:</td>
@@ -286,15 +276,19 @@
 					    		 	$pr_price[] = $tprice; ?>
 					    		<tr>
 					    			<td colspan="" class="all-border" align="center"><b><?php echo $x; ?></b></td>
-					    			<td colspan="" class="all-border" align="center"><b><?php echo $it['quantity']; ?></b></td>
+					    			<td colspan="" class="all-border" align="center"><b><input type='text' name='quantity<?php echo $x; ?>' id='quantity<?php echo $x; ?>' class='quantity' value='<?php echo $it['quantity']; ?>' style='width:50px; color:red' onblur='changePrice(<?php echo $x; ?>,<?php echo $a; ?>)'></b></td>
 					    			<td colspan="" class="all-border" align="center"><b><?php echo $it['unit']; ?></b></td>
 					    			<td colspan="12" class="all-border" align="left"><b class="nomarg"><?php echo $it['offer'].", ".$it['item']." " . $it['item_specs']; ?></b></td>
-					    			<td colspan="2" class="all-border" align="center"><b><?php echo number_format($it['price'],2); ?></b></td>
-					    			<td colspan="3" class="all-border" align="right"><b class="nomarg"><?php echo number_format($tprice,2); ?></b></td>
+					    			<td colspan="2" class="all-border" align="center"><b><input type='text' name='price<?php echo $x; ?>' id='price<?php echo $x; ?>'  value='<?php echo $it['price']; ?>' onblur='changePrice(<?php echo $x; ?>,<?php echo $a; ?>)' style='color:red; width:100px'></b></td>
+					    			<td colspan="3" class="all-border" align="right"><b class="nomarg"><input type='text' name='tprice<?php echo $x; ?>' id='tprice<?php echo $x; ?>' class='tprice' value="<?php echo number_format($tprice,2); ?>" style='text-align:right' readonly></b></td>
 					    			
 					    			
+					    			<input type='hidden' name='reco_id<?php echo $x; ?>'  value='<?php echo $it['reco_id']; ?>'>
+					    			<input type='hidden' name='item_id<?php echo $x; ?>'  value='<?php echo $it['item_id']; ?>'>
+					    			<input type='hidden' name='offer<?php echo $x; ?>'  value='<?php echo $it['offer']; ?>'>
+					    			<input type='hidden' name='po_items_id<?php echo $x; ?>'  value='<?php echo $it['po_items_id']; ?>'>
 					    		</tr>
-					    	
+					    		<input type='hidden' name='po_pr_id<?php echo $x; ?>'  value='<?php echo $prd['po_pr_id']; ?>'>
 					    		<?php 
 					    		$x++;
 					    			}
@@ -302,9 +296,12 @@
 
 					    		$prprice = array_sum($pr_price);
 					    		$total[] = $prprice; ?>
-					    	
-
-					    	
+					    		<!--<tr>
+					    			<td colspan="17" class="all-border" align="right"><b class="nomarg">TOTAL</b></td>
+					    			<td colspan="3" class="all-border" align="right"><b class="nomarg"><input type='text' class='prtotal' id='total_pr<?php echo $a; ?>' value="<?php //echo number_format($prprice,2); ?>" readonly style='text-align:right'></b></td>
+					    		<!--</tr>-->
+					    		<input type="hidden" name = "prepared_by" value = "<?php echo $_SESSION['user_id'];?>">
+					    		<input type='hidden' name='count_item'  value='<?php echo $x; ?>'>
 		    				</table>
 			    		</td>
 			    	</tr>
@@ -347,10 +344,9 @@
 					    		</tr>
 		    				</table>
 			    		</td>
-			    		<input type="hidden" name = "prepared_by" value = "<?php echo $_SESSION['user_id'];?>">
 			    	</tr>
 			    	<?php } else { ?>
-			    	<tr>
+			    		<tr>
 		    			<td class="f13" colspan="20" align="center" style="padding: 10px!important">
 		    				<table  class="table-bodrdered" width="100%" style="border:0px solid #000;">
 		    					<tr>
@@ -385,14 +381,6 @@
 		    				<i><?php echo $notes; ?></i>
 		    			</td>
 		    		</tr>
-		    		<?php if($cancelled=='1'){ ?>
-		    		<tr>
-		    			<td colspan="2"><h6 class="nomarg text-red"><b>Cancel Date:</b></h6></td>
-		    			<td colspan="2"><h6 class="nomarg text-red"><b>12-12-12</b></h6></td>
-		    			<td colspan="2" align="right"><h6 class="nomarg text-red"><b>Reason:</b></h6></td>
-		    			<td colspan="14"><h6 class="nomarg text-red"><b>Reason Here</b></h6></td>
-		    		</tr>
-		    		<?php } ?>
 		    		<tr>
 		    			<td colspan="20" >
 		    				<br>Terms & Conditions:<br>
@@ -423,7 +411,12 @@
 		    			<td colspan="7"><b><?php echo $_SESSION['fullname']; ?></b></td>
 		    			<td colspan="2"></td>
 		    			<td colspan="7"><b>
-		    			<?php echo $approved; ?></b></td>
+		    			<select name='approved' class="select-des emphasis">
+			    			<!-- <option value=''>-Select Employee-</option> -->
+			    			<?php foreach($employee AS $emp){ ?>
+			    				<option value='<?php echo $emp->employee_id; ?>' <?php echo (($emp->employee_id == $approved_id) ? ' selected' : ''); ?>><?php echo $emp->employee_name; ?></option>
+			    			<?php } ?>
+		    			</select></b></td>
 		    			<td colspan="2"></td>
 		    		</tr>
 		    		<tr><td colspan="20"><br></td></tr>
