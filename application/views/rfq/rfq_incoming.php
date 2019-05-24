@@ -44,6 +44,9 @@
 		.f13{
 			font-size:13px!important;
 		}
+		.f10{
+			font-size:10px!important;
+		}
 		.bor-btm{
 			border-bottom: 1px solid #000;
 		}
@@ -68,6 +71,10 @@
 		}
 		.text-white{
 			color: #fff;
+		}
+		.emphasis{
+			/*border-bottom: 1px solid red!important;*/
+			background-color: #ffe5e5!important;
 		}
     </style>
     <div  class="pad">
@@ -161,12 +168,12 @@
 		    						<td class="f13" align="center" rowspan='3' style='width:50%'><?php echo $item['item']; ?></td>
 		    						<td class="f13" align="center">
 		    						
-		    							<input type="text" name="offer<?php echo $x; ?>_1" class="sel-des" autocomplete="off" >
+		    							<input type="text" name="offer<?php echo $x; ?>_1" class="sel-des emphasis" autocomplete="off" >
 		    					
 		    						</td>
 		    						<td class="f13" align="center">
 		    					
-		    							<input type="text" name="price<?php echo $x; ?>_1" class="sel-des" autocomplete="off"  onkeypress="return isNumberKey(this, event)">
+		    							<input type="text" name="price<?php echo $x; ?>_1" class="sel-des emphasis" autocomplete="off"  onkeypress="return isNumberKey(this, event)">
 		    							
 		    						</td>
 		    					
@@ -175,14 +182,14 @@
 		    					
 		    						<td class="f13" align="center">
 		    						<?php if($completed==0){ ?>
-		    							<input type="text" name="offer<?php echo $x; ?>_2" class="sel-des" autocomplete="off" >
+		    							<input type="text" name="offer<?php echo $x; ?>_2" class="sel-des emphasis" autocomplete="off" >
 		    						<?php } else {
 		    							echo $item['offer'];
 		    						} ?>
 		    						</td>
 		    						<td class="f13" align="center">
 		    						
-		    							<input type="text" name="price<?php echo $x; ?>_2" class="sel-des" autocomplete="off"  onkeypress="return isNumberKey(this, event)">
+		    							<input type="text" name="price<?php echo $x; ?>_2" class="sel-des emphasis" autocomplete="off"  onkeypress="return isNumberKey(this, event)">
 		    						
 		    						</td>
 		    					
@@ -190,14 +197,14 @@
 		    					<tr>
 		    						<td class="f13" align="center">
 		    						<?php if($completed==0){ ?>
-		    							<input type="text" name="offer<?php echo $x; ?>_3" class="sel-des" autocomplete="off" >
+		    							<input type="text" name="offer<?php echo $x; ?>_3" class="sel-des emphasis" autocomplete="off" >
 		    						<?php } else {
 		    							echo $item['offer'];
 		    						} ?>
 		    						</td>
 		    						<td class="f13" align="center">
 		    						
-		    							<input type="text" name="price<?php echo $x; ?>_3" class="sel-des" autocomplete="off"  onkeypress="return isNumberKey(this, event)">
+		    							<input type="text" name="price<?php echo $x; ?>_3" class="sel-des emphasis" autocomplete="off"  onkeypress="return isNumberKey(this, event)">
 		    							
 		    						</td>
 		    					
@@ -218,13 +225,13 @@
 		    						<td class="f13" align="center" rowspan="<?php echo $com['row']; ?>"><?php echo $b; ?></td>
 		    						<td class="f13" align="center" rowspan="<?php echo $com['row']; ?>"><?php echo $com['unit']; ?></td>
 		    						<td class="f13" align="center" style='width:50%' rowspan="<?php echo $com['row']; ?>"><?php echo $com['item']; ?></td>
-		    						<td><?php echo $com['offer']; ?></td>
-		    						<td><?php echo $com['price']; ?></td>
+		    						<td class='f13'><?php echo $com['offer']; ?></td>
+		    						<td class='f13'><?php echo $com['price']; ?></td>
 		    						</tr>
 		    						<?php $b++;	$c=$c+$com['row'];  } else { ?>
 		    							<tr>
-		    								<td><?php echo $com['offer']; ?></td>
-		    								<td><?php echo $com['price']; ?></td>
+		    								<td class='f13'><?php echo $com['offer']; ?></td>
+		    								<td class='f13'><?php echo $com['price']; ?></td>
 		    							</tr>
 
 		    						<?php } 
@@ -251,7 +258,7 @@
 		    			<td class="f13" colspan="3"></td>
 		    			<td class="f13 bor-btm" colspan="7">
 		    			<?php if($completed==0){ ?>
-		    				<input type="text" name="validity" class="sel-des" autocomplete="off">
+		    				<input type="text" name="validity" class="sel-des emphasis" autocomplete="off">
 		    			<?php } else {
 		    				echo $h['validity'];
 		    			} ?>
@@ -265,7 +272,7 @@
 		    			<td class="f13" colspan="3"></td>
 		    			<td class="f13 bor-btm" colspan="7">
 		    			<?php if($completed==0){ ?>
-		    				<input type="text" name="terms" class="sel-des" autocomplete="off">
+		    				<input type="text" name="terms" class="sel-des emphasis" autocomplete="off">
 		    			<?php } else {
 		    				echo $h['terms'];
 		    			} ?>
@@ -279,7 +286,7 @@
 		    			<td class="f13" colspan="3"></td>
 		    			<td class="f13 bor-btm" colspan="7">
 		    			<?php if($completed==0){ ?>
-		    				<input type="date" name="delivery_date" class="sel-des" autocomplete="off">
+		    				<input type="date" name="delivery_date" class="sel-des emphasis" autocomplete="off">
 		    			<?php } else {
 		    				echo (!empty($h['delivery_date']) ? date('F j, Y', strtotime($h['delivery_date'])) : '');
 		    			} ?></td>
@@ -292,7 +299,7 @@
 		    			<td class="f13" colspan="3"></td>
 		    			<td class="f13 bor-btm" colspan="7">
 		    			<?php if($completed==0){ ?>
-		    				<input type="text" name="warranty" class="sel-des" autocomplete="off">
+		    				<input type="text" name="warranty" class="sel-des emphasis" autocomplete="off">
 		    			<?php } else {
 		    				echo $h['warranty'];
 		    			} ?>
@@ -306,7 +313,7 @@
 		    			<td class="f13" colspan="3"></td>
 		    			<td class="f13 bor-btm" colspan="7">
 		    			<?php if($completed==0){ ?>
-		    				<input type="text" name="tin" class="sel-des">
+		    				<input type="text" name="tin" class="sel-des emphasis">
 		    			<?php } else {
 		    				echo $h['tin'];
 		    			} ?>
@@ -317,7 +324,7 @@
 		    			<td class="f13" colspan="2"></td>
 		    			<td class="f13" colspan="18">&nbsp; f. Vat 
 		    			<?php if($completed==0){ ?>
-		    				<input type="checkbox" name="vat" value='1' > 
+		    				<input type="checkbox" name="vat" value='1' class='emphasis' > 
 		    			<?php } else { 
 		    				if($h['vat']==1){
 								echo "<span class='fa fa-check'></span>";
