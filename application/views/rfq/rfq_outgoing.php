@@ -161,9 +161,9 @@
 		    					<tr>
 		    						<td class="f13" align="center">1</td>
 		    						<td class="f13" align="center"><?php echo $item['unit']; ?></td>
-		    						<td class="f13" align="left" style='width:50%;padding-left: 2px'><?php echo $item['item']; ?></td>
-		    						<td class="f13" align="center"></td>
-		    						<td class="f13" align="center"></td>
+		    						<td class="f13" align="left" style='width:40%;padding-left: 2px'><?php echo $item['item']; ?></td>
+		    						<td class="f13" align="center" style='width:40%;''></td>
+		    						<td class="f13" align="center" style='width:10%'></td>
 		    					</tr>
 		    				<?php } ?>
 		    				</table>

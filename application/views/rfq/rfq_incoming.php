@@ -165,7 +165,7 @@
 		    					<tr>
 		    						<td class="f13" align="center" rowspan='3'><?php echo $x; ?></td>
 		    						<td class="f13" align="center" rowspan='3'><?php echo $item['unit']; ?></td>
-		    						<td class="f13" align="center" rowspan='3' style='width:50%'><?php echo $item['item']; ?></td>
+		    						<td class="f13" align="center" rowspan='3' style='width:35%'><?php echo $item['item']; ?></td>
 		    						<td class="f13" align="center">
 		    						
 		    							<input type="text" name="offer<?php echo $x; ?>_1" class="sel-des emphasis" autocomplete="off" >
@@ -222,16 +222,16 @@
 		    						//echo $a . " == " . $c . "<br>";
 		    						if($a==$c) { ?>
 		    						<tr>
-		    						<td class="f13" align="center" rowspan="<?php echo $com['row']; ?>"><?php echo $b; ?></td>
-		    						<td class="f13" align="center" rowspan="<?php echo $com['row']; ?>"><?php echo $com['unit']; ?></td>
-		    						<td class="f13" align="center" style='width:50%' rowspan="<?php echo $com['row']; ?>"><?php echo $com['item']; ?></td>
-		    						<td class='f13'><?php echo $com['offer']; ?></td>
-		    						<td class='f13'><?php echo $com['price']; ?></td>
+		    						<td class="f13" align="center" style='width:5%' rowspan="<?php echo $com['row']; ?>"><?php echo $b; ?></td>
+		    						<td class="f13" align="center" style='width:5%'  rowspan="<?php echo $com['row']; ?>" ><?php echo $com['unit']; ?></td>
+		    						<td class="f13" style='width:40%' rowspan="<?php echo $com['row']; ?>"><?php echo $com['item']; ?></td>
+		    						<td class='f13' style='width:40%'><?php echo $com['offer']; ?></td>
+		    						<td class='f13' style='width:10%; text-align: center'><?php echo number_format($com['price'],2); ?></td>
 		    						</tr>
 		    						<?php $b++;	$c=$c+$com['row'];  } else { ?>
 		    							<tr>
-		    								<td class='f13'><?php echo $com['offer']; ?></td>
-		    								<td class='f13'><?php echo $com['price']; ?></td>
+		    								<td class='f13' style='width:40%'><?php echo $com['offer']; ?></td>
+		    								<td class='f13' style='width:10%; text-align: center'><?php echo number_format($com['price'],2); ?></td>
 		    							</tr>
 
 		    						<?php } 
