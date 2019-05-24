@@ -79,10 +79,10 @@
                                     <thead>
                                         <tr>
                                             <th width="5%"><input type="checkbox" class="form-control" name="" onClick="toggle_multi(this)"></th>
-                                            <th>RFQ #</th>
+                                            <th width="10%">RFQ #</th>
                                             <th>Supplier</th>
-                                            <th>RFQ Date</th>
-                                            <th>Items</th>
+                                            <th width="10%">RFQ Date</th>
+                                            <th width="40%">Items</th>
                                             <th width="10%"><center><span class="fa fa-bars"></span></center></th>
                                         </tr>
                                     </thead>
