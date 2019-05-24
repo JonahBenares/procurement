@@ -106,7 +106,7 @@
                                 </div>
                                 <div class="income-range visitor-cl">
                                     <p>TE Percentage</p>
-                                    <span class="income-percentange"><?php echo $percent_te; ?>% <i class="fa fa-level-up"></i></span>
+                                    <span class="income-percentange"><?php echo number_format($percent_te,2); ?>% <i class="fa fa-level-up"></i></span>
                                 </div>
                                 <div class="clear"></div>
                             </div>

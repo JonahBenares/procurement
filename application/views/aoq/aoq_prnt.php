@@ -46,6 +46,9 @@
 		.bor-btm{
 			border-bottom: 1px solid #000!important;
 		}
+		.bor-right{
+			border-right: 1px solid #000!important;
+		}
 		.sel-des{
 			border: 0px!important;
 		}
@@ -68,6 +71,9 @@
 			}
 			.text-red{
 				color: red!important;
+			}
+			.bor-right{
+				border-right: 1px solid #000!important;
 			}
 			.yellow-back{
 			background-image: url('../../assets/img/yellow.png')!important;
@@ -187,7 +193,7 @@
 				</center>
 			</div>
 	    	<div style="background: #fff;" <?php echo (($served==1) ? 'class="served"' : ''); ?>> 
-		    	<table class="table-borddered" width="100%" style="border:2px solid #000">
+		    	<table class="table-boddered" width="100%" style="border:2px solid #000">
 		    		<tr>
 		    			<td width="2%"><br></td>
 		    			<td width="5%"><br></td>
@@ -279,60 +285,178 @@
 		    		$a=1;
 		    		$b=1;
 		    		foreach($aoq_item AS $it){ 
-		    			//echo $it['min'];?>
+		    			//echo "a =" .$a ."<br>";
+		    			$user_reco = $CI->get_aoq_others('reco', $sup['supplier_id'], $it['item_id'], $aoq_id);
+		    			$reco = explode("_",$user_reco);
+		    			$reco_offer = $reco[0];
+		    			$reco_supplier = $reco[1];
+
+		    		
+
+		    			?>
+
 		    		<tr>
 		    			<td class="f10 table-borreg" align="center"><?php echo $x; ?></td>
 		    			<td class="f10 table-borreg" align="left" colspan="3"><?php echo $it['item']; ?></td>
 		    			<td class="f10 table-borreg" align="center"><?php echo $it['qty']; ?></td>
 		    			<td class="f10 table-borreg" align="center"><?php echo $it['uom']; ?></td>
-		    			<?php
-		    		
-		    			 foreach($supplier AS $sup){ 
+		    			<?php foreach($supplier AS $sup){ ?>
+		    			<td colspan="5">
+		    				<table width="100%" >	
+		    				<?php 
+		    				$v=0;
+		    				$c=1;
+			    				foreach($CI->get_all_rfq_items($sup['supplier_id'], $it['item_id'],$sup['rfq_id']) AS $allrfq) { 
+			    					$amount = $it['qty'] *$allrfq->unit_price; ?>
+			    				    					
+			    					<tr>
+				    					<td width="40%" class="bor-right f10 bor-btm">
+				    						<b class="text-red nomarg">
+				    				 			<?php echo $allrfq->offer; ?>,
+				    						</b> <?php echo $CI->get_name("item_name", "item", "item_id", $allrfq->item_id); ?></td>
+				    					<td width="20%" class="bor-right f10 <?php echo (($it['min']==$allrfq->unit_price && $allrfq->unit_price!=0) ? 'yellow-back' :''); ?> bor-btm" align="center">
+				    						<?php echo number_format($allrfq->unit_price,2); ?>
+				    						<br>	
+				    						<?php if($saved=='1' && $completed==0){ ?>
+			    							<input type="radio" name="reco<?php echo $a . "_".$c; ?>" value='<?php echo $sup['supplier_id']."_".$it['item_id']."_".$allrfq->unit_price."_".$it['qty']."_".$allrfq->offer ; ?>' >
+			    							<?php } ?>
+				    					</td>
+				    					<td width="20%" class="bor-right <?php echo (($reco_supplier == $sup['supplier_id'] && $reco_offer == $allrfq->offer) ? ' green-back' : ''); ?> bor-btm" align="center"><?php echo number_format($amount,2); ?></td>
+				    					<td width="20%" class="bor-right text-red bor-btm">
+				    						<?php if($saved=='1' && $completed==0){ ?>
+				    						<textarea cols="4" rows="3" name='comments<?php echo $b; ?>'></textarea>
+				    						<input type='hidden' name='offer<?php echo $b; ?>' value="<?php echo $allrfq->offer; ?>">
+				    						<input type='hidden' name='supplier<?php echo $b; ?>' value="<?php echo $sup['supplier_id']; ?>">
+				    						<input type='hidden' name='item<?php echo $b; ?>' value="<?php echo $it['item_id']; ?>">
+				    						<?php } else if($saved=='1' && $completed=='1') { 
+				    							foreach($CI->get_aoq_others('comments', $sup['supplier_id'], $it['item_id'], $aoq_id) AS $cm){
+				    								if($cm['supplier'] == $sup['supplier_id'] && $cm['offer'] == $allrfq->offer){ ?>
+				    									<textarea cols="4" rows="3" readonly="readonly" style='resize: none; border: 0px'><?php echo $cm['comment']; ?></textarea>
+				    								<?php } 
+				    							}
+				    						 } ?>
+				    					</td>
+				    				</tr>
+			    				
+			    				<?php $v++; 
+			    					$c++;
+			    					$b++;
+			    				} 
+		    				?>
+		    				
+		    				<?php 
+		    				 if($v==0){ ?>
+		    				 		<tr >
+				    					<td width="40%" class="bor-right bor-btm" >
+				    						<b class="text-red nomarg">
+				    						</b> </td>
+				    					<td width="20%" class="bor-right bor-btm f10" align="center">
+				    						
+				    						<br>	
+			    						
+				    					</td>
+				    					<td width="20%" class="bor-right bor-btm" align="center"></td>
+				    					<td width="20%" class="bor-right bor-btm text-red">
+				    						<textarea cols="4" rows="3" name='' style="border: 0px;resize: none"></textarea>
+				    					</td>
+				    				</tr>
+			    				    					
+			    					<tr>
+				    					<td width="40%" class="bor-right bor-btm">
+				    						<b class="text-red nomarg">
+				    						</b> </td>
+				    					<td width="20%" class="bor-right bor-btm f10 " align="center">
+				    						
+				    						<br>	
+			    						
+				    					</td>
+				    					<td width="20%" class="bor-right bor-btm " align="center"></td>
+				    					<td width="20%" class="bor-right bor-btm text-red">
+				    						<textarea cols="4" rows="3" name='' style="border: 0px;resize: none"></textarea>
+				    					</td>
+				    				</tr>
 
-	    				$reco = $CI->get_rfq_item("recommended", $sup['supplier_id'], $it['item_id']); 
-	    				$up = $CI->get_rfq_item("unit_price", $sup['supplier_id'], $it['item_id']);
-						$user_reco = $CI->get_aoq_others('reco', $sup['supplier_id'], $it['item_id'], $aoq_id);
-						$comment = $CI->get_aoq_others('comments', $sup['supplier_id'], $it['item_id'], $aoq_id);
-						$offer= $CI->get_rfq_item("offer", $sup['supplier_id'], $it['item_id']);
-	    				$total = $it['qty']*$up;
-	    				?>		
-		    			<td class="f10 table-borreg" align="left" colspan="2">
-		    				<b class="text-red">
-		    				<?php echo $offer; ?>
-		    				</b>
-		    			, <?php echo $CI->get_rfq_item("item", $sup['supplier_id'], $it['item_id']); ?>
+				    				<tr>
+				    					<td width="40%" class="bor-right bor-btm">
+				    						<b class="text-red nomarg">
+				    						</b> </td>
+				    					<td width="20%" class="bor-right bor-btm f10 " align="center">
+				    						
+				    						<br>	
+			    						
+				    					</td>
+				    					<td width="20%" class="bor-right bor-btm " align="center"></td>
+				    					<td width="20%" class="bor-right bor-btm text-red">
+				    						<textarea cols="4" rows="3" name='' style="border: 0px;resize: none"></textarea>
+				    					</td>
+				    				</tr>
+
+		    				 <?php } if($v==1) { ?>	    					
+			    					<tr >
+				    					<td width="40%" class="bor-right bor-btm" >
+				    						<b class="text-red nomarg">
+				    						</b> </td>
+				    					<td width="20%" class="bor-right bor-btm f10" align="center">
+				    						
+				    						<br>	
+			    						
+				    					</td>
+				    					<td width="20%" class="bor-right bor-btm" align="center"></td>
+				    					<td width="20%" class="bor-right bor-btm text-red">
+				    						<textarea cols="4" rows="3" name='' style="border: 0px;resize: none"></textarea>
+				    					</td>
+				    				</tr>
+			    				    					
+			    					<tr>
+				    					<td width="40%" class="bor-right bor-btm">
+				    						<b class="text-red nomarg">
+				    						</b> </td>
+				    					<td width="20%" class="bor-right bor-btm f10 " align="center">
+				    						
+				    						<br>	
+			    						
+				    					</td>
+				    					<td width="20%" class="bor-right bor-btm " align="center"></td>
+				    					<td width="20%" class="bor-right bor-btm text-red">
+				    						<textarea cols="4" rows="3" name='' style="border: 0px;resize: none"></textarea>
+				    					</td>
+				    				</tr>
+			    				
+		    				<?php } 
+		    				if($v==2) { ?>
+			    								
+			    					<tr>
+				    					<td width="40%" class="bor-right bor-btm" >
+				    						<b class="text-red nomarg">
+				    						</b> </td>
+				    					<td width="20%" class="bor-right bor-btm f10" align="center">
+				    						
+				    						<br>	
+			    						
+				    					</td>
+				    					<td width="20%" class="bor-right bor-btm " align="center"></td>
+				    					<td width="20%" class="bor-right bor-btm text-red">
+				    						<textarea cols="4" rows="3" name='' style="border: 0px;resize: none"></textarea>
+				    					</td>
+				    				</tr>
+			    			
+			    				
+		    			<?php	} ?>
+		    				</table>
 		    			</td>
-		    			<td class="f10 table-borreg <?php echo (($it['min']==$up && $up!=0) ? 'yellow-back' :''); ?>" align="center"><?php echo number_format($up,2); ?>
-		    				
-		    			<?php if($saved=='1' && $completed==0){ ?>
-		    				<br>	
-		    				<input type="radio" name="reco<?php echo $a; ?>" value='<?php echo $sup['supplier_id']."_".$it['item_id']."_".$up."_".$it['qty']."_".$offer ; ?>' required>
-		    				
-		    			<?php } ?>
-		    			</td>
-		    			<td class="f10 table-borreg <?php echo (($user_reco != 0) ? ' green-back' : ''); ?>" align="center"><?php echo number_format($total,2); ?>
-		    			</td>
-		    			<td class="f10 table-borreg text-red" align="center">
-		    			<?php if($saved=='1' && $completed==0){ ?>
-		    				<textarea cols="5" rows="3" name='comments<?php echo $b; ?>'></textarea>
-		    				<input type='hidden' name='supplier<?php echo $b; ?>' value="<?php echo $sup['supplier_id']; ?>">
-		    				<input type='hidden' name='item<?php echo $b; ?>' value="<?php echo $it['item_id']; ?>">
-		    			<?php } else if($saved=='1' && $completed == '1'){ 
-		    				echo $comment;
-		    			} ?>
-		    			
-		    			</td>
-		    			
-		    			<?php  $b++;  } ?>
+		    		
+		    			<?php  }
+		    			?>
 		    			<input type='hidden' name='count_comment' value='<?php echo $b; ?>'>
-		    			<?php 
-		    			$a++;
-		    			 ?>
-		    		</tr>
-		    		<?php } 
-		    		$x++;
-		    		}?>
-		    		<input type='hidden' name='count_item' value='<?php echo $a; ?>'>
+		    		<?php
+		    			
+		    		$a++;
+		    			 }
+		    		} ?>
+		    		
+		    			<input type='hidden' name='count_item' value='<?php echo $a; ?>'>
+		    			
+		    	
 		    		<tr>
 		    			<td class="f10 table-borreg" align="center"><br></td>
 		    			<td class="f10 table-borreg" align="left" colspan="3"></td>
