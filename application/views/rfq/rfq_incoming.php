@@ -11,6 +11,7 @@
 	    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/font-awesome.min.css">
 	    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/bootstrap.min.css">
 	    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/mixins.css">
+	    <script src="<?php echo base_url(); ?>assets/js/all-scripts.js"></script> 
 	</head>
   	<style type="text/css">
         html, body{
@@ -152,38 +153,88 @@
 		    					</tr>
 		    					<?php
 		    					$x=1; 
+		    				 if($completed==0){ 
 		    					foreach($detail AS $item){ ?>
 		    					<tr>
-		    						<td class="f13" align="center">1</td>
-		    						<td class="f13" align="center"><?php echo $item['unit']; ?></td>
-		    						<td class="f13" align="center" style='width:50%'><?php echo $item['item']; ?></td>
+		    						<td class="f13" align="center" rowspan='3'><?php echo $x; ?></td>
+		    						<td class="f13" align="center" rowspan='3'><?php echo $item['unit']; ?></td>
+		    						<td class="f13" align="center" rowspan='3' style='width:50%'><?php echo $item['item']; ?></td>
+		    						<td class="f13" align="center">
+		    						
+		    							<input type="text" name="offer<?php echo $x; ?>_1" class="sel-des" autocomplete="off" >
+		    					
+		    						</td>
+		    						<td class="f13" align="center">
+		    					
+		    							<input type="text" name="price<?php echo $x; ?>_1" class="sel-des" autocomplete="off"  onkeypress="return isNumberKey(this, event)">
+		    							
+		    						</td>
+		    					
+		    					</tr>
+		    					<tr>
+		    					
 		    						<td class="f13" align="center">
 		    						<?php if($completed==0){ ?>
-		    							<input type="text" name="offer<?php echo $x; ?>" class="sel-des" autocomplete="off" required>
+		    							<input type="text" name="offer<?php echo $x; ?>_2" class="sel-des" autocomplete="off" >
 		    						<?php } else {
 		    							echo $item['offer'];
 		    						} ?>
 		    						</td>
 		    						<td class="f13" align="center">
+		    						
+		    							<input type="text" name="price<?php echo $x; ?>_2" class="sel-des" autocomplete="off"  onkeypress="return isNumberKey(this, event)">
+		    						
+		    						</td>
+		    					
+		    					</tr>
+		    					<tr>
+		    						<td class="f13" align="center">
 		    						<?php if($completed==0){ ?>
-		    							<input type="text" name="price<?php echo $x; ?>" class="sel-des" autocomplete="off" required>
-		    							<?php } else {
-		    							echo $item['price'];
+		    							<input type="text" name="offer<?php echo $x; ?>_3" class="sel-des" autocomplete="off" >
+		    						<?php } else {
+		    							echo $item['offer'];
 		    						} ?>
 		    						</td>
-		    						<!-- <td class="f13 reco" align="center">
-		    						<?php if($completed==0){ ?>
-		    							<input type="checkbox" name="reco<?php echo $x; ?>" value='1' >
-		    						<?php } else {
-		    							if($item['reco']==1){
-		    								echo "<span class='fa fa-check'></span>";
-		    							}
-		    						} ?>
-		    						</td> -->
+		    						<td class="f13" align="center">
+		    						
+		    							<input type="text" name="price<?php echo $x; ?>_3" class="sel-des" autocomplete="off"  onkeypress="return isNumberKey(this, event)">
+		    							
+		    						</td>
+		    					
 		    					</tr>
 		    					<input type='hidden' name='detail_id<?php echo $x; ?>' value='<?php echo $item['detail_id']; ?>'>
 		    				<?php
 		    				$x++;
+		    				 } 
+		    				} else { 
+		    					$a=1;
+		    					$c=1;
+		    					$b=1;
+		    					foreach($complete AS $com){ 
+
+		    						//echo $a . " == " . $c . "<br>";
+		    						if($a==$c) { ?>
+		    						<tr>
+		    						<td class="f13" align="center" rowspan="<?php echo $com['row']; ?>"><?php echo $b; ?></td>
+		    						<td class="f13" align="center" rowspan="<?php echo $com['row']; ?>"><?php echo $com['unit']; ?></td>
+		    						<td class="f13" align="center" style='width:50%' rowspan="<?php echo $com['row']; ?>"><?php echo $com['item']; ?></td>
+		    						<td><?php echo $com['offer']; ?></td>
+		    						<td><?php echo $com['price']; ?></td>
+		    						</tr>
+		    						<?php $b++;	$c=$c+$com['row'];  } else { ?>
+		    							<tr>
+		    								<td><?php echo $com['offer']; ?></td>
+		    								<td><?php echo $com['price']; ?></td>
+		    							</tr>
+
+		    						<?php } 
+		    						
+		    						
+		    							?>
+		    						 
+		    						
+		    				<?php	
+		    				$a++;  } 
 		    				 } ?>
 		    				<input type='hidden' name='count' value='<?php echo $x; ?>'>
 		    				</table>

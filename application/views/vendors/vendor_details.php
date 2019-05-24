@@ -6,6 +6,14 @@
             color: #fff;
         }
     </style>
+    <script type="text/javascript">
+        function toggle_multi(source) {
+      checkboxes_multi = document.getElementsByClassName('vendor_list');
+      for(var i=0, n=checkboxes_multi.length;i<n;i++) {
+        checkboxes_multi[i].checked = source.checked;
+      }
+    }
+    </script>
     <div class="admin-dashone-data-table-area m-t-15">
         <div class="container-fluid">
             <div class="row">
@@ -116,7 +124,7 @@
                                 <table width="100%" data-toggle="table" data-toolbar="#toolbar">
                                     <thead>
                                         <tr>
-                                            <th align="center"><input type="checkbox" name=""></th>
+                                            <th align="center"><input type="checkbox" name="" onClick="toggle_multi(this)"></th>
                                             <th>Item Description</th>
                                             <th>Brand</th>
                                             <th>Action</th>
@@ -125,7 +133,7 @@
                                     <tbody> 
                                     <?php foreach($vendors AS $va){ ?>                                         
                                         <tr>
-                                            <td align="center"><input type="checkbox" name="item_id[]" value="<?php echo $va['item_id']; ?>"></td>
+                                            <td align="center"><input type="checkbox" name="item_id[]" value="<?php echo $va['item_id']; ?>" class='vendor_list'></td>
                                             <td><?php echo $va['item']. ", " . $va['specs']; ?></td>
                                             <td><?php echo $va['brand'];?></td>
                                             <td>

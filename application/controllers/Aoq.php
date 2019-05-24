@@ -211,6 +211,8 @@ class Aoq extends CI_Controller {
 		foreach($this->super_model->select_row_where("aoq_rfq", "aoq_id", $aoq_id) AS $rfq){
 			//echo $rfq->rfq_id;
 			$supplier_id=$this->super_model->select_column_where('rfq_head','supplier_id','rfq_id', $rfq->rfq_id);
+			$data['supplier_id'] = $supplier_id;
+			$data['rfq_id'] = $rfq->rfq_id;
 			$supplier=$this->super_model->select_column_where('vendor_head','vendor_name','vendor_id', $supplier_id);
 			$contact=$this->super_model->select_column_where('vendor_head','contact_person','vendor_id', $supplier_id);
 			$phone=$this->super_model->select_column_where('vendor_head','phone_number','vendor_id', $supplier_id);
@@ -230,16 +232,43 @@ class Aoq extends CI_Controller {
 				'warranty'=>$warranty
 			);
 		}
+		foreach($this->super_model->select_row_where("aoq_rfq", "aoq_id",  $aoq_id) AS $r){
+			foreach($this->super_model->select_row_where("rfq_detail", "rfq_id",  $r->rfq_id) AS $rf){
+			/*	$item_name=$this->super_model->select_column_where('item','item_name','item_id', $rf->item_id);
+*/
+				//echo $aoq_id . " = " . $item_name . " - " .$rf->unit_price . "<br>";
+				$allprice[] = array(
+					'item_id'=>$rf->item_id,
+					'price'=>$rf->unit_price
+				);
+			}
+					
+		}
+		$x=0;
 
 		foreach($this->super_model->select_row_where("aoq_items", "aoq_id", $aoq_id) AS $items){
+
 			$item_name=$this->super_model->select_column_where('item','item_name','item_id', $items->item_id);
+
 			$specs=$this->super_model->select_column_where('item','item_specs','item_id', $items->item_id);
+			
+			
 			foreach($this->super_model->select_row_where("item", "item_id", $items->item_id) AS $i){
 				$uom=$this->super_model->select_column_where('unit','unit_name','unit_id', $i->unit_id);
 			}
-			$min =$this->super_model->get_min_where('rfq_detail','unit_price',"item_id = '$items->item_id' AND unit_price != '0'");
-			
+			//$min =$this->super_model->get_min_where('rfq_detail','unit_price',"item_id = '$items->item_id' AND unit_price != '0'");
+			foreach($allprice AS $var=>$key){
+				foreach($key AS $v=>$k){
+					/*$item_name=$this->super_model->select_column_where('item','item_name','item_id', $key['item_id']);*/
+					if($key['item_id']==$items->item_id){
+						$minprice[$x][] = $key['price'];
+					}
+				}				
+			}
+			$min=min($minprice[$x]);
 			$item = $item_name . ", " .$specs;
+			
+
 			$data['aoq_item'][]=array(
 				'item_id'=>$items->item_id,
 				'item'=>$item,
@@ -247,6 +276,7 @@ class Aoq extends CI_Controller {
 				'qty'=>$items->quantity,
 				'min'=>$min
 			);
+			$x++;
 		}
 
 		$data['employee']=$this->super_model->select_all_order_by("employees", "employee_name", "ASC");
@@ -289,44 +319,58 @@ class Aoq extends CI_Controller {
     	$count_item=$this->input->post('count_item');
     	$count_comment=$this->input->post('count_comment');
     	$count=$this->input->post('count');
+	//echo "**".$this->input->post('comments1_1');
 
-
+    	//echo $count_comment;
     	for($a=1;$a<$count_comment;$a++){
-    		$comment = $this->input->post('comments'.$a);
-    		$supplier=$this->input->post('supplier'.$a);
-    		$item=$this->input->post('item'.$a);
-    		$com = array(
-    			'supplier_id'=>$supplier,
-    			'item_id'=>$item,
-    			'comment'=>$comment,
-    			'aoq_id'=>$aoq_id
-    		);
-    		$this->super_model->insert_into("aoq_comments", $com);
+    		
+    			//echo 'comments'.$a."_".$y;
+	    		$comment = $this->input->post('comments'.$a);
+	    		$supplier=$this->input->post('supplier'.$a);
+	    		$offer=$this->input->post('offer'.$a);
+	    		//echo "**".$comment ."<br>";
+	    		$item=$this->input->post('item'.$a);
+	    		$com = array(
+	    			'supplier_id'=>$supplier,
+	    			'item_id'=>$item,
+	    			'comment'=>$comment,
+	    			'offer'=>$offer,
+	    			'aoq_id'=>$aoq_id
+	    		);
+
+	    		//print_r($com);
+	    		if(!empty($comment)){
+	    			$this->super_model->insert_into("aoq_comments", $com);
+	    		}
+    		
     	}
 
 
     	for($x=1;$x<$count_item;$x++){
-    		$reco =$this->input->post('reco'.$x);
-    		
-    		$reco = explode("_",$reco);
-    		$supplier = $reco[0];
-    		$item = $reco[1];
-    		$price = $reco[2];
-    		$qty = $reco[3];
-    		$offer = $reco[4];
+    		for($v=1;$v<=3;$v++){
+	    		$reco =$this->input->post('reco'.$x."_".$v);
+	    		if(!empty($reco)){
+		    		$reco = explode("_",$reco);
+		    		$supplier = $reco[0];
+		    		$item = $reco[1];
+		    		$price = $reco[2];
+		    		$qty = $reco[3];
+		    		$offer = $reco[4];
 
-    		$data = array(
-    			'supplier_id'=>$supplier,
-    			'item_id'=>$item,
-    			'reco'=>'1',
-    			'aoq_id'=>$aoq_id,
-    			'unit_price'=>$price,
-    			'offer'=>$offer,
-    			'quantity'=>$qty,
-    			'balance'=>$qty
-    		);
-
-    		$this->super_model->insert_into("aoq_reco", $data);
+		    		$data = array(
+		    			'supplier_id'=>$supplier,
+		    			'item_id'=>$item,
+		    			'reco'=>'1',
+		    			'aoq_id'=>$aoq_id,
+		    			'unit_price'=>$price,
+		    			'offer'=>$offer,
+		    			'quantity'=>$qty,
+		    			'balance'=>$qty
+		    		);
+	    	
+	    			$this->super_model->insert_into("aoq_reco", $data);
+	    		}
+    		}
 
     	}
 
@@ -400,14 +444,36 @@ class Aoq extends CI_Controller {
 			);
 		}
 
+		foreach($this->super_model->select_row_where("aoq_rfq", "aoq_id",  $aoq_id) AS $r){
+			foreach($this->super_model->select_row_where("rfq_detail", "rfq_id",  $r->rfq_id) AS $rf){
+				// $item_name=$this->super_model->select_column_where('item','item_name','item_id', $rf->item_id);
+
+				//echo $aoq_id . " = " . $item_name . " - " .$rf->unit_price . "<br>";
+				$allprice[] = array(
+					'item_id'=>$rf->item_id,
+					'price'=>$rf->unit_price
+				);
+			}
+					
+		}
+		$x=0;
 		foreach($this->super_model->select_row_where("aoq_items", "aoq_id", $aoq_id) AS $items){
 			$item_name=$this->super_model->select_column_where('item','item_name','item_id', $items->item_id);
 			$specs=$this->super_model->select_column_where('item','item_specs','item_id', $items->item_id);
 			foreach($this->super_model->select_row_where("item", "item_id", $items->item_id) AS $i){
 				$uom=$this->super_model->select_column_where('unit','unit_name','unit_id', $i->unit_id);
 			}
-			$min =$this->super_model->get_min_where('rfq_detail','unit_price',"item_id = '$items->item_id' AND unit_price != '0'");
-			
+			//$min =$this->super_model->get_min_where('rfq_detail','unit_price',"item_id = '$items->item_id' AND unit_price != '0'");
+			foreach($allprice AS $var=>$key){
+				foreach($key AS $v=>$k){
+					// $item_name=$this->super_model->select_column_where('item','item_name','item_id', $key['item_id']);
+					if($key['item_id']==$items->item_id){
+						$minprice[$x][] = $key['price'];
+					}
+				}				
+			}
+			$min=min($minprice[$x]);
+
 			$item = $item_name . ", " .$specs;
 			$data['aoq_item'][]=array(
 				'item_id'=>$items->item_id,
@@ -416,6 +482,7 @@ class Aoq extends CI_Controller {
 				'qty'=>$items->quantity,
 				'min'=>$min
 			);
+			$x++;
 		}
 
 		$data['employee']=$this->super_model->select_all_order_by("employees", "employee_name", "ASC");
@@ -478,16 +545,39 @@ class Aoq extends CI_Controller {
 				'delivery'=>$delivery,
 				'warranty'=>$warranty
 			);
+
 		}
 
+
+		foreach($this->super_model->select_row_where("aoq_rfq", "aoq_id",  $aoq_id) AS $r){
+			foreach($this->super_model->select_row_where("rfq_detail", "rfq_id",  $r->rfq_id) AS $rf){
+				/*$item_name=$this->super_model->select_column_where('item','item_name','item_id', $rf->item_id);*/
+
+				//echo $aoq_id . " = " . $item_name . " - " .$rf->unit_price . "<br>";
+				$allprice[] = array(
+					'item_id'=>$rf->item_id,
+					'price'=>$rf->unit_price
+				);
+			}
+					
+		}
+
+		$x=0;
 		foreach($this->super_model->select_row_where("aoq_items", "aoq_id", $aoq_id) AS $items){
 			$item_name=$this->super_model->select_column_where('item','item_name','item_id', $items->item_id);
-			$specs=$this->super_model->select_column_where('item','item_specs','item_id', $items->item_id);
+			$specs=$this->super_model->select_column_where('item','item_specs','item_id', $items->item_id);			
 			foreach($this->super_model->select_row_where("item", "item_id", $items->item_id) AS $i){
 				$uom=$this->super_model->select_column_where('unit','unit_name','unit_id', $i->unit_id);
 			}
-			$min =$this->super_model->get_min_where('rfq_detail','unit_price',"item_id = '$items->item_id' AND unit_price != '0'");
-			
+			foreach($allprice AS $var=>$key){
+				foreach($key AS $v=>$k){
+					/*$item_name=$this->super_model->select_column_where('item','item_name','item_id', $key['item_id']);*/
+					if($key['item_id']==$items->item_id){
+						$minprice[$x][] = $key['price'];
+					}
+				}				
+			}
+			$min=min($minprice[$x]);
 			$item = $item_name . ", " .$specs;
 			$data['aoq_item'][]=array(
 				'item_id'=>$items->item_id,
@@ -496,6 +586,7 @@ class Aoq extends CI_Controller {
 				'qty'=>$items->quantity,
 				'min'=>$min
 			);
+			$x++;
 		}
 
 		$data['employee']=$this->super_model->select_all_order_by("employees", "employee_name", "ASC");
@@ -527,8 +618,8 @@ class Aoq extends CI_Controller {
     	}
     }
 
-    public function get_rfq_item($column, $supplier, $item){
-    	foreach($this->super_model->custom_query("SELECT rd.item_id, rd.offer, rd.unit_price, rd.recommended FROM rfq_head rh INNER JOIN rfq_detail rd ON rh.rfq_id = rd.rfq_id WHERE rh.supplier_id ='$supplier' AND rd.item_id = '$item'") AS $item){
+    public function get_rfq_item($column, $supplier, $item, $rfq_id){
+    	foreach($this->super_model->custom_query("SELECT rd.item_id, rd.offer, rd.unit_price, rd.recommended FROM rfq_head rh INNER JOIN rfq_detail rd ON rh.rfq_id = rd.rfq_id WHERE rh.supplier_id ='$supplier' AND rd.item_id = '$item' AND rd.rfq_id= '$rfq_id'") AS $item){
     		if($column == 'item'){
     			$item_name=$this->super_model->select_column_where('item','item_name','item_id', $item->item_id);
     			$item_specs=$this->super_model->select_column_where('item','item_specs','item_id', $item->item_id);
@@ -540,6 +631,23 @@ class Aoq extends CI_Controller {
     		
     	}
     }
+
+    public function get_all_rfq_items($supplier, $item, $rfq_id){
+		$allrfq = $this->super_model->custom_query("SELECT rh.rfq_id, rd.rfq_detail_id, rd.unit_price, rd.offer,rd.item_id FROM rfq_head rh INNER JOIN rfq_detail rd ON rh.rfq_id = rd.rfq_id WHERE rh.supplier_id = '$supplier' AND rd.item_id = '$item'");
+		return $allrfq;
+    }
+
+     public function get_rfq_items_supplier($column, $supplier, $rfq_detail_id){
+		foreach($this->super_model->custom_query("SELECT rd.item_id, rd.offer, rd.unit_price, rd.recommended FROM rfq_head rh INNER JOIN rfq_detail rd ON rh.rfq_id = rd.rfq_id WHERE rh.supplier_id = '$supplier' AND rd.rfq_detail_id = '$rfq_detail_id'") AS $a){
+			return $a->$column;
+		}
+    } 
+
+     public function get_name($column, $table, $col_id, $val_id){
+		foreach($this->super_model->custom_query("SELECT $column FROM $table WHERE $col_id = '$val_id'") AS $a){
+			return $a->$column;
+		}
+    } 
 
     public function update_served(){
     	$aoq_id=$this->uri->segment(3);
@@ -555,11 +663,20 @@ class Aoq extends CI_Controller {
 
     public function get_aoq_others($type, $supplier, $item, $aoq_id){
     	if($type=='reco'){
-    		$rows = $this->super_model->count_custom_where("aoq_reco","supplier_id= '$supplier' AND item_id = '$item' AND aoq_id = '$aoq_id'");
-    		return $rows;
+    		//$rows = $this->super_model->count_custom_where("aoq_reco","supplier_id= '$supplier' AND item_id = '$item' AND aoq_id = '$aoq_id'");
+    		//return $rows;
+    		$offer = $this->super_model->select_column_custom_where("aoq_reco", "offer", "item_id = '$item' AND aoq_id = '$aoq_id'");
+    		$supplier = $this->super_model->select_column_custom_where("aoq_reco", "supplier_id", "item_id = '$item' AND aoq_id = '$aoq_id'");
+    		return $offer."_".$supplier;
     	} else if($type=='comments'){
-    		$comment = $this->super_model->select_column_custom_where("aoq_comments", "comment", "supplier_id = '$supplier' AND item_id = '$item' AND aoq_id = '$aoq_id'");
-    		return $comment;
+    		foreach($this->super_model->select_custom_where("aoq_comments", "item_id = '$item' AND aoq_id = '$aoq_id'") AS $comm){
+	    		$com[] = array(
+	    			"comment"=>$comm->comment,
+	    			"supplier"=>$comm->supplier_id,
+	    			"offer"=>$comm->offer
+	    		);
+    		}
+    		return $com;
     	}
     }
 

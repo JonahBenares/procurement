@@ -13,6 +13,9 @@
         	padding:0px 0px 0px 0px
         	}
         }
+        .pad-lr{
+        	padding: 0px 2px;
+        }
         .served{
         	background-image: url('../../assets/img/served_aoq.png')!important;
         	background-repeat:no-repeat!important;
@@ -151,6 +154,7 @@
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/font-awesome.min.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/mixins.css">
+    <script src="<?php echo base_url(); ?>assets/js/all-scripts.js"></script> 
     <div  class="pad">
     		<?php if($saved==1){
 			$url =  base_url().'aoq/aoq_complete';
@@ -322,7 +326,7 @@
 						$offer= $CI->get_rfq_item("offer", $sup['supplier_id'], $it['item_id']);
 	    				$total = $it['qty']*$up;
 	    				?>
-		    			<td colspan="2" class="f10 table-borreg" align="left">
+		    			<td colspan="2" class="f10 table-borreg pad-lr" align="left">
 		    			
 		    			
 		    				<b class="text-red">
@@ -546,7 +550,7 @@
                 </div>                                   
                 <div class="form-group">
                     <h5 class="m-b-0" style="text-align: left">Qty:</h5>
-                    <input type='text' name="qty" class="form-control" required="" autocomplete="off">
+                    <input type='text' name="qty" class="form-control" required="" autocomplete="off"  onkeypress="return isNumberKey(this, event)">
                 </div>
 
 		      	</div>
