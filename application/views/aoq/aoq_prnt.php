@@ -100,6 +100,9 @@
 		.green-back{
 			background-image: url('../../assets/img/green.png');
 		}
+		.emphasis{
+			border-bottom: 2px solid red;
+		}
 
 		/* -------------------- Colors: Background */
 		.slate   { background-color: #ddd; }
@@ -324,7 +327,7 @@
 				    					<td width="20%" class="bor-right <?php echo (($reco_supplier == $sup['supplier_id'] && $reco_offer == $allrfq->offer) ? ' green-back' : ''); ?> bor-btm" align="center"><?php echo number_format($amount,2); ?></td>
 				    					<td width="20%" class="bor-right text-red bor-btm">
 				    						<?php if($saved=='1' && $completed==0){ ?>
-				    						<textarea cols="4" rows="3" name='comments<?php echo $b; ?>'></textarea>
+				    						<textarea cols="4" rows="3" name='comments<?php echo $b; ?>' style=' border: 0px'></textarea>
 				    						<input type='hidden' name='offer<?php echo $b; ?>' value="<?php echo $allrfq->offer; ?>">
 				    						<input type='hidden' name='supplier<?php echo $b; ?>' value="<?php echo $sup['supplier_id']; ?>">
 				    						<input type='hidden' name='item<?php echo $b; ?>' value="<?php echo $it['item_id']; ?>">
@@ -334,7 +337,9 @@
 				    									<textarea cols="4" rows="3" readonly="readonly" style='resize: none; border: 0px'><?php echo $cm['comment']; ?></textarea>
 				    								<?php } 
 				    							}
-				    						 } ?>
+				    						 } else if($saved=='0' && $completed=='0') { ?>
+				    						 	<textarea cols="4" rows="3" readonly="readonly" style='resize: none; border: 0px'></textarea>
+				    						 <?php } ?>
 				    					</td>
 				    				</tr>
 			    				
@@ -544,7 +549,7 @@
 		    			<td colspan="2" class="f10" align="left"><br></td>
 		    			<td colspan="3" class="f10 bor-btm" align="center">
 		    			<?php if($saved==0){ ?>
-		    			<select name='approved' required>
+		    			<select name='approved' required class='emphasis'>
 			    			<option value=''>-Select-</option>
 			    			<?php foreach($employee AS $emp){ ?>
 			    				<option value='<?php echo $emp->employee_id; ?>'><?php echo $emp->employee_name; ?></option>
@@ -556,7 +561,7 @@
 		    			<td colspan="2" class="f10" align="left"><br></td>
 		    			<td colspan="3" class="f10 bor-btm" align="center">
 		    			<?php if($saved==0){ ?>
-		    				<select name='noted' required>
+		    				<select name='noted' required class='emphasis'>
 			    			<option value=''>-Select-</option>
 			    			<?php foreach($employee AS $emp){ ?>
 			    				<option value='<?php echo $emp->employee_id; ?>'><?php echo $emp->employee_name; ?></option>
