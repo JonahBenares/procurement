@@ -305,14 +305,17 @@
 		    			<td class="f10 table-borreg" align="center"><?php echo $it['uom']; ?></td>
 		    			<?php foreach($supplier AS $sup){ ?>
 		    			<td colspan="5">
-		    				<table width="100%" height="400px">	
+		    			
 		    				<?php 
 		    				$v=0;
 		    				$c=1;
+
+		    			
+
 			    				foreach($CI->get_all_rfq_items($sup['supplier_id'], $it['item_id'],$sup['rfq_id']) AS $allrfq) { 
 			    					$amount = $it['qty'] *$allrfq->unit_price; ?>
-			    				    					
-			    					<tr style='height: 33%'>
+			    				   <table width="100%" >						
+			    					<tr>
 				    					<td width="40%" class="bor-right f10 bor-btm">
 				    						<b class="text-red nomarg">
 				    				 			<?php echo $allrfq->offer; ?>,
@@ -342,7 +345,7 @@
 				    						 <?php } ?>
 				    					</td>
 				    				</tr>
-			    				
+			    				</table>
 			    				<?php $v++; 
 			    					$c++;
 			    					$b++;
@@ -351,7 +354,8 @@
 		    				
 		    				<?php 
 		    				 if($v==0){ ?>
-		    				 		<tr style='height: 33%'>
+		    				 	<table width="100%" >	
+		    				 			<tr >
 				    					<td width="40%" class="bor-right bor-btm" >
 				    						<b class="text-red nomarg">
 				    						</b> </td>
@@ -366,7 +370,7 @@
 				    					</td>
 				    				</tr>
 			    				    					
-			    					<tr style='height: 33%'>
+			    					<tr >
 				    					<td width="40%" class="bor-right bor-btm">
 				    						<b class="text-red nomarg">
 				    						</b> </td>
@@ -381,7 +385,7 @@
 				    					</td>
 				    				</tr>
 
-				    				<tr style='height: 33%'>
+				    				<tr >
 				    					<td width="40%" class="bor-right bor-btm">
 				    						<b class="text-red nomarg">
 				    						</b> </td>
@@ -395,8 +399,9 @@
 				    						<textarea cols="4" rows="3" name='' style="border: 0px;resize: none"></textarea>
 				    					</td>
 				    				</tr>
-
-		    				 <?php } if($v==1) { ?>	    					
+				    			</table>
+		    				 <?php } if($v==1) { ?>	   
+		    				 	<table width="100%" >	 					
 			    					<tr style='height: 33%'>
 				    					<td width="40%" class="bor-right bor-btm" >
 				    						<b class="text-red nomarg">
@@ -412,7 +417,7 @@
 				    					</td>
 				    				</tr>
 			    				    					
-			    					<tr style='height: 33%'>
+			    					<tr >
 				    					<td width="40%" class="bor-right bor-btm">
 				    						<b class="text-red nomarg">
 				    						</b> </td>
@@ -426,11 +431,11 @@
 				    						<textarea cols="4" rows="3" name='' style="border: 0px;resize: none"></textarea>
 				    					</td>
 				    				</tr>
-			    				
+			    				</table>
 		    				<?php } 
 		    				if($v==2) { ?>
-			    								
-			    					<tr style='height: 33%'>
+			    				<table width="100%">			
+			    					<tr >
 				    					<td width="40%" class="bor-right bor-btm" >
 				    						<b class="text-red nomarg">
 				    						</b> </td>
@@ -444,10 +449,10 @@
 				    						<textarea cols="4" rows="3" name='' style="border: 0px;resize: none"></textarea>
 				    					</td>
 				    				</tr>
-			    			
+			    				</table>
 			    				
 		    			<?php	} ?>
-		    				</table>
+		    			
 		    			</td>
 		    		
 		    			<?php  }
