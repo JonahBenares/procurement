@@ -305,14 +305,14 @@
 		    			<td class="f10 table-borreg" align="center"><?php echo $it['uom']; ?></td>
 		    			<?php foreach($supplier AS $sup){ ?>
 		    			<td colspan="5">
-		    				<table width="100%" >	
+		    				<table width="100%" height="400px">	
 		    				<?php 
 		    				$v=0;
 		    				$c=1;
 			    				foreach($CI->get_all_rfq_items($sup['supplier_id'], $it['item_id'],$sup['rfq_id']) AS $allrfq) { 
 			    					$amount = $it['qty'] *$allrfq->unit_price; ?>
 			    				    					
-			    					<tr>
+			    					<tr style='height: 33%'>
 				    					<td width="40%" class="bor-right f10 bor-btm">
 				    						<b class="text-red nomarg">
 				    				 			<?php echo $allrfq->offer; ?>,
@@ -351,7 +351,7 @@
 		    				
 		    				<?php 
 		    				 if($v==0){ ?>
-		    				 		<tr >
+		    				 		<tr style='height: 33%'>
 				    					<td width="40%" class="bor-right bor-btm" >
 				    						<b class="text-red nomarg">
 				    						</b> </td>
@@ -366,7 +366,7 @@
 				    					</td>
 				    				</tr>
 			    				    					
-			    					<tr>
+			    					<tr style='height: 33%'>
 				    					<td width="40%" class="bor-right bor-btm">
 				    						<b class="text-red nomarg">
 				    						</b> </td>
@@ -381,7 +381,7 @@
 				    					</td>
 				    				</tr>
 
-				    				<tr>
+				    				<tr style='height: 33%'>
 				    					<td width="40%" class="bor-right bor-btm">
 				    						<b class="text-red nomarg">
 				    						</b> </td>
@@ -397,7 +397,7 @@
 				    				</tr>
 
 		    				 <?php } if($v==1) { ?>	    					
-			    					<tr >
+			    					<tr style='height: 33%'>
 				    					<td width="40%" class="bor-right bor-btm" >
 				    						<b class="text-red nomarg">
 				    						</b> </td>
@@ -412,7 +412,7 @@
 				    					</td>
 				    				</tr>
 			    				    					
-			    					<tr>
+			    					<tr style='height: 33%'>
 				    					<td width="40%" class="bor-right bor-btm">
 				    						<b class="text-red nomarg">
 				    						</b> </td>
@@ -430,7 +430,7 @@
 		    				<?php } 
 		    				if($v==2) { ?>
 			    								
-			    					<tr>
+			    					<tr style='height: 33%'>
 				    					<td width="40%" class="bor-right bor-btm" >
 				    						<b class="text-red nomarg">
 				    						</b> </td>

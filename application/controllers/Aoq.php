@@ -669,12 +669,18 @@ class Aoq extends CI_Controller {
     		$supplier = $this->super_model->select_column_custom_where("aoq_reco", "supplier_id", "item_id = '$item' AND aoq_id = '$aoq_id'");
     		return $offer."_".$supplier;
     	} else if($type=='comments'){
-    		foreach($this->super_model->select_custom_where("aoq_comments", "item_id = '$item' AND aoq_id = '$aoq_id'") AS $comm){
-	    		$com[] = array(
-	    			"comment"=>$comm->comment,
-	    			"supplier"=>$comm->supplier_id,
-	    			"offer"=>$comm->offer
-	    		);
+
+    		$ct = $this->super_model->count_custom_where("aoq_comments", "item_id = '$item' AND aoq_id = '$aoq_id'");
+    		if($ct!=0){
+	    		foreach($this->super_model->select_custom_where("aoq_comments", "item_id = '$item' AND aoq_id = '$aoq_id'") AS $comm){
+		    		$com[] = array(
+		    			"comment"=>$comm->comment,
+		    			"supplier"=>$comm->supplier_id,
+		    			"offer"=>$comm->offer
+		    		);
+	    		}
+    		} else {
+    			$com=array();
     		}
     		return $com;
     	}
