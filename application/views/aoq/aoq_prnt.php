@@ -298,13 +298,13 @@
 
 		    			?>
 
-		    		<tr>
+		    		<tr style='border:1px solid #000'>
 		    			<td class="f10 table-borreg" align="center"><?php echo $x; ?></td>
 		    			<td class="f10 table-borreg" align="left" colspan="3"><?php echo $it['item']; ?></td>
 		    			<td class="f10 table-borreg" align="center"><?php echo $it['qty']; ?></td>
 		    			<td class="f10 table-borreg" align="center"><?php echo $it['uom']; ?></td>
 		    			<?php foreach($supplier AS $sup){ ?>
-		    			<td colspan="5">
+		    			<td colspan="5" style='border:1px solid #000'>
 		    			
 		    				<?php 
 		    				$v=0;
@@ -314,9 +314,9 @@
 
 			    				foreach($CI->get_all_rfq_items($sup['supplier_id'], $it['item_id'],$sup['rfq_id']) AS $allrfq) { 
 			    					$amount = $it['qty'] *$allrfq->unit_price; ?>
-			    				   <table width="100%" >						
+			    				   <table width="100%" border='1' style=' margin-top: 0px;'>						
 			    					<tr>
-				    					<td width="40%" class="bor-right f10 bor-btm">
+				    					<td width="40%" class="bor-right f10">
 				    						<b class="text-red nomarg">
 				    				 			<?php echo $allrfq->offer; ?>,
 				    						</b> <?php echo $CI->get_name("item_name", "item", "item_id", $allrfq->item_id); ?></td>
@@ -352,106 +352,7 @@
 			    				} 
 		    				?>
 		    				
-		    				<?php 
-		    				 if($v==0){ ?>
-		    				 	<table width="100%" >	
-		    				 			<tr >
-				    					<td width="40%" class="bor-right bor-btm" >
-				    						<b class="text-red nomarg">
-				    						</b> </td>
-				    					<td width="20%" class="bor-right bor-btm f10" align="center">
-				    						
-				    						<br>	
-			    						
-				    					</td>
-				    					<td width="20%" class="bor-right bor-btm" align="center"></td>
-				    					<td width="20%" class="bor-right bor-btm text-red">
-				    						<textarea cols="4" rows="3" name='' style="border: 0px;resize: none"></textarea>
-				    					</td>
-				    				</tr>
-			    				    					
-			    					<tr >
-				    					<td width="40%" class="bor-right bor-btm">
-				    						<b class="text-red nomarg">
-				    						</b> </td>
-				    					<td width="20%" class="bor-right bor-btm f10 " align="center">
-				    						
-				    						<br>	
-			    						
-				    					</td>
-				    					<td width="20%" class="bor-right bor-btm " align="center"></td>
-				    					<td width="20%" class="bor-right bor-btm text-red">
-				    						<textarea cols="4" rows="3" name='' style="border: 0px;resize: none"></textarea>
-				    					</td>
-				    				</tr>
-
-				    				<tr >
-				    					<td width="40%" class="bor-right bor-btm">
-				    						<b class="text-red nomarg">
-				    						</b> </td>
-				    					<td width="20%" class="bor-right bor-btm f10 " align="center">
-				    						
-				    						<br>	
-			    						
-				    					</td>
-				    					<td width="20%" class="bor-right bor-btm " align="center"></td>
-				    					<td width="20%" class="bor-right bor-btm text-red">
-				    						<textarea cols="4" rows="3" name='' style="border: 0px;resize: none"></textarea>
-				    					</td>
-				    				</tr>
-				    			</table>
-		    				 <?php } if($v==1) { ?>	   
-		    				 	<table width="100%" >	 					
-			    					<tr style='height: 33%'>
-				    					<td width="40%" class="bor-right bor-btm" >
-				    						<b class="text-red nomarg">
-				    						</b> </td>
-				    					<td width="20%" class="bor-right bor-btm f10" align="center">
-				    						
-				    						<br>	
-			    						
-				    					</td>
-				    					<td width="20%" class="bor-right bor-btm" align="center"></td>
-				    					<td width="20%" class="bor-right bor-btm text-red">
-				    						<textarea cols="4" rows="3" name='' style="border: 0px;resize: none"></textarea>
-				    					</td>
-				    				</tr>
-			    				    					
-			    					<tr >
-				    					<td width="40%" class="bor-right bor-btm">
-				    						<b class="text-red nomarg">
-				    						</b> </td>
-				    					<td width="20%" class="bor-right bor-btm f10 " align="center">
-				    						
-				    						<br>	
-			    						
-				    					</td>
-				    					<td width="20%" class="bor-right bor-btm " align="center"></td>
-				    					<td width="20%" class="bor-right bor-btm text-red">
-				    						<textarea cols="4" rows="3" name='' style="border: 0px;resize: none"></textarea>
-				    					</td>
-				    				</tr>
-			    				</table>
-		    				<?php } 
-		    				if($v==2) { ?>
-			    				<table width="100%">			
-			    					<tr >
-				    					<td width="40%" class="bor-right bor-btm" >
-				    						<b class="text-red nomarg">
-				    						</b> </td>
-				    					<td width="20%" class="bor-right bor-btm f10" align="center">
-				    						
-				    						<br>	
-			    						
-				    					</td>
-				    					<td width="20%" class="bor-right bor-btm " align="center"></td>
-				    					<td width="20%" class="bor-right bor-btm text-red">
-				    						<textarea cols="4" rows="3" name='' style="border: 0px;resize: none"></textarea>
-				    					</td>
-				    				</tr>
-			    				</table>
-			    				
-		    			<?php	} ?>
+		    		
 		    			
 		    			</td>
 		    		
