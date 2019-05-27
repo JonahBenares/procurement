@@ -166,20 +166,14 @@
 		    						<td class="f13" align="center" rowspan='3'><?php echo $x; ?></td>
 		    						<td class="f13" align="center" rowspan='3'><?php echo $item['unit']; ?></td>
 		    						<td class="f13" align="center" rowspan='3' style='width:35%'><?php echo $item['item']; ?></td>
-		    						<td class="f13" align="center">
-		    						
-		    							<input type="text" name="offer<?php echo $x; ?>_1" class="sel-des emphasis" autocomplete="off" >
-		    					
+		    						<td class="f13" align="center">		    						
+		    							<input type="text" name="offer<?php echo $x; ?>_1" class="sel-des emphasis" autocomplete="off" >		    					
 		    						</td>
-		    						<td class="f13" align="center">
-		    					
-		    							<input type="text" name="price<?php echo $x; ?>_1" class="sel-des emphasis" autocomplete="off"  onkeypress="return isNumberKey(this, event)">
-		    							
-		    						</td>
-		    					
+		    						<td class="f13" align="center">		    					
+		    							<input type="text" name="price<?php echo $x; ?>_1" class="sel-des emphasis" autocomplete="off"  onkeypress="return isNumberKey(this, event)">		    							
+		    						</td>		    					
 		    					</tr>
-		    					<tr>
-		    					
+		    					<tr>		    					
 		    						<td class="f13" align="center">
 		    						<?php if($completed==0){ ?>
 		    							<input type="text" name="offer<?php echo $x; ?>_2" class="sel-des emphasis" autocomplete="off" >
@@ -187,12 +181,9 @@
 		    							echo $item['offer'];
 		    						} ?>
 		    						</td>
-		    						<td class="f13" align="center">
-		    						
-		    							<input type="text" name="price<?php echo $x; ?>_2" class="sel-des emphasis" autocomplete="off"  onkeypress="return isNumberKey(this, event)">
-		    						
-		    						</td>
-		    					
+		    						<td class="f13" align="center">		    						
+		    							<input type="text" name="price<?php echo $x; ?>_2" class="sel-des emphasis" autocomplete="off"  onkeypress="return isNumberKey(this, event)">		    						
+		    						</td>		    					
 		    					</tr>
 		    					<tr>
 		    						<td class="f13" align="center">
