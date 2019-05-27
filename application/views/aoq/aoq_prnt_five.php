@@ -97,6 +97,9 @@
 		.green-back{
 			background-image: url('../../assets/img/green.png');
 		}
+		.v-al{
+			vertical-align: text-top;
+		}
 		/* -------------------- Colors: Background */
 		.slate   { background-color: #ddd; }
 		.green   { background-color: #779126; }

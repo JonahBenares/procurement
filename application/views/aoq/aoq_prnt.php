@@ -103,7 +103,9 @@
 		.emphasis{
 			border-bottom: 2px solid red;
 		}
-
+		.v-al{
+			vertical-align: text-top;
+		}
 		/* -------------------- Colors: Background */
 		.slate   { background-color: #ddd; }
 		.green   { background-color: #779126; }
@@ -299,12 +301,12 @@
 		    			?>
 
 		    		<tr style='border:1px solid #000'>
-		    			<td class="f10 table-borreg" align="center"><?php echo $x; ?></td>
-		    			<td class="f10 table-borreg" align="left" colspan="3"><?php echo $it['item']; ?></td>
-		    			<td class="f10 table-borreg" align="center"><?php echo $it['qty']; ?></td>
-		    			<td class="f10 table-borreg" align="center"><?php echo $it['uom']; ?></td>
+		    			<td class="f10 table-borreg v-al" align="center"><?php echo $x; ?></td>
+		    			<td class="f10 table-borreg v-al" align="left" colspan="3"><?php echo $it['item']; ?></td>
+		    			<td class="f10 table-borreg v-al" align="center"><?php echo $it['qty']; ?></td>
+		    			<td class="f10 table-borreg v-al" align="center"><?php echo $it['uom']; ?></td>
 		    			<?php foreach($supplier AS $sup){ ?>
-		    			<td colspan="5" style='border:1px solid #000'>
+		    			<td colspan="5" style='border:0px solid #000;vertical-align: text-top;' >
 		    			
 		    				<?php 
 		    				$v=0;
@@ -314,9 +316,9 @@
 
 			    				foreach($CI->get_all_rfq_items($sup['supplier_id'], $it['item_id'],$sup['rfq_id']) AS $allrfq) { 
 			    					$amount = $it['qty'] *$allrfq->unit_price; ?>
-			    				   <table width="100%" border='1' style=' margin-top: 0px;'>						
+			    				   <table width="100%"  style=' margin-top: 0px;'>						
 			    					<tr>
-				    					<td width="40%" class="bor-right f10">
+				    					<td width="40%" class="bor-right bor-btm f10">
 				    						<b class="text-red nomarg">
 				    				 			<?php echo $allrfq->offer; ?>,
 				    						</b> <?php echo $CI->get_name("item_name", "item", "item_id", $allrfq->item_id); ?></td>
