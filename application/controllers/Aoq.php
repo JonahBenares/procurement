@@ -413,6 +413,8 @@ class Aoq extends CI_Controller {
 				'remarks'=>$head->remarks,
 				'prepared'=>$prepared,
 
+
+
 			);
 			$data['noted'] = $noted;
 			$data['approved'] = $approved;
@@ -424,6 +426,8 @@ class Aoq extends CI_Controller {
 		foreach($this->super_model->select_row_where("aoq_rfq", "aoq_id", $aoq_id) AS $rfq){
 			//echo $rfq->rfq_id;
 			$supplier_id=$this->super_model->select_column_where('rfq_head','supplier_id','rfq_id', $rfq->rfq_id);
+			$data['supplier_id'] = $supplier_id;
+			$data['rfq_id'] = $rfq->rfq_id;
 			$supplier=$this->super_model->select_column_where('vendor_head','vendor_name','vendor_id', $supplier_id);
 			$contact=$this->super_model->select_column_where('vendor_head','contact_person','vendor_id', $supplier_id);
 			$phone=$this->super_model->select_column_where('vendor_head','phone_number','vendor_id', $supplier_id);
@@ -443,11 +447,10 @@ class Aoq extends CI_Controller {
 				'warranty'=>$warranty
 			);
 		}
-
 		foreach($this->super_model->select_row_where("aoq_rfq", "aoq_id",  $aoq_id) AS $r){
 			foreach($this->super_model->select_row_where("rfq_detail", "rfq_id",  $r->rfq_id) AS $rf){
-				// $item_name=$this->super_model->select_column_where('item','item_name','item_id', $rf->item_id);
-
+			/*	$item_name=$this->super_model->select_column_where('item','item_name','item_id', $rf->item_id);
+*/
 				//echo $aoq_id . " = " . $item_name . " - " .$rf->unit_price . "<br>";
 				$allprice[] = array(
 					'item_id'=>$rf->item_id,
@@ -457,24 +460,30 @@ class Aoq extends CI_Controller {
 					
 		}
 		$x=0;
+
 		foreach($this->super_model->select_row_where("aoq_items", "aoq_id", $aoq_id) AS $items){
+
 			$item_name=$this->super_model->select_column_where('item','item_name','item_id', $items->item_id);
+
 			$specs=$this->super_model->select_column_where('item','item_specs','item_id', $items->item_id);
+			
+			
 			foreach($this->super_model->select_row_where("item", "item_id", $items->item_id) AS $i){
 				$uom=$this->super_model->select_column_where('unit','unit_name','unit_id', $i->unit_id);
 			}
 			//$min =$this->super_model->get_min_where('rfq_detail','unit_price',"item_id = '$items->item_id' AND unit_price != '0'");
 			foreach($allprice AS $var=>$key){
 				foreach($key AS $v=>$k){
-					// $item_name=$this->super_model->select_column_where('item','item_name','item_id', $key['item_id']);
+					/*$item_name=$this->super_model->select_column_where('item','item_name','item_id', $key['item_id']);*/
 					if($key['item_id']==$items->item_id){
 						$minprice[$x][] = $key['price'];
 					}
 				}				
 			}
 			$min=min($minprice[$x]);
-
 			$item = $item_name . ", " .$specs;
+			
+
 			$data['aoq_item'][]=array(
 				'item_id'=>$items->item_id,
 				'item'=>$item,
@@ -516,6 +525,8 @@ class Aoq extends CI_Controller {
 				'remarks'=>$head->remarks,
 				'prepared'=>$prepared,
 
+
+
 			);
 			$data['noted'] = $noted;
 			$data['approved'] = $approved;
@@ -527,6 +538,8 @@ class Aoq extends CI_Controller {
 		foreach($this->super_model->select_row_where("aoq_rfq", "aoq_id", $aoq_id) AS $rfq){
 			//echo $rfq->rfq_id;
 			$supplier_id=$this->super_model->select_column_where('rfq_head','supplier_id','rfq_id', $rfq->rfq_id);
+			$data['supplier_id'] = $supplier_id;
+			$data['rfq_id'] = $rfq->rfq_id;
 			$supplier=$this->super_model->select_column_where('vendor_head','vendor_name','vendor_id', $supplier_id);
 			$contact=$this->super_model->select_column_where('vendor_head','contact_person','vendor_id', $supplier_id);
 			$phone=$this->super_model->select_column_where('vendor_head','phone_number','vendor_id', $supplier_id);
@@ -545,14 +558,11 @@ class Aoq extends CI_Controller {
 				'delivery'=>$delivery,
 				'warranty'=>$warranty
 			);
-
 		}
-
-
 		foreach($this->super_model->select_row_where("aoq_rfq", "aoq_id",  $aoq_id) AS $r){
 			foreach($this->super_model->select_row_where("rfq_detail", "rfq_id",  $r->rfq_id) AS $rf){
-				/*$item_name=$this->super_model->select_column_where('item','item_name','item_id', $rf->item_id);*/
-
+			/*	$item_name=$this->super_model->select_column_where('item','item_name','item_id', $rf->item_id);
+*/
 				//echo $aoq_id . " = " . $item_name . " - " .$rf->unit_price . "<br>";
 				$allprice[] = array(
 					'item_id'=>$rf->item_id,
@@ -561,14 +571,19 @@ class Aoq extends CI_Controller {
 			}
 					
 		}
-
 		$x=0;
+
 		foreach($this->super_model->select_row_where("aoq_items", "aoq_id", $aoq_id) AS $items){
+
 			$item_name=$this->super_model->select_column_where('item','item_name','item_id', $items->item_id);
-			$specs=$this->super_model->select_column_where('item','item_specs','item_id', $items->item_id);			
+
+			$specs=$this->super_model->select_column_where('item','item_specs','item_id', $items->item_id);
+			
+			
 			foreach($this->super_model->select_row_where("item", "item_id", $items->item_id) AS $i){
 				$uom=$this->super_model->select_column_where('unit','unit_name','unit_id', $i->unit_id);
 			}
+			//$min =$this->super_model->get_min_where('rfq_detail','unit_price',"item_id = '$items->item_id' AND unit_price != '0'");
 			foreach($allprice AS $var=>$key){
 				foreach($key AS $v=>$k){
 					/*$item_name=$this->super_model->select_column_where('item','item_name','item_id', $key['item_id']);*/
@@ -579,6 +594,8 @@ class Aoq extends CI_Controller {
 			}
 			$min=min($minprice[$x]);
 			$item = $item_name . ", " .$specs;
+			
+
 			$data['aoq_item'][]=array(
 				'item_id'=>$items->item_id,
 				'item'=>$item,
