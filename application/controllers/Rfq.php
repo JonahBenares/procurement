@@ -164,7 +164,7 @@ class Rfq extends CI_Controller {
 				'served'=>$rfq->served
 			);
 
-			foreach($this->super_model->select_row_where("rfq_detail", "rfq_id", $rfq->rfq_id) AS $it){
+			foreach($this->super_model->select_custom_where_group("rfq_detail", "rfq_id ='$rfq->rfq_id'", "item_id") AS $it){
 				$item = $this->super_model->select_column_where('item','item_name','item_id', $it->item_id);
 				//$item_name .= $item. ", ";
 				$data['items'][] = array(
@@ -265,6 +265,33 @@ class Rfq extends CI_Controller {
 	 		);
 	 	}
 
+
+	 	/*foreach($this->super_model->select_custom_where_group('rfq_detail', "rfq_id = '$rfq_id'", "item_id") AS $com){*/
+	 		foreach($this->super_model->custom_query("SELECT * FROM rfq_detail WHERE rfq_id = '$rfq_id' ORDER BY item_id ASC") AS $com){
+	 		//echo $com->item_id;
+	 		$item=$this->super_model->select_column_where('item','item_name','item_id', $com->item_id) .', '.$this->super_model->select_column_where('item','item_specs','item_id', $com->item_id);
+
+	 		$rows_item =$this->super_model->count_custom_where("rfq_detail","rfq_id = '$rfq_id' AND item_id ='$com->item_id'");
+	 		//echo $rows_item . "<br>";
+	 	
+	 		$data['complete'][] = array(
+	 			'detail_id'=>$com->rfq_detail_id,
+	 			'item'=>$item,
+	 			'unit'=>$this->super_model->select_column_where('unit','unit_name','unit_id', $com->unit_id),
+	 			'row'=>$rows_item,
+	 			'offer'=>$com->offer,
+	 			'price'=>$com->unit_price,
+	 			'row'=>$rows_item
+	 		);
+
+	 		/*foreach($this->super_model->custom_query("SELECT * FROM rfq_detail WHERE rfq_id='$rfq_id' AND item_id = '$com->item_id' AND rfq_detail_id !='$com->rfq_detail_id'") AS $others){
+	 			$data['others'][] = array(
+	 				'offer'=>$others->offer,
+	 				'price'=>$others->unit_price,
+	 			);
+	 		}*/
+	 	}
+
         $this->load->view('rfq/rfq_incoming', $data);
     }
 
@@ -283,8 +310,9 @@ class Rfq extends CI_Controller {
 
     	if($this->super_model->update_where("rfq_head", $head, "rfq_id", $rfq_id)){
     		for($a=1; $a<=$count; $a++){
-    			$offer=$this->input->post('offer'.$a);
-    			$price=$this->input->post('price'.$a);
+
+    			$offer=$this->input->post('offer'.$a.'_1');
+    			$price=$this->input->post('price'.$a.'_1');
     			//$reco=$this->input->post('reco'.$a);
     			$detailid=$this->input->post('detail_id'.$a);
 	    		$details = array(
@@ -293,6 +321,26 @@ class Rfq extends CI_Controller {
 	    			//'recommended'=>$reco
 	    		);
 	    		$this->super_model->update_where("rfq_detail", $details, "rfq_detail_id", $detailid);
+
+	    		for($b=2;$b<=3;$b++){
+	    			$offer1=$this->input->post('offer'.$a.'_'.$b);
+	    			$price1=$this->input->post('price'.$a.'_'.$b);
+	    			//$reco=$this->input->post('reco'.$a);
+	    			$detailids=$this->input->post('detail_id'.$a);
+	    			
+	    			$item_id = $this->super_model->select_column_where('rfq_detail','item_id','rfq_detail_id', $detailids);
+	    			$unit_id = $this->super_model->select_column_where('rfq_detail','unit_id','rfq_detail_id', $detailids);
+		    		$details_insert = array(
+		    			'rfq_id'=>$rfq_id,
+		    			'item_id'=>$item_id,
+		    			'unit_id'=>$unit_id,
+		    			'offer'=>$offer1,
+		    			'unit_price'=>$price1,
+		    		);
+		    		if(!empty($offer1)){
+		    		 $this->super_model->insert_into("rfq_detail", $details_insert);
+		    		}
+	    		}
     		}
     	}
 

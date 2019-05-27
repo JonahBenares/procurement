@@ -74,6 +74,11 @@ class Masterfile extends CI_Controller {
         }
         $this->load->view('template/header');
         $this->load->view('template/navbar');
+
+        $data['count_rfq']=$this->super_model->count_rows('rfq_head');
+        $data['count_aoq']=$this->super_model->count_rows('aoq_header');
+        $data['count_po']=$this->super_model->count_rows('po_head');
+
         $this->load->view('masterfile/dashboard',$data);
         $this->load->view('template/footer');
     }
