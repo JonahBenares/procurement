@@ -650,7 +650,9 @@ class Aoq extends CI_Controller {
     }
 
     public function get_all_rfq_items($supplier, $item, $rfq_id){
-		$allrfq = $this->super_model->custom_query("SELECT rh.rfq_id, rd.rfq_detail_id, rd.unit_price, rd.offer,rd.item_id FROM rfq_head rh INNER JOIN rfq_detail rd ON rh.rfq_id = rd.rfq_id WHERE rh.supplier_id = '$supplier' AND rd.item_id = '$item'");
+		$allrfq = $this->super_model->custom_query("SELECT rh.rfq_id, rd.rfq_detail_id, rd.unit_price, rd.offer,rd.item_id FROM rfq_head rh INNER JOIN rfq_detail rd ON rh.rfq_id = rd.rfq_id WHERE rh.supplier_id = '$supplier' AND rd.item_id = '$item' AND rh.rfq_id = '$rfq_id'");
+
+		//echo "SELECT rh.rfq_id, rd.rfq_detail_id, rd.unit_price, rd.offer,rd.item_id FROM rfq_head rh INNER JOIN rfq_detail rd ON rh.rfq_id = rd.rfq_id WHERE rh.supplier_id = '$supplier' AND rd.item_id = '$item' AND rh.rfq_id = '$rfq_id'";
 		return $allrfq;
     }
 
