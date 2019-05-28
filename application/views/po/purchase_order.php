@@ -278,7 +278,7 @@
 					    		 	$pr_price[] = $tprice; ?>
 					    		<tr>
 					    			<td colspan="" class="all-border" align="center"><b><?php echo $x; ?></b></td>
-					    			<td colspan="" class="all-border" align="center"><b><input type='text' name='quantity<?php echo $x; ?>' id='quantity<?php echo $x; ?>' class='quantity' value='<?php echo $it['quantity']; ?>' style='width:50px; color:red' onblur='changePrice(<?php echo $x; ?>,<?php echo $a; ?>)' onkeypress="return isNumberKey(this, event)"></b></td>
+					    			<td colspan="" class="all-border" align="center"><b><input type='number' name='quantity<?php echo $x; ?>' id='quantity<?php echo $x; ?>' class='quantity' value='<?php echo $it['quantity']; ?>' max='<?php echo $it['quantity']; ?>' style='width:50px; color:red' onblur='changePrice(<?php echo $x; ?>,<?php echo $a; ?>)' onkeypress="return isNumberKey(this, event)"></b></td>
 					    			<td colspan="" class="all-border" align="center"><b><?php echo $it['unit']; ?></b></td>
 					    			<td colspan="12" class="all-border" align="left"><b class="nomarg"><?php echo $it['offer'].", ".$it['item']." " . $it['item_specs']; ?></b></td>
 					    			<td colspan="2" class="all-border" align="center"><b><input type='text' name='price<?php echo $x; ?>' id='price<?php echo $x; ?>'  value='<?php echo $it['price']; ?>' onblur='changePrice(<?php echo $x; ?>,<?php echo $a; ?>)' style='color:red; width:100px' onkeypress="return isNumberKey(this, event)"></b></td>

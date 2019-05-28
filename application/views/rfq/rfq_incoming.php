@@ -167,33 +167,35 @@
 		    						<td class="f13" align="center" rowspan='3'><?php echo $item['unit']; ?></td>
 		    						<td class="f13" align="center" rowspan='3' style='width:35%'><?php echo $item['item']; ?></td>
 		    						<td class="f13" align="center">		    						
-		    							<input type="text" name="offer<?php echo $x; ?>_1" class="sel-des emphasis" autocomplete="off" >		    					
+		    							    
+		    							<textarea rows="1" name="offer<?php echo $x; ?>_1" class="sel-des emphasis" ></textarea>				
 		    						</td>
-		    						<td class="f13" align="center">		    					
+		    						<td class="f13" align="center" style="background-color: #ffe5e5">		    					
 		    							<input type="text" name="price<?php echo $x; ?>_1" class="sel-des emphasis" autocomplete="off"  onkeypress="return isNumberKey(this, event)">		    							
 		    						</td>		    					
 		    					</tr>
 		    					<tr>		    					
 		    						<td class="f13" align="center">
 		    						<?php if($completed==0){ ?>
-		    							<input type="text" name="offer<?php echo $x; ?>_2" class="sel-des emphasis" autocomplete="off" >
+		    							<textarea rows="1" name="offer<?php echo $x; ?>_2" class="sel-des emphasis" ></textarea>
 		    						<?php } else {
 		    							echo $item['offer'];
 		    						} ?>
 		    						</td>
-		    						<td class="f13" align="center">		    						
+		    						<td class="f13" align="center" style="background-color: #ffe5e5">		    						
 		    							<input type="text" name="price<?php echo $x; ?>_2" class="sel-des emphasis" autocomplete="off"  onkeypress="return isNumberKey(this, event)">		    						
 		    						</td>		    					
 		    					</tr>
 		    					<tr>
 		    						<td class="f13" align="center">
 		    						<?php if($completed==0){ ?>
-		    							<input type="text" name="offer<?php echo $x; ?>_3" class="sel-des emphasis" autocomplete="off" >
+		    							<!-- <input type="text" name="offer<?php echo $x; ?>_3" class="sel-des emphasis" autocomplete="off" > -->
+		    							<textarea rows="1" name="offer<?php echo $x; ?>_3" class="sel-des emphasis" ></textarea>		
 		    						<?php } else {
 		    							echo $item['offer'];
 		    						} ?>
 		    						</td>
-		    						<td class="f13" align="center">
+		    						<td class="f13" align="center" style="background-color: #ffe5e5">
 		    						
 		    							<input type="text" name="price<?php echo $x; ?>_3" class="sel-des emphasis" autocomplete="off"  onkeypress="return isNumberKey(this, event)">
 		    							

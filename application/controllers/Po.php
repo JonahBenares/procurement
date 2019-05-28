@@ -158,6 +158,8 @@ class Po extends CI_Controller {
         $supplier=$this->super_model->select_column_where('po_head', 'supplier_id', 'po_id', $po_id);
         $data['saved']=$this->super_model->select_column_where('po_head', 'saved', 'po_id', $po_id);
         $data['cancelled']=$this->super_model->select_column_where('po_head', 'cancelled', 'po_id', $po_id);
+        $data['cancel_date']=$this->super_model->select_column_where('po_head', 'cancelled_date', 'po_id', $po_id);
+        $data['cancel_reason']=$this->super_model->select_column_where('po_head', 'cancel_reason', 'po_id', $po_id);
         $approved_id=$this->super_model->select_column_where('po_head', 'approved_by', 'po_id', $po_id);
         $data['approved']=$this->super_model->select_column_where('employees', 'employee_name', 'employee_id', $approved_id);
         $data['notes']=$this->super_model->select_column_where('po_head', 'notes', 'po_id', $po_id);

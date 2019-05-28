@@ -388,9 +388,9 @@
 		    		<?php if($cancelled=='1'){ ?>
 		    		<tr>
 		    			<td colspan="2"><h6 class="nomarg text-red"><b>Cancel Date:</b></h6></td>
-		    			<td colspan="2"><h6 class="nomarg text-red"><b>12-12-12</b></h6></td>
+		    			<td colspan="4"><h6 class="nomarg text-red"><b><?php echo date('F j, Y H:i:s', strtotime($cancel_date)); ?></b></h6></td>
 		    			<td colspan="2" align="right"><h6 class="nomarg text-red"><b>Reason:</b></h6></td>
-		    			<td colspan="14"><h6 class="nomarg text-red"><b>Reason Here</b></h6></td>
+		    			<td colspan="12"><h6 class="nomarg text-red"><b><?php echo $cancel_reason; ?></b></h6></td>
 		    		</tr>
 		    		<?php } ?>
 		    		<tr>
