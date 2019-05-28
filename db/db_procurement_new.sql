@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: May 24, 2019 at 04:13 AM
+-- Generation Time: May 28, 2019 at 03:48 AM
 -- Server version: 5.6.21
 -- PHP Version: 5.6.3
 
@@ -33,7 +33,31 @@ CREATE TABLE IF NOT EXISTS `aoq_comments` (
   `item_id` int(11) NOT NULL DEFAULT '0',
   `offer` text,
   `comment` text
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `aoq_comments`
+--
+
+INSERT INTO `aoq_comments` (`aoq_comment_id`, `aoq_id`, `supplier_id`, `item_id`, `offer`, `comment`) VALUES
+(1, 1, 6, 334, 'ablao cutting offer 1', 'cm1'),
+(2, 1, 6, 334, 'ablao cutting offer 2', 'cm2'),
+(3, 1, 140, 334, 'greenlane cutting offer', 'cm3'),
+(4, 1, 270, 334, 'vcs cutting disc offer', 'cm4'),
+(5, 1, 40, 334, 'ava cutting offer 1', 'cm5'),
+(6, 1, 40, 334, 'ava cutting offer 2', 'cm6'),
+(7, 1, 40, 334, 'ava cutting offer 3', 'cm7'),
+(8, 1, 6, 337, 'ablao grinding offer 1', 'cm8'),
+(9, 1, 140, 337, 'greenlane grinding offer1', 'cm9'),
+(10, 1, 140, 337, 'greenlane grinding offer2', 'cm10'),
+(11, 1, 140, 337, 'greenlane grinding offer3', 'cm11'),
+(12, 1, 40, 337, 'ava grinding offer 1', 'cm13'),
+(13, 1, 40, 337, 'ava grinding offer 2', 'cm14'),
+(14, 1, 40, 337, 'ava grinding offer 3', 'cm15'),
+(15, 1, 140, 14, 'greenlane plywood offer ', 'cm12'),
+(16, 1, 270, 14, 'vcs plywood offer 1', 'cm16'),
+(17, 1, 270, 14, 'vcs plywood offer 2', 'cm17'),
+(18, 1, 270, 14, 'vcs plywood offer 3', 'cm18');
 
 -- --------------------------------------------------------
 
@@ -59,7 +83,14 @@ CREATE TABLE IF NOT EXISTS `aoq_header` (
   `completed` int(11) NOT NULL DEFAULT '0',
   `served` int(11) NOT NULL DEFAULT '0',
   `date_served` varchar(20) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `aoq_header`
+--
+
+INSERT INTO `aoq_header` (`aoq_id`, `aoq_date`, `pr_no`, `department_id`, `enduse_id`, `purpose_id`, `date_needed`, `requested_by`, `remarks`, `prepared_by`, `noted_by`, `approved_by`, `create_date`, `saved`, `completed`, `served`, `date_served`) VALUES
+(1, '2019-05-27', '1111', 4, 133, 119, '2019-05-29', 41, NULL, 1, 22, 117, '2019-05-27 10:09:12', 1, 1, 0, NULL);
 
 -- --------------------------------------------------------
 
@@ -72,7 +103,16 @@ CREATE TABLE IF NOT EXISTS `aoq_items` (
   `aoq_id` int(11) NOT NULL DEFAULT '0',
   `item_id` int(11) NOT NULL DEFAULT '0',
   `quantity` int(11) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `aoq_items`
+--
+
+INSERT INTO `aoq_items` (`aoq_items_id`, `aoq_id`, `item_id`, `quantity`) VALUES
+(1, 1, 334, 10),
+(2, 1, 337, 15),
+(3, 1, 14, 12);
 
 -- --------------------------------------------------------
 
@@ -90,7 +130,16 @@ CREATE TABLE IF NOT EXISTS `aoq_reco` (
   `quantity` int(11) NOT NULL DEFAULT '0',
   `balance` int(11) NOT NULL DEFAULT '0',
   `aoq_id` int(11) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `aoq_reco`
+--
+
+INSERT INTO `aoq_reco` (`aoq_reco_id`, `supplier_id`, `item_id`, `reco`, `offer`, `unit_price`, `quantity`, `balance`, `aoq_id`) VALUES
+(1, 6, 334, 1, 'ablao cutting offer 1', '10.00', 10, 0, 1),
+(2, 40, 337, 1, 'ava grinding offer 1', '40.00', 15, 15, 1),
+(3, 270, 14, 1, 'vcs plywood offer 1', '20.00', 12, 12, 1);
 
 -- --------------------------------------------------------
 
@@ -102,18 +151,17 @@ CREATE TABLE IF NOT EXISTS `aoq_rfq` (
 `aoq_rfq_id` int(11) NOT NULL,
   `aoq_id` int(11) NOT NULL DEFAULT '0',
   `rfq_id` int(11) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 --
--- Table structure for table `brand`
+-- Dumping data for table `aoq_rfq`
 --
 
-CREATE TABLE IF NOT EXISTS `brand` (
-`brand_id` int(11) NOT NULL,
-  `brand_name` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+INSERT INTO `aoq_rfq` (`aoq_rfq_id`, `aoq_id`, `rfq_id`) VALUES
+(1, 1, 4),
+(2, 1, 3),
+(3, 1, 2),
+(4, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -124,14 +172,36 @@ CREATE TABLE IF NOT EXISTS `brand` (
 CREATE TABLE IF NOT EXISTS `department` (
 `department_id` int(11) NOT NULL,
   `department_name` varchar(50) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `department`
 --
 
 INSERT INTO `department` (`department_id`, `department_name`) VALUES
-(3, 'IT Department');
+(1, 'Accounting Department\r\n'),
+(2, 'Auxiliary\r\n'),
+(3, 'Bacolod HR'),
+(4, 'Billing Department'),
+(5, 'EIC'),
+(7, 'Environment/PCO'),
+(8, 'Finance Department'),
+(9, 'Fuel and Lube Management'),
+(10, 'Health and Safety'),
+(11, 'IT Department'),
+(12, 'Laboratory and Chemical'),
+(13, 'Maintenance'),
+(14, 'Office of the GM'),
+(15, 'Operation'),
+(16, 'Purchasing Department'),
+(17, 'Reconditioning'),
+(18, 'Security'),
+(19, 'Site HR'),
+(20, 'Special Proj/Facilities Imp'),
+(21, 'Trading Department'),
+(22, 'Warehouse Department'),
+(23, 'Progen Warehouse'),
+(24, 'Testing Group');
 
 -- --------------------------------------------------------
 
@@ -144,7 +214,15 @@ CREATE TABLE IF NOT EXISTS `dr_details` (
   `dr_id` int(11) NOT NULL DEFAULT '0',
   `pr_no` varchar(50) DEFAULT NULL,
   `po_pr_id` int(11) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `dr_details`
+--
+
+INSERT INTO `dr_details` (`dr_details_id`, `dr_id`, `pr_no`, `po_pr_id`) VALUES
+(1, 1, '1111', 1),
+(2, 2, '1111', 2);
 
 -- --------------------------------------------------------
 
@@ -160,7 +238,15 @@ CREATE TABLE IF NOT EXISTS `dr_head` (
   `received_by` int(11) NOT NULL DEFAULT '0',
   `witnessed_by` int(11) NOT NULL DEFAULT '0',
   `create_date` varchar(20) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `dr_head`
+--
+
+INSERT INTO `dr_head` (`dr_id`, `dr_no`, `po_id`, `prepared_by`, `received_by`, `witnessed_by`, `create_date`) VALUES
+(1, 1000, 1, 1, 0, 0, '2019-05-27 16:23:41'),
+(2, 1001, 2, 1, 0, 0, '2019-05-27 16:25:13');
 
 -- --------------------------------------------------------
 
@@ -173,7 +259,15 @@ CREATE TABLE IF NOT EXISTS `dr_items` (
   `dr_details_id` int(11) NOT NULL DEFAULT '0',
   `dr_id` int(11) NOT NULL DEFAULT '0',
   `po_items_id` int(11) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `dr_items`
+--
+
+INSERT INTO `dr_items` (`dr_items_id`, `dr_details_id`, `dr_id`, `po_items_id`) VALUES
+(1, 1, 1, 1),
+(2, 2, 2, 2);
 
 -- --------------------------------------------------------
 
@@ -314,14 +408,160 @@ INSERT INTO `employees` (`employee_id`, `employee_name`, `department_id`, `posit
 CREATE TABLE IF NOT EXISTS `enduse` (
 `enduse_id` int(11) NOT NULL,
   `enduse_name` varchar(50) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=154 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `enduse`
 --
 
 INSERT INTO `enduse` (`enduse_id`, `enduse_name`) VALUES
-(2, 'Test Enduse');
+(1, 'Air Intake Room'),
+(2, 'Control Air Compressor No. 1'),
+(3, 'Control Air Compressor No. 2'),
+(4, 'Control Air Compressor No. 3'),
+(5, 'Canteen'),
+(6, 'CENPRI Employees'),
+(7, 'Cenpri Warehouse Building'),
+(8, 'Cenpri Warehouse Extension'),
+(9, 'Clinic Use'),
+(10, 'Cooling Tower Basin No. 1 '),
+(11, 'Cooling Tower Basin No. 2'),
+(12, 'CV Access Bay Area'),
+(13, 'DG1 '),
+(14, 'DG2'),
+(15, 'DG3'),
+(16, 'DG4'),
+(17, 'DG5'),
+(18, 'Guardhouse'),
+(19, 'Heavy Fuel Oil Purifier No. 1'),
+(20, 'Heavy Fuel Oil Purifier No. 2'),
+(21, 'Heavy Fuel Oil Purifier - Common'),
+(22, 'Jacket Water Cooler No. 1'),
+(23, 'Jacket Water Cooler No. 2'),
+(24, 'Jacket Water Cooler No. 3'),
+(25, 'Jacket Water Cooler No. 4'),
+(26, 'Jacket Water Cooler No. 5'),
+(27, 'Laboratory Use'),
+(28, 'Ladies Dormitory'),
+(29, 'Lube Oil Cooler No. 1'),
+(30, 'Lube Oil Cooler No. 2'),
+(31, 'Lube Oil Cooler No. 3'),
+(32, 'Lube Oil Cooler No. 4'),
+(33, 'Lube Oil Cooler No. 5'),
+(34, 'Lube Oil Purifier No. 1'),
+(35, 'Lube Oil Purifier No. 2'),
+(36, 'Lube Oil Purifier No. 3'),
+(37, 'Lube Oil Purifier No. 4'),
+(38, 'Lube Oil Purifier No. 5'),
+(39, 'Office Use'),
+(40, 'Powerhouse Building'),
+(41, 'Progen Warehouse'),
+(42, 'Restrooms'),
+(43, 'Running Units'),
+(44, 'Running Units - Pielstick'),
+(45, 'Running Units - Sulzer'),
+(46, 'Starting Air Compressor No. 1'),
+(47, 'Starting Air Compressor No. 2'),
+(48, 'Starting Air Compressor No. 3'),
+(49, 'Starting Air Compressor No. 4'),
+(50, 'Starting Air Compressor No. 5'),
+(52, 'Steam Equipment'),
+(53, 'Substation'),
+(54, 'Tank Farm'),
+(55, 'Trainees on Oil Spill'),
+(56, 'Bacolod Office'),
+(57, 'Boiler Circulating Pump No.4'),
+(58, 'Boiler Condensate Pump Motor'),
+(59, 'Control Air Compressor - Common'),
+(60, 'Environment and Pollution Control'),
+(61, 'Fuel Tank'),
+(62, 'Guests/VIP'),
+(63, 'Jacket Water Cooler - Common'),
+(64, 'Lube Oil Cooler - Common'),
+(65, 'Lube Oil Purifier - Common'),
+(66, 'NALCO Water Softener Unit'),
+(67, 'Progen Office Use'),
+(68, 'Starting Air Compressor - Common'),
+(69, 'Starting Air Compressor No. 4 & 5'),
+(70, 'SEM Water Softener Unit'),
+(71, 'Sludge Tank'),
+(72, 'Staffhouse 1 - Site'),
+(73, 'Staffhouse 2 - Jara'),
+(74, 'Staffhouse 3 - EDJ'),
+(75, 'Waste Heat Recovery Boiler - Common'),
+(76, 'Waste Heat Recovery Boiler No.1'),
+(77, 'Waste Heat Recovery Boiler No.2'),
+(78, 'Waste Heat Recovery Boiler No.3'),
+(82, 'Battery Charger'),
+(83, 'Heavy Equipment - Boomtruck and Forklift'),
+(84, 'Heavy Equipment - Boomtruck'),
+(85, 'Heavy Equipment - Forklift'),
+(86, 'Microwave Radio Equipment'),
+(87, 'Switch Gear Room'),
+(88, 'Control Room'),
+(89, 'Community'),
+(90, 'Warehouse Office'),
+(92, 'Westfalia Separator AG-Lube Oil'),
+(93, 'Station Load Metering'),
+(94, 'Service Vehicle Isuzu Crosswind Plate No. FFN706'),
+(95, 'Heavy Fuel Oil Sludge Basin'),
+(96, 'Generator Sliding Tools'),
+(97, 'Smoke Stack'),
+(98, 'Cooling Tower Basin -  Common'),
+(99, 'Mechanical Barracks'),
+(100, '69KV Pole No. 3 and 4'),
+(101, 'Fluke Clamp Meter'),
+(102, 'Electrical Consumables'),
+(103, 'Non Disturbance Monitoring Equipment'),
+(104, 'Diesel Storage Tank'),
+(105, 'Power Plant Premises'),
+(107, 'Fuel and Lube Oil Recovery System'),
+(108, 'NALCO and SEM Water Softener'),
+(109, 'Fuel Farm'),
+(110, 'Honing Machine'),
+(111, 'Maintenance Reconditioning Area and Fuel Farm Area'),
+(112, 'Powerhouse Toolbox'),
+(113, 'Cummins Engine'),
+(114, 'Isuzu, Pick-up, Fuego, Diesel, 1999'),
+(115, 'Plant Equipment'),
+(116, 'Electrical Handtools'),
+(117, 'Warehouse Beginning Balance'),
+(118, 'Switch Yard'),
+(119, 'Deep Well Pump'),
+(120, 'Drain Pipe in Running Units Sulzer and Smoke Stack'),
+(121, 'Cooling Tower'),
+(122, '1.5 MVA Station Transformer DG4 & DG5 Generator Wi'),
+(123, 'Plate Compactor'),
+(124, 'Microwave Antenna'),
+(125, 'Asset Management'),
+(126, 'Operations & Maintenance Consumables'),
+(127, 'Christmas Lantern'),
+(128, '40 MVA Power Transformer'),
+(129, 'Boiler Water Intake'),
+(130, 'HFO Fuel Piping Insulation and Cladding'),
+(131, 'Fuel and Lube Oil Management'),
+(132, 'Settling and Service Tank'),
+(133, '125 Vdc Battery Charger'),
+(134, 'NVR CCTV Cameras'),
+(135, 'Deep Well Facility'),
+(136, 'Air Compressor'),
+(137, '40 MVA, 69kV/6.6kV Power Transformer'),
+(138, 'Deep Well Riser Pipes Pull-out'),
+(139, 'Barring Gear Motor - Unit 2'),
+(140, 'Trading'),
+(141, 'Plant Decoration'),
+(142, 'Christmas Party Stage'),
+(143, 'Soft Water Supply Pump'),
+(144, 'MOCB Units 4 & 5'),
+(145, 'HFO Settling & Service Tanks'),
+(146, '4 Units Pielstick Generator'),
+(147, '3 Units Exhaust Fan ( MCI )'),
+(148, 'Computer/Electronic device power supply'),
+(149, 'Fuel Module Booster Pump Unit 2'),
+(150, 'Boiler Circulating Pump and Motor Units 3 and 4'),
+(151, 'Jacket Water Pump Motor No.4'),
+(152, 'Wire Marker Device'),
+(153, 'Mono Pump Chamber No.1');
 
 -- --------------------------------------------------------
 
@@ -835,7 +1075,15 @@ CREATE TABLE IF NOT EXISTS `po_head` (
   `cancelled` int(11) NOT NULL DEFAULT '0',
   `cancel_reason` text,
   `cancelled_date` varchar(20) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `po_head`
+--
+
+INSERT INTO `po_head` (`po_id`, `po_date`, `po_no`, `supplier_id`, `notes`, `prepared_by`, `approved_by`, `saved`, `cancelled`, `cancel_reason`, `cancelled_date`) VALUES
+(1, '2019-05-27', '111', 6, '', 1, 118, 1, 0, NULL, NULL),
+(2, '2019-05-27', '1111A', 6, '', 1, 0, 1, 0, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -852,7 +1100,15 @@ CREATE TABLE IF NOT EXISTS `po_items` (
   `offer` text,
   `quantity` int(11) NOT NULL,
   `unit_price` decimal(10,2) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `po_items`
+--
+
+INSERT INTO `po_items` (`po_items_id`, `po_pr_id`, `po_id`, `aoq_reco_id`, `item_id`, `offer`, `quantity`, `unit_price`) VALUES
+(1, 1, 1, 1, 334, 'ablao cutting offer 1', 5, '10.00'),
+(2, 2, 2, 1, 334, 'ablao cutting offer 1', 5, '12.00');
 
 -- --------------------------------------------------------
 
@@ -867,7 +1123,15 @@ CREATE TABLE IF NOT EXISTS `po_pr` (
   `requested_by` int(11) NOT NULL DEFAULT '0',
   `enduse_id` int(11) NOT NULL DEFAULT '0',
   `purpose_id` int(11) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `po_pr`
+--
+
+INSERT INTO `po_pr` (`po_pr_id`, `po_id`, `pr_no`, `requested_by`, `enduse_id`, `purpose_id`) VALUES
+(1, 1, '1111', 41, 133, 119),
+(2, 2, '1111', 41, 133, 119);
 
 -- --------------------------------------------------------
 
@@ -908,14 +1172,249 @@ INSERT INTO `product_category` (`category_id`, `category_name`) VALUES
 CREATE TABLE IF NOT EXISTS `purpose` (
 `purpose_id` int(11) NOT NULL,
   `purpose_name` text
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=239 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `purpose`
 --
 
 INSERT INTO `purpose` (`purpose_id`, `purpose_name`) VALUES
-(2, 'Test Purpose');
+(1, 'Accommodation/Board and Lodging'),
+(2, 'Construction'),
+(3, 'Corrective Maintenance\r\n'),
+(4, 'Feeding/Medical Mission\r\n'),
+(5, 'Housekeeping'),
+(6, 'Hydration'),
+(7, 'Inventory, Preservation, and Tagging'),
+(8, 'Office Supplies'),
+(9, 'Employee Protection (PPE)'),
+(10, 'PMS (1000 R-Hrs)'),
+(11, 'PMS (1500 R-Hrs)'),
+(12, 'PMS (2000 R-Hrs)'),
+(13, 'PMS (3000 R-Hrs)'),
+(14, 'PMS (4000 R-Hrs)'),
+(15, 'PMS (500 R-Hrs)'),
+(16, 'PMS (8000 R-Hrs)'),
+(17, 'Reconditioning'),
+(18, 'Renovation'),
+(19, 'Replacement'),
+(20, 'Running Units Consumables'),
+(21, 'Security Monitoring'),
+(22, 'Testing/Sampling'),
+(23, 'Tree Planting'),
+(24, 'First Aid Treatment/Medication'),
+(25, 'Training on Oil Spill Contingency Planning'),
+(26, 'Fabrication of Office Partition'),
+(27, 'HFO Fuel Piping Insulation'),
+(28, 'HFO Settling and Service Tanks Insulation'),
+(29, 'Storage Area Enclosure'),
+(31, 'Pipe & Cable Trench Enclosure'),
+(32, 'Power House Enclosure - Phase 2'),
+(33, 'Supply of Power and Lighting'),
+(34, 'Replacement of Cooler Plate and Gasket for Lube Oil Cooler'),
+(35, 'Assembling of lube oil cooler plate'),
+(36, 'Generator Sliding Tools for Sulzer'),
+(37, 'Cylinder Head Hydraulic Tensioning Tool.'),
+(38, 'Equipment NGCP Requirements'),
+(39, 'Refuel for Heavy Equipment'),
+(40, 'Installation of Microwave Radio Equipment'),
+(41, 'Staff House Use'),
+(42, 'Repair and Maintenance'),
+(43, 'Pest Control'),
+(44, 'Fire Protection System'),
+(45, 'Fabrication of Generator Sliding Tools'),
+(46, 'Insullation Works Equipment'),
+(47, 'Portable Maintenance Equipment'),
+(48, 'Repainting Works'),
+(49, 'Adopt An Estero Program of EMB-DENR'),
+(50, 'Working Clothes'),
+(51, 'Material Recovery'),
+(52, 'Power House Enclosure - Phase 1'),
+(53, 'Support in Lifting & Sliding of Stator housing'),
+(54, 'Station Service No. 2'),
+(55, 'Leadership Training'),
+(56, 'Water Treatment'),
+(57, 'HFO Sludge Basin Cleaning'),
+(58, 'Painting Works'),
+(59, 'Removal & Transfer of Mechanical Barracks'),
+(60, 'Construction of Cantilever Rip-Rap Wall at Main Drain Canal for Protection of Transmission Line Concrete Take Off Pole Foundation'),
+(61, 'EIC Consumables'),
+(62, 'Refill Hydraulic Oil'),
+(63, 'Installation of Pippings'),
+(64, 'Fabrication of Platform and Ladder'),
+(65, 'Additional Sludge Recovery Storage'),
+(66, 'Purifier House Enclosure - North Side'),
+(67, 'Body Base Effective Grounding Installation'),
+(68, 'Lightings'),
+(69, 'Safekeeping of Tools'),
+(70, 'Installation and Fabrication'),
+(71, 'Installation of Covers for Plant Equipment'),
+(72, 'Excess Materials'),
+(73, 'Online Monitoring & Alarm'),
+(74, 'Electrical Hand Tools for Personal Accountability'),
+(75, 'Inventory Beginning Balance'),
+(76, 'Waste Heat Recovery Boilers Removal'),
+(77, 'Auto Start/Stop of Deep Well Pump Refill to Raw Water Tank'),
+(78, 'RTD Wire Jacket Overall Insulation (Insertion of RTD sensors to coil winding for insulation)'),
+(79, 'Microwave Antenna Support Structure'),
+(80, 'Ventilation of Working Area'),
+(81, 'Oil Drain Line (New Installation)'),
+(83, 'For Spare Unit on 125 VDC Battery, Bank for Generator'),
+(84, '5MW Generator Exciter Contingency Parts'),
+(85, 'Fuel For Rental of 0.3 cubic meter Bucket Backhoe'),
+(86, 'CV Converted to Warehouse Phase 1'),
+(87, 'Anti-Condensate Heater'),
+(88, 'Temporary Christmas Decoration'),
+(89, 'Sounding Activities'),
+(90, 'Ready Spare for 3 Units Sulzer Engines (Speed Sensor Generator)'),
+(91, 'Plant Decorations'),
+(92, '40MVA Power Transformer, 6.6kV Additional Bus Support (Prevention of Bushing Oil Leak and Crack from Bus Movement)'),
+(93, 'Pipe Segment Connecting Plates'),
+(94, 'Progen Consumables'),
+(95, 'DG4 & DG5 Generator: Correction of Erroneous RTD Probe Sensor Stator Winding Monitoring from PT50 to PT100'),
+(96, 'Installation of Solar Powered / AC Powered Navigation Warning Light Flashing (As per Insurance requirement)'),
+(97, 'Operations & Maintenance Consumables'),
+(98, 'HFO Fuel Piping Insulation and Cladding'),
+(99, 'Steel Pole for Microwave Antenna'),
+(100, 'Grounding Installation for Microwave Antenna'),
+(101, 'For Shells(Waste Heat Recovery Boilers Removal)'),
+(102, 'Installation of Air Terminal'),
+(103, 'Construction of Sounding Port Platform'),
+(104, 'Fabrication of Battery Rack for 125Vdc Battery (100Ah)'),
+(105, 'CV Converted to Warehouse Phase - 1 (Foundation)'),
+(106, '40MVA Power Transformer Secondary Bus Framing/Support'),
+(107, 'Personal Protective Equipment'),
+(108, 'Grounding System Lay-out / Installation'),
+(109, 'Fabrication of Guying Equalizer Bodies'),
+(110, 'Replacement Materials for Riser Pipes and Consumables for Cleaning of Pump'),
+(111, 'Repair of Left Bank Condition Canal'),
+(112, 'Fabrication of Microwave Antenna Ladder'),
+(113, 'Installation of Breaker'),
+(114, 'Contingency Parts'),
+(115, 'Threading of Lifting Tool'),
+(116, 'Fabrication of Anchor Bolts'),
+(117, 'Fabrication'),
+(118, 'Christmas Prizes'),
+(119, 'Additional Replacement Riser Pipes and Adapter'),
+(120, 'Christmas Lantern Lightnings, Use for Christmas Party and Plant Light decor for Spirit of Christmas'),
+(121, 'For Adjustment/Correction of Item Name'),
+(122, 'Cover For MOCB Units'),
+(123, 'Insulation of HFO Settling & Service Tanks'),
+(124, 'Common Washing Area'),
+(125, 'Fabrication of Lifting Frame for 4 Units Generator'),
+(126, 'Additional Padlock for Reconditioning Equipment Tool Cabinet'),
+(127, 'Uninterrupted Power Supply'),
+(128, 'Installation of Protection Relay'),
+(129, 'Installation of 5 Units Flood Lights Inside Power Plant Area'),
+(130, 'Replacement and Spare of Damaged Mechanical Seal'),
+(131, 'Renovation of All Electrical Outlet and Lan Cable'),
+(132, 'Microwave Radio Equipment for NGCP Requirements'),
+(133, 'Replacement of Damaged and Worn-out Parts'),
+(134, 'Identification, Pre-Cleaning & Tagging of Spare Parts for PIELSTICK Engine, at CV Area (Additional )'),
+(135, 'Re-Insulation of Jacket Water Motor in 4 Termination'),
+(136, 'Microwave DC Supply Termination'),
+(137, 'Suction of Header Line'),
+(138, 'Lubricant Consumable for Plant Equipment ( Barring Gear, Lube Oil & Heavy Fuel Oil Purifier )'),
+(139, 'Office Communication Equipment'),
+(140, 'Security Lock'),
+(141, 'Power Supply'),
+(142, 'Testing Equipment'),
+(143, 'BOF Requirement of Bago City Government'),
+(144, 'For use in Lightning Strikes Monitoring, Interface on Microwave Antenna Lightning Protection System'),
+(145, 'Roof Replacement @ Auxiliary'),
+(146, 'Post Insulator Support'),
+(147, 'Spare Anti Condensate heater for DG1, DG 2 and DG 3 Generator Winding'),
+(148, 'Repainting and Repair of Smock Stack Shade and Structural support'),
+(149, 'Reprogramming'),
+(150, 'Acetylene and Oxygen Enclosure End Use'),
+(151, 'Secondary Fire Exit'),
+(152, 'Paint Removal'),
+(153, 'Additional Installation of automatic Fire Detection and Alarm(AFDAS) Admin Office'),
+(154, 'Grounding of Smoke Stacks'),
+(155, 'Bus Differential Protection'),
+(156, 'Use as Honing Machine Compressor Motor Feeder'),
+(157, 'Laboratory Use'),
+(158, 'Consumables for Hauling, Cleaning and Sorting of Electrical Parts in CV Area'),
+(159, 'Installation of Smoke Detector'),
+(160, 'Fire Safety Training & Fire Drill'),
+(161, 'Change Lubricating Oil'),
+(162, 'Feeder Supply Station'),
+(163, 'Servicing Generator'),
+(164, 'Servicing of Primary & Secondary Filters & Reconditioning of Fuel Injector'),
+(165, 'Consumption of Heavy Equipment (Bulk Transfer & Re-positioning)'),
+(166, 'Installation of AC Powered Navigational Warning Light Flashing(as per insurance requirement)'),
+(167, 'For Use In Common Bus Differential Fault & Breaker Failure Protection'),
+(168, 'Pump For Bleach / Chlorine To Be Used In 3DTrasar'),
+(169, 'Backfilling / Ground Preparation / Canal Rip-rapping (1 side only)'),
+(170, 'Equipment/Bulk Material Transfer/Re positioning'),
+(171, 'Erection of Temporary Perimeter Fence'),
+(172, 'Transferring of Panel'),
+(173, 'Tool For Engine Leak Down Test'),
+(174, 'Dismantling, Cleaning, Inspection, Crack Testing, Measurement & Evaluation, Reassembling & Preservation '),
+(175, 'Polishing In Differential Control Panel'),
+(176, 'Fabrication of Wooden Crates For Cylinder Head Assy & Cylinder Liner To Be Shipped to Mindoro'),
+(177, 'Giveaway'),
+(178, 'Cable Lay-out /  Installation'),
+(179, 'For Connecting 2 Reference Grounding Point (Microwave Tower - Substation) to Prevent Potential Difference for the Microwave Device Protection'),
+(180, 'Lightings for Maintenance Reconditioning Area and Fuel Farm Area'),
+(181, 'Warehouse Cleaning Materials, Measuring Use & for Tagging & Preservation (Additional)'),
+(182, 'For Office Documentation Use'),
+(183, 'Installation of Switches'),
+(184, 'Chemical Dosing for Unit 2 Cooling Tower Basin & Unit 4 Pielstick / DG5'),
+(185, 'Labelling Content in Engine Fuel Tank'),
+(186, 'Cover for Items ( Pick-up / Delivery )'),
+(187, 'Installation of Microwave Control Panel at SCADA Room'),
+(188, 'Additional Installation 15 Pcs of Pressure gauge 10 Bars/140 Psi (ASHCROFT)'),
+(189, 'Use For Oil Analysis'),
+(190, 'Service Vehicle Consumables'),
+(191, 'Automation of Centrifugal Pump in Fire Fighting Control System'),
+(192, 'Retapping'),
+(193, 'Upgrading of AC Transformer'),
+(194, 'Safekeeping of Testing Instrument'),
+(195, 'Foundation & Enclosure'),
+(196, '23 Additional CCTV Requirements at CENPRI Site'),
+(197, 'Rectification of Charger Air Cooler Chamber Gas Leak'),
+(198, 'Installation of CT and PT Test Points'),
+(199, 'Installation of 750 kVa Transformer'),
+(200, 'Machining & Fabrication of Unit 1 Lube Oil Priming Pump Shaft(Replacement to Damage Shaft)'),
+(201, 'Maintenance & Reconditioning'),
+(202, 'Erection of Company Signage at Maria Morena Cross Road'),
+(203, 'Fabrication of Powerhouse Ventilation Louvers'),
+(204, 'Installation'),
+(205, 'Underground LV/HV Raceways for New 750KVA, 230 Volts Station Service Transforme'),
+(206, 'Repair of Fabricated Racks for Sulzer & Pielstick Spareparts'),
+(207, 'Repair of Air Leak and Re-Gasketing of Air Duct Consumables'),
+(208, 'TEAM 3 - Servicing of 5MW Generator'),
+(209, 'Installation, Testing & Commissioning of the Automatic Fire Suppression System for the Engine Room'),
+(210, 'Installation of Piping in Cooling Tower Drain Chamber-Extension'),
+(211, 'Configuration of EasyGen for Interlocking of Unit 4 & 5 NGR'),
+(212, 'Enclosure and Termination of SEL 48713 Bus Protection Relay'),
+(213, 'Repair of Air Leak and Re-Gasketting of Air Duct Tools Requirement'),
+(214, 'Source Air & Ambient Air Monitoring as Per DENR Requirements / Compliance'),
+(215, 'Replacement on MGC3 Panel Main Breaker'),
+(216, 'Modification of Oil and Water Mechanical Separator Basin'),
+(217, 'Repair of Air Leak and Re-Gasketing of Air Duct Consumables'),
+(218, 'Flag Pole Fabrication'),
+(219, 'Recharging of Battery'),
+(220, 'Oil Spill Emergency Use Dispersant.'),
+(221, 'For The Use on 8PC2-5 (Talisay Engine Inspection)'),
+(222, 'For Air Cooler Thread Repair'),
+(223, 'Powerhouse Ventilation: Phase 1 - Installation of Louvers'),
+(224, 'For Turbo Drain Charger'),
+(225, 'Fabrication of 3 Sample Racks for Warehouse'),
+(226, 'Cleaning and Repiping of Sludge Tank No. 2'),
+(227, 'Replacement of Damage EPC41 Controller Card End Use'),
+(228, 'Installation of Terminal at New Battery'),
+(229, 'Insulation & Cladding of Fuel Tanks Piping'),
+(230, 'Installation of Current Transformer Support for Bus Differential Fault Protection'),
+(231, 'Preservation of Boiler Waste Heat Recovery'),
+(232, 'DG#5 Stator Winding Temperature Protection, additional'),
+(233, 'Replacement of Busted Light Bulbs'),
+(234, 'Maintenance Tools'),
+(235, 'Tools Requirement for Repair at Air Duct.'),
+(236, 'Powerhouse Ventilation: Phase 2 - Installation of Exhausters'),
+(237, 'Deep cleaning, painting and preservation of tools and equipments (Additional)'),
+(238, 'Consumables, Tools and Equipment''s for Spare Stator Rewinding');
 
 -- --------------------------------------------------------
 
@@ -944,7 +1443,15 @@ CREATE TABLE IF NOT EXISTS `rfd` (
   `endorsed_by` int(11) NOT NULL DEFAULT '0',
   `approved_by` int(11) NOT NULL DEFAULT '0',
   `saved` int(11) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `rfd`
+--
+
+INSERT INTO `rfd` (`rfd_id`, `rfd_date`, `apv_no`, `company`, `pay_to`, `check_name`, `cash`, `check`, `bank_no`, `po_id`, `check_date`, `due_date`, `gross_amount`, `less_amount`, `net_amount`, `prepared_by`, `checked_by`, `endorsed_by`, `approved_by`, `saved`) VALUES
+(1, '2019-05-27', '3443', 'CENPRI-SITE', 'Ablao Enterprises', 'Ablao Enterprises', 1, 0, '1122', 1, '2019-05-29', '2019-05-28', '100.00', '0.00', '100.00', 1, 24, 17, 118, 1),
+(2, '2019-05-28', '2232323', 'CENPRI-SITE', 'Ablao Enterprises', 'Ablao Enterprises', 0, 1, '', 2, '2019-05-30', '2019-05-29', '60.00', '0.00', '60.00', 1, 41, 20, 117, 1);
 
 -- --------------------------------------------------------
 
@@ -960,7 +1467,31 @@ CREATE TABLE IF NOT EXISTS `rfq_detail` (
   `offer` text,
   `unit_price` decimal(10,2) NOT NULL DEFAULT '0.00',
   `recommended` int(11) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `rfq_detail`
+--
+
+INSERT INTO `rfq_detail` (`rfq_detail_id`, `rfq_id`, `item_id`, `unit_id`, `offer`, `unit_price`, `recommended`) VALUES
+(1, 1, 334, 0, 'ava cutting offer 1', '10.00', 0),
+(2, 1, 337, 0, 'ava grinding offer 1', '40.00', 0),
+(3, 2, 14, 0, 'vcs plywood offer 1', '20.00', 0),
+(4, 2, 334, 0, 'vcs cutting disc offer', '35.00', 0),
+(5, 3, 14, 0, 'greenlane plywood offer ', '20.00', 0),
+(6, 3, 334, 0, 'greenlane cutting offer', '30.00', 0),
+(7, 3, 337, 0, 'greenlane grinding offer1', '20.00', 0),
+(8, 4, 334, 0, 'ablao cutting offer 1', '10.00', 0),
+(9, 4, 337, 0, 'ablao grinding offer 1', '30.00', 0),
+(10, 4, 334, 0, 'ablao cutting offer 2', '20.00', 0),
+(11, 3, 337, 0, 'greenlane grinding offer2', '30.00', 0),
+(12, 3, 337, 0, 'greenlane grinding offer3', '40.00', 0),
+(13, 2, 14, 0, 'vcs plywood offer 2', '30.00', 0),
+(14, 2, 14, 0, 'vcs plywood offer 3', '40.00', 0),
+(15, 1, 334, 0, 'ava cutting offer 2', '20.00', 0),
+(16, 1, 334, 0, 'ava cutting offer 3', '30.00', 0),
+(17, 1, 337, 0, 'ava grinding offer 2', '50.00', 0),
+(18, 1, 337, 0, 'ava grinding offer 3', '60.00', 0);
 
 -- --------------------------------------------------------
 
@@ -989,7 +1520,17 @@ CREATE TABLE IF NOT EXISTS `rfq_head` (
   `date_served` varchar(20) DEFAULT NULL,
   `aoq_done` int(11) NOT NULL DEFAULT '0',
   `create_date` varchar(20) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `rfq_head`
+--
+
+INSERT INTO `rfq_head` (`rfq_id`, `rfq_no`, `rfq_date`, `supplier_id`, `due_date`, `price_validity`, `payment_terms`, `delivery_date`, `warranty`, `supplier_tin`, `vat`, `prepared_by`, `noted_by`, `approved_by`, `saved`, `completed`, `served`, `date_served`, `aoq_done`, `create_date`) VALUES
+(1, '201905-1001', '2019-05-27 08:54:28', 40, '2019-05-22', '', '', '', '', '', 0, 1, 118, 41, 1, 1, 0, NULL, 1, '2019-05-27 08:54:28'),
+(2, '201905-1002', '2019-05-27 08:54:52', 270, '2019-05-21', '', '', '', '', '', 0, 1, 118, 118, 1, 1, 0, NULL, 1, '2019-05-27 08:54:52'),
+(3, '201905-1003', '2019-05-27 08:55:18', 140, '2019-05-29', '', '', '2019-05-29', '', '', 0, 1, 118, 41, 1, 1, 0, NULL, 1, '2019-05-27 08:55:18'),
+(4, '201905-1004', '2019-05-27 10:02:37', 6, '2019-05-14', '', '', '2019-06-18', '', '', 0, 1, 41, 118, 1, 1, 0, NULL, 1, '2019-05-27 10:02:37');
 
 -- --------------------------------------------------------
 
@@ -1001,7 +1542,17 @@ CREATE TABLE IF NOT EXISTS `rfq_series` (
 `rfq_series_id` int(11) NOT NULL,
   `year_month` varchar(20) DEFAULT NULL,
   `series` int(11) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `rfq_series`
+--
+
+INSERT INTO `rfq_series` (`rfq_series_id`, `year_month`, `series`) VALUES
+(1, '201905', 1001),
+(2, '201905', 1002),
+(3, '201905', 1003),
+(4, '201905', 1004);
 
 -- --------------------------------------------------------
 
@@ -1070,7 +1621,7 @@ CREATE TABLE IF NOT EXISTS `vendor_details` (
 `vendordet_id` int(11) NOT NULL,
   `vendor_id` int(11) unsigned NOT NULL DEFAULT '0',
   `item_id` int(11) unsigned NOT NULL DEFAULT '0'
-) ENGINE=InnoDB AUTO_INCREMENT=450 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=454 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `vendor_details`
@@ -1525,7 +2076,11 @@ INSERT INTO `vendor_details` (`vendordet_id`, `vendor_id`, `item_id`) VALUES
 (446, 365, 17),
 (447, 6, 15),
 (448, 1, 15),
-(449, 2, 15);
+(449, 2, 15),
+(450, 4, 15),
+(451, 21, 15),
+(452, 6, 334),
+(453, 6, 337);
 
 -- --------------------------------------------------------
 
@@ -1939,12 +2494,6 @@ ALTER TABLE `aoq_rfq`
  ADD PRIMARY KEY (`aoq_rfq_id`);
 
 --
--- Indexes for table `brand`
---
-ALTER TABLE `brand`
- ADD PRIMARY KEY (`brand_id`);
-
---
 -- Indexes for table `department`
 --
 ALTER TABLE `department`
@@ -2078,52 +2627,47 @@ ALTER TABLE `vendor_head`
 -- AUTO_INCREMENT for table `aoq_comments`
 --
 ALTER TABLE `aoq_comments`
-MODIFY `aoq_comment_id` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `aoq_comment_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=19;
 --
 -- AUTO_INCREMENT for table `aoq_header`
 --
 ALTER TABLE `aoq_header`
-MODIFY `aoq_id` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `aoq_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `aoq_items`
 --
 ALTER TABLE `aoq_items`
-MODIFY `aoq_items_id` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `aoq_items_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `aoq_reco`
 --
 ALTER TABLE `aoq_reco`
-MODIFY `aoq_reco_id` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `aoq_reco_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `aoq_rfq`
 --
 ALTER TABLE `aoq_rfq`
-MODIFY `aoq_rfq_id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `brand`
---
-ALTER TABLE `brand`
-MODIFY `brand_id` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `aoq_rfq_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `department`
 --
 ALTER TABLE `department`
-MODIFY `department_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+MODIFY `department_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=25;
 --
 -- AUTO_INCREMENT for table `dr_details`
 --
 ALTER TABLE `dr_details`
-MODIFY `dr_details_id` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `dr_details_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `dr_head`
 --
 ALTER TABLE `dr_head`
-MODIFY `dr_id` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `dr_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `dr_items`
 --
 ALTER TABLE `dr_items`
-MODIFY `dr_items_id` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `dr_items_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `employees`
 --
@@ -2133,7 +2677,7 @@ MODIFY `employee_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=121;
 -- AUTO_INCREMENT for table `enduse`
 --
 ALTER TABLE `enduse`
-MODIFY `enduse_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+MODIFY `enduse_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=154;
 --
 -- AUTO_INCREMENT for table `item`
 --
@@ -2143,17 +2687,17 @@ MODIFY `item_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=533;
 -- AUTO_INCREMENT for table `po_head`
 --
 ALTER TABLE `po_head`
-MODIFY `po_id` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `po_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `po_items`
 --
 ALTER TABLE `po_items`
-MODIFY `po_items_id` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `po_items_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `po_pr`
 --
 ALTER TABLE `po_pr`
-MODIFY `po_pr_id` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `po_pr_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `product_category`
 --
@@ -2163,27 +2707,27 @@ MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=14;
 -- AUTO_INCREMENT for table `purpose`
 --
 ALTER TABLE `purpose`
-MODIFY `purpose_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+MODIFY `purpose_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=239;
 --
 -- AUTO_INCREMENT for table `rfd`
 --
 ALTER TABLE `rfd`
-MODIFY `rfd_id` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `rfd_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `rfq_detail`
 --
 ALTER TABLE `rfq_detail`
-MODIFY `rfq_detail_id` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `rfq_detail_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=19;
 --
 -- AUTO_INCREMENT for table `rfq_head`
 --
 ALTER TABLE `rfq_head`
-MODIFY `rfq_id` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `rfq_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `rfq_series`
 --
 ALTER TABLE `rfq_series`
-MODIFY `rfq_series_id` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `rfq_series_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `unit`
 --
@@ -2203,7 +2747,7 @@ MODIFY `usertype_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 -- AUTO_INCREMENT for table `vendor_details`
 --
 ALTER TABLE `vendor_details`
-MODIFY `vendordet_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=450;
+MODIFY `vendordet_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=454;
 --
 -- AUTO_INCREMENT for table `vendor_head`
 --
