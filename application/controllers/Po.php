@@ -423,6 +423,15 @@ class Po extends CI_Controller {
         $this->load->view('template/footer');
     }
 
+     public function reporder_list(){
+        $this->load->view('template/header');   
+        $this->load->view('template/navbar');     
+        $this->load->view('po/reporder_list');
+        $this->load->view('template/footer');
+    }
+
+ 
+
  
     public function remove_pr(){
         $po_pr_id=$this->uri->segment(3);
