@@ -135,7 +135,7 @@
 		    		<tr><td class="f13" colspan="20" align="center">Telefax: (034) 435-1932</td></tr>
 		    		<tr><td class="f13" colspan="20" align="center">Plant Site: Purok San Jose, Barangay Calumangan, Bago City</td></tr>
 		    		<tr><td class="f13" colspan="20" align="center"><br></td></tr>
-		    		<tr><td colspan="20" align="center"><h5><b class="text-red">DELIVERY RECEIPT</b></h5></td></tr>
+		    		<tr><td colspan="20" align="center"><h5><b class="text-red">DELIVERY RECEIPT</b><br><small class="text-red">REVISED</small></h5></td></tr>
 		    		<!-- <tr><td class="f13" colspan="20" align="center"><br></td></tr> -->
 		    		<tr>
 		    			<td colspan="10" class="all-border "><b class="text-red nomarg">DR No. </b></td>
