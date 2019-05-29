@@ -90,6 +90,18 @@ class Po extends CI_Controller {
         $this->load->view('template/footer');
     }
 
+    public function reporder_prnt(){
+        $this->load->view('template/header');        
+        $this->load->view('po/reporder_prnt');
+        $this->load->view('template/footer');
+    }
+
+     public function addPo(){
+        $this->load->view('template/header');        
+        $this->load->view('po/addPo');
+        $this->load->view('template/footer');
+    }
+
 
     public function purchase_order_override(){
         $po_id=$this->uri->segment(3);

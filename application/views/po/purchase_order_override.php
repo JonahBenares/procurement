@@ -382,7 +382,7 @@
 		    			</td>
 		    		</tr>
 		    		<tr>
-		    			<td colspan="20" >
+		    			<td colspan="20" style="padding: 10px!important">
 		    				<br>Terms & Conditions:<br>
 		    				1. Price is inclusive of taxes.<br>
 		    				2. PO No. must appear on all copies of Invoices, Delivery Receipt & Correspondences submitted.<br>
