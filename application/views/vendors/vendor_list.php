@@ -91,6 +91,20 @@
                                                             <input type="text" name="ewt" class="form-control" onkeypress="return isNumberKey(this, event)">
                                                         </div>
                                                         <div class="form-group">
+                                                            <div class="row">
+                                                                <div class = "col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                                                                    <p class="m-b-0">VAT:
+                                                                        <input type="radio" name="vat" value = '1' class="form-control">
+                                                                    </p>
+                                                                </div>
+                                                                <div class = "col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                                                                    <p class="m-b-0">NON-VAT: 
+                                                                        <input type="radio" name="vat" value = '0' class="form-control">
+                                                                    </p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
                                                             <p class="m-b-0">Notes:</p>
                                                             <input type="text" name="notes" class="form-control">
                                                         </div>
@@ -162,6 +176,20 @@
                                                             <input type="text" name="ewt" class="form-control" onkeypress="return isNumberKey(this, event)">
                                                         </div>
                                                         <div class="form-group">
+                                                            <div class="row">
+                                                                <div class = "col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                                                                    <p class="m-b-0">VAT:
+                                                                        <input type="radio" name="vat" value = '1' class="form-control">
+                                                                    </p>
+                                                                </div>
+                                                                <div class = "col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                                                                    <p class="m-b-0">NON-VAT: 
+                                                                        <input type="radio" name="vat" value = '0' class="form-control">
+                                                                    </p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
                                                             <p class="m-b-0">Status:</p>
                                                             <select type="text" name="status" class="form-control">
                                                                 <option value = "">--Select Status--</option>
@@ -205,6 +233,7 @@
                                             <th>Type</th>
                                             <th>Notes</th>
                                             <th>EWT(%)</th>
+                                            <th>VAT</th>
                                             <th>Status</th>
                                             <th><center>Action</center></th>
                                         </tr>
@@ -226,6 +255,7 @@
                                             <td><?php echo $v['type']?></td>
                                             <td><?php echo $v['notes']?></td>
                                             <td><?php echo $v['ewt']?></td>
+                                            <td><?php if($v['vat'] == 1){ echo 'Yes'; }else{ echo 'No';}?></td>
                                             <td><?php if($v['status'] == 'Active'){ echo 'Active'; }else { echo 'Inactive'; } ?></td>
                                             <td>
                                                 <center>

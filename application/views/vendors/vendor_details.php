@@ -94,6 +94,12 @@
                                             <td><p><?php echo $v->ewt; ?></p></td>
                                         </tr>
                                         <tr>
+                                            <td><u><b>VAT:</b></u></td>
+                                        </tr>
+                                        <tr>
+                                            <td><p><?php if($v->vat == 1){ echo 'Yes'; }else{ echo 'No';} ?></p></td>
+                                        </tr>
+                                        <tr>
                                             <td><u><b>Status:</b></u></td>
                                         </tr>
                                         <tr>
