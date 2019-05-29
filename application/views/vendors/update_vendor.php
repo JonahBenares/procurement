@@ -57,6 +57,20 @@
                                                             <input name="ewt" class="form-control" value = "<?php echo $v->ewt;?>" onkeypress="return isNumberKey(this, event)">
                                                         </div>
                                                         <div class="form-group">
+                                                            <div class="row">
+                                                                <div class = "col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                                                                    <p class="m-b-0">VAT:
+                                                                        <input type="radio" name="vat" value = '1' <?php echo ((strpos($v->vat, "1") !== false) ? ' checked' : '');?> class="form-control">
+                                                                    </p>
+                                                                </div>
+                                                                <div class = "col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                                                                    <p class="m-b-0">NON-VAT: 
+                                                                        <input type="radio" name="vat" value = '0' <?php echo ((strpos($v->vat, "0") !== false) ? ' checked' : '');?> class="form-control">
+                                                                    </p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
                                                             <p class="m-b-0">Status:</p>
                                                             <select type="text" name="status" class="form-control">
                                                                 <option value = "Active" <?php echo (($v->status == 'Active') ? ' selected' : '');?>>Active</option>

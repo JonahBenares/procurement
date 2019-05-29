@@ -62,6 +62,7 @@ class Vendors extends CI_Controller {
                 'contact'=>$et->contact_person,
                 'notes'=>$et->notes,
                 'ewt'=>$et->ewt,
+                'vat'=>$et->vat,
                 'status'=>$et->status
             );
         }
@@ -80,6 +81,7 @@ class Vendors extends CI_Controller {
         $contact = trim($this->input->post('contact')," ");
         $note = trim($this->input->post('note')," ");
         $ewt = trim($this->input->post('ewt')," ");
+        $vat = trim($this->input->post('vat')," ");
         $status = trim($this->input->post('status')," ");
         $data = array(
             'vendor_name'=>$vendor,
@@ -92,6 +94,7 @@ class Vendors extends CI_Controller {
             'contact_person'=>$contact,
             'notes'=>$note,
             'ewt'=>$ewt,
+            'vat'=>$vat,
             'status'=>$status,
         );
         if($this->super_model->insert_into("vendor_head", $data)){
@@ -120,10 +123,11 @@ class Vendors extends CI_Controller {
             'contact_person'=>$this->input->post('contact'),
             'notes'=>$this->input->post('notes'),
             'ewt'=>$this->input->post('ewt'),
+            'vat'=>$this->input->post('vat'),
             'status'=>$this->input->post('status'),
         );
         $vendor_id = $this->input->post('vendor_id');
-            if($this->super_model->update_where('vendor_head', $data, 'vendor_id', $vendor_id)){
+        if($this->super_model->update_where('vendor_head', $data, 'vendor_id', $vendor_id)){
             echo "<script>alert('Successfully Updated!'); window.opener.location.reload(); window.close();</script>";
         }
     }
@@ -262,6 +266,12 @@ class Vendors extends CI_Controller {
             $data['ewt'] = "null";
         } 
 
+        if(!empty($this->input->post('vat'))){
+            $data['vat'] = $this->input->post('vat');
+        } else {
+            $data['vat'] = "null";
+        } 
+
         if(!empty($this->input->post('status'))){
             $data['status'] = $this->input->post('status');
         } else {
@@ -331,6 +341,12 @@ class Vendors extends CI_Controller {
             $filter .= "EWT(%) - ".$ewt.", ";
         }
 
+        if(!empty($this->input->post('vat'))){
+            $vat = $this->input->post('vat');
+            $sql.=" vendor_head.vat = '$vat' AND";
+            $filter .= "Vat - ".$vat.", ";
+        }
+
         if(!empty($this->input->post('status'))){
             $status = $this->input->post('status');
             $sql.=" vendor_head.status = '$status' AND";
@@ -352,6 +368,7 @@ class Vendors extends CI_Controller {
                 'contact'=>$et->contact_person,
                 'notes'=>$et->notes,
                 'ewt'=>$et->ewt,
+                'vat'=>$et->vat,
                 'status'=>$et->status
             );
         }
