@@ -90,6 +90,18 @@ class Po extends CI_Controller {
         $this->load->view('template/footer');
     }
 
+    public function reporder_prnt(){
+        $this->load->view('template/header');        
+        $this->load->view('po/reporder_prnt');
+        $this->load->view('template/footer');
+    }
+
+     public function addPo(){
+        $this->load->view('template/header');        
+        $this->load->view('po/addPo');
+        $this->load->view('template/footer');
+    }
+
 
     public function purchase_order_override(){
         $po_id=$this->uri->segment(3);
@@ -221,6 +233,11 @@ class Po extends CI_Controller {
          $data = array(
             'saved'=>0
         );
+
+        $rfd_data = array(
+            'revised'=>1
+        );
+        $this->super_model->update_where("rfd", $rfd_data, "po_id", $po_id);
 
         if($this->super_model->update_where("po_head", $data, "po_id", $po_id)){
             redirect(base_url().'po/purchase_order_override/'.$po_id);
@@ -425,6 +442,15 @@ class Po extends CI_Controller {
         $this->load->view('template/footer');
     }
 
+     public function reporder_list(){
+        $this->load->view('template/header');   
+        $this->load->view('template/navbar');     
+        $this->load->view('po/reporder_list');
+        $this->load->view('template/footer');
+    }
+
+ 
+
  
     public function remove_pr(){
         $po_pr_id=$this->uri->segment(3);
@@ -555,6 +581,7 @@ class Po extends CI_Controller {
       //  $data['saved']=$this->super_model->select_column_where('rfd', 'saved', 'po_id', $po_id);
         $data['saved']= $this->super_model->select_count('rfd', 'po_id', $po_id);
         $data['cancelled']=$this->super_model->select_column_where('po_head', 'cancelled', 'po_id', $po_id);
+        $data['revised']=$this->super_model->select_column_where('rfd', 'revised', 'po_id', $po_id);
         $saved=$this->super_model->select_column_where('rfd', 'saved', 'po_id', $po_id);
         $supplier_id=$this->super_model->select_column_where('po_head', 'supplier_id', 'po_id', $po_id);
         $supplier=$this->super_model->select_column_where('vendor_head', 'vendor_name', 'vendor_id', $supplier_id);
@@ -647,6 +674,20 @@ class Po extends CI_Controller {
             'saved'=>'1'
         );
         if($this->super_model->insert_into("rfd", $data)){
+            redirect(base_url().'po/rfd_prnt/'.$po_id, 'refresh');
+        }
+    }
+
+
+    public function update_rfd(){
+        $po_id=$this->input->post('po_id');
+        $data = array(
+            'rfd_date'=>$this->input->post('rfd_date'),
+            'check_date'=>$this->input->post('check_due'),
+            'due_date'=>$this->input->post('due_date'),
+            'revised'=>0
+        );
+        if($this->super_model->update_where("rfd", $data, "po_id", $po_id)){
             redirect(base_url().'po/rfd_prnt/'.$po_id, 'refresh');
         }
     }
