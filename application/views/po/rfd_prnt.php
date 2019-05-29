@@ -99,15 +99,22 @@
     </style>
     
     <div  class="pad">
-
-    	<form method='POST' action='<?php echo base_url(); ?>po/save_rfd'>  
+    <?php 
+    if($saved==0){
+    	$url = 'save_rfd';
+    } else if($saved==1 && $revised==1){
+    	$url = 'update_rfd';
+    } ?>
+    	<form method='POST' action='<?php echo base_url(); ?>po/<?php echo $url; ?>'>  
     		<div  id="prnt_btn">
 	    		<center>
 			    	<div class="btn-group">
 						<a href="javascript:history.go(-1)" class="btn btn-success btn-md p-l-100 p-r-100"><span class="fa fa-arrow-left"></span> Back</a>
-						<?php if($saved==1){ ?>
+						<?php
+
+						 if($saved==1 &&  $revised ==0){ ?>
 						<a  onclick="printPage()" class="btn btn-warning btn-md p-l-100 p-r-100"><span class="fa fa-print"></span> Print</a>
-						<?php } else { ?>
+						<?php } else if($saved==1 && $revised ==1 ) { ?>
 						<input type='submit' class="btn btn-primary btn-md p-l-100 p-r-100" value="Save">	
 						<?php } ?>
 					</div>
@@ -170,8 +177,8 @@
 		    			 } ?></b></td>
 		    			<td colspan="3" align="right"><b class="nomarg">Date:</b></td>
 		    			<td colspan="5" class="bor-btm">
-		    			<?php if($saved==0){ ?>
-		    				<input type="date" style="width:100%" name="rfd_date">
+		    			<?php if($saved==0 || ($saved==1 && $revised==1)){ ?>
+		    				<input type="date" style="width:100%" name="rfd_date" value="<?php echo $rfd_date; ?>">
 		    			<?php } else { 
 		    				echo "<b class='nomarg'>" . date('F j, Y', strtotime($rfd_date)). "</b>" ;
 		    			 } ?></b></td>
@@ -186,8 +193,8 @@
 		    			 } ?></td>
 		    			<td colspan="3" align="right"><b class="nomarg">Due Date:</b></td>
 		    			<td colspan="5" class="bor-btm">
-		    				<?php if($saved==0){ ?>
-		    			<input type="date" style="width:100%" name="due_date">
+		    				<?php if($saved==0 || ($saved==1 && $revised==1)){ ?>
+		    			<input type="date" style="width:100%" name="due_date" value="<?php echo $due_date; ?>">
 		    			<?php } else { 
 		    				echo "<b class='nomarg'>" . date('F j, Y', strtotime($due_date)) . "</b>";
 		    			 } ?></td>
@@ -219,8 +226,8 @@
 		    			 } ?></td>
 		    			<td colspan="3" align="right"><b class="nomarg">Check Due:</b></td>
 		    			<td colspan="5" class="bor-btm">
-		    				<?php if($saved==0){ ?>
-		    			<input type="date" style="width:100%" name="check_due">
+		    				<?php if($saved==0 || ($saved==1 && $revised==1)){ ?>
+		    			<input type="date" style="width:100%" name="check_due" value="<?php echo $check_date; ?>">
 		    			<?php } else { 
 		    				echo "<b class='nomarg'>" .  date('F j, Y', strtotime($check_date))  . "</b>";
 		    			 } ?></td>
