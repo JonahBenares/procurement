@@ -160,6 +160,7 @@ class Po extends CI_Controller {
         $data['cancelled']=$this->super_model->select_column_where('po_head', 'cancelled', 'po_id', $po_id);
         $data['cancel_date']=$this->super_model->select_column_where('po_head', 'cancelled_date', 'po_id', $po_id);
         $data['cancel_reason']=$this->super_model->select_column_where('po_head', 'cancel_reason', 'po_id', $po_id);
+        $data['revision']=$this->super_model->select_column_where('po_head', 'revision_no', 'po_id', $po_id);
         $approved_id=$this->super_model->select_column_where('po_head', 'approved_by', 'po_id', $po_id);
         $data['approved']=$this->super_model->select_column_where('employees', 'employee_name', 'employee_id', $approved_id);
         $data['notes']=$this->super_model->select_column_where('po_head', 'notes', 'po_id', $po_id);
@@ -215,7 +216,7 @@ class Po extends CI_Controller {
     }
 
 
-    public function override_po(){
+    public function revise_po(){
         $po_id=$this->uri->segment(3);
          $data = array(
             'saved'=>0
@@ -787,6 +788,9 @@ class Po extends CI_Controller {
     public function po_override(){
         $count_item = $this->input->post('count_item');
         $poid = $this->input->post('po_id');
+
+        $this->save_revised($poid);
+
         $prepared_by = $this->input->post('prepared_by');
         for($x=1;$x<$count_item;$x++){
             $qty = $this->input->post('quantity'.$x);
@@ -827,14 +831,64 @@ class Po extends CI_Controller {
 
             } 
         
-
+        $revision= $this->super_model->select_column_where('po_head', 'revision_no', 'po_id', $poid);
+        $next_revision = $revision+1;
         $head =array(
             'saved'=>1,
+            'revision_no'=>$next_revision,
             'approved_by'=>$this->input->post('approved')
         );
 
         if($this->super_model->update_where("po_head", $head, "po_id", $poid)){
             redirect(base_url().'po/purchase_order_saved/'.$poid);
+        }
+    }
+
+    public function save_revised($poid){
+        $revised_date = date('Y-m-d H:i:s');
+        foreach($this->super_model->select_row_where("po_head", "po_id", $poid) AS $head){
+            $data_head = array(
+                'po_id'=>$poid,
+                'revised_date'=>$revised_date,
+                'po_date'=>$head->po_date,
+                'po_no'=>$head->po_no,
+                'po_series'=>$head->po_series,
+                'supplier_id'=>$head->supplier_id,
+                'notes'=>$head->notes,
+                'prepared_by'=>$head->prepared_by,
+                'approved_by'=>$head->approved_by,
+                'revision_no'=>$head->revision_no,
+            );
+
+            $this->super_model->insert_into("revised_po_head", $data_head);
+        }
+
+        foreach($this->super_model->select_row_where("po_pr", "po_id", $poid) AS $popr){
+            $data_pr = array(
+                'po_pr_id'=>$popr->po_pr_id,
+                'po_id'=>$poid,
+                'pr_no'=>$popr->pr_no,
+                'requested_by'=>$popr->requested_by,
+                'enduse_id'=>$popr->enduse_id,
+                'purpose_id'=>$popr->purpose_id,
+            );
+
+            $this->super_model->insert_into("revised_po_pr", $data_pr);
+        }
+
+        foreach($this->super_model->select_row_where("po_items", "po_id", $poid) AS $poitems){
+            $data_items = array(
+                'po_items_id'=>$poitems->po_items_id,
+                'po_pr_id'=>$poitems->po_pr_id,
+                'po_id'=>$poitems->po_id,
+                'aoq_reco_id'=>$poitems->aoq_reco_id,
+                'item_id'=>$poitems->item_id,
+                'offer'=>$poitems->offer,
+                'quantity'=>$poitems->quantity,
+                'unit_price'=>$poitems->unit_price
+            );
+
+             $this->super_model->insert_into("revised_po_items", $data_items);
         }
     }
 
