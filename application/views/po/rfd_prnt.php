@@ -260,7 +260,12 @@
 		    			</td>
 		    		</tr>
 		    		<?php } 
-		    		$less_amount = array_sum($gross) * ($ewt/100);
+		    		if($vat==1){
+		    			$less_amount = array_sum($gross) / 1.12 * ($ewt/100);
+		    		}else {
+		    			$less_amount = array_sum($gross) * ($ewt/100);
+		    		}
+
 		    		$net = array_sum($gross) - $less_amount;
 		    		?>
 		    		<input type="hidden" name="pay_to" value="<?php echo $supplier; ?>">
@@ -273,6 +278,9 @@
 		    				<span class="pull-left nomarg">₱</span>
 		    				<span class="nomarg" id=''><b style="font-weight: 900">(<?php echo number_format($less_amount,2); ?>)</b></span>
 		    			</td>
+		    		</tr>
+		    		<tr>
+		    			<td align="right" colspan="17" class="bor-right"><b class="nomarg"><?php if($vat==1) { echo 'Vatable'; }else { echo 'Non-Vatable'; }  ?></b></td>
 		    		</tr>
 		    		<?php foreach($detail AS $det){ ?>
 		    		<tr>

@@ -599,6 +599,7 @@ class Po extends CI_Controller {
         $saved=$this->super_model->select_column_where('rfd', 'saved', 'po_id', $po_id);
         $supplier_id=$this->super_model->select_column_where('po_head', 'supplier_id', 'po_id', $po_id);
         $supplier=$this->super_model->select_column_where('vendor_head', 'vendor_name', 'vendor_id', $supplier_id);
+        $data['vat']=$this->super_model->select_column_where('vendor_head', 'vat', 'vendor_id', $supplier_id);
         $data['supplier']=$this->super_model->select_column_where('vendor_head', 'vendor_name', 'vendor_id', $supplier_id);
         $data['ewt']=$this->super_model->select_column_where('vendor_head', 'ewt', 'vendor_id', $supplier_id);
         $data['prepared']=$this->super_model->select_column_where('users', 'fullname', 'user_id', $_SESSION['user_id']);
