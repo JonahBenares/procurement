@@ -47,12 +47,24 @@
                                 <span class="indicator-right-menu mini-dn"></span>
                             </a>
                         </li>
-                        <li class="nav-item">
+                        <!-- <li class="nav-item">
                             <a href="<?php echo base_url(); ?>index.php/po/po_list"  role="button" class="nav-link dropdown-toggle" title="Purchase Order">
                                 <i class="fa big-icon fa-th"></i>
                                 <span class="mini-dn">PO</span> 
                                 <span class="indicator-right-menu mini-dn"></span>
                             </a>
+                        </li>
+                        -->
+                        <li class="nav-item">
+                            <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle">
+                                <i class="fa big-icon fa-th"></i> 
+                                <span class="mini-dn">PO</span> 
+                                <span class="indicator-right-menu mini-dn"><i class="fa indicator-mn fa-angle-left"></i></span>
+                            </a>
+                            <div role="menu" class="dropdown-menu left-menu-dropdown animated flipInX p-t-0">
+                                <a href="<?php echo base_url(); ?>index.php/po/po_list" class="dropdown-item">Purchase Order</a>
+                                <a href="<?php echo base_url(); ?>index.php/po/reporder_list" class="dropdown-item">Repeat Order</a>
+                            </div>
                         </li>
                         <!-- <li class="nav-item"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle"><i class="fa big-icon fa-flask"></i> <span class="mini-dn">Interface</span> <span class="indicator-right-menu mini-dn"><i class="fa indicator-mn fa-angle-left"></i></span></a>
                             <div role="menu" class="dropdown-menu left-menu-dropdown animated flipInX">

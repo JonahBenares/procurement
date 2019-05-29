@@ -52,6 +52,10 @@
 			.emphasis{
 				border: 0px solid #fff!important;
 			}
+			html, body{
+            background: #fff!important;
+            font-size:12px!important;
+        }
 		}
 		.text-white{
 			color: #fff;
@@ -241,13 +245,13 @@
 					    		</tr>
 					    		<tr>
 					    			<td class="" colspan="2" align="Left">&nbsp;PR No:</td>
-					    			<td class="" colspan="6" align="Left"><?php echo $prd['pr_no']; ?></td>
-					    			<td class="" colspan="12" align="right">Requestor: <?php echo $prd['requestor']; ?> &nbsp;</td>
+					    			<td class="" colspan="12" align="Left"><?php echo $prd['pr_no']; ?></td>
+					    			<td class="" colspan="6" align="right">Requestor: <?php echo $prd['requestor']; ?> &nbsp;</td>
 					    		</tr>
 					    		<tr>
 					    			<td class="" colspan="2" align="Left">&nbsp;Purpose:</td>
-					    			<td class="" colspan="6" align="Left"><?php echo $prd['purpose']; ?></td>
-					    			<td class="" colspan="12" align="right"><a href='<?php echo base_url(); ?>po/remove_pr/<?php echo $prd['po_pr_id']; ?>/<?php echo $po_id; ?>' style='color:red' onclick="return confirm('Are you sure you want to remove PR?')">[Remove PR]</a></td>
+					    			<td class="" colspan="12" align="Left"><?php echo $prd['purpose']; ?></td>
+					    			<td class="" colspan="6" align="right"><a href='<?php echo base_url(); ?>po/remove_pr/<?php echo $prd['po_pr_id']; ?>/<?php echo $po_id; ?>' style='color:red' onclick="return confirm('Are you sure you want to remove PR?')">[Remove PR]</a></td>
 					    		</tr>
 					    		<tr>
 					    			<td class="" colspan="2" align="Left">&nbsp;Enduse:</td>
@@ -383,8 +387,8 @@
 		    			</td>
 		    		</tr>
 		    		<tr>
-		    			<td colspan="20" >
-		    				<br>Terms & Conditions:<br>
+		    			<td colspan="20" style="padding: 10px!important">
+		    				Terms & Conditions:<br>
 		    				1. Price is inclusive of taxes.<br>
 		    				2. PO No. must appear on all copies of Invoices, Delivery Receipt & Correspondences submitted.<br>
 		    				3. Sub-standard items shall be returned to supplier @ no cost to CENPRI.<br>
@@ -412,7 +416,7 @@
 		    			<td colspan="7"><b><?php echo $_SESSION['fullname']; ?></b></td>
 		    			<td colspan="2"></td>
 		    			<td colspan="7"><b>
-		    			<select name='approved' class="select-des emphasis">
+		    			<select name='approved' class="select-des emphasis" style="width: 100%">
 			    			<option value=''>-Select Employee-</option>
 			    			<?php foreach($employee AS $emp){ ?>
 			    				<option value='<?php echo $emp->employee_id; ?>'><?php echo $emp->employee_name; ?></option>
