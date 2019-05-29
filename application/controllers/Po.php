@@ -299,6 +299,7 @@ class Po extends CI_Controller {
                     'po_id'=>$next_po,
                     'po_date'=>$header->po_date,
                     'po_no'=>$header->po_no,
+                    'po_series'=>$header->po_series,
                     'supplier_id'=>$header->supplier_id,
                     'notes'=>$header->notes,
                     'prepared_by'=>$header->prepared_by,
@@ -467,10 +468,20 @@ class Po extends CI_Controller {
             $po_id = $max+1;
         }
 
+        $head_rows = $this->super_model->count_rows("po_head");
+        if($head_rows==0){
+            $po_no = 1000;
+        } else {
+            $maxno=$this->super_model->get_max("po_head", "po_series");
+            $po_no = $maxno + 1;
+        }
+
+        $po_series = $this->input->post('po_no')."-".$po_no;
         $data = array(
             'po_id'=>$po_id,
             'po_date'=>$this->input->post('po_date'),
-            'po_no'=>$this->input->post('po_no'),
+            'po_no'=>$po_series,
+            'po_series'=>$po_no,
             'notes'=>$this->input->post('notes'),
             'supplier_id'=>$this->input->post('supplier'),
             'prepared_by'=>$_SESSION['user_id']
