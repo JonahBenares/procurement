@@ -227,6 +227,12 @@ class Po extends CI_Controller {
         $this->load->view('template/footer');
     }
 
+    public function purchase_order_saved_r(){
+        $this->load->view('template/header');        
+        $this->load->view('po/purchase_order_saved_r');
+        $this->load->view('template/footer');
+    }
+
 
     public function revise_po(){
         $po_id=$this->uri->segment(3);
@@ -575,6 +581,14 @@ class Po extends CI_Controller {
         $this->load->view('po/delivery_receipt',$data);
         $this->load->view('template/footer');
     }
+
+     public function delivery_receipt_r(){
+        $this->load->view('template/header');        
+        $this->load->view('po/delivery_receipt_r');
+        $this->load->view('template/footer');
+    }
+
+
     public function rfd_prnt(){
         $po_id=$this->uri->segment(3);
         $data['po_id']=$po_id;
@@ -637,6 +651,12 @@ class Po extends CI_Controller {
      
         $this->load->view('template/header');        
         $this->load->view('po/rfd_prnt',$data);
+        $this->load->view('template/footer');
+    }
+
+    public function rfd_prnt_r(){        
+        $this->load->view('template/header');        
+        $this->load->view('po/rfd_prnt_r');
         $this->load->view('template/footer');
     }
 

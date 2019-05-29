@@ -169,7 +169,30 @@
                                     foreach($header AS $head){ ?>
                                         <tr>
                                             <td><?php echo date('F j, Y', strtotime($head['po_date'])); ?></td>
-                                            <td><?php echo $head['po_no']; ?></td>
+                                            <td>                                                
+                                                <button type="button" class="btn btn-link" data-toggle="modal" data-target="#polink">
+                                                    <?php echo $head['po_no']; ?>
+                                                </button>
+
+                                                <div class="modal fade" id="polink" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                                                    <div class="modal-dialog" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="exampleModalLongTitle">History of <b>PO NUMBER HERE</b>
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                </h5>                                                                
+                                                            </div>
+                                                            <div class="modal-body">
+                                                            <a href="<?php echo base_url(); ?>po/purchase_order_saved_r" class="btn btn-link btn-link-shad btn-block">Poiurirn 324098239
+                                                                <span class="pull-right">2019-19-09</span>
+                                                            </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
                                             <td><?php echo $head['supplier']; ?></td>
                                             <td><?php echo $head['pr']; ?></td>
                                             <td><?php echo (($head['rfd']==0) ? 'Pending RFD' : ''); ?></td>

@@ -5836,3 +5836,10 @@ div#sparklinedask2, div#sparklinedask1 {
 .bor-radius100per{border-radius: 100%}
 
 .text-white{color: #fff!important}
+
+.btn-link-shad{
+	color:#0093ff!important;
+	box-shadow:0px 0px 4px 0px #adadad;
+	border-radius: 5px!important;
+	text-align: left;
+}

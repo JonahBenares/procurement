@@ -251,8 +251,8 @@
 					    		</tr>
 					    		<tr>
 					    			<td class="" colspan="2" align="Left">&nbsp;PR No:</td>
-					    			<td class="" colspan="6" align="Left"><?php echo $prd['pr_no']; ?></td>
-					    			<td class="" colspan="12" align="right">Requestor: <?php echo $prd['requestor']; ?> &nbsp;</td>
+					    			<td class="" colspan="12" align="Left"><?php echo $prd['pr_no']; ?></td>
+					    			<td class="" colspan="6" align="right">Requestor: <?php echo $prd['requestor']; ?> &nbsp;</td>
 					    		</tr>
 					    		<tr>
 					    			<td class="" colspan="2" align="Left">&nbsp;Purpose:</td>
