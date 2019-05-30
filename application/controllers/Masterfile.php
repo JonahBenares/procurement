@@ -28,7 +28,57 @@ class Masterfile extends CI_Controller {
 	}
 
 	public function index(){
-        $this->load->view('masterfile/login');
+        if(empty($_SESSION['user_id'])){
+            $this->load->view('masterfile/login');
+        }else {
+            $data['pending_rfq'] = $this->super_model->count_custom_where("rfq_head","saved='1' AND completed='0' AND served='0'");
+            $pending_rfq=$this->super_model->count_custom_where("rfq_head","saved='1' AND completed='0' AND served='0'");
+            $all=$this->super_model->count_custom_where("rfq_head","saved='1' AND served='0'");
+
+
+            $data['for_te'] = $this->super_model->count_custom_where("aoq_header","saved='1' AND completed='0' AND served='0'");
+            $pending_te=$this->super_model->count_custom_where("aoq_header","saved='1' AND completed='0' AND served='0'");
+            $all_aoq=$this->super_model->count_custom_where("aoq_header","saved='1' AND served='0'");
+
+            $count_po=0;
+            $count_rfd=0;
+           foreach($this->super_model->select_custom_where("po_head", "saved='1' AND cancelled='0'") AS $po){
+                $count_po++;
+              
+                foreach($this->super_model->select_custom_where("rfd", "po_id = '$po->po_id'") AS $rfd){
+                    $count_rfd++;
+                }
+           }
+           
+           $data['pending_rfd'] = $count_po-$count_rfd;
+
+           if($all!=0){
+            $data['percent_rfq'] = ($pending_rfq/$all)*100;
+           } else {
+             $data['percent_rfq'] =0;
+           }
+
+            if($all_aoq!=0){
+                $data['percent_te'] = ($pending_te/$all_aoq)*100;
+            } else {
+                $data['percent_te']=0;
+            }
+
+            if($count_po!=0){
+             $data['percent_rfd'] = ($count_rfd/$count_po)*100;
+            } else {
+                $data['percent_rfd']=0;
+            }
+            $this->load->view('template/header');
+            $this->load->view('template/navbar');
+
+            $data['count_rfq']=$this->super_model->count_rows('rfq_head');
+            $data['count_aoq']=$this->super_model->count_rows('aoq_header');
+            $data['count_po']=$this->super_model->count_rows('po_head');
+
+            $this->load->view('masterfile/dashboard',$data);
+            $this->load->view('template/footer');
+        }
     }
 
     public function dashboard(){
