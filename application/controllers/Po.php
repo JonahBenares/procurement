@@ -967,6 +967,7 @@ class Po extends CI_Controller {
         $po_id=$this->uri->segment(3);
         $data['po_id']=$po_id;
         $supplier=$this->super_model->select_column_where('po_head', 'supplier_id', 'po_id', $po_id);
+        $data['supplier']=$supplier;
         $data['saved']=$this->super_model->select_column_where('po_head', 'saved', 'po_id', $po_id);
         $data['notes']=$this->super_model->select_column_where('po_head', 'notes', 'po_id', $po_id);
         foreach($this->super_model->select_row_where("po_head", "po_id", $po_id) AS $head){
@@ -990,9 +991,38 @@ class Po extends CI_Controller {
     }
 
      public function addPo(){
+        $po_id=$this->uri->segment(3);
+        $supplier=$this->uri->segment(4);
+        $po_url=$this->uri->segment(5);
+        $old_po= $this->super_model->select_column_where('po_head', 'po_id', 'po_no', $po_url);
+        $data['po_id']=$po_id;
+        $data['po_url']=$po_url;
+        $data['supplier']=$supplier;
+        $data['po'] = $this->super_model->select_custom_where("po_head", "supplier_id = '$supplier' AND saved='1' AND cancelled='0' ORDER BY po_no ASC");
+
+        foreach($this->super_model->select_row_where("po_items", "po_id", $old_po) AS $item){
+           $unit_id =  $this->super_model->select_column_where('item', 'unit_id', 'item_id', $item->item_id);
+            $data['items'][] = array(
+                'pr_no'=>$this->super_model->select_column_where('po_pr', 'pr_no', 'po_pr_id', $item->po_pr_id),
+                'pr_id'=>$item->po_pr_id,
+                'item'=>$this->super_model->select_column_where('item', 'item_name', 'item_id', $item->item_id),
+                'specs'=>$this->super_model->select_column_where('item', 'item_specs', 'item_id', $item->item_id),
+                'unit'=>$this->super_model->select_column_where('unit', 'unit_name', 'unit_id', $unit_id),
+                'offer'=>$item->offer,
+                'quantity'=>$item->quantity,
+                'price'=>$item->unit_price,
+            );
+        }
         $this->load->view('template/header');        
-        $this->load->view('po/addPo');
+        $this->load->view('po/addPo',$data);
         $this->load->view('template/footer');
+    }
+
+    public function add_repeatPO(){
+        $count = $this->input->post('count_item');
+        foreach($a=1;$a<$count;$a++){
+            $qty = $this->input->post('quantity'.$a);
+        }
     }
 
      public function delivery_receipt_r(){

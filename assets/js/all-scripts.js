@@ -58,9 +58,7 @@ function isNumberKey(txt, evt){
 }
 
 
-function addPo(baseurl) {
-    window.open(baseurl+"index.php/po/addPo/", "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=45,left=25,width=1300,height=600");
-}
+
 // function addRfq(baseurl,rfq) {
 //     window.open(baseurl+"index.php/rfq/add_rfq/"+rfq, "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=50,left=450,width=500,height=500");
 // }
