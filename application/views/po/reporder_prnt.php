@@ -206,9 +206,9 @@
 			    				<a class="addPR btn btn-primary btn-xs" onclick="addPo('<?php echo base_url(); ?>','<?php echo $po_id ?>','<?php echo $supplier ?>')" data-id="">
 								  Add PO
 								</a>
-								<a class="addPR btn btn-warning btn-xs" data-toggle="modal" href="#add-pr" data-id="" data-target="#add-pr">
+							<!-- 	<a class="addPR btn btn-warning btn-xs" data-toggle="modal" href="#add-pr" data-id="" data-target="#add-pr">
 								  Add PR
-								</a>
+								</a> -->
 							</div>
 		    			</td>
 		    		</tr>	
@@ -246,22 +246,23 @@
 					    			<td colspan="2" class="all-border" align="center"><b>Unit Price</b></td>
 					    			<td colspan="3" class="all-border" align="center"></td>
 					    		</tr>	
+					    		<?php 
+					    		$a=1;
+					    		$grandtotal=array(0);
+					    		if(!empty($items)){
+					    		foreach($items AS $it){ 
+					    			$total = $it['quantity'] * $it['price'];
+					    			$grandtotal[] = $total; ?>
 					    		<tr>
-					    			<td colspan="" class="bor-right" align="center"><b>asd</b></td>
-					    			<td colspan="" class="bor-right" align="center"><b>asd</b></td>
-					    			<td colspan="" class="bor-right" align="center"><b>asd</b></td>
-					    			<td colspan="12" class="bor-right" align="left"><b>asd</b></td>
-					    			<td colspan="2" class="bor-right" align="center"><b>asd</b></td>
-					    			<td colspan="3" class="bor-right" align="right"><b>asd</b></td>
+					    			<td colspan="" class="bor-right" align="center"><b><?php echo $it['item_no']; ?></b></td>
+					    			<td colspan="" class="bor-right" align="center"><b><?php echo $it['quantity']; ?></b></td>
+					    			<td colspan="" class="bor-right" align="center"><b><?php echo $it['unit']; ?></b></td>
+					    			<td colspan="12" class="bor-right" align="left"><b><?php echo $it['offer']. ", ". $it['item'] . ", ".$it['specs']; ?></b></td>
+					    			<td colspan="2" class="bor-right" align="center"><b><?php echo number_format($it['price'],2); ?></b></td>
+					    			<td colspan="3" class="bor-right" align="right"><b><?php echo number_format($total,2); ?></b></td>
 					    		</tr> 
-					    		<tr>
-					    			<td colspan="" class="bor-right" align="center"><b>asd</b></td>
-					    			<td colspan="" class="bor-right" align="center"><b>asd</b></td>
-					    			<td colspan="" class="bor-right" align="center"><b>asd</b></td>
-					    			<td colspan="12" class="bor-right" align="left"><b>asd</b></td>
-					    			<td colspan="2" class="bor-right" align="center"><b>asd</b></td>
-					    			<td colspan="3" class="bor-right" align="right"><b>asd</b></td>
-					    		</tr> 
+					    		<?php $a++; } 
+					    		}	?>
 
 					    		<tr>
 					    			<td colspan="" class="bor-right" align="center"><b></b></td>
@@ -271,16 +272,19 @@
 					    			<td colspan="2" class="bor-right" align="center"><b></b></td>
 					    			<td colspan="3" class="bor-right" align="right"><b></b></td>
 					    		</tr> 
+					    		<?php 
+					    		if(!empty($popr)){
+					    		foreach($popr AS $pr) { ?>
 					    		<tr>
 					    			<td colspan="" class="bor-right" align="center"><b></b></td>
 					    			<td colspan="" class="bor-right" align="center"><b></b></td>
 					    			<td colspan="" class="bor-right" align="center"><b></b></td>
 					    			<td colspan="12" class="bor-right" align="left">
 					    				<b>
-					    					<p class="f12 nomarg">Purpose:</p>
-					    					<p class="f12 nomarg">End Use:</p>
-					    					<p class="f12 nomarg">PR No:</p>
-					    					<p class="f12 nomarg">Requestor:</p>
+					    					<p class="f12 nomarg">Purpose: <?php echo $pr['purpose']; ?></p>
+					    					<p class="f12 nomarg">End Use:<?php echo $pr['enduse']; ?> </p>
+					    					<p class="f12 nomarg">PR No: <?php echo $pr['pr_no'] . " " . $pr['item_no']; ?></p>
+					    					<p class="f12 nomarg">Requestor:  <?php echo $pr['requestor']; ?></p>
 						    			</b>
 						    		</td>
 					    			<td colspan="2" class="bor-right" align="center"><b></b></td>
@@ -295,22 +299,9 @@
 					    			<td colspan="2" class="bor-right" align="center"><b></b></td>
 					    			<td colspan="3" class="bor-right" align="right"><b></b></td>
 					    		</tr> 
-					    		<tr>
-					    			<td colspan="" class="bor-right" align="center"><b></b></td>
-					    			<td colspan="" class="bor-right" align="center"><b></b></td>
-					    			<td colspan="" class="bor-right" align="center"><b></b></td>
-					    			<td colspan="12" class="bor-right" align="left">
-					    				<b>
-					    					<p class="f12 nomarg">Purpose:</p>
-					    					<p class="f12 nomarg">End Use:</p>
-					    					<p class="f12 nomarg">PR No:</p>
-					    					<p class="f12 nomarg">Requestor:</p>
-						    			</b>
-						    		</td>
-					    			<td colspan="2" class="bor-right" align="center"><b></b></td>
-					    			<td colspan="3" class="bor-right" align="right"><b></b></td>
-					    		</tr> 
-
+					    		
+					    	<?php }
+					    	} ?>
 		    				</table>
 			    		</td>
 			    	</tr>
@@ -343,7 +334,7 @@
 					    		</tr>
 					    		<tr>
 					    			<td colspan="17" class="all-border" align="right"><b class="nomarg">GRAND TOTAL</b></td>
-					    			<td colspan="3" class="all-border" align="right"><b class="nomarg"><span class="pull-left">₱</span><span id='grandtotal'></span></b></td>
+					    			<td colspan="3" class="all-border" align="right"><b class="nomarg"><span class="pull-left">₱</span><?php echo number_format(array_sum($grandtotal),2); ?><span id='grandtotal'></span></b></td>
 					    		</tr>
 		    				</table>
 			    		</td>
@@ -351,12 +342,13 @@
 			    	<tr>
 		    			<td class="f13" colspan="20" style="padding: 10px!important">
 		    				<p class="f12 nomarg">Note:</p>
-		    				<p class="f12 nomarg">Item No. 1 is a repeat Order of PO No. 20819-8937</p>
-		    				<p class="f12 nomarg">Item No. 1 is a repeat Order of PO No. 20819-8937</p>
-		    				<p class="f12 nomarg">Item No. 1 is a repeat Order of PO No. 20819-8937</p>
-		    				<p class="f12 nomarg">Item No. 1 is a repeat Order of PO No. 20819-8937</p>
-		    				<p class="f12 nomarg">Item No. 1 is a repeat Order of PO No. 20819-8937</p>
-		    				<p class="f12 nomarg">Item No. 1 is a repeat Order of PO No. 20819-8937</p>
+		    				<?php
+		    				if(!empty($notes)){
+		    					foreach($notes AS $no){ ?>
+		    					<p class="f12 nomarg">Item No. <?php echo $no['item_no']; ?> is a repeat Order of PO No. <?php echo $no['po_no']; ?></p>
+			    				<?php } 
+			    			} ?>
+		    				
 			    		</td>
 			    	</tr>
 		    		<tr>
@@ -386,12 +378,14 @@
 		    		</tr>
 		    		<tr>
 		    			<td colspan="2"></td>
-		    			<td colspan="7"><b></b></td>
+		    			<td colspan="7"><b><?php echo $_SESSION['fullname']; ?></b></td>
 		    			<td colspan="2"></td>
 		    			<td colspan="7"><b>
 		    			<select name='approved' class="select-des emphasis" style="width: 100%">
 			    			<option value=''>-Select Employee-</option>
-			    				<option value=''></option>
+			    			<?php foreach($employee AS $emp){ ?>
+			    				<option value='<?php echo $emp->employee_id; ?>'><?php echo $emp->employee_name; ?></option>
+			    			<?php } ?>
 		    			</select></b></td>
 		    			<td colspan="2"></td>
 		    		</tr>

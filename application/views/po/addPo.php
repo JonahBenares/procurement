@@ -56,11 +56,16 @@
                                             <td><input type='text' name='tprice<?php echo $x; ?>' id='tprice<?php echo $x; ?>' class='tprice' value="<?php echo number_format($total,2); ?>" style='text-align:right; border:0px' readonly></span>
                                             <td><?php echo $it['pr_no']; ?></td>
                                             <input type='hidden' name='pr_id<?php echo $x; ?>' value="<?php echo $it['pr_id']; ?>">   
+                                            <input type='hidden' name='pr_no<?php echo $x; ?>' value="<?php echo $it['pr_no']; ?>">   
+                                            <input type='hidden' name='item_id<?php echo $x; ?>' value="<?php echo $it['item_id']; ?>">
+                                            <input type='hidden' name='offer<?php echo $x; ?>' value="<?php echo $it['offer']; ?>">      
+
                                         </tr>
                                         <?php 
                                         $x++; } ?>
                                     </tbody>
                                 </table>
+                                 <input type='hidden' name='old_po' value="<?php echo $old_po; ?>"> 
                                 <input type='hidden' name='po_id' value="<?php echo $po_id; ?>">   
                                 <input type='hidden' name='count_item' value="<?php echo $x; ?>">
                                 <button class="btn btn-primary btn-block">Save</button>
