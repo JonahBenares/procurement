@@ -128,13 +128,21 @@
 
     <div  class="pad">
 
-    	<form method='POST' action=''>  
+    	<form method='POST' action='<?php echo base_url(); ?>po/save_repeatPO'>  
+    		<input type='hidden' name='po_id' value="<?php echo $po_id; ?>">
+    		<input type='hidden' name='prepared_by' value="<?php echo $_SESSION['user_id']; ?>">
     		<div  id="prnt_btn">
 	    		<center>
 			    	<div class="abtn-group">
 						<a href="javascript:history.go(-1)" class="btn btn-success btn-md p-l-100 p-r-100"><span class="fa fa-arrow-left"></span> Back</a>
-						<a  onclick="printPage()" class="btn btn-warning btn-md p-l-100 p-r-100"><span class="fa fa-print"></span> Print</a>
+						<?php if($saved==1){ ?>
+						<a  href='<?php echo base_url(); ?>po/revise_repeatpo/<?php echo $po_id; ?>' onclick="return confirm('Are you sure you want to revise PO?')" class="btn btn-info btn-md p-l-25 p-r-25"><span class="fa fa-pencil"></span> Revise <u><b>PO</b></u></a>
+						<a  onclick="printPage()" class="btn btn-warning btn-md p-l-25 p-r-25"><span class="fa fa-print"></span> Print <u><b>PO</b></u></a>
+						<a  href="<?php echo base_url(); ?>po/delivery_receipt/<?php echo $po_id; ?>" class="btn btn-warning btn-md p-l-25 p-r-25"><span class="fa fa-print"></span> Print <u><b>DR</b></u></a>
+						<a  href="<?php echo base_url(); ?>po/rfd_prnt/<?php echo $po_id; ?>" class="btn btn-warning btn-md p-l-25 p-r-25"><span class="fa fa-print"></span> Print <u><b>RFD</b></u></a>
+					<?php } else { ?>
 						<input type='submit' class="btn btn-primary btn-md p-l-100 p-r-100" value="Save">	
+					<?php } ?>
 					</div>
 					<p class="text-white">Instructions: When printing PURCHASE ORDER make sure the following options are set correctly -- <u>Browser</u>: Chrome, <u>Layout</u>: Portrait, <u>Paper Size</u>: A4, <u>Margin</u> : Default, <u>Scale</u>: 100</p>
 				</center>
@@ -177,7 +185,7 @@
 		    		<tr>
 		    			<td colspan="3"><h6 class="nomarg"><b>Date</b></h6></td>
 		    			<td colspan="12"><h6 class="nomarg"><b><?php echo date('F j, Y', strtotime($h['po_date'])); ?></b></h6></td>
-		    			<td colspan="5"><h6 class="nomarg"><b>P.O. No.: <?php echo $h['po_no']; ?></b></h6></td>
+		    			<td colspan="5"><h6 class="nomarg"><b>P.O. No.: <?php echo $h['po_no']. (($revision==0) ? '' : '.r'.$revision); ?></b></h6></td>
 		    		</tr>	
 		    		<tr>
 		    			<td colspan="3"><h6 class="nomarg"><b>Supplier:</b></h6></td>
@@ -203,9 +211,11 @@
 		    		<tr id="pr-btn">
 		    			<td colspan="20" style="padding-left: 10px">
 		    				<div class="btn-group" id="prhide">
+		    					<?php if($saved==0){ ?>
 			    				<a class="addPR btn btn-primary btn-xs" onclick="addPo('<?php echo base_url(); ?>','<?php echo $po_id ?>','<?php echo $supplier ?>')" data-id="">
 								  Add PO
 								</a>
+								<?php } ?>
 							<!-- 	<a class="addPR btn btn-warning btn-xs" data-toggle="modal" href="#add-pr" data-id="" data-target="#add-pr">
 								  Add PR
 								</a> -->
@@ -242,9 +252,12 @@
 					    			<td colspan="" class="all-border" align="center"><b>#</b></td>
 					    			<td colspan="" class="all-border" align="center"><b>Qty</b></td>
 					    			<td colspan="" class="all-border" align="center"><b>Unit</b></td>
-					    			<td colspan="12" class="all-border" align="center"><b>Description</b></td>
+					    			<td colspan="<?php echo (($saved==1) ? '12' : '11'); ?>" class="all-border" align="center"><b>Description</b></td>
 					    			<td colspan="2" class="all-border" align="center"><b>Unit Price</b></td>
 					    			<td colspan="3" class="all-border" align="center"></td>
+					    			<?php if($saved==0){ ?>
+					    			<td class="all-border" align="center"><span class="fa fa-times"></span></td>
+					    			<?php } ?>
 					    		</tr>	
 					    		<?php 
 					    		$a=1;
@@ -257,9 +270,12 @@
 					    			<td colspan="" class="bor-right" align="center"><b><?php echo $it['item_no']; ?></b></td>
 					    			<td colspan="" class="bor-right" align="center"><b><?php echo $it['quantity']; ?></b></td>
 					    			<td colspan="" class="bor-right" align="center"><b><?php echo $it['unit']; ?></b></td>
-					    			<td colspan="12" class="bor-right" align="left"><b><?php echo $it['offer']. ", ". $it['item'] . ", ".$it['specs']; ?></b></td>
+					    			<td colspan="<?php echo (($saved==1) ? '12' : '11'); ?>" class="bor-right" align="left"><b><?php echo $it['offer']. ", ". $it['item'] . ", ".$it['specs']; ?></b></td>
 					    			<td colspan="2" class="bor-right" align="center"><b><?php echo number_format($it['price'],2); ?></b></td>
 					    			<td colspan="3" class="bor-right" align="right"><b><?php echo number_format($total,2); ?></b></td>
+					    			<?php if($saved==0){ ?>
+					    			<td align="center"><a href='<?php echo base_url(); ?>/po/remove_po_item/<?php echo $po_id; ?>/<?php echo $it['po_items_id']; ?>' class="btn-danger btn-xs" onclick="return confirm('Are you sure you want to remove item?')"><span class="fa fa-times"></span></a></td>	
+					    			<?php } ?>				    			
 					    		</tr> 
 					    		<?php $a++; } 
 					    		}	?>
@@ -268,9 +284,11 @@
 					    			<td colspan="" class="bor-right" align="center"><b></b></td>
 					    			<td colspan="" class="bor-right" align="center"><b></b></td>
 					    			<td colspan="" class="bor-right" align="center"><b><br></b></td>
-					    			<td colspan="12" class="bor-right" align="left"><b></b></td>
+					    			<td colspan="<?php echo (($saved==1) ? '12' : '11'); ?>" class="bor-right" align="left"><b></b></td>
 					    			<td colspan="2" class="bor-right" align="center"><b></b></td>
 					    			<td colspan="3" class="bor-right" align="right"><b></b></td>
+					    			<td colspan="" class="bor-right" align="center"><b></b></td>
+
 					    		</tr> 
 					    		<?php 
 					    		if(!empty($popr)){
@@ -279,7 +297,7 @@
 					    			<td colspan="" class="bor-right" align="center"><b></b></td>
 					    			<td colspan="" class="bor-right" align="center"><b></b></td>
 					    			<td colspan="" class="bor-right" align="center"><b></b></td>
-					    			<td colspan="12" class="bor-right" align="left">
+					    			<td colspan="<?php echo (($saved==1) ? '12' : '11'); ?>" class="bor-right" align="left">
 					    				<b>
 					    					<p class="f12 nomarg">Purpose: <?php echo $pr['purpose']; ?></p>
 					    					<p class="f12 nomarg">End Use:<?php echo $pr['enduse']; ?> </p>
@@ -289,15 +307,19 @@
 						    		</td>
 					    			<td colspan="2" class="bor-right" align="center"><b></b></td>
 					    			<td colspan="3" class="bor-right" align="right"><b></b></td>
+					    			<td colspan="" class="bor-right" align="center"><b></b></td>
+
 					    		</tr> 
 
 					    		<tr>
 					    			<td colspan="" class="bor-right" align="center"><b></b></td>
 					    			<td colspan="" class="bor-right" align="center"><b></b></td>
 					    			<td colspan="" class="bor-right" align="center"><b><br></b></td>
-					    			<td colspan="12" class="bor-right" align="left"><b></b></td>
+					    			<td colspan="<?php echo (($saved==1) ? '12' : '11'); ?>" class="bor-right" align="left"><b></b></td>
 					    			<td colspan="2" class="bor-right" align="center"><b></b></td>
 					    			<td colspan="3" class="bor-right" align="right"><b></b></td>
+					    			<td colspan="" class="bor-right" align="center"><b></b></td>
+
 					    		</tr> 
 					    		
 					    	<?php }
@@ -333,8 +355,12 @@
 					    			<td width="5%"></td>
 					    		</tr>
 					    		<tr>
-					    			<td colspan="17" class="all-border" align="right"><b class="nomarg">GRAND TOTAL</b></td>
-					    			<td colspan="3" class="all-border" align="right"><b class="nomarg"><span class="pull-left">₱</span><?php echo number_format(array_sum($grandtotal),2); ?><span id='grandtotal'></span></b></td>
+					    			<td colspan="<?php echo (($saved==1) ? '17' : '16'); ?>" class="all-border" align="right"><b class="nomarg">GRAND TOTAL</b></td>
+					    			<td colspan="<?php echo (($saved==1) ? '3' : '3'); ?>" class="all-border" align="right"><b class="nomarg"><span class="pull-left">₱</span>
+					    			<?php echo number_format(array_sum($grandtotal),2); ?><span id='grandtotal'></span></b></td>
+					    			<?php if($saved==0){ ?>
+					    				<td class="all-border"></td>
+					    			<?php } ?>
 					    		</tr>
 		    				</table>
 			    		</td>
@@ -381,12 +407,16 @@
 		    			<td colspan="7"><b><?php echo $_SESSION['fullname']; ?></b></td>
 		    			<td colspan="2"></td>
 		    			<td colspan="7"><b>
-		    			<select name='approved' class="select-des emphasis" style="width: 100%">
+		    			<?php if($saved==0){ ?>
+		    			<select name='approved' class="select-des emphasis" style="width: 100%" required>
 			    			<option value=''>-Select Employee-</option>
 			    			<?php foreach($employee AS $emp){ ?>
-			    				<option value='<?php echo $emp->employee_id; ?>'><?php echo $emp->employee_name; ?></option>
+			    				<option value='<?php echo $emp->employee_id; ?>' <?php echo (($approved_id == $emp->employee_id) ? ' selected' : ''); ?>><?php echo $emp->employee_name; ?></option>
 			    			<?php } ?>
-		    			</select></b></td>
+		    			</select>
+		    			<?php } else {
+		    				echo $approved;
+		    			} ?></b></td>
 		    			<td colspan="2"></td>
 		    		</tr>
 		    		<tr><td colspan="20"><br></td></tr>
