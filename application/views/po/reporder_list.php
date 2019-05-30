@@ -36,7 +36,7 @@
                         <a class="close" data-dismiss="modal" href="#"><i class="fa fa-close"></i></a>
                     </div>
                 </div>
-                <form method="POST" action = "<?php echo base_url();?>index.php/po/create_po">
+                <form method="POST" action = "<?php echo base_url();?>index.php/po/create_reorderpo">
                     <div class="modal-body-lowpad">
                         <div class="form-group">
                             <p class="m-b-0">Date:</p>
@@ -77,6 +77,7 @@
                             <a href="<?php echo base_url(); ?>index.php/po/reporder_prnt" class="dropdown-item">Repeat Order</a>
                         </center>
                     </div>
+                    <input type='hidden' name='baseurl' id='baseurl' value="<?php echo base_url(); ?>">
                 </form>
             </div>
         </div>

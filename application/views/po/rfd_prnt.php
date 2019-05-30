@@ -177,9 +177,11 @@
 		    			 } ?></b></td>
 		    			<td colspan="3" align="right"><b class="nomarg">Date:</b></td>
 		    			<td colspan="5" class="bor-btm">
-		    			<?php if($saved==0 || ($saved==1 && $revised==1)){ ?>
+		    			<?php if($saved==0){ ?>
+		    				<input type="date" style="width:100%" name="rfd_date" >
+		    			<?php } else if($saved==1 && $revised==1){ ?>
 		    				<input type="date" style="width:100%" name="rfd_date" value="<?php echo $rfd_date; ?>">
-		    			<?php } else { 
+		    			 <?php } else if($saved==1 && $revised==0) { 
 		    				echo "<b class='nomarg'>" . date('F j, Y', strtotime($rfd_date)). "</b>" ;
 		    			 } ?></b></td>
 		    		</tr>
@@ -193,9 +195,11 @@
 		    			 } ?></td>
 		    			<td colspan="3" align="right"><b class="nomarg">Due Date:</b></td>
 		    			<td colspan="5" class="bor-btm">
-		    				<?php if($saved==0 || ($saved==1 && $revised==1)){ ?>
-		    			<input type="date" style="width:100%" name="due_date" value="<?php echo $due_date; ?>">
-		    			<?php } else { 
+		    				<?php if($saved==0){ ?>
+		    				<input type="date" style="width:100%" name="due_date" >
+		    			<?php } else if($saved==1 && $revised==1){ ?>
+		    				<input type="date" style="width:100%" name="due_date" value="<?php echo $due_date; ?>">
+		    			 <?php } else if($saved==1 && $revised==0) { 
 		    				echo "<b class='nomarg'>" . date('F j, Y', strtotime($due_date)) . "</b>";
 		    			 } ?></td>
 		    		</tr>
@@ -226,9 +230,11 @@
 		    			 } ?></td>
 		    			<td colspan="3" align="right"><b class="nomarg">Check Due:</b></td>
 		    			<td colspan="5" class="bor-btm">
-		    				<?php if($saved==0 || ($saved==1 && $revised==1)){ ?>
-		    			<input type="date" style="width:100%" name="check_due" value="<?php echo $check_date; ?>">
-		    			<?php } else { 
+		    				<?php if($saved==0){ ?>
+		    				<input type="date" style="width:100%" name="check_due" >
+		    			<?php } else if($saved==1 && $revised==1){ ?>
+		    				<input type="date" style="width:100%" name="check_due" value="<?php echo $check_date; ?>">
+		    			 <?php } else if($saved==1 && $revised==0) { 
 		    				echo "<b class='nomarg'>" .  date('F j, Y', strtotime($check_date))  . "</b>";
 		    			 } ?></td>
 		    		</tr>

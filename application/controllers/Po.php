@@ -447,16 +447,6 @@ class Po extends CI_Controller {
         $this->load->view('po/po_list',$data);
         $this->load->view('template/footer');
     }
-
-     public function reporder_list(){
-        $this->load->view('template/header');   
-        $this->load->view('template/navbar');     
-        $this->load->view('po/reporder_list');
-        $this->load->view('template/footer');
-    }
-
- 
-
  
     public function remove_pr(){
         $po_pr_id=$this->uri->segment(3);
@@ -582,11 +572,6 @@ class Po extends CI_Controller {
         $this->load->view('template/footer');
     }
 
-     public function delivery_receipt_r(){
-        $this->load->view('template/header');        
-        $this->load->view('po/delivery_receipt_r');
-        $this->load->view('template/footer');
-    }
 
 
     public function rfd_prnt(){
@@ -655,11 +640,6 @@ class Po extends CI_Controller {
         $this->load->view('template/footer');
     }
 
-    public function rfd_prnt_r(){        
-        $this->load->view('template/header');        
-        $this->load->view('po/rfd_prnt_r');
-        $this->load->view('template/footer');
-    }
 
 
     public function save_rfd(){
@@ -952,6 +932,61 @@ class Po extends CI_Controller {
 
              $this->super_model->insert_into("revised_po_items", $data_items);
         }
+    }
+
+    public function reporder_list(){
+        $data['supplier']=$this->super_model->select_all_order_by("vendor_head", "vendor_name", "ASC");
+        $this->load->view('template/header');   
+        $this->load->view('template/navbar');     
+        $this->load->view('po/reporder_list',$data);
+        $this->load->view('template/footer');
+    }
+
+    public function create_reorderpo(){
+        $rows_head = $this->super_model->count_rows("po_head");
+        if($rows_head==0){
+            $po_id=1;
+        } else {
+            $max = $this->super_model->get_max("po_head", "po_id");
+            $po_id = $max+1;
+        }
+
+        $head_rows = $this->super_model->count_rows("po_head");
+        if($head_rows==0){
+            $po_no = 1000;
+        } else {
+            $maxno=$this->super_model->get_max("po_head", "po_series");
+            $po_no = $maxno + 1;
+        }
+
+        $po_series = $this->input->post('po_no')."-".$po_no;
+        $data = array(
+            'po_id'=>$po_id,
+            'po_date'=>$this->input->post('po_date'),
+            'po_no'=>$po_series,
+            'po_series'=>$po_no,
+            'notes'=>$this->input->post('notes'),
+            'supplier_id'=>$this->input->post('supplier'),
+            'prepared_by'=>$_SESSION['user_id'],
+            'repeat_order'=>1
+        );
+        if($this->super_model->insert_into("po_head", $data)){
+            redirect(base_url().'po/reporder_prnt/'.$po_id);
+        }
+    }
+
+
+     public function delivery_receipt_r(){
+        $this->load->view('template/header');        
+        $this->load->view('po/delivery_receipt_r');
+        $this->load->view('template/footer');
+    }
+
+    
+    public function rfd_prnt_r(){        
+        $this->load->view('template/header');        
+        $this->load->view('po/rfd_prnt_r');
+        $this->load->view('template/footer');
     }
 
 }
