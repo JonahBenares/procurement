@@ -216,8 +216,64 @@ class Po extends CI_Controller {
     }
 
     public function purchase_order_saved_r(){
-        $this->load->view('template/header');        
-        $this->load->view('po/purchase_order_saved_r');
+        $this->load->view('template/header'); 
+        $po_id=$this->uri->segment(3);
+        $revise_no=$this->uri->segment(4);
+        $data['po_id']=$po_id;
+        $supplier=$this->super_model->select_column_custom_where('revised_po_head', 'supplier_id', "po_id = '$po_id' AND revision_no = '$revise_no'");
+        $data['saved']=$this->super_model->select_column_custom_where('revised_po_head', 'saved', "po_id = '$po_id' AND revision_no = '$revise_no'");
+        $data['cancelled']=$this->super_model->select_column_custom_where('revised_po_head', 'cancelled', "po_id = '$po_id' AND revision_no = '$revise_no'");
+        $data['cancel_date']=$this->super_model->select_column_custom_where('revised_po_head', 'cancelled_date', "po_id = '$po_id' AND revision_no = '$revise_no'");
+        $data['cancel_reason']=$this->super_model->select_column_custom_where('revised_po_head', 'cancel_reason', "po_id = '$po_id' AND revision_no = '$revise_no'");
+        $data['revision']=$this->super_model->select_column_custom_where('revised_po_head', 'revision_no', "po_id = '$po_id' AND revision_no = '$revise_no'");
+        $approved_id=$this->super_model->select_column_custom_where('revised_po_head', 'approved_by', "po_id = '$po_id' AND revision_no = '$revise_no'");
+        $data['approved']=$this->super_model->select_column_where('employees', 'employee_name', 'employee_id', $approved_id);
+        $data['notes']=$this->super_model->select_column_custom_where('revised_po_head', 'notes', "po_id = '$po_id' AND revision_no = '$revise_no'");
+        foreach($this->super_model->select_custom_where("revised_po_head", "po_id = '$po_id' AND revision_no = '$revise_no'") AS $head){
+            $data['head'][]=array(
+                'po_date'=>$head->po_date,
+                'po_no'=>$head->po_no,
+                'supplier'=>$this->super_model->select_column_where('vendor_head', 'vendor_name', 'vendor_id', $head->supplier_id),
+                'supplier_id'=>$head->supplier_id,
+                'address'=>$this->super_model->select_column_where('vendor_head', 'address', 'vendor_id',$head->supplier_id),
+                'phone'=>$this->super_model->select_column_where('vendor_head', 'phone_number', 'vendor_id', $head->supplier_id),
+                'contact'=>$this->super_model->select_column_where('vendor_head', 'contact_person', 'vendor_id',$head->supplier_id)
+            );
+
+            $data['pr'] = $this->super_model->select_row_where_order_by("aoq_header", "served", "0", "pr_no", "ASC");
+
+            foreach($this->super_model->select_custom_where("revised_po_pr", "po_id ='$po_id' AND revision_no = '$revise_no'") AS $prdet){
+                $purpose= $this->super_model->select_column_where('purpose', 'purpose_name', 'purpose_id', $prdet->purpose_id);
+                $requestor= $this->super_model->select_column_where('employees', 'employee_name', 'employee_id', $prdet->requested_by);
+                $enduse= $this->super_model->select_column_where('enduse', 'enduse_name', 'enduse_id', $prdet->enduse_id);
+                $data['prdetails'][]=array(
+                    'po_pr_id'=>$prdet->po_pr_id,
+                    'po_id'=>$prdet->po_id,
+                    'pr_no'=>$prdet->pr_no,
+                    'purpose'=>$purpose,
+                    'requestor'=>$requestor,
+                    'enduse'=>$enduse
+                  
+                );
+            }
+            foreach($this->super_model->select_custom_where("revised_po_items", "po_id = '$head->po_id' AND revision_no = '$revise_no'") AS $pritems){
+                $unit_id=$this->super_model->select_column_where('item', 'unit_id', 'item_id', $pritems->item_id);
+                $data['items'][]=array(
+                    'po_id'=>$pritems->po_id,
+                    'po_pr_id'=>$pritems->po_pr_id,
+                    'item_id'=>$pritems->item_id,
+                    'item'=>$this->super_model->select_column_where('item', 'item_name', 'item_id', $pritems->item_id),
+                    'item_specs'=>$this->super_model->select_column_where('item', 'item_specs', 'item_id', $pritems->item_id),
+                    'offer'=>$pritems->offer,
+                    'quantity'=>$pritems->quantity,
+                    'price'=>$pritems->unit_price,
+                    'unit'=>$this->super_model->select_column_where('unit', 'unit_name', 'unit_id', $unit_id),
+                );
+            }
+        }
+
+        $data['employee']=$this->super_model->select_all_order_by("employees", "employee_name", "ASC");       
+        $this->load->view('po/purchase_order_saved_r',$data);
         $this->load->view('template/footer');
     }
 
@@ -433,6 +489,7 @@ class Po extends CI_Controller {
                     'po_id'=>$rev->po_id,
                     'po_no'=>$rev->po_no,
                     'revised_date'=>$rev->revised_date,
+                    'revision_no'=>$rev->revision_no,
                 );
             }
         }
@@ -914,6 +971,7 @@ class Po extends CI_Controller {
                 'requested_by'=>$popr->requested_by,
                 'enduse_id'=>$popr->enduse_id,
                 'purpose_id'=>$popr->purpose_id,
+                'revision_no'=>$head->revision_no,
             );
 
             $this->super_model->insert_into("revised_po_pr", $data_pr);
@@ -928,7 +986,8 @@ class Po extends CI_Controller {
                 'item_id'=>$poitems->item_id,
                 'offer'=>$poitems->offer,
                 'quantity'=>$poitems->quantity,
-                'unit_price'=>$poitems->unit_price
+                'unit_price'=>$poitems->unit_price,
+                'revision_no'=>$head->revision_no,
             );
 
              $this->super_model->insert_into("revised_po_items", $data_items);
