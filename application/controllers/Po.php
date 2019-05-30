@@ -47,7 +47,7 @@ class Po extends CI_Controller {
 
 
         }
-     /*   $data['pr'] = $this->super_model->select_row_where_order_by("aoq_header", "served", "0", "pr_no", "ASC");*/
+     
 
         $data['pr'] = $this->super_model->select_custom_where("aoq_header", "completed='1' AND served='0' ORDER BY pr_no ASC");
 
@@ -87,18 +87,6 @@ class Po extends CI_Controller {
         $data['employee']=$this->super_model->select_all_order_by("employees", "employee_name", "ASC");
         $this->load->view('template/header');        
         $this->load->view('po/purchase_order',$data);
-        $this->load->view('template/footer');
-    }
-
-    public function reporder_prnt(){
-        $this->load->view('template/header');        
-        $this->load->view('po/reporder_prnt');
-        $this->load->view('template/footer');
-    }
-
-     public function addPo(){
-        $this->load->view('template/header');        
-        $this->load->view('po/addPo');
         $this->load->view('template/footer');
     }
 
@@ -440,23 +428,19 @@ class Po extends CI_Controller {
               
             );
 
-
+            foreach($this->super_model->select_custom_where("revised_po_head", "po_id = '$head->po_id'") AS $rev){
+                $data['revise'][]=array(
+                    'po_id'=>$rev->po_id,
+                    'po_no'=>$rev->po_no,
+                    'revised_date'=>$rev->revised_date,
+                );
+            }
         }
         $this->load->view('template/header');   
         $this->load->view('template/navbar');     
         $this->load->view('po/po_list',$data);
         $this->load->view('template/footer');
     }
-
-     public function reporder_list(){
-        $this->load->view('template/header');   
-        $this->load->view('template/navbar');     
-        $this->load->view('po/reporder_list');
-        $this->load->view('template/footer');
-    }
-
- 
-
  
     public function remove_pr(){
         $po_pr_id=$this->uri->segment(3);
@@ -582,11 +566,6 @@ class Po extends CI_Controller {
         $this->load->view('template/footer');
     }
 
-     public function delivery_receipt_r(){
-        $this->load->view('template/header');        
-        $this->load->view('po/delivery_receipt_r');
-        $this->load->view('template/footer');
-    }
 
 
     public function rfd_prnt(){
@@ -655,11 +634,6 @@ class Po extends CI_Controller {
         $this->load->view('template/footer');
     }
 
-    public function rfd_prnt_r(){        
-        $this->load->view('template/header');        
-        $this->load->view('po/rfd_prnt_r');
-        $this->load->view('template/footer');
-    }
 
 
     public function save_rfd(){
@@ -902,6 +876,13 @@ class Po extends CI_Controller {
         );
 
         if($this->super_model->update_where("po_head", $head, "po_id", $poid)){
+            $rfd_revision= $this->super_model->select_column_where('rfd', 'revision_no', 'po_id', $poid);
+            $rnext_revision = $rfd_revision+1;
+            $data_rfd =array(
+                'revision_no'=>$rnext_revision,
+            );
+            $this->super_model->update_where("rfd", $data_rfd, "po_id", $poid);
+
             redirect(base_url().'po/purchase_order_saved/'.$poid);
         }
     }
@@ -952,6 +933,121 @@ class Po extends CI_Controller {
 
              $this->super_model->insert_into("revised_po_items", $data_items);
         }
+
+        foreach($this->super_model->select_row_where("rfd", "po_id", $poid) AS $rf){
+            $data_rfd = array(
+                'rfd_id'=>$rf->rfd_id,
+                'apv_no'=>$rf->apv_no,
+                'rfd_date'=>$rf->rfd_date,
+                'revised_date'=>$revised_date,
+                'company'=>$rf->company,
+                'pay_to'=>$rf->pay_to,
+                'check_name'=>$rf->check_name,
+                'cash'=>$rf->cash,
+                'check'=>$rf->check,
+                'bank_no'=>$rf->bank_no,
+                'po_id'=>$rf->po_id,
+                'check_date'=>$rf->check_date,
+                'due_date'=>$rf->due_date,
+                'gross_amount'=>$rf->gross_amount,
+                'less_amount'=>$rf->less_amount,
+                'net_amount'=>$rf->net_amount,
+                'prepared_by'=>$rf->prepared_by,
+                'checked_by'=>$rf->checked_by,
+                'endorsed_by'=>$rf->endorsed_by,
+                'approved_by'=>$rf->approved_by,
+                'saved'=>$rf->saved,
+                'revised'=>$rf->revised,
+                'revision_no'=>$head->revision_no,
+            );
+            $this->super_model->insert_into("revised_rfd", $data_rfd);
+        }
+    }
+
+    public function reporder_list(){
+        $data['supplier']=$this->super_model->select_all_order_by("vendor_head", "vendor_name", "ASC");
+        $this->load->view('template/header');   
+        $this->load->view('template/navbar');     
+        $this->load->view('po/reporder_list',$data);
+        $this->load->view('template/footer');
+    }
+
+    public function create_reorderpo(){
+        $rows_head = $this->super_model->count_rows("po_head");
+        if($rows_head==0){
+            $po_id=1;
+        } else {
+            $max = $this->super_model->get_max("po_head", "po_id");
+            $po_id = $max+1;
+        }
+
+        $head_rows = $this->super_model->count_rows("po_head");
+        if($head_rows==0){
+            $po_no = 1000;
+        } else {
+            $maxno=$this->super_model->get_max("po_head", "po_series");
+            $po_no = $maxno + 1;
+        }
+
+        $po_series = $this->input->post('po_no')."-".$po_no;
+        $data = array(
+            'po_id'=>$po_id,
+            'po_date'=>$this->input->post('po_date'),
+            'po_no'=>$po_series,
+            'po_series'=>$po_no,
+            'notes'=>$this->input->post('notes'),
+            'supplier_id'=>$this->input->post('supplier'),
+            'prepared_by'=>$_SESSION['user_id'],
+            'repeat_order'=>1
+        );
+        if($this->super_model->insert_into("po_head", $data)){
+            redirect(base_url().'po/reporder_prnt/'.$po_id);
+        }
+    }
+
+    public function reporder_prnt(){
+        $po_id=$this->uri->segment(3);
+        $data['po_id']=$po_id;
+        $supplier=$this->super_model->select_column_where('po_head', 'supplier_id', 'po_id', $po_id);
+        $data['saved']=$this->super_model->select_column_where('po_head', 'saved', 'po_id', $po_id);
+        $data['notes']=$this->super_model->select_column_where('po_head', 'notes', 'po_id', $po_id);
+        foreach($this->super_model->select_row_where("po_head", "po_id", $po_id) AS $head){
+            
+            $data['head'][]=array(
+                'po_date'=>$head->po_date,
+                'po_no'=>$head->po_no,
+                'supplier'=>$this->super_model->select_column_where('vendor_head', 'vendor_name', 'vendor_id', $head->supplier_id),
+                'supplier_id'=>$head->supplier_id,
+                'address'=>$this->super_model->select_column_where('vendor_head', 'address', 'vendor_id',$head->supplier_id),
+                'phone'=>$this->super_model->select_column_where('vendor_head', 'phone_number', 'vendor_id', $head->supplier_id),
+                'contact'=>$this->super_model->select_column_where('vendor_head', 'contact_person', 'vendor_id',$head->supplier_id)
+            );
+
+
+        }
+     
+        $this->load->view('template/header');        
+        $this->load->view('po/reporder_prnt',$data);
+        $this->load->view('template/footer');
+    }
+
+     public function addPo(){
+        $this->load->view('template/header');        
+        $this->load->view('po/addPo');
+        $this->load->view('template/footer');
+    }
+
+     public function delivery_receipt_r(){
+        $this->load->view('template/header');        
+        $this->load->view('po/delivery_receipt_r');
+        $this->load->view('template/footer');
+    }
+
+
+    public function rfd_prnt_r(){        
+        $this->load->view('template/header');        
+        $this->load->view('po/rfd_prnt_r');
+        $this->load->view('template/footer');
     }
 
 }
