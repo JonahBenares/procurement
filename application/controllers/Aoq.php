@@ -450,7 +450,7 @@ class Aoq extends CI_Controller {
 		foreach($this->super_model->select_row_where("aoq_rfq", "aoq_id",  $aoq_id) AS $r){
 			foreach($this->super_model->select_row_where("rfq_detail", "rfq_id",  $r->rfq_id) AS $rf){
 			/*	$item_name=$this->super_model->select_column_where('item','item_name','item_id', $rf->item_id);
-*/
+			*/
 				//echo $aoq_id . " = " . $item_name . " - " .$rf->unit_price . "<br>";
 				$allprice[] = array(
 					'item_id'=>$rf->item_id,
@@ -501,7 +501,7 @@ class Aoq extends CI_Controller {
         $this->load->view('template/footer');
     }
 
-     public function aoq_prnt_four(){
+    public function aoq_prnt_four(){
 		$aoq_id=$this->uri->segment(3);
 		$data['aoq_id']=$aoq_id;
 		$data['served']=$this->super_model->select_column_where('aoq_header','served','aoq_id', $aoq_id);
@@ -562,7 +562,7 @@ class Aoq extends CI_Controller {
 		foreach($this->super_model->select_row_where("aoq_rfq", "aoq_id",  $aoq_id) AS $r){
 			foreach($this->super_model->select_row_where("rfq_detail", "rfq_id",  $r->rfq_id) AS $rf){
 			/*	$item_name=$this->super_model->select_column_where('item','item_name','item_id', $rf->item_id);
-*/
+		*/
 				//echo $aoq_id . " = " . $item_name . " - " .$rf->unit_price . "<br>";
 				$allprice[] = array(
 					'item_id'=>$rf->item_id,
