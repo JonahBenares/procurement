@@ -428,7 +428,13 @@ class Po extends CI_Controller {
               
             );
 
-
+            foreach($this->super_model->select_custom_where("revised_po_head", "po_id = '$head->po_id'") AS $rev){
+                $data['revise'][]=array(
+                    'po_id'=>$rev->po_id,
+                    'po_no'=>$rev->po_no,
+                    'revised_date'=>$rev->revised_date,
+                );
+            }
         }
         $this->load->view('template/header');   
         $this->load->view('template/navbar');     
@@ -870,6 +876,13 @@ class Po extends CI_Controller {
         );
 
         if($this->super_model->update_where("po_head", $head, "po_id", $poid)){
+            $rfd_revision= $this->super_model->select_column_where('rfd', 'revision_no', 'po_id', $poid);
+            $rnext_revision = $rfd_revision+1;
+            $data_rfd =array(
+                'revision_no'=>$rnext_revision,
+            );
+            $this->super_model->update_where("rfd", $data_rfd, "po_id", $poid);
+
             redirect(base_url().'po/purchase_order_saved/'.$poid);
         }
     }
@@ -919,6 +932,35 @@ class Po extends CI_Controller {
             );
 
              $this->super_model->insert_into("revised_po_items", $data_items);
+        }
+
+        foreach($this->super_model->select_row_where("rfd", "po_id", $poid) AS $rf){
+            $data_rfd = array(
+                'rfd_id'=>$rf->rfd_id,
+                'apv_no'=>$rf->apv_no,
+                'rfd_date'=>$rf->rfd_date,
+                'revised_date'=>$revised_date,
+                'company'=>$rf->company,
+                'pay_to'=>$rf->pay_to,
+                'check_name'=>$rf->check_name,
+                'cash'=>$rf->cash,
+                'check'=>$rf->check,
+                'bank_no'=>$rf->bank_no,
+                'po_id'=>$rf->po_id,
+                'check_date'=>$rf->check_date,
+                'due_date'=>$rf->due_date,
+                'gross_amount'=>$rf->gross_amount,
+                'less_amount'=>$rf->less_amount,
+                'net_amount'=>$rf->net_amount,
+                'prepared_by'=>$rf->prepared_by,
+                'checked_by'=>$rf->checked_by,
+                'endorsed_by'=>$rf->endorsed_by,
+                'approved_by'=>$rf->approved_by,
+                'saved'=>$rf->saved,
+                'revised'=>$rf->revised,
+                'revision_no'=>$head->revision_no,
+            );
+            $this->super_model->insert_into("revised_rfd", $data_rfd);
         }
     }
 
