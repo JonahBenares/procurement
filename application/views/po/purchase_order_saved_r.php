@@ -137,33 +137,39 @@
 		    		<tr><td class="f13" colspan="20" align="center">Plant Site: Purok San Jose, Barangay Calumangan, Bago City</td></tr>
 		    		<tr><td colspan="20" align="center"><h4><b>PURCHASE ORDER</b><br><small class="text-red">REVISED</small></h4></td></tr>
 		    		<tr><td class="f13" colspan="20" align="center"><br></td></tr>
+		    		<?php foreach($head AS $h){ ?>
 		    		<tr>
 		    			<td colspan="3"><h6 class="nomarg"><b>Date</b></h6></td>
-		    			<td colspan="12"><h6 class="nomarg"><b></b></h6></td>
-		    			<td colspan="5"><h6 class="nomarg"><b>P.O. No.: </b></h6></td>
+		    			<td colspan="12"><h6 class="nomarg"><b><?php echo date('F j, Y', strtotime($h['po_date'])); ?></b></h6></td>
+		    			<td colspan="5"><h6 class="nomarg"><b>P.O. No.: <?php echo $h['po_no'] . (($revision==0) ? '' : '.r'.$revision); ?></b></h6></td>
 		    		</tr>	
 		    		<tr>
 		    			<td colspan="3"><h6 class="nomarg"><b>Supplier:</b></h6></td>
-		    			<td colspan="12"><h6 class="nomarg bor-btm"><b></b></h6></td>
+		    			<td colspan="12"><h6 class="nomarg bor-btm"><b><?php echo $h['supplier']; ?></b></h6></td>
 		    			<td colspan="5"><h6 class="nomarg"><b></b></h6></td>
 		    		</tr>
 		    		<tr>
 		    			<td colspan="3"><h6 class="nomarg"><b>Address:</b></h6></td>
-		    			<td colspan="12"><h6 class="nomarg bor-btm"><b></b></h6></td>
+		    			<td colspan="12"><h6 class="nomarg bor-btm"><b><?php echo $h['address']; ?></b></h6></td>
 		    			<td colspan="5"><h6 class="nomarg"><b></b></h6></td>
 		    		</tr>
 		    		<tr>
 		    			<td colspan="3"><h6 class="nomarg"><b>Contact Person:</b></h6></td>
-		    			<td colspan="12"><h6 class="nomarg bor-btm"><b></b></h6></td>
+		    			<td colspan="12"><h6 class="nomarg bor-btm"><b><?php echo $h['contact']; ?></b></h6></td>
 		    			<td colspan="5"><h6 class="nomarg"><b></b></h6></td>
 		    		</tr>
 		    		<tr>
 		    			<td colspan="3"><h6 class="nomarg"><b>Telephone #:</b></h6></td>
-		    			<td colspan="12"><h6 class="nomarg bor-btm"><b></b></h6></td>
+		    			<td colspan="12"><h6 class="nomarg bor-btm"><b><?php echo $h['phone']; ?></b></h6></td>
 		    			<td colspan="5"><h6 class="nomarg"><b></b></h6></td>
 		    		</tr>
-		    	
-		    		<!-- LOOp Here -->  	
+		    		<?php } ?>
+		    		<!-- LOOp Here -->
+		    		<?php 
+		    		if(!empty($prdetails)){
+		    			$a=1;
+		    			$x=1;
+		    			foreach($prdetails AS $prd){ ?>	
 		    		<tr>
 		    			<td class="f13" colspan="20" align="center" style="padding: 10px!important">
 		    				<table  class="table-bodrdered" width="100%" style="border:1px solid #000;">
@@ -191,17 +197,24 @@
 					    		</tr>
 					    		<tr>
 					    			<td class="" colspan="2" align="Left">&nbsp;PR No:</td>
-					    			<td class="" colspan="12" align="Left"></td>
-					    			<td class="" colspan="6" align="right">Requestor:  &nbsp;</td>
+					    			<td class="" colspan="12" align="Left"><?php echo $prd['pr_no']; ?></td>
+					    			<td class="" colspan="6" align="right">Requestor: <?php echo $prd['requestor']; ?> &nbsp;</td>
 					    		</tr>
 					    		<tr>
 					    			<td class="" colspan="2" align="Left">&nbsp;Purpose:</td>
-					    			<td class="" colspan="18" align="Left"></td>
+					    			<td class="" colspan="18" align="Left"><?php echo $prd['purpose']; ?></td>
 					    		</tr>
 					    		<tr>
 					    			<td class="" colspan="2" align="Left">&nbsp;Enduse:</td>
-					    			<td class="" colspan="18" align="Left"></td>
+					    			<td class="" colspan="18" align="Left"><?php echo $prd['enduse']; ?></td>
 					    		</tr>
+					    	<!--	<tr id="item-btn">
+					    			<td colspan="20" style="padding-left: 10px">
+					    				<button type="button" class="btn btn-info btn-xs" onclick="addItemPo() ">
+										  Add Item/s
+										</button>
+					    			</td>
+					    		</tr>-->
 		    					<tr>
 					    			<td colspan="" class="all-border" align="center"><b>#</b></td>
 					    			<td colspan="" class="all-border" align="center"><b>Qty</b></td>
@@ -210,21 +223,43 @@
 					    			<td colspan="2" class="all-border" align="center"><b>Unit Price</b></td>
 					    			<td colspan="3" class="all-border" align="center"></td>
 					    		</tr>
+					    		<?php
+					    		
+					    		$pr_price=array();
+					    		 foreach($items AS $it){ 
+					    		 	if($prd['po_pr_id']==$it['po_pr_id']){
+					    		 	$tprice = $it['quantity'] * $it['price'];
+					    		 	$pr_price[] = $tprice; ?>
 					    		<tr>
-					    			<td colspan="" class="all-border" align="center"><b></b></td>
-					    			<td colspan="" class="all-border" align="center"><b></b></td>
-					    			<td colspan="" class="all-border" align="center"><b></b></td>
-					    			<td colspan="12" class="all-border" align="left"><b class="nomarg"></b></td>
-					    			<td colspan="2" class="all-border" align="center"><b></b></td>
-					    			<td colspan="3" class="all-border" align="right"><b class="nomarg"></b></td>
+					    			<td colspan="" class="all-border" align="center"><b><?php echo $x; ?></b></td>
+					    			<td colspan="" class="all-border" align="center"><b><?php echo $it['quantity']; ?></b></td>
+					    			<td colspan="" class="all-border" align="center"><b><?php echo $it['unit']; ?></b></td>
+					    			<td colspan="12" class="all-border" align="left"><b class="nomarg"><?php echo $it['offer'].", ".$it['item']." " . $it['item_specs']; ?></b></td>
+					    			<td colspan="2" class="all-border" align="center"><b><?php echo number_format($it['price'],2); ?></b></td>
+					    			<td colspan="3" class="all-border" align="right"><b class="nomarg"><?php echo number_format($tprice,2); ?></b></td>
 					    			
 					    			
 					    		</tr>
 					    	
+					    		<?php 
+					    		$x++;
+					    			}
+					    		} 
+
+					    		$prprice = array_sum($pr_price);
+					    		$total[] = $prprice; ?>
+					    	
+
+					    	
 		    				</table>
 			    		</td>
 			    	</tr>
-			    	
+			    	<?php 
+			    	$a++;
+			    	} 
+			    	$total = array_sum($total);
+			    	?>
+			    	<!-- LOOp Here --> 
 			    	<tr>
 		    			<td class="f13" colspan="20" align="center" style="padding: 10px!important">
 		    				<table  class="table-bodrdered" width="100%" style="border:0px solid #000;">
@@ -252,12 +287,13 @@
 					    		</tr>
 					    		<tr>
 					    			<td colspan="17" class="all-border" align="right"><b class="nomarg">GRAND TOTAL</b></td>
-					    			<td colspan="3" class="all-border" align="right"><b class="nomarg"><span class="pull-left">₱</span><span id='grandtotal'></span></b></td>
+					    			<td colspan="3" class="all-border" align="right"><b class="nomarg"><span class="pull-left">₱</span><span id='grandtotal'><?php echo number_format($total,2); ?></span></b></td>
 					    		</tr>
 		    				</table>
 			    		</td>
 			    		<input type="hidden" name = "prepared_by" value = "<?php echo $_SESSION['user_id'];?>">
 			    	</tr>
+			    	<?php } else { ?>
 			    	<tr>
 		    			<td class="f13" colspan="20" align="center" style="padding: 10px!important">
 		    				<table  class="table-bodrdered" width="100%" style="border:0px solid #000;">
@@ -287,9 +323,10 @@
 		    				</table>
 			    		</td>
 			    	</tr>
+			    	<?php } ?> 
 		    		<tr>
 		    			<td colspan="20">
-		    				<i>notes</i>
+		    				<i><?php echo $notes; ?></i>
 		    			</td>
 		    		</tr>
 		    		<tr>
@@ -319,9 +356,9 @@
 		    		</tr>
 		    		<tr>
 		    			<td colspan="2"></td>
-		    			<td colspan="7"><b></b></td>
+		    			<td colspan="7"><b><?php echo $_SESSION['fullname']; ?></b></td>
 		    			<td colspan="2"></td>
-		    			<td colspan="7"><b></b></td>
+		    			<td colspan="7"><b><?php echo $approved; ?></b></td>
 		    			<td colspan="2"></td>
 		    		</tr>
 		    		<tr><td colspan="20"><br></td></tr>

@@ -186,7 +186,7 @@
                                                             </div>
                                                             <div class="modal-body">
                                                             <?php foreach($revise AS $r){ ?>
-                                                                <a href="<?php echo base_url(); ?>po/purchase_order_saved_r/<?php echo $r['po_id'];?>" target="_blank" class="btn btn-link btn-link-shad btn-block"><?php echo $r['po_no'];?>
+                                                                <a href="<?php echo base_url(); ?>po/purchase_order_saved_r/<?php echo $r['po_id'];?>/<?php echo $r['revision_no'];?>" target="_blank" class="btn btn-link btn-link-shad btn-block"><?php echo $r['po_no'];?>
                                                                     <span class="pull-right"><?php echo date("Y-m-d", strtotime($r['revised_date']));?></span>
                                                                 </a>
                                                             <?php } ?>
