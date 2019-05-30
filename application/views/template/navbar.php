@@ -35,14 +35,14 @@
                         </li>
                         <li class="nav-item">
                             <a href="<?php echo base_url(); ?>index.php/rfq/rfq_list"  role="button" class="nav-link dropdown-toggle" title="Request for Quotation">
-                                <i class="fa big-icon fa-th-large"></i>
+                                <i class="fa big-icon fa-pencil-square-o"></i>
                                 <span class="mini-dn">RFQ</span> 
                                 <span class="indicator-right-menu mini-dn"></span>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="<?php echo base_url(); ?>index.php/aoq/aoq_list"  role="button" class="nav-link dropdown-toggle" title="Abstract of Quotation">
-                                <i class="fa big-icon fa-th-list"></i>
+                                <i class="fa big-icon fa-folder"></i>
                                 <span class="mini-dn">AOQ</span> 
                                 <span class="indicator-right-menu mini-dn"></span>
                             </a>
@@ -57,7 +57,7 @@
                         -->
                         <li class="nav-item">
                             <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle">
-                                <i class="fa big-icon fa-th"></i> 
+                                <i class="fa big-icon fa-shopping-cart"></i> 
                                 <span class="mini-dn">PO</span> 
                                 <span class="indicator-right-menu mini-dn"><i class="fa indicator-mn fa-angle-left"></i></span>
                             </a>
@@ -65,6 +65,13 @@
                                 <a href="<?php echo base_url(); ?>index.php/po/po_list" class="dropdown-item">Purchase Order</a>
                                 <a href="<?php echo base_url(); ?>index.php/po/reporder_list" class="dropdown-item">Repeat Order</a>
                             </div>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?php echo base_url(); ?>index.php/rfdis/rfdis_list"  role="button" class="nav-link dropdown-toggle" title="Abstract of Quotation">
+                                <i class="fa big-icon fa-list-alt "></i>
+                                <span class="mini-dn">RFD</span> 
+                                <span class="indicator-right-menu mini-dn"></span>
+                            </a>
                         </li>
                         <!-- <li class="nav-item"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle"><i class="fa big-icon fa-flask"></i> <span class="mini-dn">Interface</span> <span class="indicator-right-menu mini-dn"><i class="fa indicator-mn fa-angle-left"></i></span></a>
                             <div role="menu" class="dropdown-menu left-menu-dropdown animated flipInX">
