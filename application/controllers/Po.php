@@ -47,7 +47,7 @@ class Po extends CI_Controller {
 
 
         }
-     /*   $data['pr'] = $this->super_model->select_row_where_order_by("aoq_header", "served", "0", "pr_no", "ASC");*/
+     
 
         $data['pr'] = $this->super_model->select_custom_where("aoq_header", "completed='1' AND served='0' ORDER BY pr_no ASC");
 
@@ -87,18 +87,6 @@ class Po extends CI_Controller {
         $data['employee']=$this->super_model->select_all_order_by("employees", "employee_name", "ASC");
         $this->load->view('template/header');        
         $this->load->view('po/purchase_order',$data);
-        $this->load->view('template/footer');
-    }
-
-    public function reporder_prnt(){
-        $this->load->view('template/header');        
-        $this->load->view('po/reporder_prnt');
-        $this->load->view('template/footer');
-    }
-
-     public function addPo(){
-        $this->load->view('template/header');        
-        $this->load->view('po/addPo');
         $this->load->view('template/footer');
     }
 
@@ -975,6 +963,37 @@ class Po extends CI_Controller {
         }
     }
 
+    public function reporder_prnt(){
+        $po_id=$this->uri->segment(3);
+        $data['po_id']=$po_id;
+        $supplier=$this->super_model->select_column_where('po_head', 'supplier_id', 'po_id', $po_id);
+        $data['saved']=$this->super_model->select_column_where('po_head', 'saved', 'po_id', $po_id);
+        $data['notes']=$this->super_model->select_column_where('po_head', 'notes', 'po_id', $po_id);
+        foreach($this->super_model->select_row_where("po_head", "po_id", $po_id) AS $head){
+            
+            $data['head'][]=array(
+                'po_date'=>$head->po_date,
+                'po_no'=>$head->po_no,
+                'supplier'=>$this->super_model->select_column_where('vendor_head', 'vendor_name', 'vendor_id', $head->supplier_id),
+                'supplier_id'=>$head->supplier_id,
+                'address'=>$this->super_model->select_column_where('vendor_head', 'address', 'vendor_id',$head->supplier_id),
+                'phone'=>$this->super_model->select_column_where('vendor_head', 'phone_number', 'vendor_id', $head->supplier_id),
+                'contact'=>$this->super_model->select_column_where('vendor_head', 'contact_person', 'vendor_id',$head->supplier_id)
+            );
+
+
+        }
+     
+        $this->load->view('template/header');        
+        $this->load->view('po/reporder_prnt',$data);
+        $this->load->view('template/footer');
+    }
+
+     public function addPo(){
+        $this->load->view('template/header');        
+        $this->load->view('po/addPo');
+        $this->load->view('template/footer');
+    }
 
      public function delivery_receipt_r(){
         $this->load->view('template/header');        
@@ -982,7 +1001,7 @@ class Po extends CI_Controller {
         $this->load->view('template/footer');
     }
 
-    
+
     public function rfd_prnt_r(){        
         $this->load->view('template/header');        
         $this->load->view('po/rfd_prnt_r');
