@@ -185,7 +185,7 @@
                                                                 </h5>                                                                
                                                             </div>
                                                             <div class="modal-body">
-                                                            <a href="<?php echo base_url(); ?>po/purchase_order_saved_r" class="btn btn-link btn-link-shad btn-block">Poiurirn 324098239
+                                                            <a href="<?php echo base_url(); ?>po/purchase_order_saved_r" target="_blank" class="btn btn-link btn-link-shad btn-block">Poiurirn 324098239
                                                                 <span class="pull-right">2019-19-09</span>
                                                             </a>
                                                             </div>
