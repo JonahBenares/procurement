@@ -131,7 +131,7 @@
     </div>
     <div class="admin-dashone-data-table-area">
         <div class="container-fluid">
-         <form name="myform" action="<?php echo base_url(); ?>index.php/aoq/add_aoq" method="post">
+         <form name="myform" action="<?php echo base_url(); ?>index.php/aoq/add_aoq" method="POST">
             <div class="row">
                 <div class="col-lg-12">
                     <div class="sparkline8-list shadow-reset">
@@ -169,12 +169,12 @@
                                     foreach($header AS $head){ ?>
                                         <tr>
                                             <td><?php echo date('F j, Y', strtotime($head['po_date'])); ?></td>
-                                            <td>                                                
-                                                <button type="button" class="btn btn-link" data-toggle="modal" data-target="#polink">
+                                            <td>                                               
+                                                <!-- <a data-id="<?php echo $head['po_id'];?>" id = 'polink_button' class="btn btn-link" data-toggle="modal" data-target="#polink">
                                                     <?php echo $head['po_no']; ?>
-                                                </button>
-
-                                                <div class="modal fade" id="polink" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                                                </a> -->
+                                                <a class="btn-link txt-primary" onclick="viewHistory('<?php echo base_url(); ?>','<?php echo $head['po_id']; ?>')"><?php echo $head['po_no'];?></a>
+                                                <!-- <div class="modal fade" id="polink" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
                                                     <div class="modal-dialog" role="document">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
@@ -185,15 +185,16 @@
                                                                 </h5>                                                                
                                                             </div>
                                                             <div class="modal-body">
-                                                            <?php foreach($revise AS $r){ ?>
-                                                                <a href="<?php echo base_url(); ?>po/purchase_order_saved_r/<?php echo $r['po_id'];?>/<?php echo $r['revision_no'];?>" target="_blank" class="btn btn-link btn-link-shad btn-block"><?php echo $r['po_no'];?>
+                                                            <?php foreach($revise AS $r){ ;?>
+                                                                <a href="<?php echo base_url(); ?>po/purchase_order_saved_r/<?php echo $head['po_id'];?>/<?php echo $r['revision_no'];?>" target="_blank" class="btn btn-link btn-link-shad btn-block"><?php echo $r['po_no'];?>
                                                                     <span class="pull-right"><?php echo date("Y-m-d", strtotime($r['revised_date']));?></span>
                                                                 </a>
                                                             <?php } ?>
+                                                            <input type="text" name="poid" id="poid" >
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                </div> -->
                                             </td>
                                             <td><?php echo $head['supplier']; ?></td>
                                             <td><?php echo $head['pr']; ?></td>
