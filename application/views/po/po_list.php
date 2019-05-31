@@ -234,7 +234,7 @@
                                                 <!-- <a data-id="<?php echo $head['po_id'];?>" id = 'polink_button' class="btn btn-link" data-toggle="modal" data-target="#polink">
                                                     <?php echo $head['po_no']; ?>
                                                 </a> -->
-                                                <a class="btn-link txt-primary" onclick="viewHistory('<?php echo base_url(); ?>','<?php echo $head['po_id']; ?>')"><?php echo $head['po_no'];?></a>
+                                                <a class="btn-link txt-primary" onclick="viewHistory('<?php echo base_url(); ?>','<?php echo $head['po_id']; ?>','<?php echo $head['po_no']; ?>')"><?php echo $head['po_no'];?></a>
                                                 <!-- <div class="modal fade" id="polink" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
                                                     <div class="modal-dialog" role="document">
                                                         <div class="modal-content">
@@ -260,12 +260,24 @@
                                             <td><?php echo $head['supplier']; ?></td>
                                             <td><?php echo $head['pr']; ?></td>
                                             <td><?php echo (($head['rfd']==0) ? '<span class="label label-warning">Pending RFD</span>' : ''); ?></td>
-                                            <td></td>
+                                            <td><?php if($head['repeat_order'] == 1){ echo 'Repeat Order'; }else { echo 'Purchase Request'; }?></td>
                                             <td>
                                                 <center>
+<<<<<<< HEAD
                                                      <a href="<?php echo base_url(); ?>po/purchase_order_saved/<?php echo $head['po_id']; ?>" class="btn btn-custon-three btn-warning btn-xs" title='View'>
                                                         <span class="fa fa-eye"></span>
                                                     </a>
+=======
+                                                    <?php if($head['repeat_order'] == 1){ ?>
+                                                        <a href="<?php echo base_url(); ?>po/reporder_prnt/<?php echo $head['po_id']; ?>" class="btn btn-custon-three btn-warning btn-xs" title='Vsiew'>
+                                                            <span class="fa fa-eye"></span>
+                                                        </a>
+                                                    <?php } else { ?>
+                                                        <a href="<?php echo base_url(); ?>po/purchase_order_saved/<?php echo $head['po_id']; ?>" class="btn btn-custon-three btn-warning btn-xs" title='Vsiew'>
+                                                            <span class="fa fa-eye"></span>
+                                                        </a>
+                                                    <?php } ?>
+>>>>>>> 216d71c531e54e6d6a89d42a85a82a60e13ad018
                                                     <a class="cancelDuplicatePO btn btn-custon-three btn-info btn-xs" data-toggle="modal" data-target="#cancelDuplicatePO" data-id="<?php echo $head['po_id']; ?>" title="Cancel and Duplicate">
                                                         <span class="fa fa-ban"></span> 
                                                         <span class="fa fa-files-o"></span>
