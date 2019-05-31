@@ -500,6 +500,7 @@ class Po extends CI_Controller {
                 'pr'=>$pr,
                 'repeat_order'=>$head->repeat_order,
                 'done'=>$head->done_po,
+                'revise'=>$head->revision_no,
                 'rfd'=>$rfd
             );
 
@@ -1420,6 +1421,7 @@ class Po extends CI_Controller {
                 'pr'=>$pr,
                 'repeat_order'=>$head->repeat_order,
                 'done'=>$head->done_po,
+                'revise'=>$head->revision_no,
                 'rfd'=>$rfd
             );
         }   
