@@ -115,33 +115,67 @@
 					</h5>					
 				</div>
 				<div class="modal-body">
+				<form method='POST' action="<?php echo base_url(); ?>rfdis/add_rfd_purpose">
 				<div class="form-group">
 					<h5 class="nomarg">Requestor:</h5>
-					<h5 class="nomarg"><b><input type="" class="form-control" name=""></b></h5>
+					<h5 class="nomarg"><b>
+						 <select name='requested_by' class="form-control">
+                            <option value='' selected>-Select Employee-</option>
+                            <?php foreach($employee AS $emp){ ?>
+                                <option value="<?php echo $emp->employee_id; ?>">
+                                <?php echo $emp->employee_name; ?>
+                                </option>
+                            <?php }  ?> 
+                        </select>
+					</b></h5>
 				</div>
 				<div class="form-group">
 					<h5 class="nomarg">Purpose:</h5>
-					<h5 class="nomarg"><b><input type="" class="form-control" name=""></b></h5>
+					<h5 class="nomarg"><b>
+						<select name='purpose' class="form-control">
+                            <option value='' selected>-Select Purpose-</option>
+                            <?php foreach($purpose AS $purp){ ?>
+                                <option value="<?php echo $purp->purpose_id; ?>">
+                                <?php echo $purp->purpose_name; ?>
+                                </option>
+                            <?php }  ?> 
+                        </select>
+					</b></h5>
 				</div>
 
 				<div class="form-group">
 					<h5 class="nomarg">Enduse:</h5>
-					<h5 class="nomarg"><b><input type="" class="form-control" name=""></b></h5>
+					<h5 class="nomarg"><b>
+						 <select name='enduse' class="form-control">
+                            <option value='' selected>-Select End Use-</option>
+                            <?php foreach($enduse AS $end){ ?>
+                                <option value="<?php echo $end->enduse_id; ?>">
+                                <?php echo $end->enduse_name; ?>
+                                </option>
+                            <?php }  ?> 
+                        </select>
+					</b></h5>
 				</div>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-primary btn-block">Save changes</button>
+					<input type='hidden' name='rfd_id' value='<?php echo $rfd_id; ?>'>
+					<input type="submit" class="btn btn-primary btn-block" value="Save changes">
 				</div>
+			</form>
 			</div>
 		</div>
 	</div>
     <div  class="pad">
-    	<form method='POST' action='<?php echo base_url(); ?>'>  
+    	<form method='POST' action='<?php echo base_url(); ?>/rfdis/save_rfdis'>  
     		<div  id="prnt_btn">
 	    		<center>
 			    	<div class="btn-group">
 						<a href="javascript:history.go(-1)" class="btn btn-success btn-md p-l-100 p-r-100"><span class="fa fa-arrow-left"></span> Back</a>
+						<?php if($saved==0) { ?>
+						<input type='submit' class="btn btn-primary btn-md p-l-100 p-r-100" value="Save">	
+						<?php } else { ?> 
 						<a  onclick="printPage()" class="btn btn-warning btn-md p-l-100 p-r-100"><span class="fa fa-print"></span> Print</a>
+						<?php } ?>
 					</div>
 					<p class="text-white">Instructions: When printing DELIVERY RECEIPT make sure the following options are set correctly -- <u>Browser</u>: Chrome, <u>Layout</u>: Portrait, <u>Paper Size</u>: A4 <u>Margin</u> : Default <u>Scale</u>: 100 and the option: Background graphics is checked</p>
 				</center>
@@ -234,7 +268,7 @@
 		    			$gross[]=$total;?>
 		    		<tr>
 		    			<td align="left" colspan="17" class="bor-right">		    				
-		    				<b class="nomarg"><?php echo number_format($it['quantity']) .", ". $it['item'] . ", " . $it['specs']. ", @Php ". number_format($it['price'],2) . " per " . $it['unit']; ?></b>
+		    				<div style="padding-left: 10px"><b class="nomarg"><?php echo number_format($it['quantity']) .", ". $it['item'] . ", " . $it['specs']. ", @Php ". number_format($it['price'],2) . " per " . $it['unit']; ?></b></div>
 		    			</td>
 		    			<td align="right" colspan="3">
 		    				<span class="pull-left nomarg">₱</span>
@@ -262,36 +296,42 @@
 		    		</tr>
 		    		
 		    		<tr id="hide">
-		    			<td align="left" colspan="17" class="bor-right">
+		    			<td align="left" colspan="12" >
 		    				<b class="nomarg">
 		    					<button type="button" data-toggle="modal" data-target="#exampleModal" class="btn btn-xs btn-primary" onclick="" >Add Purpose/ EndUse/ Requestor</button>
 		    				</b>
 		    			</td>
+		    			<td colspan="5" class="bor-right"></td>
 		    			<td align="right" colspan="3"></td>
-		    		</tr>		    		
+		    		</tr>		    
+		    		<?php foreach($rfdpurp AS $pp) { ?>		
 		    		<tr>
-		    			<td align="left" colspan="17" class="bor-right">
-		    				<b class="nomarg">Purpose: </b>
+		    			<td align="left" colspan="12" >
+		    				<div style="padding-left:10px">Purpose: <b class="nomarg"><?php echo $pp['purpose']; ?></b></div>
 		    			</td>
+		    			<td colspan="5" class="bor-right"><a href="<?php echo base_url(); ?>/rfdis//delete_purpose/<?php echo $pp['rfd_purpose_id']; ?>/<?php echo $rfd_id ?>" onclick="return confirm('Are you sure you want to delete purpose?')" class="btn btn-xs btn-danger"><span class="fa fa-times"></span></a></td>
 		    			<td align="right" colspan="3"></td>
 		    		</tr>
 		    		<tr>
-		    			<td align="left" colspan="17" class="bor-right">
-		    				<b class="nomarg">End Use: </b>
+		    			<td align="left" colspan="12" >
+		    				<div style="padding-left:10px">End Use: <b class="nomarg"><?php echo $pp['enduse']; ?></b></div>
 		    			</td>
+		    			<td colspan="5" class="bor-right"></td>
 		    			<td align="right" colspan="3"></td>
 		    		</tr>
 		    		<tr>
-		    			<td align="left" colspan="17" class="bor-right">
-		    				<b class="nomarg">Requestor: </b>
+		    			<td align="left" colspan="12" >
+		    				<div style="padding-left:10px">Requestor: <b class="nomarg"><?php echo $pp['requestor']; ?></b></div>
 		    			</td>
+		    			<td colspan="5" class="bor-right"></td>
 		    			<td align="right" colspan="3"></td>
 		    		</tr>
 		    		<tr>
-		    			<td align="center" colspan="17" class="bor-right"><br></td>
+		    			<td align="center" colspan="12"><br></td>
+		    			<td align="center" colspan="5" class="bor-right"><br></td>
 		    			<td align="center" colspan="3"><br></td>
 		    		</tr>
-		    		
+		    		<?php } ?>
 		    		<tr>
 		    			<td align="left" colspan="7" ><b class="nomarg"></b></td>
 		    			<td align="right" colspan="10" class="bor-right"><b class="nomarg" style="font-weight: 900">Total Amount Due</b></td>
@@ -313,15 +353,54 @@
 		    		</tr>	
 		    		<tr><td class="f13" colspan="20" align="center"><br></td></tr>	
 		    		<tr>
-		    			<td colspan="5"><b class="nomarg"></b></td>
-		    			<td colspan="5"><b></b></td>
-		    			<td colspan="5"><b></b></td>
-		    			<td colspan="5"><b></b></td>
+		    			<td colspan="5"><b class="nomarg"><?php echo $_SESSION['fullname']; ?></b></td>
+		    			<td colspan="5">
+		    			<b>
+		    			<?php if($saved==0){ ?>
+		    			<select name='checked' class="select-des emphasis">
+			    			<option value=''>-Select Employee-</option>
+			    			<?php foreach($employee AS $emp){ ?>
+			    				<option value='<?php echo $emp->employee_id; ?>'><?php echo $emp->employee_name; ?></option>
+			    			<?php } ?>
+		    			</select>
+		    			<?php } else {
+		    				echo $checked;
+		    			} ?>
+		    			</b>
+		    			</td>
+		    			<td colspan="5">
+		    			<b>
+		    			<?php if($saved==0){ ?>
+		    			<select name='endorsed' class="select-des emphasis">
+			    			<option value=''>-Select Employee-</option>
+			    			<?php foreach($employee AS $emp){ ?>
+			    				<option value='<?php echo $emp->employee_id; ?>'><?php echo $emp->employee_name; ?></option>
+			    			<?php } ?>
+		    			</select>
+		    			<?php } else {
+		    				echo $endorsed;
+		    			} ?>
+		    			</b>
+		    			</td>
+		    			<td colspan="5">
+		    			<b>
+		    			<?php if($saved==0){ ?>
+		    			<select name='approved' class="select-des emphasis">
+			    			<option value=''>-Select Employee-</option>
+			    			<?php foreach($employee AS $emp){ ?>
+			    				<option value='<?php echo $emp->employee_id; ?>'><?php echo $emp->employee_name; ?></option>
+			    			<?php } ?>
+		    			</select>
+		    			<?php } else {
+		    				echo $approved;
+		    			} ?>
+		    			</b>
+		    			</td>
 		    		</tr>	    		
 		    		<tr><td class="f13" colspan="20" align="center"><br></td></tr>		
 		    	</table>		    
 	    	</div>
-	    	<input type='hidden' name='po_id' value=''>
+	    	<input type='hidden' name='rfd_id' value='<?php echo $rfq_id; ?>'>
     	</form>
     </div>
     <script type="text/javascript">
