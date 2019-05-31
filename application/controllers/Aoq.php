@@ -493,7 +493,7 @@ class Aoq extends CI_Controller {
 		$data['employee']=$this->super_model->select_all_order_by("employees", "employee_name", "ASC");
 		$data['items']=$this->super_model->select_all_order_by("item", "item_name", "ASC");
         $this->load->view('template/header');
-        $this->load->view('aoq/aoq_prnt_four',$data);
+        $this->load->view('aoq/aoq_prnt_five',$data);
         $this->load->view('template/footer');
     }
 

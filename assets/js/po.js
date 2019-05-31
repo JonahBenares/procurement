@@ -19,6 +19,28 @@ function chooseSupplier()
            }
         }); 
 }
+
+function chooseSupplierrep()
+{
+
+   var loc= document.getElementById("baseurl").value;
+   var redirect = loc+'index.php/po/getsupplier';
+    var supplier = document.getElementById("supplierrep").value;
+
+      $.ajax({
+            type: 'POST',
+            url: redirect,
+            data: 'supplier='+supplier,
+            dataType: 'json',
+            success: function(response){
+              
+               document.getElementById("addressrep").innerHTML  = response.address;
+               document.getElementById("phonerep").innerHTML  = response.phone;
+               document.getElementById("contactrep").innerHTML  = response.contact;
+            
+           }
+        }); 
+}
 function getPRInfo()
 {
 

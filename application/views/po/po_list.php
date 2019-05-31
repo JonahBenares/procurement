@@ -48,7 +48,7 @@
                         </div>
                         <div class="form-group">
                             <p class="m-b-0">Supplier:</p>
-                            <select name="supplier" id='supplier' onchange="chooseSupplier()" class="form-control">
+                            <select name="supplier" id='supplierrep' onchange="chooseSupplierrep()" class="form-control">
                             <option value='' selected>-Choose Supplier/Vendor-</option>
                             <?php foreach($supplier AS $sup){ ?>
                                 <option value="<?php echo $sup->vendor_id; ?>"><?php echo $sup->vendor_name; ?></option>
@@ -57,15 +57,15 @@
                         </div>
                         <div class="form-group">
                             <p class="m-b-0">Address:</p>
-                            <b><span id='address'></span></b>
+                            <b><span id='addressrep'></span></b>
                         </div>
                         <div class="form-group">
                             <p class="m-b-0">Contact Person:</p>
-                            <b><span id='contact'></span></b>
+                            <b><span id='contactrep'></span></b>
                         </div>
                         <div class="form-group">
                             <p class="m-b-0">Telephone #:</p>
-                            <b><span id='phone'></span></b>
+                            <b><span id='phonerep'></span></b>
                         </div>
                          <div class="form-group">
                             <p class="m-b-0">Notes:</p>
@@ -263,7 +263,7 @@
                                             <td></td>
                                             <td>
                                                 <center>
-                                                     <a href="<?php echo base_url(); ?>po/purchase_order_saved/<?php echo $head['po_id']; ?>" class="btn btn-custon-three btn-warning btn-xs" title='Vsiew'>
+                                                     <a href="<?php echo base_url(); ?>po/purchase_order_saved/<?php echo $head['po_id']; ?>" class="btn btn-custon-three btn-warning btn-xs" title='View'>
                                                         <span class="fa fa-eye"></span>
                                                     </a>
                                                     <a class="cancelDuplicatePO btn btn-custon-three btn-info btn-xs" data-toggle="modal" data-target="#cancelDuplicatePO" data-id="<?php echo $head['po_id']; ?>" title="Cancel and Duplicate">
