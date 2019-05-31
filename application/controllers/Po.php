@@ -498,6 +498,7 @@ class Po extends CI_Controller {
                 'supplier'=>$this->super_model->select_column_where('vendor_head', 'vendor_name', 'vendor_id', $head->supplier_id),
                 'supplier_id'=>$head->supplier_id,
                 'pr'=>$pr,
+                'repeat_order'=>$head->repeat_order,
                 'rfd'=>$rfd
             );
 
