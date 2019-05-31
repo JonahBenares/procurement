@@ -27,6 +27,61 @@
             </div>
         </div>
     </div>
+    <div id="addrepPO" class="modal modal-adminpro-general default-popup-PrimaryModal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header header-color-modal bg-color-1">
+                    <h4 class="modal-title">Add <b>Repeat</b> Order</h4>
+                    <div class="modal-close-area modal-close-df">
+                        <a class="close" data-dismiss="modal" href="#"><i class="fa fa-close"></i></a>
+                    </div>
+                </div>
+                <form method="POST" action = "<?php echo base_url();?>index.php/po/create_reorderpo">
+                    <div class="modal-body-lowpad">
+                        <div class="form-group">
+                            <p class="m-b-0">Date:</p>
+                            <input type="date" name="po_date" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <p class="m-b-0">PO NO:</p>
+                            <input type="text" name="po_no" class="form-control" autocomplete="off">
+                        </div>
+                        <div class="form-group">
+                            <p class="m-b-0">Supplier:</p>
+                            <select name="supplier" id='supplier' onchange="chooseSupplier()" class="form-control">
+                            <option value='' selected>-Choose Supplier/Vendor-</option>
+                            <?php foreach($supplier AS $sup){ ?>
+                                <option value="<?php echo $sup->vendor_id; ?>"><?php echo $sup->vendor_name; ?></option>
+                            <?php } ?>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <p class="m-b-0">Address:</p>
+                            <b><span id='address'></span></b>
+                        </div>
+                        <div class="form-group">
+                            <p class="m-b-0">Contact Person:</p>
+                            <b><span id='contact'></span></b>
+                        </div>
+                        <div class="form-group">
+                            <p class="m-b-0">Telephone #:</p>
+                            <b><span id='phone'></span></b>
+                        </div>
+                         <div class="form-group">
+                            <p class="m-b-0">Notes:</p>
+                            <textarea name="notes" class="form-control"></textarea>
+                        </div>
+                        <center>
+                           
+                            <input type = "submit" class="btn btn-custon-three btn-primary btn-block" value = "Proceed">
+                            <a href="<?php echo base_url(); ?>index.php/po/reporder_prnt" class="dropdown-item">Repeat Order</a>
+                        </center>
+                    </div>
+                    <input type='hidden' name='baseurl' id='baseurl' value="<?php echo base_url(); ?>">
+                </form>
+            </div>
+        </div>
+    </div>
     <div id="addPO" class="modal modal-adminpro-general default-popup-PrimaryModal fade" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -141,6 +196,7 @@
                                 <small>PURCHASE ORDER</small>
                                 <div class="sparkline8-outline-icon">
                                 <a href="<?php echo base_url(); ?>po/cancelled_po" class="btn btn-custon-three btn-danger"><span class="p-l-0 fa fa-ban"></span> Cancelled PO</a> 
+                                <input type='button' class="btn btn-custon-three btn-info" value='Add Repeat Order'  data-toggle="modal" data-target="#addrepPO"> 
                                 <input type='button' class="btn btn-custon-three btn-primary" value='Add PO'  data-toggle="modal" data-target="#addPO"> 
                                   <!--   <a class="btn btn-custon-three btn-primary" href=">
                                         <span class="fa fa-plus p-l-0"></span>
