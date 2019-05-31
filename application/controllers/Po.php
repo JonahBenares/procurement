@@ -1388,6 +1388,14 @@ class Po extends CI_Controller {
         $this->load->view('template/footer');
     }
 
+
+    public function done_po(){
+        $this->load->view('template/header');        
+        $this->load->view('template/navbar');    
+        $this->load->view('po/done_po');
+        $this->load->view('template/footer');
+    }
+
 }
 
 ?>
