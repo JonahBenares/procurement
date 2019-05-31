@@ -1,5 +1,4 @@
-  	<?php 
-   	$CI =& get_instance(); ?>
+  	<?php $CI =& get_instance(); ?>
   	<head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -183,6 +182,8 @@
 		    			<td colspan="9" class="bor-btm">
 		    				<b class='nomarg'><?php echo $r->company; ?></b>
 		    			</td>
+		    			<td colspan="3" align="right"><b class="nomarg">APV No.:</b></td>
+		    			<td colspan="5" class="bor-btm"><b class='nomarg'><?php echo $r->apv_no; ?></b></td>
 		    		</tr>
 		    		<tr>
 		    			<td colspan="3"><b class="nomarg">Pay To:</b></td>
@@ -223,49 +224,43 @@
 		    		<tr>
 		    			<td align="left" colspan="17" class="bor-right">
 		    				<b class="nomarg">Payment for: 
-		    				<a class="btn btn-xs btn-primary" id="hidde" onclick="additemrfd('<?php echo base_url(); ?>')" >Add Item/s</a>
+		    				<a class="btn btn-xs btn-primary" id="hidde" onclick="additemrfd('<?php echo base_url(); ?>','<?php echo $rfd_id; ?>','<?php echo $supplier_id; ?>')" >Add Item/s</a>
 		    				</b>
 		    			</td>
 		    			<td align="right" colspan="3"></td>
 		    		</tr>
+		    		<?php foreach($items AS $it){ 
+		    			$total = $it['quantity'] * $it['price'];
+		    			$gross[]=$total;?>
 		    		<tr>
 		    			<td align="left" colspan="17" class="bor-right">		    				
-		    				<b class="nomarg">10 , Cutting Disc 4", @Php 34.00 per	</b>
+		    				<b class="nomarg"><?php echo number_format($it['quantity']) .", ". $it['item'] . ", " . $it['specs']. ", @Php ". number_format($it['price'],2) . " per " . $it['unit']; ?></b>
 		    			</td>
 		    			<td align="right" colspan="3">
 		    				<span class="pull-left nomarg">₱</span>
-		    				<span class="nomarg" id=''><b>340.00</b></span>
+		    				<span class="nomarg" id=''><b><?php echo number_format($total,2); ?></b></span>
 		    			</td>
 		    		</tr>
+		    		<?php }
+
+		    		if($vat==1){
+		    			$less_amount = array_sum($gross) / 1.12 * ($ewt/100);
+		    		}else {
+		    			$less_amount = array_sum($gross) * ($ewt/100);
+		    		}
+
+		    		$net = array_sum($gross) - $less_amount;
+		    		 ?>
 		    		<tr>
 
 		    			<td align="right" colspan="17" class="bor-right"><b class="nomarg">Less: <?php echo number_format($ewt); ?>% EWT<br>
 		    				<?php echo (($vat==1) ? 'Vatable' : 'Non-vatable'); ?></b></td>
-
-		    			<td align="left" colspan="17" class="bor-right">		    				
-		    				<b class="nomarg">10 , Cutting Disc 4", @Php 34.00 per	</b>
-		    			</td>
 		    			<td align="right" colspan="3">
-		    				<span class="pull-left nomarg">₱</span>
-		    				<span class="nomarg" id=''><b>340.00</b></span>
+		    				<span class="pull-left nomarg"></span>
+		    				<span class="nomarg" id=''><b><?php echo number_format($less_amount,2); ?></b></span>
 		    			</td>
 		    		</tr>
-		    		<tr>
-		    			<td align="left" colspan="17" class="bor-right">		    				
-		    				<b class="nomarg">10 , Cutting Disc 4", @Php 34.00 per	</b>
-		    			</td>
-		    			<td align="right" colspan="3">
-		    				<span class="pull-left nomarg">₱</span>
-		    				<span class="nomarg" id=''><b>340.00</b></span>
-		    			</td>
-		    		</tr>
-		    		<tr>
-		    			<td align="right" colspan="17" class="bor-right"><b class="nomarg">Less: 1% EWT</b></td>
-		    			<td align="right" colspan="3">
-		    				<span class="pull-left nomarg">₱ </span>
-		    				<span class="nomarg" id=''><b style="font-weight: 900"></b></span>
-		    			</td>
-		    		</tr>
+		    		
 		    		<tr id="hide">
 		    			<td align="left" colspan="17" class="bor-right">
 		    				<b class="nomarg">
@@ -302,7 +297,7 @@
 		    			<td align="right" colspan="10" class="bor-right"><b class="nomarg" style="font-weight: 900">Total Amount Due</b></td>
 		    			<td align="right" colspan="3" style="border-bottom: 2px solid #000">
 		    				<span class="pull-left nomarg">₱</span>
-		    				<span class="nomarg" id=''><b style="font-weight: 900"></b></span>
+		    				<span class="nomarg" id=''><b style="font-weight: 900"><?php echo number_format($net,2); ?></b></span>
 		    			</td>
 		    		</tr>
 		    		<tr>

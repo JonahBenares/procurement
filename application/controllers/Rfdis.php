@@ -99,20 +99,67 @@ class Rfdis extends CI_Controller {
         $rfd_id=$this->uri->segment(3);
         $data['rfd'] = $this->super_model->select_row_where("rfd", "rfd_id", $rfd_id);
         $supplier_id = $this->super_model->select_column_where('rfd', 'pay_to', 'rfd_id', $rfd_id);
+        $data['supplier_id']=$supplier_id;
+        $data['rfd_id']=$rfd_id;
         $data['vat'] = $this->super_model->select_column_where('vendor_head', 'vat', 'vendor_id', $supplier_id);
         $data['ewt'] = $this->super_model->select_column_where('vendor_head', 'ewt', 'vendor_id', $supplier_id);
+
+        foreach($this->super_model->select_row_where("rfd_items", "rfd_id", $rfd_id) AS $items){
+            $unit_id = $this->super_model->select_column_where('item', 'unit_id', 'item_id', $items->item_id);
+            $data['items'][]= array(
+                'item'=>$this->super_model->select_column_where('item', 'item_name', 'item_id', $items->item_id),
+                'specs'=>$this->super_model->select_column_where('item', 'item_specs', 'item_id', $items->item_id),
+                'unit'=>$this->super_model->select_column_where('unit', 'unit_name', 'unit_id', $unit_id),
+                'quantity'=>$items->quantity,
+                'price'=>$items->unit_price
+            );
+        }
         $this->load->view('template/header');
         $this->load->view('rfdis/rfdis_prnt',$data);
         $this->load->view('template/footer');
     }
 
     public function additemrfd(){	
+        $rfd_id=$this->uri->segment(3);
+        $supplier_id=$this->uri->segment(4);
+        $data['rfd_id']=$rfd_id;
+        $data['items'] = $this->super_model->select_row_where("vendor_details", "vendor_id", $supplier_id);
+        
         $this->load->view('template/header');
-        $this->load->view('rfdis/additemrfd');
+        $this->load->view('rfdis/additemrfd',$data);
         $this->load->view('template/footer');
     }
 
+    public function add_rfd_item(){
+        $count_item = $this->input->post('count_item');
+        $rfd_id = $this->input->post('rfd_id');
+        for($x=1;$x<$count_item;$x++){
+            $item_id = $this->input->post('item_id'.$x);
+            $quantity = $this->input->post('quantity'.$x);
+            $price = $this->input->post('price'.$x);
+            
+            if(!empty($quantity) || $quantity!=0){
+                $data = array(
+                    'rfd_id'=>$rfd_id,
+                    'item_id'=>$item_id,
+                    'quantity'=>$quantity,
+                    'unit_price'=>$price 
+                );
+                $this->super_model->insert_into("rfd_items", $data);
+            }
+           
+        } ?>
 
+         <script>
+              window.onunload = refreshParent;
+            function refreshParent() {
+                window.opener.location.reload();
+            }
+            window.close();
+            
+        </script>
+        <?php
+    }
 
 }
 
