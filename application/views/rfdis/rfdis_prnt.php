@@ -226,24 +226,42 @@
 		    		</tr>
 		    		<tr>
 		    			<td align="left" colspan="17" class="bor-right">		    				
-		    				<b class="nomarg">asd asd asd asdasd asd</b>
+		    				<b class="nomarg">10 , Cutting Disc 4", @Php 34.00 per	</b>
 		    			</td>
 		    			<td align="right" colspan="3">
 		    				<span class="pull-left nomarg">₱</span>
-		    				<span class="nomarg" id=''><b></b></span>
+		    				<span class="nomarg" id=''><b>340.00</b></span>
+		    			</td>
+		    		</tr>
+		    		<tr>
+		    			<td align="left" colspan="17" class="bor-right">		    				
+		    				<b class="nomarg">10 , Cutting Disc 4", @Php 34.00 per	</b>
+		    			</td>
+		    			<td align="right" colspan="3">
+		    				<span class="pull-left nomarg">₱</span>
+		    				<span class="nomarg" id=''><b>340.00</b></span>
+		    			</td>
+		    		</tr>
+		    		<tr>
+		    			<td align="left" colspan="17" class="bor-right">		    				
+		    				<b class="nomarg">10 , Cutting Disc 4", @Php 34.00 per	</b>
+		    			</td>
+		    			<td align="right" colspan="3">
+		    				<span class="pull-left nomarg">₱</span>
+		    				<span class="nomarg" id=''><b>340.00</b></span>
 		    			</td>
 		    		</tr>
 		    		<tr>
 		    			<td align="right" colspan="17" class="bor-right"><b class="nomarg">Less: 1% EWT</b></td>
 		    			<td align="right" colspan="3">
-		    				<span class="pull-left nomarg">₱</span>
+		    				<span class="pull-left nomarg">₱ </span>
 		    				<span class="nomarg" id=''><b style="font-weight: 900"></b></span>
 		    			</td>
 		    		</tr>
 		    		<tr id="hide">
 		    			<td align="left" colspan="17" class="bor-right">
 		    				<b class="nomarg">
-		    					<button type="button" data-toggle="modal" data-target="#exampleModal" class="btn btn-xs btn-primary" onclick="" >Add Item/s</button>
+		    					<button type="button" data-toggle="modal" data-target="#exampleModal" class="btn btn-xs btn-primary" onclick="" >Add Purpose/ EndUse/ Requestor</button>
 		    				</b>
 		    			</td>
 		    			<td align="right" colspan="3"></td>
@@ -262,7 +280,7 @@
 		    		</tr>
 		    		<tr>
 		    			<td align="left" colspan="17" class="bor-right">
-		    				<b class="nomarg">Requestor: ; PR:</b>
+		    				<b class="nomarg">Requestor: </b>
 		    			</td>
 		    			<td align="right" colspan="3"></td>
 		    		</tr>
