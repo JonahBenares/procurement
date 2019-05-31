@@ -224,7 +224,9 @@
                                     <tbody>
                                     <?php 
                                     if(!empty($header)){
-                                    foreach($header AS $head){ ?>
+                                        foreach($header AS $head){ 
+                                            if($head['done']==0){ 
+                                    ?>
                                         <tr>
                                             <td><?php echo date('F j, Y', strtotime($head['po_date'])); ?></td>
                                             <td>                                 
@@ -236,6 +238,9 @@
                                             <td><?php if($head['repeat_order'] == 1){ echo 'Repeat Order'; }else { echo 'Purchase Request'; }?></td>
                                             <td>
                                                 <center>
+                                                    <a href="<?php echo base_url(); ?>po/update_done/<?php echo $head['po_id']; ?>" class="btn btn-custon-three btn-success btn-xs" title='View'>
+                                                        <span class="fa fa-check"></span>
+                                                    </a>
                                                     <?php if($head['repeat_order'] == 1){ ?>
                                                         <a href="<?php echo base_url(); ?>po/reporder_prnt/<?php echo $head['po_id']; ?>" class="btn btn-custon-three btn-warning btn-xs" title='View'>
                                                             <span class="fa fa-eye"></span>
@@ -254,8 +259,7 @@
                                                 </center>
                                             </td>
                                         </tr>  
-                                        <?php } 
-                                        } ?>                                   
+                                        <?php } } } ?>                                   
                                     </tbody>
                                 </table>
 
