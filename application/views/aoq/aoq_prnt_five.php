@@ -55,6 +55,9 @@
 		.sel-des{
 			border: 0px!important;
 		}
+		tr td{
+			background-color: #fff;
+		}
 		@media print{
 			html, body{
 	            background: #fff!important;
@@ -162,12 +165,12 @@
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/mixins.css">
     <script src="<?php echo base_url(); ?>assets/js/all-scripts.js"></script> 
     <div  class="pad">
-    		<?php if($saved==1){
-			$url =  base_url().'aoq/aoq_complete';
-		} else {
-			$url =  base_url().'aoq/aoq_save';
-		}
-	?>
+	    	<?php if($saved==1){
+				$url =  base_url().'aoq/aoq_complete';
+			} else {
+				$url =  base_url().'aoq/aoq_save';
+			}
+			?>
     		<form method='POST' action='<?php echo $url ?>'>
     		<div id="prnt_btn">
 	    		<center>
@@ -189,7 +192,7 @@
 				</center>
 			</div>
 	    	<div style="background: #fff;" <?php echo (($served==1) ? 'class="served"' : ''); ?>>    		  			
-		    	<table class="table-bodrdered" width="100%" style="background: #fff;border: 1px solid #000">
+		    	<table class="table-bodrdered" width="300%" style="background: #fff;border: 1px solid #000">
 		    		<tr>
 		    			<td width="3%"><br></td>
 		    			<td width="3%"><br></td>
@@ -250,22 +253,15 @@
 		    			<td colspan="29" class="f12" ><?php echo $h['requested']; ?></td>
 		    		</tr>
 		    		<?php } ?>
-		    		<!-- <tr><td class="f10"  align="center"><br></td></tr> -->
 		    		<tr><td class="f10" colspan="33" align="center"><br></td></tr>
 		    		<tr>
-		    			<td colspan="8" class="f10"  align="center">
-		    				
-							 <?php if($saved==0){ ?>
+		    			<td colspan="8" class="f10"  align="center">		    				
+							<?php if($saved==0){ ?>
 		    				<button id="add_btn" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-id="<?php echo $aoq_id; ?>">
-							  <span class="fa fa-plus"></span> Add Item
+							<span class="fa fa-plus"></span> Add Item
 							</button>
-							<?php } ?>
-							
-
-							
+							<?php } ?>						
 		    			</td>
-
-
 		    			<!-- loop ka here -->
 		    			<?php foreach($supplier AS $sup){ ?>
 		    			<td colspan="5" class="f10 table-borbold"  align="center">
@@ -273,9 +269,7 @@
 		    				<?php echo $sup['contact']; ?><br>
 		    				<?php echo $sup['phone']; ?>
 		    			</td>
-		    			<?php } ?>
-		    			
-		    		
+		    			<?php } ?>	
 		    		</tr>
 		    		<tr>
 		    			<td class="f9 table-borbold "align="center"><b class="p-r-10 p-l-10">#</td>
@@ -334,56 +328,33 @@
 		    				$c=1;
 			    				foreach($CI->get_all_rfq_items($sup['supplier_id'], $it['item_id'],$sup['rfq_id']) AS $allrfq) { 
 			    					$amount = $it['qty'] *$allrfq->unit_price; ?>
-			    				   	<table class="" width="100%" style='border:0px solid #000;'>	
+			    				   	<table class="table-bordered" width="100%" style='border:0px solid #000;'>	
 			    				   		<tr>
-							    			<td width="3%"><br></td>
-							    			<td width="3%"><br></td>
-							    			<td width="3%"><br></td>
-							    			<td width="3%"><br></td>
-							    			<td width="3%"><br></td>
-							    			<td width="3%"><br></td>
-							    			<td width="3%"><br></td>
-							    			<td width="3%"><br></td>
-							    			<td width="3%"><br></td>
-							    			<td width="3%"><br></td>
-							    			<td width="3%"><br></td>
-							    			<td width="3%"><br></td>
-							    			<td width="3%"><br></td>
-							    			<td width="3%"><br></td>
-							    			<td width="3%"><br></td>
-							    			<td width="3%"><br></td>
-							    			<td width="3%"><br></td>
-							    			<td width="3%"><br></td>
-							    			<td width="3%"><br></td>
-							    			<td width="3%"><br></td>
-							    			<td width="3%"><br></td>
-							    			<td width="3%"><br></td>
-							    			<td width="3%"><br></td>
-							    			<td width="3%"><br></td>
-							    			<td width="3%"><br></td>
-							    			<td width="3%"><br></td>
-							    			<td width="3%"><br></td>
-							    			<td width="3%"><br></td>
-							    			<td width="3%"><br></td>
-							    			<td width="3%"><br></td>
-							    			<td width="3%"><br></td>
-							    			<td width="3%"><br></td>
-							    			<td width="3%"><br></td>
+							    			<td width="9%"><br></td>
+							    			<td width="9%"></td>
+							    			<td width="9%"></td>
+							    			<td width="9%"></td>
+							    			<td width="9%"></td>
+							    			<td width="9%"></td>
+							    			<td width="9%"></td>
+							    			<td width="9%"></td>
+							    			<td width="9%"></td>
+							    			<td width="9%"></td>							    			
 							    		</tr>						
 				    					<tr>
-					    					<td width="40%" class="bor-btm bor-right  f10">
+					    					<td colspan="3" class="bor-btm bor-right  f10">
 					    						<b class="text-red nomarg">
 					    				 			<?php echo $allrfq->offer; ?>,
 					    						</b> <?php echo $CI->get_name("item_name", "item", "item_id", $allrfq->item_id); ?></td>
-					    					<td width="20%" class="bor-btm bor-right f10 <?php echo (($it['min']==$allrfq->unit_price && $allrfq->unit_price!=0) ? 'yellow-back' :''); ?> " align="center">
+					    					<td colspan="2"  class="bor-btm bor-right f10 <?php echo (($it['min']==$allrfq->unit_price && $allrfq->unit_price!=0) ? 'yellow-back' :''); ?> " align="center">
 					    						<?php echo number_format($allrfq->unit_price,2); ?>
 					    						<br>	
 					    						<?php if($saved=='1' && $completed==0){ ?>
 				    							<input type="radio" name="reco<?php echo $a . "_".$c; ?>" value='<?php echo $sup['supplier_id']."_".$it['item_id']."_".$allrfq->unit_price."_".$it['qty']."_".$allrfq->offer ; ?>' >
 				    							<?php } ?>
 					    					</td>
-					    					<td width="20%" class="bor-btm bor-right <?php echo (($reco_supplier == $sup['supplier_id'] && $reco_offer == $allrfq->offer) ? ' green-back' : ''); ?> " align="center"><?php echo number_format($amount,2); ?></td>
-					    					<td width="20%" class="bor-btm bor-right text-red ">
+					    					<td colspan="2" class="bor-btm bor-right <?php echo (($reco_supplier == $sup['supplier_id'] && $reco_offer == $allrfq->offer) ? ' green-back' : ''); ?> " align="center"><?php echo number_format($amount,2); ?></td>
+					    					<td colspan="3" class="bor-btm bor-right text-red ">
 					    						<?php if($saved=='1' && $completed==0){ ?>
 					    						<textarea cols="4" rows="3" name='comments<?php echo $b; ?>' style=' border: 0px'></textarea>
 					    						<input type='hidden' name='offer<?php echo $b; ?>' value="<?php echo $allrfq->offer; ?>">
