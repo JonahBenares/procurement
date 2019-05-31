@@ -99,11 +99,14 @@ class Rfdis extends CI_Controller {
         $rfd_id=$this->uri->segment(3);
         $data['rfd'] = $this->super_model->select_row_where("rfd", "rfd_id", $rfd_id);
         $supplier_id = $this->super_model->select_column_where('rfd', 'pay_to', 'rfd_id', $rfd_id);
+        $data['saved'] = $this->super_model->select_column_where('rfd', 'saved', 'rfd_id', $rfd_id);
         $data['supplier_id']=$supplier_id;
         $data['rfd_id']=$rfd_id;
         $data['vat'] = $this->super_model->select_column_where('vendor_head', 'vat', 'vendor_id', $supplier_id);
         $data['ewt'] = $this->super_model->select_column_where('vendor_head', 'ewt', 'vendor_id', $supplier_id);
-
+         $data['employee']=$this->super_model->select_all_order_by("employees", "employee_name", "ASC");
+        $data['enduse']=$this->super_model->select_all_order_by("enduse", "enduse_name", "ASC");
+        $data['purpose']=$this->super_model->select_all_order_by("purpose", "purpose_name", "ASC");
         foreach($this->super_model->select_row_where("rfd_items", "rfd_id", $rfd_id) AS $items){
             $unit_id = $this->super_model->select_column_where('item', 'unit_id', 'item_id', $items->item_id);
             $data['items'][]= array(
@@ -114,10 +117,25 @@ class Rfdis extends CI_Controller {
                 'price'=>$items->unit_price
             );
         }
+
+         foreach($this->super_model->select_row_where("rfd_purpose", "rfd_id", $rfd_id) AS $purpose){
+          
+            $data['rfdpurp'][]= array(
+                'rfd_purpose_id'=>$purpose->rfd_purpose_id,
+                'purpose'=>$this->super_model->select_column_where('purpose','purpose_name','purpose_id', $purpose->purpose_id),
+                'enduse'=>$this->super_model->select_column_where('enduse','enduse_name','enduse_id', $purpose->enduse_id),
+                'requestor'=>$this->super_model->select_column_where('employees','employee_name','employee_id', $purpose->requestor)
+            );
+        }
         $this->load->view('template/header');
         $this->load->view('rfdis/rfdis_prnt',$data);
         $this->load->view('template/footer');
     }
+
+    public function save_rfdis(){
+
+    }
+
 
     public function additemrfd(){	
         $rfd_id=$this->uri->segment(3);
@@ -128,6 +146,29 @@ class Rfdis extends CI_Controller {
         $this->load->view('template/header');
         $this->load->view('rfdis/additemrfd',$data);
         $this->load->view('template/footer');
+    }
+
+    public function add_rfd_purpose(){
+        $rfd_id = $this->input->post('rfd_id');
+        $data= array(
+            'rfd_id'=>$rfd_id,
+            'purpose_id'=>$this->input->post('purpose'),
+            'requestor'=>$this->input->post('requested_by'),
+            'enduse_id'=>$this->input->post('enduse')
+        );
+        if($this->super_model->insert_into("rfd_purpose", $data)){
+            redirect(base_url().'rfdis/rfdis_prnt/'.$rfd_id, 'refresh');
+        }
+
+    }
+
+    public function delete_purpose(){
+        $id=$this->uri->segment(3);
+        $rfd_id=$this->uri->segment(4);
+        if($this->super_model->delete_where("rfd_purpose", "rfd_purpose_id", $id)){
+            redirect(base_url().'rfdis/rfdis_prnt/'.$rfd_id, 'refresh');
+
+        }
     }
 
     public function add_rfd_item(){
