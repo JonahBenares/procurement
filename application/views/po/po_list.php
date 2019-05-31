@@ -48,7 +48,7 @@
                         </div>
                         <div class="form-group">
                             <p class="m-b-0">Supplier:</p>
-                            <select name="supplier" id='supplier' onchange="chooseSupplier()" class="form-control">
+                            <select name="supplier" id='supplierrep' onchange="chooseSupplierrep()" class="form-control">
                             <option value='' selected>-Choose Supplier/Vendor-</option>
                             <?php foreach($supplier AS $sup){ ?>
                                 <option value="<?php echo $sup->vendor_id; ?>"><?php echo $sup->vendor_name; ?></option>
@@ -57,15 +57,15 @@
                         </div>
                         <div class="form-group">
                             <p class="m-b-0">Address:</p>
-                            <b><span id='address'></span></b>
+                            <b><span id='addressrep'></span></b>
                         </div>
                         <div class="form-group">
                             <p class="m-b-0">Contact Person:</p>
-                            <b><span id='contact'></span></b>
+                            <b><span id='contactrep'></span></b>
                         </div>
                         <div class="form-group">
                             <p class="m-b-0">Telephone #:</p>
-                            <b><span id='phone'></span></b>
+                            <b><span id='phonerep'></span></b>
                         </div>
                          <div class="form-group">
                             <p class="m-b-0">Notes:</p>
@@ -195,17 +195,14 @@
                                 <h1>PO List</h1>
                                 <small>PURCHASE ORDER</small>
                                 <div class="sparkline8-outline-icon">
-                                <a href="<?php echo base_url(); ?>po/cancelled_po" class="btn btn-custon-three btn-danger"><span class="p-l-0 fa fa-ban"></span> Cancelled PO</a> 
-                                <a type='button' class="btn btn-custon-three btn-info" data-toggle="modal" data-target="#addrepPO">
-                                    <span class="fa fa-repeat p-l-0 "> </span> Add Repeat Order
-                                </a>
                                 <a type='button' class="btn btn-custon-three btn-primary" data-toggle="modal" data-target="#addPO">
                                     <span class="fa fa-plus p-l-0"></span> Add PO
                                 </a>
-                                  <!--   <a class="btn btn-custon-three btn-primary" href=">
-                                        <span class="fa fa-plus p-l-0"></span>
-                                        Create AOQ
-                                    </a> -->
+                                <a type='button' class="btn btn-custon-three btn-info" data-toggle="modal" data-target="#addrepPO">
+                                    <span class="fa fa-repeat p-l-0 "> </span> Add Repeat Order
+                                </a>
+                                <a href="<?php echo base_url(); ?>po/done_po" class="btn btn-custon-three btn-success"><span class="p-l-0 fa fa-check"></span> Done PO</a> 
+                                <a href="<?php echo base_url(); ?>po/cancelled_po" class="btn btn-custon-three btn-danger"><span class="p-l-0 fa fa-ban"></span> Cancelled PO</a>
                                 </div>
                             </div>
                         </div>
@@ -227,45 +224,37 @@
                                     <tbody>
                                     <?php 
                                     if(!empty($header)){
-                                    foreach($header AS $head){ ?>
+                                        foreach($header AS $head){ 
+                                            if($head['done']==0){ 
+                                    ?>
                                         <tr>
                                             <td><?php echo date('F j, Y', strtotime($head['po_date'])); ?></td>
-                                            <td>                                               
-                                                <!-- <a data-id="<?php echo $head['po_id'];?>" id = 'polink_button' class="btn btn-link" data-toggle="modal" data-target="#polink">
-                                                    <?php echo $head['po_no']; ?>
-                                                </a> -->
+                                            <td>                                 
+                                                <!-- <a class="btn-link txt-primary" onclick="viewHistory('<?php echo base_url(); ?>','<?php echo $head['po_id']; ?>','<?php echo $head['po_no']; ?>')"><?php echo $head['po_no'];?></a> -->
+                                                <?php if($head['revise']!=0){ ?>                              
                                                 <a class="btn-link txt-primary" onclick="viewHistory('<?php echo base_url(); ?>','<?php echo $head['po_id']; ?>','<?php echo $head['po_no']; ?>')"><?php echo $head['po_no'];?></a>
-                                                <!-- <div class="modal fade" id="polink" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-                                                    <div class="modal-dialog" role="document">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title" id="exampleModalLongTitle">History of <b><?php echo $head['po_no'];?></b>
-                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                        <span aria-hidden="true">&times;</span>
-                                                                    </button>
-                                                                </h5>                                                                
-                                                            </div>
-                                                            <div class="modal-body">
-                                                            <?php foreach($revise AS $r){ ;?>
-                                                                <a href="<?php echo base_url(); ?>po/purchase_order_saved_r/<?php echo $head['po_id'];?>/<?php echo $r['revision_no'];?>" target="_blank" class="btn btn-link btn-link-shad btn-block"><?php echo $r['po_no'];?>
-                                                                    <span class="pull-right"><?php echo date("Y-m-d", strtotime($r['revised_date']));?></span>
-                                                                </a>
-                                                            <?php } ?>
-                                                            <input type="text" name="poid" id="poid" >
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div> -->
+                                                <?php } else { ?>
+                                                <?php echo $head['po_no'];?>  
+                                                <?php } ?>
                                             </td>
                                             <td><?php echo $head['supplier']; ?></td>
                                             <td><?php echo $head['pr']; ?></td>
                                             <td><?php echo (($head['rfd']==0) ? '<span class="label label-warning">Pending RFD</span>' : ''); ?></td>
-                                            <td></td>
+                                            <td><?php if($head['repeat_order'] == 1){ echo 'Repeat Order'; }else { echo 'Purchase Request'; }?></td>
                                             <td>
                                                 <center>
-                                                     <a href="<?php echo base_url(); ?>po/purchase_order_saved/<?php echo $head['po_id']; ?>" class="btn btn-custon-three btn-warning btn-xs" title='Vsiew'>
-                                                        <span class="fa fa-eye"></span>
+                                                    <a href="<?php echo base_url(); ?>po/update_done/<?php echo $head['po_id']; ?>" class="btn btn-custon-three btn-success btn-xs" title='View'>
+                                                        <span class="fa fa-check"></span>
                                                     </a>
+                                                    <?php if($head['repeat_order'] == 1){ ?>
+                                                        <a href="<?php echo base_url(); ?>po/reporder_prnt/<?php echo $head['po_id']; ?>" class="btn btn-custon-three btn-warning btn-xs" title='View'>
+                                                            <span class="fa fa-eye"></span>
+                                                        </a>
+                                                    <?php } else { ?>
+                                                        <a href="<?php echo base_url(); ?>po/purchase_order_saved/<?php echo $head['po_id']; ?>" class="btn btn-custon-three btn-warning btn-xs" title='View'>
+                                                            <span class="fa fa-eye"></span>
+                                                        </a>
+                                                    <?php } ?>
                                                     <a class="cancelDuplicatePO btn btn-custon-three btn-info btn-xs" data-toggle="modal" data-target="#cancelDuplicatePO" data-id="<?php echo $head['po_id']; ?>" title="Cancel and Duplicate">
                                                         <span class="fa fa-ban"></span> 
                                                         <span class="fa fa-files-o"></span>
@@ -275,8 +264,7 @@
                                                 </center>
                                             </td>
                                         </tr>  
-                                        <?php } 
-                                        } ?>                                   
+                                        <?php } } } ?>                                   
                                     </tbody>
                                 </table>
 

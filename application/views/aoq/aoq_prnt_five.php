@@ -49,6 +49,9 @@
 		.bor-btm{
 			border-bottom: 1px solid #000!important;
 		}
+		.bor-right{
+			border-right: 1px solid #000!important;
+		}
 		.sel-des{
 			border: 0px!important;
 		}
@@ -312,7 +315,7 @@
 		    			$x=1;
 		    			$a=1;
 		    			$b=1;
-		    		foreach($aoq_item AS $it){ ?>
+		    		foreach($aoq_item AS $it){ 
 		    		$user_reco = $CI->get_aoq_others('reco', $sup['supplier_id'], $it['item_id'], $aoq_id);
 		    			$reco = explode("_",$user_reco);
 		    			$reco_offer = $reco[0];
@@ -321,52 +324,83 @@
 						 ?>
 		    		<tr>
 		    			<td class="f10 table-borreg" align="center"><?php echo $x; ?></td>
-		    			<td colspan="6" class="f10 table-borreg" align="left"> <?php echo $it['item']; ?></td>
+		    			<td colspan="5" class="f10 table-borreg" align="left"> <?php echo $it['item']; ?></td>
 		    			<td class="f10 table-borreg" align="center"><?php echo $it['qty']; ?></td>
-		    			<td class="f10 table-borreg" align="center"><?php echo $it['uom']; ?></td>
+		    			<td class="f10 table-borreg" align="center"><?php echo $it['uom']; ?>asd</td>
 		    		<?php foreach($supplier AS $sup){ ?>
-		    			<td colspan="5" style='border:1px solid #000;vertical-align: text-top;' >
-		    			
+		    			<td colspan="5" style='border:1px solid #000;vertical-align: text-top;' >		    			
 		    				<?php 
 		    				$v=0;
 		    				$c=1;
-
-		    			
-
 			    				foreach($CI->get_all_rfq_items($sup['supplier_id'], $it['item_id'],$sup['rfq_id']) AS $allrfq) { 
 			    					$amount = $it['qty'] *$allrfq->unit_price; ?>
-			    				   <table class="" width="100%" style='border:0px solid #000;'>						
-			    					<tr>
-				    					<td width="40%" class="bor-btm bor-right  f10">
-				    						<b class="text-red nomarg">
-				    				 			<?php echo $allrfq->offer; ?>,
-				    						</b> <?php echo $CI->get_name("item_name", "item", "item_id", $allrfq->item_id); ?></td>
-				    					<td width="20%" class="bor-btm bor-right f10 <?php echo (($it['min']==$allrfq->unit_price && $allrfq->unit_price!=0) ? 'yellow-back' :''); ?> " align="center">
-				    						<?php echo number_format($allrfq->unit_price,2); ?>
-				    						<br>	
-				    						<?php if($saved=='1' && $completed==0){ ?>
-			    							<input type="radio" name="reco<?php echo $a . "_".$c; ?>" value='<?php echo $sup['supplier_id']."_".$it['item_id']."_".$allrfq->unit_price."_".$it['qty']."_".$allrfq->offer ; ?>' >
-			    							<?php } ?>
-				    					</td>
-				    					<td width="20%" class="bor-btm bor-right <?php echo (($reco_supplier == $sup['supplier_id'] && $reco_offer == $allrfq->offer) ? ' green-back' : ''); ?> " align="center"><?php echo number_format($amount,2); ?></td>
-				    					<td width="20%" class="bor-btm bor-right text-red ">
-				    						<?php if($saved=='1' && $completed==0){ ?>
-				    						<textarea cols="4" rows="3" name='comments<?php echo $b; ?>' style=' border: 0px'></textarea>
-				    						<input type='hidden' name='offer<?php echo $b; ?>' value="<?php echo $allrfq->offer; ?>">
-				    						<input type='hidden' name='supplier<?php echo $b; ?>' value="<?php echo $sup['supplier_id']; ?>">
-				    						<input type='hidden' name='item<?php echo $b; ?>' value="<?php echo $it['item_id']; ?>">
-				    						<?php } else if($saved=='1' && $completed=='1') { 
-				    							foreach($CI->get_aoq_others('comments', $sup['supplier_id'], $it['item_id'], $aoq_id) AS $cm){
-				    								if($cm['supplier'] == $sup['supplier_id'] && $cm['offer'] == $allrfq->offer){ ?>
-				    									<textarea cols="4" rows="3" readonly="readonly" style='resize: none; border: 0px'><?php echo $cm['comment']; ?></textarea>
-				    								<?php } 
-				    							}
-				    						 } else if($saved=='0' && $completed=='0') { ?>
-				    						 	<textarea cols="4" rows="3" readonly="readonly" style='resize: none; border: 0px'></textarea>
-				    						 <?php } ?>
-				    					</td>
-				    				</tr>
-			    				</table>
+			    				   	<table class="" width="100%" style='border:0px solid #000;'>	
+			    				   		<tr>
+							    			<td width="3%"><br></td>
+							    			<td width="3%"><br></td>
+							    			<td width="3%"><br></td>
+							    			<td width="3%"><br></td>
+							    			<td width="3%"><br></td>
+							    			<td width="3%"><br></td>
+							    			<td width="3%"><br></td>
+							    			<td width="3%"><br></td>
+							    			<td width="3%"><br></td>
+							    			<td width="3%"><br></td>
+							    			<td width="3%"><br></td>
+							    			<td width="3%"><br></td>
+							    			<td width="3%"><br></td>
+							    			<td width="3%"><br></td>
+							    			<td width="3%"><br></td>
+							    			<td width="3%"><br></td>
+							    			<td width="3%"><br></td>
+							    			<td width="3%"><br></td>
+							    			<td width="3%"><br></td>
+							    			<td width="3%"><br></td>
+							    			<td width="3%"><br></td>
+							    			<td width="3%"><br></td>
+							    			<td width="3%"><br></td>
+							    			<td width="3%"><br></td>
+							    			<td width="3%"><br></td>
+							    			<td width="3%"><br></td>
+							    			<td width="3%"><br></td>
+							    			<td width="3%"><br></td>
+							    			<td width="3%"><br></td>
+							    			<td width="3%"><br></td>
+							    			<td width="3%"><br></td>
+							    			<td width="3%"><br></td>
+							    			<td width="3%"><br></td>
+							    		</tr>						
+				    					<tr>
+					    					<td width="40%" class="bor-btm bor-right  f10">
+					    						<b class="text-red nomarg">
+					    				 			<?php echo $allrfq->offer; ?>,
+					    						</b> <?php echo $CI->get_name("item_name", "item", "item_id", $allrfq->item_id); ?></td>
+					    					<td width="20%" class="bor-btm bor-right f10 <?php echo (($it['min']==$allrfq->unit_price && $allrfq->unit_price!=0) ? 'yellow-back' :''); ?> " align="center">
+					    						<?php echo number_format($allrfq->unit_price,2); ?>
+					    						<br>	
+					    						<?php if($saved=='1' && $completed==0){ ?>
+				    							<input type="radio" name="reco<?php echo $a . "_".$c; ?>" value='<?php echo $sup['supplier_id']."_".$it['item_id']."_".$allrfq->unit_price."_".$it['qty']."_".$allrfq->offer ; ?>' >
+				    							<?php } ?>
+					    					</td>
+					    					<td width="20%" class="bor-btm bor-right <?php echo (($reco_supplier == $sup['supplier_id'] && $reco_offer == $allrfq->offer) ? ' green-back' : ''); ?> " align="center"><?php echo number_format($amount,2); ?></td>
+					    					<td width="20%" class="bor-btm bor-right text-red ">
+					    						<?php if($saved=='1' && $completed==0){ ?>
+					    						<textarea cols="4" rows="3" name='comments<?php echo $b; ?>' style=' border: 0px'></textarea>
+					    						<input type='hidden' name='offer<?php echo $b; ?>' value="<?php echo $allrfq->offer; ?>">
+					    						<input type='hidden' name='supplier<?php echo $b; ?>' value="<?php echo $sup['supplier_id']; ?>">
+					    						<input type='hidden' name='item<?php echo $b; ?>' value="<?php echo $it['item_id']; ?>">
+					    						<?php } else if($saved=='1' && $completed=='1') { 
+					    							foreach($CI->get_aoq_others('comments', $sup['supplier_id'], $it['item_id'], $aoq_id) AS $cm){
+					    								if($cm['supplier'] == $sup['supplier_id'] && $cm['offer'] == $allrfq->offer){ ?>
+					    									<textarea cols="4" rows="3" readonly="readonly" style='resize: none; border: 0px'><?php echo $cm['comment']; ?></textarea>
+					    								<?php } 
+					    							}
+					    						 } else if($saved=='0' && $completed=='0') { ?>
+					    						 	<textarea cols="4" rows="3" readonly="readonly" style='resize: none; border: 0px'></textarea>
+					    						 <?php } ?>
+					    					</td>
+					    				</tr>
+				    				</table>
 			    				<?php $v++; 
 			    					$c++;
 			    					$b++;
