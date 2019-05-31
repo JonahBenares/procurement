@@ -40,6 +40,10 @@ function confirmationDelete(anchor){
     window.location=anchor.attr("href");
 }
 
+function viewHistory(baseurl,id) {
+    window.open(baseurl+"index.php/po/view_history/"+id, "_blank","toolbar=yes,scrollbars=yes,resizable=yes, top=100,left=80,width=1200,height=400");
+}
+
 function isNumberKey(txt, evt){
    var charCode = (evt.which) ? evt.which : evt.keyCode;
     if (charCode == 46) {

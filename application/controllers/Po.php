@@ -485,8 +485,7 @@ class Po extends CI_Controller {
 
     public function po_list(){
         $data['supplier']=$this->super_model->select_all_order_by("vendor_head", "vendor_name", "ASC");
-       
-         foreach($this->super_model->select_custom_where("po_head", "saved='1' AND cancelled='0' ORDER BY po_id DESC") AS $head){
+        foreach($this->super_model->select_custom_where("po_head", "saved='1' AND cancelled='0' ORDER BY po_id DESC") AS $head){
              $rfd=$this->super_model->count_rows_where("rfd","po_id",$head->po_id);
              $pr='';
             foreach($this->super_model->select_row_where("po_pr", "po_id", $head->po_id) AS $prd){
@@ -500,10 +499,11 @@ class Po extends CI_Controller {
                 'supplier_id'=>$head->supplier_id,
                 'pr'=>$pr,
                 'rfd'=>$rfd
-              
             );
 
-            foreach($this->super_model->select_custom_where("revised_po_head", "po_id = '$head->po_id'") AS $rev){
+            $poid = $this->input->post('poid');
+            //$poid=$this->uri->segment(3);
+            foreach($this->super_model->select_custom_where("revised_po_head", "po_id = '$poid'") AS $rev){
                 $data['revise'][]=array(
                     'po_id'=>$rev->po_id,
                     'po_no'=>$rev->po_no,
@@ -517,6 +517,18 @@ class Po extends CI_Controller {
         $this->load->view('po/po_list',$data);
         $this->load->view('template/footer');
     }
+
+   /* public function view_history(){
+        $poid=$this->uri->segment(3);
+        foreach($this->super_model->select_custom_where("revised_po_head", "po_id = '$poid'") AS $rev){
+            $data['revise'][]=array(
+                'po_id'=>$rev->po_id,
+                'po_no'=>$rev->po_no,
+                'revised_date'=>$rev->revised_date,
+                'revision_no'=>$rev->revision_no,
+            );
+        }
+    }*/
  
     public function remove_pr(){
         $po_pr_id=$this->uri->segment(3);

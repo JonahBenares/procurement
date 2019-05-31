@@ -19,14 +19,16 @@
                                     <thead>
                                         <tr>
                                             <th>Item Description</th>
-                                            <th width="20%">UOM</th>
-                                            <th width="20%">Qty</th>
+                                            <th width="10%">UOM</th>
+                                            <th width="25%">Price</th>
+                                            <th width="10%">Qty</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
                                             <td></td>
                                             <td></td>
+                                            <td class="td" style="padding-left: 0px!important;"><input type="text" class="form-control" name=""></td>
                                             <td class="td" style="padding-left: 0px!important;"><input type="text" class="form-control" name=""></td>
                                         </tr>             
                                     </tbody>

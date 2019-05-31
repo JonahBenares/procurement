@@ -76,9 +76,9 @@
                                             <td><?php echo date('F j, Y', strtotime($head['date_needed'])); ?></td>
                                             <td><?php  
                                             if($head['saved'] == '1' && $head['completed'] =='0') { 
-                                                echo "For TE";
+                                                echo "<span class='label label-warning'> For TE </span>";
                                             } else if($head['saved'] == '1' && $head['completed'] =='1'){
-                                                echo "Completed";
+                                                echo "<span class='label label-success'>Completed</span";
                                             }?></td>
                                             <td>
                                                 <center>
@@ -95,7 +95,7 @@
                                                         <span class="fa fa-eye"></span>
                                                     </a>
                                                 <?php } ?>
-                                                    <a href="<?php echo base_url(); ?>aoq/update_served/<?php echo $head['aoq_id']; ?>" class="btn btn-custon-three btn-success btn-xs"  onclick="return confirm('Are you sure?')">Served
+                                                    <a href="<?php echo base_url(); ?>aoq/update_served/<?php echo $head['aoq_id']; ?>" class="btn btn-custon-three btn-success btn-xs"  onclick="return confirm('Are you sure?')" title="Served"><span class="fa fa-archive"></span>
                                                     </a>
                                                 </center>
                                             </td>

@@ -95,3 +95,8 @@ function generatePO(po,poid,supplier,baseurl){
   
   window.location.href=baseurl+'po/addPo/'+poid+'/'+supplier+'/'+po;
 }
+
+$(document).on("click", "#polink_button", function () {
+     var poid = $(this).attr("data-id");
+     $("#poid").val(poid);
+});
