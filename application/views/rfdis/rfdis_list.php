@@ -30,59 +30,67 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header header-color-modal bg-color-1">
-                    <h4 class="modal-title">Add Repeat Order</h4>
+                    <h4 class="modal-title">Add RFD</h4>
                     <div class="modal-close-area modal-close-df">
                         <a class="close" data-dismiss="modal" href="#"><i class="fa fa-close"></i></a>
                     </div>
                 </div>
-                <form method="POST" action = "<?php echo base_url();?>index.php/po/create_po">
+                <form method="POST" action = "<?php echo base_url();?>index.php/rfdis/create_rfd">
                     <div class="modal-body-lowpad">
                         <div class="form-group">
+                            <p class="m-b-0">RFD Date:</p>
+                            <input type="date" name="rfd_date" class="form-control">
+                        </div>
+                     
+                        <div class="form-group">
                             <p class="m-b-0">Company:</p>
-                            <input type="text" name="po_date" class="form-control">
+                            <input type="text" name="company" class="form-control" autocomplete="off">
                         </div>
                         <div class="form-group">
                             <p class="m-b-0">Pay To :</p>
-                            <input type="text" name="po_date" class="form-control">
+                            <select name='pay_to' class="form-control" required>
+                                <option value='' selected="">-Select Vendor-</option>
+                            <?php foreach($supplier AS $sup){ ?>
+                                <option value="<?php echo $sup->vendor_id; ?>"><?php echo $sup->vendor_name; ?></option>
+                            <?php } ?>
+                            </select>
                         </div>
-                        <div class="form-group">
-                            <p class="m-b-0">Check Name:</p>
-                            <input type="text" name="po_date" class="form-control">
-                        </div>
+                      
                         <div class="form-group">
                             <p class="m-b-0">APV No:</p>
-                            <input type="text" name="po_date" class="form-control">
+                            <input type="text" name="apv_no" class="form-control" autocomplete="off">
                         </div>
-                        <div class="form-group">
-                            <p class="m-b-0">Date:</p>
-                            <input type="date" name="po_date" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <p class="m-b-0">Due Date:</p>
-                            <input type="date" name="po_date" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <p class="m-b-0">Check Due:</p>
-                            <input type="date" name="po_date" class="form-control">
-                        </div>
+                      
                         <div class="row">
                             <div class="form-group col-lg-2">
                                 <p class="m-b-0">Cash :</p>
-                                <input type="radio" name="po_date" class="">
+                                <input type="radio" name="cash" class="" value='1'>
                             </div>
                             <div class="form-group col-lg-2">
                                 <p class="m-b-0">Check :</p>
-                                <input type="radio" name="po_date" class="">
+                                <input type="radio" name="cash" class="" value='2'>
                             </div>
                         </div>
                         <div class="form-group">
+                            <p class="m-b-0">Check Name:</p>
+                            <input type="text" name="check_name" class="form-control" autocomplete="off">
+                        </div>
+                        <div class="form-group">
                             <p class="m-b-0">Bank No:</p>
-                            <input type="text" name="po_no" class="form-control" autocomplete="off">
+                            <input type="text" name="bank_no" class="form-control" autocomplete="off">
+                        </div>
+                           <div class="form-group">
+                            <p class="m-b-0">Due Date:</p>
+                            <input type="date" name="due_date" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <p class="m-b-0">Check Due:</p>
+                            <input type="date" name="check_due" class="form-control">
                         </div>
                         <center>
                            
                             <input type = "submit" class="btn btn-custon-three btn-primary btn-block" value = "Proceed">
-                            <a href="<?php echo base_url(); ?>index.php/rfdis/rfdis_prnt" class="dropdown-item">Proceed</a>
+                          <!--   <a href="<?php echo base_url(); ?>index.php/rfdis/rfdis_prnt" class="dropdown-item">Proceed</a> -->
                         </center>
                     </div>
                 </form>

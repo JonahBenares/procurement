@@ -1,3 +1,5 @@
+  	<?php 
+   	$CI =& get_instance(); ?>
   	<head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -175,36 +177,38 @@
 		    		</tr>
 		    		<tr><td colspan="20" align="center"><h5><b>REQUEST FOR DISBURSEMENT</b></h5></td></tr>
 		    		<!-- <tr><td class="f13" colspan="20" align="center"><br></td></tr> -->
+		    		<?php foreach($rfd as $r){ ?>
 		    		<tr>
 		    			<td colspan="3"><b class="nomarg">Company:</b></td>
 		    			<td colspan="9" class="bor-btm">
-		    				<b class='nomarg'></b>
+		    				<b class='nomarg'><?php echo $r->company; ?></b>
 		    			</td>
 		    		</tr>
 		    		<tr>
 		    			<td colspan="3"><b class="nomarg">Pay To:</b></td>
-		    			<td colspan="9" class="bor-btm"><b class="nomarg"></b></td>
+		    			<td colspan="9" class="bor-btm"><b class="nomarg"><?php echo $CI->getname("vendor_name", "vendor_head", "vendor_id", $r->pay_to); ?></b></td>
 		    			<td colspan="3" align="right"><b class="nomarg">Date:</b></td>
-		    			<td colspan="5" class="bor-btm"><b class='nomarg'></b></b></td>
+		    			<td colspan="5" class="bor-btm"><b class='nomarg'><?php echo date('F j, Y', strtotime($r->rfd_date)); ?></b></td>
 		    		</tr>
 		    		<tr>
 		    			<td colspan="3"><b class="nomarg">Check Name:</b></td>
-		    			<td colspan="9" class="bor-btm"><b class='nomarg'></b></td>
+		    			<td colspan="9" class="bor-btm"><b class='nomarg'><?php echo $r->check_name; ?></b></td>
 		    			<td colspan="3" align="right"><b class="nomarg">Due Date:</b></td>
-		    			<td colspan="5" class="bor-btm"><b class='nomarg'></b></td>
+		    			<td colspan="5" class="bor-btm"><b class='nomarg'><?php echo date('F j, Y', strtotime($r->due_date)); ?></b></td>
 		    		</tr>
 		    		<tr>
 		    			<td></td>
-		    			<td class="bor-btm" align="center"><span class='fa fa-check'></span></td>
+		    			<td class="bor-btm" align="center"><?php echo (($r->cash == 1) ? "<span class='fa fa-check'></span>" : ""); ?></td>
 		    			<td><b class="nomarg">Cash</b></td>
-		    			<td class="bor-btm" align="center"><span class='fa fa-check'></span></td>
+		    			<td class="bor-btm" align="center"><?php echo (($r->check == 1) ? "<span class='fa fa-check'></span>" : ""); ?></td>
 		    			<td><b class="nomarg">Check</b></td>
 		    			<td></td>
 		    			<td colspan="2"><b class="nomarg">Bank / no.</b></td>
-		    			<td colspan="4" class="bor-btm"><b class='nomarg'></b></td>
+		    			<td colspan="4" class="bor-btm"><b class='nomarg'><?php echo $r->bank_no; ?></b></td>
 		    			<td colspan="3" align="right"><b class="nomarg">Check Due:</b></td>
-		    			<td colspan="5" class="bor-btm"><b class='nomarg'></b></td>
+		    			<td colspan="5" class="bor-btm"><b class='nomarg'><?php echo date('F j, Y', strtotime($r->check_date)); ?></b></td>
 		    		</tr>
+		    		<?php } ?>
 		    		<tr>
 		    			<td colspan="20"><br></td>
 		    		</tr>
@@ -234,7 +238,8 @@
 		    			</td>
 		    		</tr>
 		    		<tr>
-		    			<td align="right" colspan="17" class="bor-right"><b class="nomarg">Less: 1% EWT</b></td>
+		    			<td align="right" colspan="17" class="bor-right"><b class="nomarg">Less: <?php echo number_format($ewt); ?>% EWT<br>
+		    				<?php echo (($vat==1) ? 'Vatable' : 'Non-vatable'); ?></b></td>
 		    			<td align="right" colspan="3">
 		    				<span class="pull-left nomarg">₱</span>
 		    				<span class="nomarg" id=''><b style="font-weight: 900"></b></span>
