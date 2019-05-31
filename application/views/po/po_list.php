@@ -234,7 +234,7 @@
                                                 <!-- <a data-id="<?php echo $head['po_id'];?>" id = 'polink_button' class="btn btn-link" data-toggle="modal" data-target="#polink">
                                                     <?php echo $head['po_no']; ?>
                                                 </a> -->
-                                                <a class="btn-link txt-primary" onclick="viewHistory('<?php echo base_url(); ?>','<?php echo $head['po_id']; ?>')"><?php echo $head['po_no'];?></a>
+                                                <a class="btn-link txt-primary" onclick="viewHistory('<?php echo base_url(); ?>','<?php echo $head['po_id']; ?>','<?php echo $head['po_no']; ?>')"><?php echo $head['po_no'];?></a>
                                                 <!-- <div class="modal fade" id="polink" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
                                                     <div class="modal-dialog" role="document">
                                                         <div class="modal-content">

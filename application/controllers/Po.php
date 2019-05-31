@@ -501,7 +501,7 @@ class Po extends CI_Controller {
                 'rfd'=>$rfd
             );
 
-            $poid = $this->input->post('poid');
+            /*$poid = $this->input->post('poid');
             //$poid=$this->uri->segment(3);
             foreach($this->super_model->select_custom_where("revised_po_head", "po_id = '$poid'") AS $rev){
                 $data['revise'][]=array(
@@ -510,7 +510,7 @@ class Po extends CI_Controller {
                     'revised_date'=>$rev->revised_date,
                     'revision_no'=>$rev->revision_no,
                 );
-            }
+            }*/
         }
         $this->load->view('template/header');   
         $this->load->view('template/navbar');     
@@ -520,17 +520,26 @@ class Po extends CI_Controller {
 
     public function view_history(){
         $this->load->view('template/header');      
-        $this->load->view('po/view_history');
+        $poid=$this->uri->segment(3);
+        $po_no=$this->uri->segment(4);
+        $data['po_no']=$po_no;
+        $data['po_id']=$poid;
+
+        $row = $this->super_model->count_rows_where("revised_po_head", "po_id",$poid);
+        if($row!=0){
+            foreach($this->super_model->select_custom_where("revised_po_head", "po_id = '$poid'") AS $rev){
+                $data['revise'][]=array(
+                    'po_id'=>$poid,
+                    'po_no'=>$rev->po_no,
+                    'revised_date'=>$rev->revised_date,
+                    'revision_no'=>$rev->revision_no,
+                );
+            }
+        }else {
+            $data['revise']=array();
+        }
+        $this->load->view('po/view_history',$data);
         $this->load->view('template/footer');
-        // $poid=$this->uri->segment(3);
-        // foreach($this->super_model->select_custom_where("revised_po_head", "po_id = '$poid'") AS $rev){
-        //     $data['revise'][]=array(
-        //         'po_id'=>$rev->po_id,
-        //         'po_no'=>$rev->po_no,
-        //         'revised_date'=>$rev->revised_date,
-        //         'revision_no'=>$rev->revision_no,
-        //     );
-        // }
     }
  
     public function remove_pr(){

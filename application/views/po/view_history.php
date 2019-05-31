@@ -8,17 +8,14 @@
         <div class="row">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">History of <b>safdad</b>
-                        <!-- <a  class="close" >
-                            <span aria-hidden="true">&times;</span>
-                        </a> -->
-                    </h5>                                                                
+                    <h5 class="modal-title" id="exampleModalLongTitle">History of <b><?php echo $po_no;?></b></h5>
                 </div>
                 <div class="modal-body">
-                    <a href="<?php echo base_url(); ?>po/purchase_order_saved_r" target="_blank" class="btn btn-link btn-link-shad btn-block">sadasda
-                        <span class="pull-right">adate</span>
-                    </a>
-                <input type="text" name="poid" id="poid" >
+                    <?php foreach($revise AS $r){ ;?>
+                        <a onClick="javascript:window.close(); window.opener.location.href='<?php echo base_url(); ?>po/purchase_order_saved_r/<?php echo $r['po_id'];?>/<?php echo $r['revision_no'];?>';" class="btn btn-link btn-link-shad btn-block"><?php echo $r['po_no'];?>
+                            <span class="pull-right"><?php echo date("Y-m-d", strtotime($r['revised_date']));?></span>
+                        </a>
+                    <?php } ?>
                 </div>
             </div>
         </div>
