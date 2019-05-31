@@ -518,17 +518,20 @@ class Po extends CI_Controller {
         $this->load->view('template/footer');
     }
 
-   /* public function view_history(){
-        $poid=$this->uri->segment(3);
-        foreach($this->super_model->select_custom_where("revised_po_head", "po_id = '$poid'") AS $rev){
-            $data['revise'][]=array(
-                'po_id'=>$rev->po_id,
-                'po_no'=>$rev->po_no,
-                'revised_date'=>$rev->revised_date,
-                'revision_no'=>$rev->revision_no,
-            );
-        }
-    }*/
+    public function view_history(){
+        $this->load->view('template/header');      
+        $this->load->view('po/view_history');
+        $this->load->view('template/footer');
+        // $poid=$this->uri->segment(3);
+        // foreach($this->super_model->select_custom_where("revised_po_head", "po_id = '$poid'") AS $rev){
+        //     $data['revise'][]=array(
+        //         'po_id'=>$rev->po_id,
+        //         'po_no'=>$rev->po_no,
+        //         'revised_date'=>$rev->revised_date,
+        //         'revision_no'=>$rev->revision_no,
+        //     );
+        // }
+    }
  
     public function remove_pr(){
         $po_pr_id=$this->uri->segment(3);
