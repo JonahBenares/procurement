@@ -74,7 +74,7 @@
                         <center>
                            
                             <input type = "submit" class="btn btn-custon-three btn-primary btn-block" value = "Proceed">
-                            <a href="<?php echo base_url(); ?>index.php/po/reporder_prnt" class="dropdown-item">Repeat Order</a>
+                            <!-- <a href="<?php echo base_url(); ?>index.php/po/reporder_prnt" class="dropdown-item">Repeat Order</a> -->
                         </center>
                     </div>
                     <input type='hidden' name='baseurl' id='baseurl' value="<?php echo base_url(); ?>">
@@ -196,8 +196,12 @@
                                 <small>PURCHASE ORDER</small>
                                 <div class="sparkline8-outline-icon">
                                 <a href="<?php echo base_url(); ?>po/cancelled_po" class="btn btn-custon-three btn-danger"><span class="p-l-0 fa fa-ban"></span> Cancelled PO</a> 
-                                <input type='button' class="btn btn-custon-three btn-info" value='Add Repeat Order'  data-toggle="modal" data-target="#addrepPO"> 
-                                <input type='button' class="btn btn-custon-three btn-primary" value='Add PO'  data-toggle="modal" data-target="#addPO"> 
+                                <a type='button' class="btn btn-custon-three btn-info" data-toggle="modal" data-target="#addrepPO">
+                                    <span class="fa fa-repeat p-l-0 "> </span> Add Repeat Order
+                                </a>
+                                <a type='button' class="btn btn-custon-three btn-primary" data-toggle="modal" data-target="#addPO">
+                                    <span class="fa fa-plus p-l-0"></span> Add PO
+                                </a>
                                   <!--   <a class="btn btn-custon-three btn-primary" href=">
                                         <span class="fa fa-plus p-l-0"></span>
                                         Create AOQ
@@ -216,6 +220,7 @@
                                             <th>Supplier</th>
                                             <th>PR #</th>
                                             <th>Status</th>
+                                            <th>Mode of Purchase</th>
                                             <th><center><span class="fa fa-bars"></span></center></th>
                                         </tr>
                                     </thead>
@@ -253,14 +258,18 @@
                                             </td>
                                             <td><?php echo $head['supplier']; ?></td>
                                             <td><?php echo $head['pr']; ?></td>
-                                            <td><?php echo (($head['rfd']==0) ? 'Pending RFD' : ''); ?></td>
+                                            <td><?php echo (($head['rfd']==0) ? '<span class="label label-warning">Pending RFD</span>' : ''); ?></td>
+                                            <td></td>
                                             <td>
                                                 <center>
-                                                     <a href="<?php echo base_url(); ?>po/purchase_order_saved/<?php echo $head['po_id']; ?>" class="btn btn-custon-three btn-warning btn-xs">
+                                                     <a href="<?php echo base_url(); ?>po/purchase_order_saved/<?php echo $head['po_id']; ?>" class="btn btn-custon-three btn-warning btn-xs" title='Vsiew'>
                                                         <span class="fa fa-eye"></span>
                                                     </a>
-                                                    <a class="cancelDuplicatePO btn btn-custon-three btn-info btn-xs" data-toggle="modal" data-target="#cancelDuplicatePO" data-id="<?php echo $head['po_id']; ?>">Cancel & Duplicate</a>
-                                                    <a class="cancelPO btn btn-custon-three btn-danger btn-xs" data-toggle="modal" data-target="#cancelPO" data-id="<?php echo $head['po_id']; ?>">Cancel</a>
+                                                    <a class="cancelDuplicatePO btn btn-custon-three btn-info btn-xs" data-toggle="modal" data-target="#cancelDuplicatePO" data-id="<?php echo $head['po_id']; ?>" title="Cancel and Duplicate">
+                                                        <span class="fa fa-ban"></span> 
+                                                        <span class="fa fa-files-o"></span>
+                                                    </a>
+                                                    <a class="cancelPO btn btn-custon-three btn-danger btn-xs" data-toggle="modal" data-target="#cancelPO" data-id="<?php echo $head['po_id']; ?>"><span class="fa fa-ban" title="Cancel"></span></a>
                                                     <!--<a href="" class="btn btn-custon-three btn-danger btn-xs"  data-toggle="modal" data-target="#cancelPO" title="WITH MODAL REASON">Cancel</a>-->
                                                 </center>
                                             </td>
