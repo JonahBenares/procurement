@@ -199,7 +199,7 @@
 							<input type='submit' class="btn btn-info btn-md p-l-100 p-r-100" value='Done'>
 							<?php } if($completed==1){ ?>
 							<a  onclick="printPage()" class="btn btn-warning btn-md p-l-100 p-r-100"><span class="fa fa-print"></span> Print</a>
-
+							<a href="<?php echo base_url(); ?>aoq/export_aoq_prnt_five/<?php echo $aoq_id;?>" class="btn btn-primary btn-md p-l-100 p-r-100"><span class="fa fa-export"></span> Export</a>
 						<?php }
 						 } if($saved==0){ ?>
 						<input type='submit' class="btn btn-primary btn-md p-l-100 p-r-100" value="Save">
