@@ -89,6 +89,23 @@ class Rfdis extends CI_Controller {
 
 	public function rfdis_list(){	
         $data['supplier']=$this->super_model->select_all_order_by("vendor_head", "vendor_name", "ASC");
+
+        foreach($this->super_model->select_all_order_by('rfd', 'rfd_date', 'DESC') AS $rfd){
+            if($rfd->direct_purchase == 1){
+                $type='Direct Purchase';
+            } else {
+                $type='Purchase Order';
+            }
+            $data['rfd'][] =  array(
+                'rfd_id'=>$rfd->rfd_id,
+                'rfd_date'=>$rfd->rfd_date,
+                'apv_no'=>$rfd->apv_no,
+                'company'=>$rfd->company,
+                'pay_to'=>$this->super_model->select_column_where("vendor_head", "vendor_name", "vendor_id", $rfd->pay_to),
+                'net_amount'=>$rfd->net_amount,
+                'type'=>$type
+            );
+        }
         $this->load->view('template/header');
         $this->load->view('template/navbar');
         $this->load->view('rfdis/rfdis_list',$data);
@@ -144,6 +161,9 @@ class Rfdis extends CI_Controller {
           //  echo $rfd_id;
             $create = date("Y-m-d H:i:s");
             $data = array(
+                'gross_amount'=>$this->input->post('gross'),
+                'less_amount'=>$this->input->post('less_amount'),
+                'net_amount'=>$this->input->post('net'),
                 'checked_by'=>$this->input->post('checked'),
                 'endorsed_by'=>$this->input->post('endorsed'),
                 'approved_by'=>$this->input->post('approved'),

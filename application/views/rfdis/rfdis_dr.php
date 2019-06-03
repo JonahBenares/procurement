@@ -99,7 +99,7 @@
 	    		<center>
 			    	<div class="btn-group">
 						<a href="javascript:history.go(-1)" class="btn btn-success btn-md p-l-100 p-r-100"><span class="fa fa-arrow-left"></span> Back</a>
-						<input type='submit' class="btn btn-primary btn-md p-l-100 p-r-100" value="Save">
+						<!-- <input type='submit' class="btn btn-primary btn-md p-l-100 p-r-100" value="Save"> -->
 						<a  onclick="printPage()" class="btn btn-warning btn-md p-l-100 p-r-100"><span class="fa fa-print"></span> Print</a>
 
 						<!-- <input type='submit' class="btn btn-primary btn-md p-l-100 p-r-100" value="Save">	 -->
