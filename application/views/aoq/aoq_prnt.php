@@ -303,7 +303,7 @@
 		    			?>
 
 		    		<tr style='border:2px solid #000'>
-		    			<td class="f10 table-borreg" align="center"><?php echo $x; ?></td>
+		    			<td class="f10 table-borreg" align="center"><?php echo $a; ?></td>
 		    			<td class="f10 table-borreg" align="left" colspan="3"><?php echo $it['item']; ?></td>
 		    			<td class="f10 table-borreg" align="center"><?php echo $it['qty']; ?></td>
 		    			<td class="f10 table-borreg" align="center"><?php echo $it['uom']; ?></td>

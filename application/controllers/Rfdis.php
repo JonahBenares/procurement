@@ -209,6 +209,11 @@ class Rfdis extends CI_Controller {
         </script>
         <?php
     }
+    public function rfdis_dr(){   
+        $this->load->view('template/header');
+        $this->load->view('rfdis/rfdis_dr');
+        $this->load->view('template/footer');
+    }
 
 }
 
