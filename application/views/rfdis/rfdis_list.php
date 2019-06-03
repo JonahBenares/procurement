@@ -119,29 +119,34 @@
                                 <table id="table" data-toggle="table" data-pagination="true" data-search="true" data-show-columns="true" data-show-pagination-switch="true" data-show-refresh="true" data-key-events="true" data-show-toggle="true" data-resizable="true" data-cookie="true" data-cookie-id-table="saveId" data-show-export="true" data-click-to-select="true" data-toolbar="#toolbar">
                                     <thead>
                                         <tr>
+                                            <th>Date</th>
                                             <th>Company</th>
                                             <th>Pay to</th>
-                                            <th>Check Name</th>
                                             <th>APV NO</th>
-                                            <th>Date</th>
+                                            <th>Amount</th>
+                                            <th>Type</th>
                                             <th><center><span class="fa fa-bars"></span></center></th>
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        <?php foreach($rfd AS $r){ ?>
                                         <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
+
+                                            <td><?php echo date('F j, Y', strtotime($r['rfd_date'])); ?></td>
+                                            <td><?php echo $r['company']; ?></td>
+                                            <td><?php echo $r['pay_to']; ?></td>
+                                            <td><?php echo $r['apv_no']; ?></td>
+                                            <td><?php echo number_format($r['net_amount'],2); ?></td>
+                                            <td><?php echo $r['type']; ?></td>
                                             <td>
                                                 <center>
-                                                     <a href="" class="btn btn-custon-three btn-warning btn-xs">
+                                                     <a href="<?php echo base_url(); ?>rfdis/rfdis_prnt/<?php echo $r['rfd_id']; ?>" class="btn btn-custon-three btn-warning btn-xs" target='_blank'>
                                                         <span class="fa fa-eye"></span>
                                                     </a>
                                                 </center>
                                             </td>
-                                        </tr>                                 
+                                        </tr>    
+                                        <?php } ?>                             
                                     </tbody>
                                 </table>
 
