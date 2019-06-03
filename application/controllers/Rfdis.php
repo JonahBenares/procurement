@@ -100,11 +100,17 @@ class Rfdis extends CI_Controller {
         $data['rfd'] = $this->super_model->select_row_where("rfd", "rfd_id", $rfd_id);
         $supplier_id = $this->super_model->select_column_where('rfd', 'pay_to', 'rfd_id', $rfd_id);
         $data['saved'] = $this->super_model->select_column_where('rfd', 'saved', 'rfd_id', $rfd_id);
+        $checked_id= $this->super_model->select_column_where('rfd', 'checked_by', 'rfd_id', $rfd_id);
+        $endorse_id= $this->super_model->select_column_where('rfd', 'endorsed_by', 'rfd_id', $rfd_id);
+        $approve_id= $this->super_model->select_column_where('rfd', 'approved_by', 'rfd_id', $rfd_id);
+        $data['checked'] = $this->super_model->select_column_where('employees', 'employee_name', 'employee_id', $checked_id);
+        $data['endorsed'] = $this->super_model->select_column_where('employees', 'employee_name', 'employee_id', $endorse_id);
+        $data['approved'] = $this->super_model->select_column_where('employees', 'employee_name', 'employee_id', $approve_id);
         $data['supplier_id']=$supplier_id;
         $data['rfd_id']=$rfd_id;
         $data['vat'] = $this->super_model->select_column_where('vendor_head', 'vat', 'vendor_id', $supplier_id);
         $data['ewt'] = $this->super_model->select_column_where('vendor_head', 'ewt', 'vendor_id', $supplier_id);
-         $data['employee']=$this->super_model->select_all_order_by("employees", "employee_name", "ASC");
+        $data['employee']=$this->super_model->select_all_order_by("employees", "employee_name", "ASC");
         $data['enduse']=$this->super_model->select_all_order_by("enduse", "enduse_name", "ASC");
         $data['purpose']=$this->super_model->select_all_order_by("purpose", "purpose_name", "ASC");
         foreach($this->super_model->select_row_where("rfd_items", "rfd_id", $rfd_id) AS $items){
@@ -122,6 +128,7 @@ class Rfdis extends CI_Controller {
           
             $data['rfdpurp'][]= array(
                 'rfd_purpose_id'=>$purpose->rfd_purpose_id,
+                'notes'=>$purpose->notes,
                 'purpose'=>$this->super_model->select_column_where('purpose','purpose_name','purpose_id', $purpose->purpose_id),
                 'enduse'=>$this->super_model->select_column_where('enduse','enduse_name','enduse_id', $purpose->enduse_id),
                 'requestor'=>$this->super_model->select_column_where('employees','employee_name','employee_id', $purpose->requestor)
@@ -134,13 +141,53 @@ class Rfdis extends CI_Controller {
 
     public function save_rfdis(){
             $rfd_id = $this->input->post('rfd_id');
+          //  echo $rfd_id;
+            $create = date("Y-m-d H:i:s");
             $data = array(
                 'checked_by'=>$this->input->post('checked'),
                 'endorsed_by'=>$this->input->post('endorsed'),
                 'approved_by'=>$this->input->post('approved'),
                 'saved'=>1
             );
-            $this->super_model->update_where("rfd", $data, "rfq_id", $rfq_id);
+            if($this->super_model->update_where("rfd", $data, "rfd_id", $rfd_id)){
+               
+                    foreach($this->super_model->select_row_where("rfd_purpose", "rfd_id", $rfd_id) AS $purp){
+                          $head_rows = $this->super_model->count_rows("dr_head");
+                            if($head_rows==0){
+                                $dr_id=1;
+                                $dr_no = 1000;
+                            } else {
+                                $maxid=$this->super_model->get_max("dr_head", "dr_id");
+                                $maxno=$this->super_model->get_max("dr_head", "dr_no");
+                                $dr_id=$maxid+1;
+                                $dr_no = $maxno + 1;
+                            }
+
+                        $drhead = array(
+                            'dr_id'=>$dr_id,
+                            'dr_no'=>$dr_no,
+                            'requestor'=>$purp->requestor,
+                            'purpose_id'=>$purp->purpose_id,
+                            'enduse_id'=>$purp->enduse_id,
+                            'notes'=>$purp->notes,
+                            'direct_purchase'=>1,
+                            'create_date'=>$create
+                        );
+                        $this->super_model->insert_into("dr_head", $drhead);
+                    }
+
+                    foreach($this->super_model->select_row_where("rfd_items", "rfd_id", $rfd_id) AS $items){
+
+                        $dritems = array(
+                            'dr_id'=>$dr_id,
+                            'rfd_items_id'=>$items->rfd_items_id
+                        );
+
+                        $this->super_model->insert_into("dr_items", $dritems);
+                    }
+            }
+
+             redirect(base_url().'rfdis/rfdis_prnt/'.$rfd_id);
 
     }
 
@@ -162,7 +209,8 @@ class Rfdis extends CI_Controller {
             'rfd_id'=>$rfd_id,
             'purpose_id'=>$this->input->post('purpose'),
             'requestor'=>$this->input->post('requested_by'),
-            'enduse_id'=>$this->input->post('enduse')
+            'enduse_id'=>$this->input->post('enduse'),
+            'notes'=>$this->input->post('notes')
         );
         if($this->super_model->insert_into("rfd_purpose", $data)){
             redirect(base_url().'rfdis/rfdis_prnt/'.$rfd_id, 'refresh');

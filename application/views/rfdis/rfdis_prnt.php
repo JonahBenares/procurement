@@ -117,6 +117,12 @@
 				<div class="modal-body">
 				<form method='POST' action="<?php echo base_url(); ?>rfdis/add_rfd_purpose">
 				<div class="form-group">
+					<h5 class="nomarg">Notes:</h5>
+					<h5 class="nomarg"><b>
+						<input type='text' name='notes' class="form-control">
+					</b></h5>
+				</div>
+				<div class="form-group">
 					<h5 class="nomarg">Requestor:</h5>
 					<h5 class="nomarg"><b>
 						 <select name='requested_by' class="form-control">
@@ -156,6 +162,7 @@
                         </select>
 					</b></h5>
 				</div>
+				
 				</div>
 				<div class="modal-footer">
 					<input type='hidden' name='rfd_id' value='<?php echo $rfd_id; ?>'>
@@ -166,7 +173,7 @@
 		</div>
 	</div>
     <div  class="pad">
-    	<form method='POST' action='<?php echo base_url(); ?>/rfdis/save_rfdis'>  
+    	<form method='POST' action='<?php echo base_url(); ?>rfdis/save_rfdis'>  
     		<div  id="prnt_btn">
 	    		<center>
 			    	<div class="btn-group">
@@ -175,8 +182,9 @@
 						<input type='submit' class="btn btn-primary btn-md p-l-100 p-r-100" value="Save">	
 						<?php } else { ?> 
 						<a  onclick="printPage()" class="btn btn-warning btn-md p-l-100 p-r-100"><span class="fa fa-print"></span> Print</a>
+						<a  href="<?php echo base_url(); ?>rfdis/rfdis_dr/<?php echo $rfd_id; ?>" class="btn btn-warning btn-md p-l-100 p-r-100" target="_blank"><span class="fa fa-print"></span> Print <u><b>DR</b></u></a>
 						<?php } ?>
-						<a  href="<?php echo base_url(); ?>rfdis/rfdis_dr" class="btn btn-warning btn-md p-l-100 p-r-100"><span class="fa fa-print"></span> Print <u><b>DR</b></u></a>
+						
 					</div>
 					<p class="text-white">Instructions: When printing DELIVERY RECEIPT make sure the following options are set correctly -- <u>Browser</u>: Chrome, <u>Layout</u>: Portrait, <u>Paper Size</u>: A4 <u>Margin</u> : Default <u>Scale</u>: 100 and the option: Background graphics is checked</p>
 				</center>
@@ -259,7 +267,9 @@
 		    		<tr>
 		    			<td align="left" colspan="17" class="bor-right">
 		    				<b class="nomarg">Payment for: 
+		    					<?php if($saved==0){ ?>
 		    				<a class="btn btn-xs btn-primary" id="hidde" onclick="additemrfd('<?php echo base_url(); ?>','<?php echo $rfd_id; ?>','<?php echo $supplier_id; ?>')" >Add Item/s</a>
+		    					<?php } ?>
 		    				</b>
 		    			</td>
 		    			<td align="right" colspan="3"></td>
@@ -297,20 +307,35 @@
 		    		</tr>
 		    		
 		    		<tr id="hide">
+
 		    			<td align="left" colspan="12" >
 		    				<b class="nomarg">
+		    					<?php if($saved==0){ ?>
 		    					<button type="button" data-toggle="modal" data-target="#exampleModal" class="btn btn-xs btn-primary" onclick="" >Add Purpose/ EndUse/ Requestor</button>
+		    					<?php } ?>
 		    				</b>
 		    			</td>
 		    			<td colspan="5" class="bor-right"></td>
 		    			<td align="right" colspan="3"></td>
 		    		</tr>		    
-		    		<?php foreach($rfdpurp AS $pp) { ?>		
+		    		<?php 
+		    		if(!empty($rfdpurp)){
+		    		foreach($rfdpurp AS $pp) { ?>		
+		    		<tr>
+		    			<td align="left" colspan="12" >
+		    				<div style="padding-left:10px"><b class="nomarg"><?php echo $pp['notes']; ?></b></div>
+		    			</td>
+		    			<td colspan="5" class="bor-right"></td>
+		    			<td align="right" colspan="3"></td>
+		    		</tr>
 		    		<tr>
 		    			<td align="left" colspan="12" >
 		    				<div style="padding-left:10px">Purpose: <b class="nomarg"><?php echo $pp['purpose']; ?></b></div>
 		    			</td>
-		    			<td colspan="5" class="bor-right"><a href="<?php echo base_url(); ?>/rfdis//delete_purpose/<?php echo $pp['rfd_purpose_id']; ?>/<?php echo $rfd_id ?>" onclick="return confirm('Are you sure you want to delete purpose?')" class="btn btn-xs btn-danger"><span class="fa fa-times"></span></a></td>
+		    			<td colspan="5" class="bor-right">
+		    				<?php if($saved==0){ ?>
+		    					<a href="<?php echo base_url(); ?>/rfdis//delete_purpose/<?php echo $pp['rfd_purpose_id']; ?>/<?php echo $rfd_id ?>" onclick="return confirm('Are you sure you want to delete purpose?')" class="btn btn-xs btn-danger"><span class="fa fa-times"></span></a>
+		    				<?php } ?></td>
 		    			<td align="right" colspan="3"></td>
 		    		</tr>
 		    		<tr>
@@ -332,7 +357,8 @@
 		    			<td align="center" colspan="5" class="bor-right"><br></td>
 		    			<td align="center" colspan="3"><br></td>
 		    		</tr>
-		    		<?php } ?>
+		    		<?php } 
+		    	    } ?>
 		    		<tr>
 		    			<td align="left" colspan="7" ><b class="nomarg"></b></td>
 		    			<td align="right" colspan="10" class="bor-right"><b class="nomarg" style="font-weight: 900">Total Amount Due</b></td>
@@ -401,7 +427,7 @@
 		    		<tr><td class="f13" colspan="20" align="center"><br></td></tr>		
 		    	</table>		    
 	    	</div>
-	    	<input type='hidden' name='rfd_id' value='<?php echo $rfq_id; ?>'>
+	    	<input type='hidden' name='rfd_id' value='<?php echo $rfd_id; ?>'>
     	</form>
     </div>
     <script type="text/javascript">
