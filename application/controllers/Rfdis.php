@@ -150,30 +150,36 @@ class Rfdis extends CI_Controller {
                 'saved'=>1
             );
             if($this->super_model->update_where("rfd", $data, "rfd_id", $rfd_id)){
-               
-                    foreach($this->super_model->select_row_where("rfd_purpose", "rfd_id", $rfd_id) AS $purp){
-                          $head_rows = $this->super_model->count_rows("dr_head");
-                            if($head_rows==0){
-                                $dr_id=1;
-                                $dr_no = 1000;
-                            } else {
-                                $maxid=$this->super_model->get_max("dr_head", "dr_id");
-                                $maxno=$this->super_model->get_max("dr_head", "dr_no");
-                                $dr_id=$maxid+1;
-                                $dr_no = $maxno + 1;
-                            }
+                $head_rows = $this->super_model->count_rows("dr_head");
+                        if($head_rows==0){
+                            $dr_id=1;
+                            $dr_no = 1000;
+                        } else {
+                            $maxid=$this->super_model->get_max("dr_head", "dr_id");
+                            $maxno=$this->super_model->get_max("dr_head", "dr_no");
+                            $dr_id=$maxid+1;
+                            $dr_no = $maxno + 1;
+                        }
 
-                        $drhead = array(
+                      $drhead = array(
                             'dr_id'=>$dr_id,
+                            'rfd_id'=>$rfd_id,
                             'dr_no'=>$dr_no,
+                            'direct_purchase'=>1,
+                            'create_date'=>$create
+                        );
+                         $this->super_model->insert_into("dr_head", $drhead);
+
+                    foreach($this->super_model->select_row_where("rfd_purpose", "rfd_id", $rfd_id) AS $purp){
+
+                        $drdetails = array(
+                            'dr_id'=>$dr_id,
                             'requestor'=>$purp->requestor,
                             'purpose_id'=>$purp->purpose_id,
                             'enduse_id'=>$purp->enduse_id,
                             'notes'=>$purp->notes,
-                            'direct_purchase'=>1,
-                            'create_date'=>$create
                         );
-                        $this->super_model->insert_into("dr_head", $drhead);
+                        $this->super_model->insert_into("dr_details", $drdetails);
                     }
 
                     foreach($this->super_model->select_row_where("rfd_items", "rfd_id", $rfd_id) AS $items){
@@ -258,8 +264,41 @@ class Rfdis extends CI_Controller {
         <?php
     }
     public function rfdis_dr(){   
+        $rfd_id=$this->uri->segment(3);
+        $dr_id =$this->super_model->select_column_where('dr_head', 'dr_id', 'rfd_id', $rfd_id);
+        $supplier_id =$this->super_model->select_column_where('rfd', 'pay_to', 'rfd_id', $rfd_id);
+        $data['vendor']= $this->super_model->select_column_where('vendor_head', 'vendor_name', 'vendor_id', $supplier_id);
+        foreach($this->super_model->select_row_where("dr_head", "rfd_id", $rfd_id) AS $head){
+            $data['dr_no']=$head->dr_no;
+            $data['date']=$head->create_date;
+
+        }
+
+        foreach($this->super_model->select_row_where("dr_details", "dr_id", $dr_id) AS $details){
+            $data['details'][] = array(
+                'notes'=>$details->notes,
+                'purpose'=>$this->super_model->select_column_where('purpose', 'purpose_name', 'purpose_id', $details->purpose_id),
+                'requestor'=>$this->super_model->select_column_where('employees', 'employee_name', 'employee_id', $details->requestor),
+                'enduse'=>$this->super_model->select_column_where('enduse', 'enduse_name', 'enduse_id', $details->enduse_id),
+            );
+        }
+
+
+        foreach($this->super_model->select_row_where("dr_items", "dr_id", $dr_id) AS $items){
+            $item_id = $this->super_model->select_column_where('rfd_items', 'item_id', 'rfd_items_id', $items->rfd_items_id);
+            $quantity = $this->super_model->select_column_where('rfd_items', 'quantity', 'rfd_items_id', $items->rfd_items_id);
+            $price = $this->super_model->select_column_where('rfd_items', 'unit_price', 'rfd_items_id', $items->rfd_items_id);
+            $unit_id = $this->super_model->select_column_where('item', 'unit_id', 'item_id', $item_id);
+            $data['items'][] = array(
+                'item'=>$this->super_model->select_column_where('item', 'item_name', 'item_id', $item_id),
+                'specs'=>$this->super_model->select_column_where('item', 'item_specs', 'item_id', $item_id),
+                'quantity'=>$quantity,
+                'price'=>$price,
+                'unit'=>$this->super_model->select_column_where('unit', 'unit_name', 'unit_id', $unit_id),
+            );
+        }
         $this->load->view('template/header');
-        $this->load->view('rfdis/rfdis_dr');
+        $this->load->view('rfdis/rfdis_dr',$data);
         $this->load->view('template/footer');
     }
 
