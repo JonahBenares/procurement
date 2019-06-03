@@ -117,6 +117,12 @@
 				<div class="modal-body">
 				<form method='POST' action="<?php echo base_url(); ?>rfdis/add_rfd_purpose">
 				<div class="form-group">
+					<h5 class="nomarg">Notes:</h5>
+					<h5 class="nomarg"><b>
+						<input type='text' name='notes' class="form-control">
+					</b></h5>
+				</div>
+				<div class="form-group">
 					<h5 class="nomarg">Requestor:</h5>
 					<h5 class="nomarg"><b>
 						 <select name='requested_by' class="form-control">
@@ -156,6 +162,7 @@
                         </select>
 					</b></h5>
 				</div>
+				
 				</div>
 				<div class="modal-footer">
 					<input type='hidden' name='rfd_id' value='<?php echo $rfd_id; ?>'>
@@ -305,7 +312,15 @@
 		    			<td colspan="5" class="bor-right"></td>
 		    			<td align="right" colspan="3"></td>
 		    		</tr>		    
-		    		<?php foreach($rfdpurp AS $pp) { ?>		
+		    		<?php 
+		    		if(!empty($rfdpurp)){
+		    		foreach($rfdpurp AS $pp) { ?>		
+		    		<tr>
+		    			<td align="left" colspan="12" >
+		    				<div style="padding-left:10px"><b class="nomarg"><?php echo $pp['notes']; ?></b></div>
+		    			</td>
+		    			
+		    		</tr>
 		    		<tr>
 		    			<td align="left" colspan="12" >
 		    				<div style="padding-left:10px">Purpose: <b class="nomarg"><?php echo $pp['purpose']; ?></b></div>
@@ -332,7 +347,8 @@
 		    			<td align="center" colspan="5" class="bor-right"><br></td>
 		    			<td align="center" colspan="3"><br></td>
 		    		</tr>
-		    		<?php } ?>
+		    		<?php } 
+		    	    } ?>
 		    		<tr>
 		    			<td align="left" colspan="7" ><b class="nomarg"></b></td>
 		    			<td align="right" colspan="10" class="bor-right"><b class="nomarg" style="font-weight: 900">Total Amount Due</b></td>

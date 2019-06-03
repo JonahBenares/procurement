@@ -122,6 +122,7 @@ class Rfdis extends CI_Controller {
           
             $data['rfdpurp'][]= array(
                 'rfd_purpose_id'=>$purpose->rfd_purpose_id,
+                'notes'=>$purpose->notes,
                 'purpose'=>$this->super_model->select_column_where('purpose','purpose_name','purpose_id', $purpose->purpose_id),
                 'enduse'=>$this->super_model->select_column_where('enduse','enduse_name','enduse_id', $purpose->enduse_id),
                 'requestor'=>$this->super_model->select_column_where('employees','employee_name','employee_id', $purpose->requestor)
@@ -162,7 +163,8 @@ class Rfdis extends CI_Controller {
             'rfd_id'=>$rfd_id,
             'purpose_id'=>$this->input->post('purpose'),
             'requestor'=>$this->input->post('requested_by'),
-            'enduse_id'=>$this->input->post('enduse')
+            'enduse_id'=>$this->input->post('enduse'),
+            'notes'=>$this->input->post('notes')
         );
         if($this->super_model->insert_into("rfd_purpose", $data)){
             redirect(base_url().'rfdis/rfdis_prnt/'.$rfd_id, 'refresh');
