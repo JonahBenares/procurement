@@ -43,6 +43,9 @@
 		.bor-btm{
 			border-bottom: 1px solid #000;
 		}
+		.bor-btm2{
+			border-bottom: 2px solid #000!important;
+		}
 		.sel-des{
 			border: 0px!important;
 		}
@@ -141,25 +144,22 @@
 		    		<tr><td colspan="20" align="center"><h5><b class="text-red">DELIVERY RECEIPT</b></h5></td></tr>
 		    		<!-- <tr><td class="f13" colspan="20" align="center"><br></td></tr> -->
 		    		<tr>
-		    			<td colspan="10" class="all-border "><b class="text-red nomarg">DR No. </b></td>
-		    			<td colspan="10" class="all-border " align="right"><b style="color: blue;margin-right: 5px">Direct Purchase</b></td>
+		    			<td colspan="13" class="all-border "><b class="text-red nomarg">DR No. </b></td>
+		    			<td colspan="7" class="all-border " align="right"><b style="color: blue;margin-right: 5px">Direct Purchase</b></td>
 		    		</tr>
 		    		<tr>
-		    			<td colspan="10" class="all-border "><b class="nomarg">Date : </b></td>
-		    			<td colspan="10" class="all-border "><b class="nomarg"> </b></td>
+		    			<td colspan="20" class="all-border "><b class="nomarg">Date : </b></td>		    			
 		    		</tr>
-		    		<tr><td colspan="20" class="all-border"><b class="nomarg">Item #4: </b></td></tr>		    		
+		    		<!-- loop here start-->
 		    		<tr>
-		    			<td colspan="10" class="all-border "><b class="nomarg">Purpose: </b></td>
-		    			<td colspan="10" class="all-border "><b class="nomarg">Enduse: </b></td>
-		    		</tr>
-		    		<tr><td colspan="20" class="all-border "><b class="nomarg">Requestor:</b></td></tr>
-		    		<tr><td colspan="20" class="all-border"><b class="nomarg">Item #4: </b></td></tr>		    		
+		    			<td colspan="13" class="all-border"><b class="nomarg">Item #4: </b></td>
+		    			<td colspan="7" class="all-border"><b class="nomarg">Requestor: </b></td>
+		    		</tr>		    		
 		    		<tr>
-		    			<td colspan="10" class="all-border "><b class="nomarg">Purpose: </b></td>
-		    			<td colspan="10" class="all-border "><b class="nomarg">Enduse: </b></td>
+		    			<td colspan="13" class="all-border bor-btm2"><b class="nomarg">Purpose: </b></td>
+		    			<td colspan="7" class="all-border bor-btm2"><b class="nomarg">Enduse: </b></td>
 		    		</tr>
-		    		<tr><td colspan="20" class="all-border "><b class="nomarg">Requestor:</b></td></tr>
+		    		<!-- loop here end-->
 		    		<tr>
 		    			<td class="all-border" align="center"><b class="nomarg">#</b></td>
 		    			<td class="all-border" align="center" colspan="6"><b class="nomarg">Supplier</b></td>
@@ -169,6 +169,7 @@
 		    			<td class="all-border" align="center" colspan="2"><b class="nomarg">UOM</b></td>
 		    			<td class="all-border" align="center" colspan="3"><b class="nomarg">Remarks</b></td>
 		    		</tr>
+		    		<!-- <loop  start-->
 		       		<tr>
 		    			<td class="all-border" align="center"></td>
 		    			<td class="all-border" align="left" colspan="6">Ava Cons</td>
@@ -177,17 +178,7 @@
 		    			<td class="all-border" align="center"></td>
 		    			<td class="all-border" align="center" colspan="2"></td>
 		    			<td class="all-border" align="center" colspan="3"></td>
-		    		</tr>
-		    		<tr>
-		    			<td class="all-border" align="center"></td>
-		    			<td class="all-border" align="left" colspan="6">Ava Cons</td>
-		    			<td class="all-border" align="left" colspan="6"></td>
-		    			<td class="all-border" align="center"></td>
-		    			<td class="all-border" align="center"></td>
-		    			<td class="all-border" align="center" colspan="2"></td>
-		    			<td class="all-border" align="center" colspan="3"></td>
-		    		</tr>
-		    		
+		    		</tr>		    		
 		    		<!-- Loop end here-->
 		    		<tr><td class="f13" colspan="20" align="center"><br></td></tr>
 		    		<tr>
