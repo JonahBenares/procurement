@@ -48,9 +48,15 @@ class Dr extends CI_Controller {
         $this->load->view('template/footer');
     }
 
-     public function dr_prnt(){   
+    public function dr_prnt(){   
         $this->load->view('template/header');
         $this->load->view('dr/dr_prnt');
+        $this->load->view('template/footer');
+    }
+
+    public function additemdr(){   
+        $this->load->view('template/header');
+        $this->load->view('dr/additemdr');
         $this->load->view('template/footer');
     }
 

@@ -11,6 +11,7 @@
 	    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/font-awesome.min.css">
 	    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/bootstrap.min.css">
 	    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/mixins.css">
+	    <script src="<?php echo base_url(); ?>assets/js/dr.js"></script> 
 	</head>
 
   	<style type="text/css">
@@ -93,7 +94,65 @@
     </style>
     
     <div  class="pad">
+    	<div class="modal fade" id="addpur" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">Add 
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+							</button>
+						</h5>					
+					</div>
+					<div class="modal-body">
+					<form method='POST' action="<?php echo base_url(); ?>">
+					<div class="form-group">
+						<h5 class="nomarg">Notes:</h5>
+						<h5 class="nomarg"><b>
+							<input type='text' name='notes' class="form-control">
+						</b></h5>
+					</div>
+					<div class="form-group">
+						<h5 class="nomarg">Requestor:</h5>
+						<h5 class="nomarg"><b>
+							 <select name='requested_by' class="form-control">
+	                            <option value='' selected>-Select Employee-</option>
+	                                <option value="">
+	                                </option>
+	                        </select>
+						</b></h5>
+					</div>
+					<div class="form-group">
+						<h5 class="nomarg">Purpose:</h5>
+						<h5 class="nomarg"><b>
+							<select name='purpose' class="form-control">
+	                            <option value='' selected>-Select Purpose-</option>
+	                                <option value="">
+	                                </option>
+	                        </select>
+						</b></h5>
+					</div>
 
+					<div class="form-group">
+						<h5 class="nomarg">Enduse:</h5>
+						<h5 class="nomarg"><b>
+							 <select name='enduse' class="form-control">
+	                            <option value='' selected>-Select End Use-</option>
+	                                <option value="">
+	                                </option>
+	                        </select>
+						</b></h5>
+					</div>
+					
+					</div>
+					<div class="modal-footer">
+						<input type='hidden' name='rfd_id' value='<?php echo $rfd_id; ?>'>
+						<input type="submit" class="btn btn-primary btn-block" value="Save changes">
+					</div>
+				</form>
+				</div>
+			</div>
+		</div>
     	<form method='POST' action=''>  
     		<div  id="prnt_btn">
 	    		<center>
@@ -150,6 +209,10 @@
 		    		<tr>
 		    			<td colspan="20" class="all-border "><b class="nomarg">Date : </b></td>		    			
 		    		</tr>
+		    		<tr>
+		    			<td colspan="20" class="all-border "><b class="nomarg"><button type="button" data-toggle="modal" data-target="#addpur" class="btn btn-xs btn-primary" onclick="" >Add Purpose/ EndUse/ Requestor</button></b></td>		    			
+		    		</tr>
+		    		
 		    		<!-- loop here start-->
 		    		<tr>
 		    			<td colspan="13" class="all-border"><b class="nomarg">Item #4: </b></td>
@@ -160,6 +223,11 @@
 		    			<td colspan="7" class="all-border bor-btm2"><b class="nomarg">Enduse: </b></td>
 		    		</tr>
 		    		<!-- loop here end-->
+		    		<tr>
+		    			<td colspan="20" class="all-border "><b class="nomarg">
+		    				<a href="" onclick="additemdr('<?php echo base_url(); ?>')" class="btn btn-xs btn-primary">Add Item/s</a></b>
+		    			</td>		    			
+		    		</tr>
 		    		<tr>
 		    			<td class="all-border" align="center"><b class="nomarg">#</b></td>
 		    			<td class="all-border" align="center" colspan="6"><b class="nomarg">Supplier</b></td>
