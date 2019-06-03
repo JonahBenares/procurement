@@ -142,14 +142,24 @@
 		    		<!-- <tr><td class="f13" colspan="20" align="center"><br></td></tr> -->
 		    		<tr>
 		    			<td colspan="10" class="all-border "><b class="text-red nomarg">DR No. </b></td>
-		    			<td colspan="10" class="all-border "><b class="nomarg">PO No: </b></td>
+		    			<td colspan="10" class="all-border " align="right"><b style="color: blue;margin-right: 5px">Direct Purchase</b></td>
 		    		</tr>
-		    		<!-- Loop starts here-->
-		    		<tr><td colspan="20" align="center"><br></td></tr>
 		    		<tr>
 		    			<td colspan="10" class="all-border "><b class="nomarg">Date : </b></td>
 		    			<td colspan="10" class="all-border "><b class="nomarg"> </b></td>
-		    		</tr>		    		
+		    		</tr>
+		    		<tr><td colspan="20" class="all-border"><b class="nomarg">Item #4: </b></td></tr>		    		
+		    		<tr>
+		    			<td colspan="10" class="all-border "><b class="nomarg">Purpose: </b></td>
+		    			<td colspan="10" class="all-border "><b class="nomarg">Enduse: </b></td>
+		    		</tr>
+		    		<tr><td colspan="20" class="all-border "><b class="nomarg">Requestor:</b></td></tr>
+		    		<tr><td colspan="20" class="all-border"><b class="nomarg">Item #4: </b></td></tr>		    		
+		    		<tr>
+		    			<td colspan="10" class="all-border "><b class="nomarg">Purpose: </b></td>
+		    			<td colspan="10" class="all-border "><b class="nomarg">Enduse: </b></td>
+		    		</tr>
+		    		<tr><td colspan="20" class="all-border "><b class="nomarg">Requestor:</b></td></tr>
 		    		<tr>
 		    			<td class="all-border" align="center"><b class="nomarg">#</b></td>
 		    			<td class="all-border" align="center" colspan="6"><b class="nomarg">Supplier</b></td>
@@ -177,15 +187,7 @@
 		    			<td class="all-border" align="center" colspan="2"></td>
 		    			<td class="all-border" align="center" colspan="3"></td>
 		    		</tr>
-		    		<tr>
-		    			<td colspan="20" class="all-border">
-		    				<!-- <loop> -->
-		    				<b class="nomarg">Purpose: </b><br>
-		    				<b class="nomarg">End Use: </b><br>
-		    				<b class="nomarg">Requestor: </b><br><br>
-		    				<!-- <loop> -->
-		    			</td>
-		    		</tr>
+		    		
 		    		<!-- Loop end here-->
 		    		<tr><td class="f13" colspan="20" align="center"><br></td></tr>
 		    		<tr>
