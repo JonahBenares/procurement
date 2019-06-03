@@ -133,6 +133,14 @@ class Rfdis extends CI_Controller {
     }
 
     public function save_rfdis(){
+            $rfd_id = $this->input->post('rfd_id');
+            $data = array(
+                'checked_by'=>$this->input->post('checked'),
+                'endorsed_by'=>$this->input->post('endorsed'),
+                'approved_by'=>$this->input->post('approved'),
+                'saved'=>1
+            );
+            $this->super_model->update_where("rfd", $data, "rfq_id", $rfq_id);
 
     }
 
