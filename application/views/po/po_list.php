@@ -230,12 +230,8 @@
                                         <tr>
                                             <td><?php echo date('F j, Y', strtotime($head['po_date'])); ?></td>
                                             <td>                                 
-                                                <!-- <a class="btn-link txt-primary" onclick="viewHistory('<?php echo base_url(); ?>','<?php echo $head['po_id']; ?>','<?php echo $head['po_no']; ?>')"><?php echo $head['po_no'];?></a> -->
-                                                <?php if($head['revise']!=0){ ?>                              
+                                                <!-- <a class="btn-link txt-primary" onclick="viewHistory('<?php echo base_url(); ?>','<?php echo $head['po_id']; ?>','<?php echo $head['po_no']; ?>')"><?php echo $head['po_no'];?></a> -->                      
                                                 <a class="btn-link txt-primary" onclick="viewHistory('<?php echo base_url(); ?>','<?php echo $head['po_id']; ?>','<?php echo $head['po_no']; ?>')"><?php echo $head['po_no'];?></a>
-                                                <?php } else { ?>
-                                                <?php echo $head['po_no'];?>  
-                                                <?php } ?>
                                             </td>
                                             <td><?php echo $head['supplier']; ?></td>
                                             <td><?php echo $head['pr']; ?></td>
