@@ -497,6 +497,250 @@ class Aoq extends CI_Controller {
         $this->load->view('template/footer');
     }
 
+    public function export_aoq_prnt_five(){
+        require_once(APPPATH.'../assets/js/phpexcel/Classes/PHPExcel/IOFactory.php');
+        $objPHPExcel = new PHPExcel();
+        $exportfilename="AOQ Five.xlsx";
+        $aoq_id=$this->uri->segment(3);
+		$data['served']=$this->super_model->select_column_where('aoq_header','served','aoq_id', $aoq_id);
+		foreach($this->super_model->select_row_where("aoq_header", "aoq_id", $aoq_id) AS $head){
+			$department=$this->super_model->select_column_where('department','department_name','department_id', $head->department_id);
+			$enduse=$this->super_model->select_column_where('enduse','enduse_name','enduse_id', $head->enduse_id);
+			$purpose=$this->super_model->select_column_where('purpose','purpose_name','purpose_id', $head->purpose_id);
+			$requested=$this->super_model->select_column_where('employees','employee_name','employee_id', $head->requested_by);
+			$noted=$this->super_model->select_column_where('employees','employee_name','employee_id', $head->noted_by);
+			$approved=$this->super_model->select_column_where('employees','employee_name','employee_id', $head->approved_by);
+			$prepared=$this->super_model->select_column_where('employees','employee_name','employee_id', $head->prepared_by);
+			$objPHPExcel->setActiveSheetIndex(0)->setCellValue('E1', "ABSTRACT OF QUOTATION");
+			$objPHPExcel->setActiveSheetIndex(0)->setCellValue('C2', "Department: $department");
+			$objPHPExcel->setActiveSheetIndex(0)->setCellValue('C3', "Purpose: $purpose");
+			$objPHPExcel->setActiveSheetIndex(0)->setCellValue('C4', "Enduse: $enduse");
+			$objPHPExcel->setActiveSheetIndex(0)->setCellValue('C5', "Requested By: $requested");
+			$objPHPExcel->setActiveSheetIndex(0)->setCellValue('G2', "Date: ".date('F j, Y',strtotime($head->aoq_date)));
+			$objPHPExcel->setActiveSheetIndex(0)->setCellValue('G3', "PR#: $head->pr_no");
+			$objPHPExcel->setActiveSheetIndex(0)->setCellValue('G4', "Date Needed: ".date('F j, Y',strtotime($head->date_needed)));
+		}
+		
+
+		$num1 = 8;
+		$num2 = 9;
+		foreach(range('A','B') as $columnID){
+		    $objPHPExcel->getActiveSheet()->getColumnDimension($columnID)->setAutoSize(true);
+		}
+		$objPHPExcel->setActiveSheetIndex(0)->setCellValue('A8', "#");
+		$objPHPExcel->setActiveSheetIndex(0)->setCellValue('B8', "DESCRIPTION");
+		$objPHPExcel->setActiveSheetIndex(0)->setCellValue('C8', "QTY");
+		$objPHPExcel->setActiveSheetIndex(0)->setCellValue('D8', "OUM");
+
+		$objPHPExcel->setActiveSheetIndex(0)->setCellValue('E8', "OFFER");
+		$objPHPExcel->setActiveSheetIndex(0)->setCellValue('F8', "U/P");
+		$objPHPExcel->setActiveSheetIndex(0)->setCellValue('G8', "AMOUNT");
+		$objPHPExcel->setActiveSheetIndex(0)->setCellValue('H8', "COMMENTS");
+
+		$objPHPExcel->setActiveSheetIndex(0)->setCellValue('I8', "OFFER");
+		$objPHPExcel->setActiveSheetIndex(0)->setCellValue('J8', "U/P");
+		$objPHPExcel->setActiveSheetIndex(0)->setCellValue('K8', "AMOUNT");
+		$objPHPExcel->setActiveSheetIndex(0)->setCellValue('L8', "COMMENTS");
+
+		$objPHPExcel->setActiveSheetIndex(0)->setCellValue('M8', "OFFER");
+		$objPHPExcel->setActiveSheetIndex(0)->setCellValue('N8', "U/P");
+		$objPHPExcel->setActiveSheetIndex(0)->setCellValue('O8', "AMOUNT");
+		$objPHPExcel->setActiveSheetIndex(0)->setCellValue('P8', "COMMENTS");
+
+		$objPHPExcel->setActiveSheetIndex(0)->setCellValue('Q8', "OFFER");
+		$objPHPExcel->setActiveSheetIndex(0)->setCellValue('R8', "U/P");
+		$objPHPExcel->setActiveSheetIndex(0)->setCellValue('S8', "AMOUNT");
+		$objPHPExcel->setActiveSheetIndex(0)->setCellValue('T8', "COMMENTS");
+
+		$objPHPExcel->setActiveSheetIndex(0)->setCellValue('U8', "OFFER");
+		$objPHPExcel->setActiveSheetIndex(0)->setCellValue('V8', "U/P");
+		$objPHPExcel->setActiveSheetIndex(0)->setCellValue('W8', "AMOUNT");
+		$objPHPExcel->setActiveSheetIndex(0)->setCellValue('X8', "COMMENTS");
+
+		foreach($this->super_model->select_row_where("aoq_rfq", "aoq_id",  $aoq_id) AS $r){
+			foreach($this->super_model->select_row_where("rfq_detail", "rfq_id",  $r->rfq_id) AS $rf){
+				$allprice[] = array(
+					'item_id'=>$rf->item_id,
+					'price'=>$rf->unit_price
+				);
+			}			
+		}
+		$x=0;
+		$y=1;
+		foreach($this->super_model->select_row_where("aoq_items", "aoq_id", $aoq_id) AS $items){
+			$item_name=$this->super_model->select_column_where('item','item_name','item_id', $items->item_id);
+			$specs=$this->super_model->select_column_where('item','item_specs','item_id', $items->item_id);	
+			foreach($this->super_model->select_row_where("item", "item_id", $items->item_id) AS $i){
+				$uom=$this->super_model->select_column_where('unit','unit_name','unit_id', $i->unit_id);
+			}
+			foreach($allprice AS $var=>$key){
+				foreach($key AS $v=>$k){
+					if($key['item_id']==$items->item_id){
+						$minprice[$x][] = $key['price'];
+					}
+				}				
+			}
+			$min=min($minprice[$x]);
+			$item = $item_name . ", " .$specs;
+			$styleArray1 = array(
+	            'borders' => array(
+	                'allborders' => array(
+	                  'style' => PHPExcel_Style_Border::BORDER_THIN
+	                )
+	            )
+	        );
+	        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('A'.$num2, "$y");
+	        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('B'.$num2, "$item_name");
+	        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('C'.$num2, "$items->quantity");
+	        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('D'.$num2, "$uom");
+	        $col='E';
+		//$col2='E';
+		$num=7;
+		$one=7;
+		$two=8;
+		foreach($this->super_model->select_row_where("aoq_rfq", "aoq_id", $aoq_id) AS $rfq){
+			$supplier_id=$this->super_model->select_column_where('rfq_head','supplier_id','rfq_id', $rfq->rfq_id);
+			$data['supplier_id'] = $supplier_id;
+			$data['rfq_id'] = $rfq->rfq_id;
+			$supplier=$this->super_model->select_column_where('vendor_head','vendor_name','vendor_id', $supplier_id);
+			$contact=$this->super_model->select_column_where('vendor_head','contact_person','vendor_id', $supplier_id);
+			$phone=$this->super_model->select_column_where('vendor_head','phone_number','vendor_id', $supplier_id);
+			$validity=$this->super_model->select_column_where('rfq_head','price_validity','rfq_id', $rfq->rfq_id);
+			$terms=$this->super_model->select_column_where('rfq_head','payment_terms','rfq_id', $rfq->rfq_id);
+			$delivery=$this->super_model->select_column_where('rfq_head','delivery_date','rfq_id', $rfq->rfq_id);
+			$warranty=$this->super_model->select_column_where('rfq_head','warranty','rfq_id', $rfq->rfq_id);
+			$styleArray = array(
+	            'borders' => array(
+	                'allborders' => array(
+	                  'style' => PHPExcel_Style_Border::BORDER_THIN
+	                )
+	            )
+	        );
+			foreach(range('E','I') as $columnID){
+			    $objPHPExcel->getActiveSheet()->getColumnDimension($columnID)->setAutoSize(true);
+			}
+
+
+			foreach($this->get_all_rfq_items($supplier_id, $items->item_id,$rfq->rfq_id) AS $allrfq) { 
+	        	$amount = $items->quantity*$allrfq->unit_price;
+	        	$objPHPExcel->setActiveSheetIndex(0)->setCellValue($col.$num2, "$allrfq->offer".", ".$this->super_model->select_column_where("item", "item_name", "item_id", $allrfq->item_id));
+	        	/*$objPHPExcel->setActiveSheetIndex(0)->setCellValue($col.$num2, "$amount");*/
+	        	//echo $allrfq->offer." - ".$supplier_id."<br>";
+	        }
+			
+			/*$objPHPExcel->setActiveSheetIndex(0)->setCellValue($col2.$two, "OFFER");*/
+	        $objPHPExcel->setActiveSheetIndex(0)->setCellValue($col.$one, "$supplier\n$contact\n$phone");
+	        $objPHPExcel->getActiveSheet()->getStyle($col.$one)->applyFromArray($styleArray);
+	        $objPHPExcel->getActiveSheet()->getStyle($col.$one)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+	        $objPHPExcel->getActiveSheet()->getStyle($col.$one)->getAlignment()->setWrapText(true);
+			$num++;
+			$col++;
+			//$col2++;
+		}
+	       
+			$objPHPExcel->getActiveSheet()->getStyle('A'.$num2.":I".$num2)->applyFromArray($styleArray);
+	        $objPHPExcel->getActiveSheet()->getStyle('A'.$num1.":I".$num1)->applyFromArray($styleArray);
+			$y++;
+			$x++;
+			$num1++;
+			$num2++;
+		}
+
+
+		
+
+		/*--------------------------------------------------------------------------*/
+
+
+        /*$objPHPExcel->setActiveSheetIndex(0)->setCellValue('A1', "VENDOR PROFILE");
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('A3', "Vendor Name:");
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('B3', $vendor);
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('C3', "Address:");
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('D3', $address);
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('A4', "Phone Number:");
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('B4', $phone_number);
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('C4', "Fax Number:");
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('D4', $fax_number);
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('A5', "Email:");
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('B5', $email);
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('C5', "Contact Person:");
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('D5', $contact_person);
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('A6', "Terms:");
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('B6', $terms);
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('C6', "Type:");
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('D6', $type);
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('A7', "EWT(%):");
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('B7', $ewt);
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('C7', "Notes:");
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('D7', $notes);
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('A9', "ITEM LIST");
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('A10', "Item Name");
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('C10', "Brand");
+        $col='A';
+        $col2='C';
+        $num=10;
+        foreach($this->super_model->select_row_where('vendor_details', 'vendor_id', $id) AS $fetch){
+            $num++;
+            $objPHPExcel->setActiveSheetIndex(0)->setCellValue($col.$num, $this->super_model->select_column_where('item', 'item_name', 'item_id', $fetch->item_id));
+            $objPHPExcel->setActiveSheetIndex(0)->setCellValue($col2.$num, $this->super_model->select_column_where('item', 'brand_name', 'item_id', $fetch->item_id));
+            $objPHPExcel->getActiveSheet()->mergeCells($col.$num .':B'.$num);
+            $objPHPExcel->getActiveSheet()->mergeCells($col2.$num .':D'.$num);
+        }
+
+        $styleArray = array(
+            'borders' => array(
+                'allborders' => array(
+                  'style' => PHPExcel_Style_Border::BORDER_THIN
+                )
+            )
+        );
+
+        $objPHPExcel->getActiveSheet()->getStyle('A1')->getFont()->setBold(true);
+        $objPHPExcel->getActiveSheet()->getStyle('B3')->getFont()->setBold(true);
+        $objPHPExcel->getActiveSheet()->getStyle('D3')->getFont()->setBold(true);
+        $objPHPExcel->getActiveSheet()->getStyle('B4')->getFont()->setBold(true);
+        $objPHPExcel->getActiveSheet()->getStyle('D4')->getFont()->setBold(true);
+        $objPHPExcel->getActiveSheet()->getStyle('B5')->getFont()->setBold(true);
+        $objPHPExcel->getActiveSheet()->getStyle('D5')->getFont()->setBold(true);
+        $objPHPExcel->getActiveSheet()->getStyle('B6')->getFont()->setBold(true);
+        $objPHPExcel->getActiveSheet()->getStyle('D6')->getFont()->setBold(true);
+        $objPHPExcel->getActiveSheet()->getStyle('B7')->getFont()->setBold(true);
+        $objPHPExcel->getActiveSheet()->getStyle('D7')->getFont()->setBold(true);
+        $objPHPExcel->getActiveSheet()->getStyle('A8')->getFont()->setBold(true);
+        $objPHPExcel->getActiveSheet()->getStyle('A9')->getFont()->setBold(true);
+        $objPHPExcel->getActiveSheet()->getStyle('A10')->getFont()->setBold(true);
+        $objPHPExcel->getActiveSheet()->getStyle('C10')->getFont()->setBold(true);
+
+        $objPHPExcel->getActiveSheet()->getStyle('A1')->getFont()->setSize(14);
+        $objPHPExcel->getActiveSheet()->getStyle('A9:D9')->getFont()->setSize(14);
+
+        $objPHPExcel->getActiveSheet()->mergeCells('A8:D8');
+        $objPHPExcel->getActiveSheet()->mergeCells('A9:D9');
+        $objPHPExcel->getActiveSheet()->mergeCells('A10:B10');
+        $objPHPExcel->getActiveSheet()->mergeCells('C10:D10');
+       //$objPHPExcel->getActiveSheet()->mergeCells('C7:D7');
+
+        $objPHPExcel->getActiveSheet()->getStyle('A8:B8')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+        $objPHPExcel->getActiveSheet()->getStyle('A9')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+        $objPHPExcel->getActiveSheet()->getStyle('A10')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+        $objPHPExcel->getActiveSheet()->getStyle('C10')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+
+        $objPHPExcel->getActiveSheet()->getStyle('A1:D7')->applyFromArray($styleArray);
+        $objPHPExcel->getActiveSheet()->getStyle('A9:D'.$num)->applyFromArray($styleArray);*/
+
+        $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
+        if (file_exists($exportfilename))
+                unlink($exportfilename);
+        $objWriter->save($exportfilename);
+        unset($objPHPExcel);
+        unset($objWriter);   
+        ob_end_clean();
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment; filename="AOQ Five.xlsx"');
+        readfile($exportfilename);
+
+    }
+
     public function aoq_prnt_four(){
 		$aoq_id=$this->uri->segment(3);
 		$data['aoq_id']=$aoq_id;
