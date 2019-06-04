@@ -228,7 +228,10 @@
 		    		<?php foreach($drpurp AS $purp){ ?>
 		    		<tr>
 		    			<td colspan="13" class="all-border"><b class="nomarg">Item #4: <?php echo $purp['notes']; ?></b></td>
-		    			<td colspan="7" class="all-border"><b class="nomarg">Requestor: <?php echo $purp['requestor']; ?></b></td>
+		    			<td colspan="7" class="all-border">
+		    				<b class="nomarg">Requestor: <?php echo $purp['requestor']; ?></b>
+		    				<div class="pull-right m-r-10"><button class="btn btn-xs btn-danger"><span class="fa fa-times"></span></button></b></div>
+		    			</td>
 		    		</tr>		    		
 		    		<tr>
 		    			<td colspan="13" class="all-border bor-btm2"><b class="nomarg">Purpose: <?php echo $purp['purpose']; ?></b></td>
@@ -251,7 +254,10 @@
 		    			<td class="all-border" align="center"><b class="nomarg">Delivered</b></td>
 		    			<td class="all-border" align="center"><b class="nomarg">Received</b></td>
 		    			<td class="all-border" align="center" colspan="2"><b class="nomarg">UOM</b></td>
-		    			<td class="all-border" align="center" colspan="3"><b class="nomarg">Remarks</b></td>
+		    			<td class="all-border" align="center" colspan="2"><b class="nomarg">Remarks</b></td>
+		    			<td class="all-border" align="center"><b class="nomarg">
+		    				<button class="btn btn-xs btn-danger"><span class="fa fa-times"></span></button></b>
+		    			</td>
 		    		</tr>
 		    		<!-- <loop  start-->
 		    		<?php 
@@ -264,7 +270,10 @@
 		    			<td class="all-border" align="center"><?php echo $it['delivered']; ?></td>
 		    			<td class="all-border" align="center"></td>
 		    			<td class="all-border" align="center" colspan="2"><?php echo $it['unit']; ?></td>
-		    			<td class="all-border" align="center" colspan="3"><?php echo $it['remarks']; ?></td>
+		    			<td class="all-border" align="center" colspan="2"><?php echo $it['remarks']; ?></td>
+		    			<td class="all-border" align="center" >
+		    				<button class="btn btn-xs btn-danger"><span class="fa fa-times"></span></button>
+		    			</td>
 		    		</tr>		   
 		    		<?php $a++; } ?> 		
 		    		<!-- Loop end here-->
