@@ -18,53 +18,35 @@
                             <div class="datatable-dashv1-list custom-datatable-overright">
                                 <div class="form-group">
                                     <h5 class="nomarg">Supplier:</h5>
-                                    <h5 class="nomarg"><b>
+                                    <h5 class="nomarg">
                                          <select name='requested_by' class="form-control">
                                             <option value='' selected>-Select Supplier-</option>
                                                 <option value="">
                                                 </option>
                                         </select>
-                                    </b></h5>
+                                    </h5>
                                 </div>
                                 <div class="form-group">
                                     <h5 class="nomarg">Item Description:</h5>
-                                    <h5 class="nomarg"><b>
+                                    <h5 class="nomarg">
                                         <select name='purpose' class="form-control">
                                             <option value='' selected>-Select Item Description-</option>
                                                 <option value="">
                                                 </option>
                                         </select>
-                                    </b></h5>
-                                </div>
-                                <div class="row">
-                                    <div class="col-xs-6">
-                                        <div class="form-group">
-                                            <h5 class="nomarg">Delivered:</h5>
-                                            <h5 class="nomarg"><b>
-                                                <input type="number" name="" class="form-control">
-                                            </b></h5>
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-6">
-                                        <div class="form-group">
-                                            <h5 class="nomarg">Received:</h5>
-                                            <h5 class="nomarg"><b>
-                                                <input type="number" name="" class="form-control">
-                                            </b></h5>
-                                        </div>
-                                    </div>                                    
+                                    </h5>
                                 </div>
                                 <div class="form-group">
+                                    <h5 class="nomarg">Delivered:</h5>
+                                    <h5 class="nomarg"><input type="number" name="" class="form-control"></h5>
+                                </div>  
+                                <div class="form-group">
                                     <h5 class="nomarg">UOM:</h5>
-                                    <h5 class="nomarg"><b>
-                                        <input type="text" name="" class="form-control">
-                                    </b></h5>
+                                    <h5 class="nomarg"><input type="text" name="" class="form-control"></h5>
                                 </div>
                                 <div class="form-group">
                                     <h5 class="nomarg">Remarks:</h5>
-                                    <h5 class="nomarg"><b>
-                                        <textarea type="text" name="" class="form-control"></textarea>
-                                    </b></h5>
+                                    <h5 class="nomarg"><textarea type="text" name="" class="form-control"></textarea></h5>
                                 </div>
                                 <input type="submit" class="btn btn-primary btn-block" value="Save changes">
                             </div>
