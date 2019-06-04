@@ -18,17 +18,23 @@
                             <div class="datatable-dashv1-list custom-datatable-overright">
                                 <div class="form-group">
                                     <h5 class="nomarg">Supplier:</h5>
+
                                     <h5 class="nomarg"><b>
                                          <select name='supplier' id='supplier' class="form-control" onchange='chooseSupplier()'>
+
+                                    <h5 class="nomarg">
+                                         <select name='requested_by' class="form-control">
+
                                             <option value='' selected>-Select Supplier-</option>
                                             <?php foreach($supplier AS $sup){ ?>
                                                 <option value="<?php echo $sup->vendor_id; ?>"><?php echo $sup->vendor_name; ?></option>
                                             <?php } ?>
                                         </select>
-                                    </b></h5>
+                                    </h5>
                                 </div>
                                 <div class="form-group">
                                     <h5 class="nomarg">Item Description:</h5>
+
                                     <h5 class="nomarg"><b>
                                         <select name='items' id='items' class="form-control">
                                             
@@ -41,13 +47,32 @@
                                     <h5 class="nomarg"><b>
                                         <input type="number" name="delivered" class="form-control">
                                     </b></h5>
+
+                                    <h5 class="nomarg">
+                                        <select name='purpose' class="form-control">
+                                            <option value='' selected>-Select Item Description-</option>
+                                                <option value="">
+                                                </option>
+                                        </select>
+                                    </h5>
+                                </div>
+                                <div class="form-group">
+                                    <h5 class="nomarg">Delivered:</h5>
+                                    <h5 class="nomarg"><input type="number" name="" class="form-control"></h5>
+                                </div>  
+                                <div class="form-group">
+                                    <h5 class="nomarg">UOM:</h5>
+                                    <h5 class="nomarg"><input type="text" name="" class="form-control"></h5>
                                 </div>
                              
                                 <div class="form-group">
                                     <h5 class="nomarg">Remarks:</h5>
+
                                     <h5 class="nomarg"><b>
                                         <textarea type="text" name="remarks" class="form-control"></textarea>
                                     </b></h5>
+
+                                    <h5 class="nomarg"><textarea type="text" name="" class="form-control"></textarea></h5>
                                 </div>
                                 <input type="submit" class="btn btn-primary btn-block" value="Save changes">
                                 <input type="hidden" name="dr_id" value="<?php echo $dr_id; ?>">
