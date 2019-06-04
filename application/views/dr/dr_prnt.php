@@ -115,32 +115,41 @@
 					<div class="form-group">
 						<h5 class="nomarg">Requestor:</h5>
 						<h5 class="nomarg"><b>
-							 <select name='requested_by' class="form-control">
-	                            <option value='' selected>-Select Employee-</option>
-	                                <option value="">
-	                                </option>
-	                        </select>
+							  <select name='requested_by' class="form-control">
+                            <option value='' selected>-Select Employee-</option>
+                            <?php foreach($employee AS $emp){ ?>
+                                <option value="<?php echo $emp->employee_id; ?>">
+                                <?php echo $emp->employee_name; ?>
+                                </option>
+                            <?php }  ?> 
+                        </select>
 						</b></h5>
 					</div>
 					<div class="form-group">
 						<h5 class="nomarg">Purpose:</h5>
 						<h5 class="nomarg"><b>
 							<select name='purpose' class="form-control">
-	                            <option value='' selected>-Select Purpose-</option>
-	                                <option value="">
-	                                </option>
-	                        </select>
+                            <option value='' selected>-Select Purpose-</option>
+                            <?php foreach($purpose AS $purp){ ?>
+                                <option value="<?php echo $purp->purpose_id; ?>">
+                                <?php echo $purp->purpose_name; ?>
+                                </option>
+                            <?php }  ?> 
+                        </select>
 						</b></h5>
 					</div>
 
 					<div class="form-group">
 						<h5 class="nomarg">Enduse:</h5>
 						<h5 class="nomarg"><b>
-							 <select name='enduse' class="form-control">
-	                            <option value='' selected>-Select End Use-</option>
-	                                <option value="">
-	                                </option>
-	                        </select>
+							  <select name='enduse' class="form-control">
+                            <option value='' selected>-Select End Use-</option>
+                            <?php foreach($enduse AS $end){ ?>
+                                <option value="<?php echo $end->enduse_id; ?>">
+                                <?php echo $end->enduse_name; ?>
+                                </option>
+                            <?php }  ?> 
+                        </select>
 						</b></h5>
 					</div>
 					
@@ -216,18 +225,23 @@
 		    		</tr>
 		    		
 		    		<!-- loop here start-->
+		    		<?php foreach($drpurp AS $purp){ ?>
 		    		<tr>
-		    			<td colspan="13" class="all-border"><b class="nomarg">Item #4: </b></td>
-		    			<td colspan="7" class="all-border"><b class="nomarg">Requestor: </b></td>
+		    			<td colspan="13" class="all-border"><b class="nomarg">Item #4: <?php echo $purp['notes']; ?></b></td>
+		    			<td colspan="7" class="all-border"><b class="nomarg">Requestor: <?php echo $purp['requestor']; ?></b></td>
 		    		</tr>		    		
 		    		<tr>
-		    			<td colspan="13" class="all-border bor-btm2"><b class="nomarg">Purpose: </b></td>
-		    			<td colspan="7" class="all-border bor-btm2"><b class="nomarg">Enduse: </b></td>
+		    			<td colspan="13" class="all-border bor-btm2"><b class="nomarg">Purpose: <?php echo $purp['purpose']; ?></b></td>
+		    			<td colspan="7" class="all-border bor-btm2"><b class="nomarg">Enduse: <?php echo $purp['enduse']; ?></b></td>
 		    		</tr>
+		    		<tr>
+		    			<td colspan="21" class="all-border "><b class="nomarg"></td>
+		    		</tr>
+		    		<?php } ?>
 		    		<!-- loop here end-->
 		    		<tr>
 		    			<td colspan="20" class="all-border "><b class="nomarg">
-		    				<a href="" onclick="additemdr('<?php echo base_url(); ?>')" class="btn btn-xs btn-primary">Add Item/s</a></b>
+		    				<a href="javascript:void()" onclick="additemdr('<?php echo base_url(); ?>','<?php echo $dr_id; ?>')" class="btn btn-xs btn-primary">Add Item/s</a></b>
 		    			</td>		    			
 		    		</tr>
 		    		<tr>
@@ -240,15 +254,19 @@
 		    			<td class="all-border" align="center" colspan="3"><b class="nomarg">Remarks</b></td>
 		    		</tr>
 		    		<!-- <loop  start-->
+		    		<?php 
+		    		$a=1;
+		    		foreach($items AS $it){ ?>
 		       		<tr>
+		    			<td class="all-border" align="center"><?php echo $a; ?></td>
+		    			<td class="all-border" align="left" colspan="6"><?php echo $it['supplier']; ?></td>
+		    			<td class="all-border" align="left" colspan="6"><?php echo $it['item'] . ', ' . $it['specs']; ?></td>
+		    			<td class="all-border" align="center"><?php echo $it['delivered']; ?></td>
 		    			<td class="all-border" align="center"></td>
-		    			<td class="all-border" align="left" colspan="6">Ava Cons</td>
-		    			<td class="all-border" align="left" colspan="6"></td>
-		    			<td class="all-border" align="center"></td>
-		    			<td class="all-border" align="center"></td>
-		    			<td class="all-border" align="center" colspan="2"></td>
-		    			<td class="all-border" align="center" colspan="3"></td>
-		    		</tr>		    		
+		    			<td class="all-border" align="center" colspan="2"><?php echo $it['unit']; ?></td>
+		    			<td class="all-border" align="center" colspan="3"><?php echo $it['remarks']; ?></td>
+		    		</tr>		   
+		    		<?php $a++; } ?> 		
 		    		<!-- Loop end here-->
 		    		<tr><td class="f13" colspan="20" align="center"><br></td></tr>
 		    		<tr>

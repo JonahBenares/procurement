@@ -57,7 +57,7 @@ class Dr extends CI_Controller {
           $drhead = array(
                 'dr_id'=>$dr_id,
                 'dr_no'=>$dr_no,
-                'direct_purchase'=>1,
+                'direct_purchase'=>2,
                 'create_date'=>$this->input->post('dr_date')
             );
             if($this->super_model->insert_into("dr_head", $drhead)){
@@ -66,7 +66,19 @@ class Dr extends CI_Controller {
 
     }
 
-    
+    public function add_purpose(){
+        $dr_id= $this->input->post('dr_id');
+        $data=array(
+            'dr_id'=>$this->input->post('dr_id'),
+            'requestor'=>$this->input->post('requested_by'),
+            'purpose_id'=>$this->input->post('requested_by'),
+            'enduse_id'=>$this->input->post('enduse'),
+            'notes'=>$this->input->post('notes')
+        );
+        if($this->super_model->insert_into("dr_details", $data)){
+             redirect(base_url().'dr/dr_prnt/'.$dr_id, 'refresh');
+        }
+    }
 
 
     public function dr_list(){   
@@ -80,17 +92,80 @@ class Dr extends CI_Controller {
         $dr_id=$this->uri->segment(3);
         $data['dr_id']=$dr_id;
         $data['head'] =  $this->super_model->select_row_where('dr_head', 'dr_id', $dr_id);
+        $data['employee']=$this->super_model->select_all_order_by("employees", "employee_name", "ASC");
+        $data['enduse']=$this->super_model->select_all_order_by("enduse", "enduse_name", "ASC");
+        $data['purpose']=$this->super_model->select_all_order_by("purpose", "purpose_name", "ASC");
+
+        foreach($this->super_model->select_row_where("dr_details", "dr_id", $dr_id) AS $drdet){
+          
+            $data['drpurp'][]= array(
+                'notes'=>$drdet->notes,
+                'purpose'=>$this->super_model->select_column_where('purpose','purpose_name','purpose_id', $drdet->purpose_id),
+                'enduse'=>$this->super_model->select_column_where('enduse','enduse_name','enduse_id', $drdet->enduse_id),
+                'requestor'=>$this->super_model->select_column_where('employees','employee_name','employee_id', $drdet->requestor)
+            );
+        }
+
+        foreach($this->super_model->select_row_where("dr_items", "dr_id", $dr_id) AS $dritems){
+            $unit_id = $this->super_model->select_column_where('item','unit_id','item_id', $dritems->item_id);
+            $data['items'][]= array(
+                'supplier'=>$this->super_model->select_column_where('vendor_head','vendor_name','vendor_id', $dritems->vendor_id),
+                'item'=>$this->super_model->select_column_where('item','item_name','item_id', $dritems->item_id),
+                'specs'=>$this->super_model->select_column_where('item','item_specs','item_id', $dritems->item_id),
+                'unit'=>$this->super_model->select_column_where('unit','unit_name','unit_id', $unit_id),
+                'delivered'=>$dritems->delivered,
+                'remarks'=>$dritems->remarks
+            );
+        }
         $this->load->view('template/header');
         $this->load->view('dr/dr_prnt',$data);
         $this->load->view('template/footer');
     }
 
     public function additemdr(){   
+        $dr_id=$this->uri->segment(3);
+        $data['supplier']=$this->super_model->select_all_order_by("vendor_head", "vendor_name", "ASC");
+        $data['dr_id']=$dr_id;
         $this->load->view('template/header');
-        $this->load->view('dr/additemdr');
+        $this->load->view('dr/additemdr',$data);
         $this->load->view('template/footer');
     }
 
+     public function getSupplierItems(){
+        $supplier = $this->input->post('supplier');
+
+        echo '<option value="">-Select Supplier Items-</option>';
+        foreach($this->super_model->select_row_where('vendor_details', 'vendor_id', $supplier) AS $row){
+            $item_name = $this->super_model->select_column_where('item','item_name','item_id', $row->item_id);
+            $item_specs = $this->super_model->select_column_where('item','item_specs','item_id', $row->item_id);
+            echo '<option value="'. $row->item_id .'">'. $item_name .', '.$item_specs.'</option>';
+        }
+    }
+
+    public function add_dr_item(){
+        $dr_id=$this->input->post('dr_id');
+        $data = array(
+            'dr_id'=>$this->input->post('dr_id'),
+            'item_id'=>$this->input->post('items'),
+            'vendor_id'=>$this->input->post('supplier'),
+            'delivered'=>$this->input->post('delivered'),
+            'remarks'=>$this->input->post('remarks'),
+        );
+
+         if($this->super_model->insert_into("dr_items", $data)){
+            ?>
+
+             <script>
+                  window.onunload = refreshParent;
+                function refreshParent() {
+                    window.opener.location.reload();
+                }
+                window.close();
+                
+            </script>
+            <?php
+         }
+     }
 }
 
 ?>

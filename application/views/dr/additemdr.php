@@ -1,4 +1,4 @@
-    <!-- <?php $CI =& get_instance(); ?> -->
+    <script src="<?php echo base_url(); ?>assets/js/dr.js"></script> 
     <style type="text/css">
         html, body.materialdesign {
             background: #2d2c2c;
@@ -14,59 +14,44 @@
                     <div class="sparkline8-list shadow-reset">
                         <div class="hr-bold"></div>
                         <div class="sparkline8-graph" style="text-align: left">
-                            <form method='POST' action="<?php echo base_url(); ?>">
+                            <form method='POST' action="<?php echo base_url(); ?>dr/add_dr_item">
                             <div class="datatable-dashv1-list custom-datatable-overright">
                                 <div class="form-group">
                                     <h5 class="nomarg">Supplier:</h5>
                                     <h5 class="nomarg"><b>
-                                         <select name='requested_by' class="form-control">
+                                         <select name='supplier' id='supplier' class="form-control" onchange='chooseSupplier()'>
                                             <option value='' selected>-Select Supplier-</option>
-                                                <option value="">
-                                                </option>
+                                            <?php foreach($supplier AS $sup){ ?>
+                                                <option value="<?php echo $sup->vendor_id; ?>"><?php echo $sup->vendor_name; ?></option>
+                                            <?php } ?>
                                         </select>
                                     </b></h5>
                                 </div>
                                 <div class="form-group">
                                     <h5 class="nomarg">Item Description:</h5>
                                     <h5 class="nomarg"><b>
-                                        <select name='purpose' class="form-control">
-                                            <option value='' selected>-Select Item Description-</option>
-                                                <option value="">
-                                                </option>
+                                        <select name='items' id='items' class="form-control">
+                                            
                                         </select>
                                     </b></h5>
                                 </div>
-                                <div class="row">
-                                    <div class="col-xs-6">
-                                        <div class="form-group">
-                                            <h5 class="nomarg">Delivered:</h5>
-                                            <h5 class="nomarg"><b>
-                                                <input type="number" name="" class="form-control">
-                                            </b></h5>
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-6">
-                                        <div class="form-group">
-                                            <h5 class="nomarg">Received:</h5>
-                                            <h5 class="nomarg"><b>
-                                                <input type="number" name="" class="form-control">
-                                            </b></h5>
-                                        </div>
-                                    </div>                                    
-                                </div>
+                            
                                 <div class="form-group">
-                                    <h5 class="nomarg">UOM:</h5>
+                                    <h5 class="nomarg">Delivered:</h5>
                                     <h5 class="nomarg"><b>
-                                        <input type="text" name="" class="form-control">
+                                        <input type="number" name="delivered" class="form-control">
                                     </b></h5>
                                 </div>
+                             
                                 <div class="form-group">
                                     <h5 class="nomarg">Remarks:</h5>
                                     <h5 class="nomarg"><b>
-                                        <textarea type="text" name="" class="form-control"></textarea>
+                                        <textarea type="text" name="remarks" class="form-control"></textarea>
                                     </b></h5>
                                 </div>
                                 <input type="submit" class="btn btn-primary btn-block" value="Save changes">
+                                <input type="hidden" name="dr_id" value="<?php echo $dr_id; ?>">
+                                <input type='hidden' name='baseurl' id='baseurl' value="<?php echo base_url(); ?>">
                             </div>
                         </form>
                         </div>   
