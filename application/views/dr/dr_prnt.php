@@ -155,14 +155,14 @@
 					
 					</div>
 					<div class="modal-footer">
-						<input type='text' name='dr_id' value='<?php echo $dr_id; ?>'>
+						<input type='hidden' name='dr_id' value='<?php echo $dr_id; ?>'>
 						<input type="submit" class="btn btn-primary btn-block" value="Save changes">
 					</div>
 				</form>
 				</div>
 			</div>
 		</div>
-    	<form method='POST' action=''>  
+    	<form method='POST' action='<?php echo base_url(); ?>dr/save_dr'>  
     		<div  id="prnt_btn">
 	    		<center>
 			    	<div class="btn-group">
@@ -230,7 +230,7 @@
 		    			<td colspan="13" class="all-border"><b class="nomarg">Item #4: <?php echo $purp['notes']; ?></b></td>
 		    			<td colspan="7" class="all-border">
 		    				<b class="nomarg">Requestor: <?php echo $purp['requestor']; ?></b>
-		    				<div class="pull-right m-r-10"><button class="btn btn-xs btn-danger"><span class="fa fa-times"></span></button></b></div>
+		    				<div class="pull-right m-r-10"><a href="<?php echo base_url(); ?>dr/delete_purpose/<?php echo $purp['id']; ?>/<?php echo $dr_id ?>" onclick="return confirm('Are you sure you want to delete purpose?')" class="btn btn-xs btn-danger"><span class="fa fa-times"></span></a></span></button></b></div>
 		    			</td>
 		    		</tr>		    		
 		    		<tr>
@@ -256,7 +256,7 @@
 		    			<td class="all-border" align="center" colspan="2"><b class="nomarg">UOM</b></td>
 		    			<td class="all-border" align="center" colspan="2"><b class="nomarg">Remarks</b></td>
 		    			<td class="all-border" align="center"><b class="nomarg">
-		    				<button class="btn btn-xs btn-danger"><span class="fa fa-times"></span></button></b>
+		    				</b>
 		    			</td>
 		    		</tr>
 		    		<!-- <loop  start-->
@@ -272,7 +272,7 @@
 		    			<td class="all-border" align="center" colspan="2"><?php echo $it['unit']; ?></td>
 		    			<td class="all-border" align="center" colspan="2"><?php echo $it['remarks']; ?></td>
 		    			<td class="all-border" align="center" >
-		    				<button class="btn btn-xs btn-danger"><span class="fa fa-times"></span></button>
+		    				<a href="<?php echo base_url(); ?>dr/delete_dritem/<?php echo $it['id']; ?>/<?php echo $dr_id ?>" onclick="return confirm('Are you sure you want to delete item?')" class="btn btn-xs btn-danger"><span class="fa fa-times"></span></a></button>
 		    			</td>
 		    		</tr>		   
 		    		<?php $a++; } ?> 		
@@ -324,7 +324,7 @@
 		    		<tr><td class="f13" colspan="20" align="center"><br></td></tr>		
 		    	</table>		    
 	    	</div>
-	    	<input type='hidden' name='rfq_id' value='>'>
+	    	<input type='hidden' name='dr_id' value='<?php echo $dr_id; ?>'>
     	</form>
     </div>
     <script type="text/javascript">

@@ -99,6 +99,7 @@ class Dr extends CI_Controller {
         foreach($this->super_model->select_row_where("dr_details", "dr_id", $dr_id) AS $drdet){
           
             $data['drpurp'][]= array(
+                'id'=>$drdet->dr_details_id,
                 'notes'=>$drdet->notes,
                 'purpose'=>$this->super_model->select_column_where('purpose','purpose_name','purpose_id', $drdet->purpose_id),
                 'enduse'=>$this->super_model->select_column_where('enduse','enduse_name','enduse_id', $drdet->enduse_id),
@@ -109,6 +110,7 @@ class Dr extends CI_Controller {
         foreach($this->super_model->select_row_where("dr_items", "dr_id", $dr_id) AS $dritems){
             $unit_id = $this->super_model->select_column_where('item','unit_id','item_id', $dritems->item_id);
             $data['items'][]= array(
+                'id'=>$dritems->dr_items_id,
                 'supplier'=>$this->super_model->select_column_where('vendor_head','vendor_name','vendor_id', $dritems->vendor_id),
                 'item'=>$this->super_model->select_column_where('item','item_name','item_id', $dritems->item_id),
                 'specs'=>$this->super_model->select_column_where('item','item_specs','item_id', $dritems->item_id),
@@ -166,6 +168,32 @@ class Dr extends CI_Controller {
             <?php
          }
      }
+
+     public function delete_purpose(){
+        $id=$this->uri->segment(3);
+        $dr_id=$this->uri->segment(4);
+        if($this->super_model->delete_where("dr_details", "dr_details_id", $id)){
+            redirect(base_url().'dr/dr_prnt/'.$dr_id, 'refresh');
+
+        }
+    }
+
+
+     public function delete_dritem(){
+        $id=$this->uri->segment(3);
+        $dr_id=$this->uri->segment(4);
+        if($this->super_model->delete_where("dr_items", "dr_items_id", $id)){
+            redirect(base_url().'dr/dr_prnt/'.$dr_id, 'refresh');
+
+        }
+    }
+
+    public function save_dr(){
+         $dr_id=$this->input->post('dr_id');
+         $data = array(
+            'saved'=1
+         );
+    }
 }
 
 ?>
