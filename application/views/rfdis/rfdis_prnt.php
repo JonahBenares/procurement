@@ -337,7 +337,7 @@
 		    			</td>
 		    			<td colspan="5" class="bor-right">
 		    				<?php if($saved==0){ ?>
-		    					<a href="<?php echo base_url(); ?>/rfdis//delete_purpose/<?php echo $pp['rfd_purpose_id']; ?>/<?php echo $rfd_id ?>" onclick="return confirm('Are you sure you want to delete purpose?')" class="btn btn-xs btn-danger"><span class="fa fa-times"></span></a>
+		    					<a href="<?php echo base_url(); ?>rfdis/delete_purpose/<?php echo $pp['rfd_purpose_id']; ?>/<?php echo $rfd_id ?>" onclick="return confirm('Are you sure you want to delete purpose?')" class="btn btn-xs btn-danger"><span class="fa fa-times"></span></a>
 		    				<?php } ?></td>
 		    			<td align="right" colspan="3"></td>
 		    		</tr>
