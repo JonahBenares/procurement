@@ -27,7 +27,7 @@
         </div>
     </div>
     <div id="addDr" class="modal modal-adminpro-general default-popup-PrimaryModal fade" role="dialog">
-        <div class="modal-dialog">
+            <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header header-color-modal bg-color-1">
                     <h4 class="modal-title">Add DR</h4>
@@ -35,16 +35,16 @@
                         <a class="close" data-dismiss="modal" href="#"><i class="fa fa-close"></i></a>
                     </div>
                 </div>
-                <form method="POST" action = "<?php echo base_url();?>index.php/">
+                <form method="POST" action = "<?php echo base_url();?>dr/add_dr">
                     <div class="modal-body-lowpad">
                         <div class="form-group">
                             <p class="m-b-0">DR Date:</p>
-                            <input type="date" name="rfd_date" class="form-control">
+                            <input type="date" name="dr_date" class="form-control">
                         </div>
                         <center>
                            
                             <input type = "submit" class="btn btn-custon-three btn-primary btn-block" value = "Proceed">
-                            <a href="<?php echo base_url(); ?>index.php/dr/dr_prnt" class="dropdown-item">Proceed</a>
+                            <!-- a href="<?php echo base_url(); ?>index.php/dr/dr_prnt" class="dropdown-item">Proceed</a> -->
                         </center>
                     </div>
                 </form>

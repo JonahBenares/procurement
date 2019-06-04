@@ -105,7 +105,7 @@
 						</h5>					
 					</div>
 					<div class="modal-body">
-					<form method='POST' action="<?php echo base_url(); ?>">
+					<form method='POST' action="<?php echo base_url(); ?>dr/add_purpose">
 					<div class="form-group">
 						<h5 class="nomarg">Notes:</h5>
 						<h5 class="nomarg"><b>
@@ -146,7 +146,7 @@
 					
 					</div>
 					<div class="modal-footer">
-						<input type='hidden' name='rfd_id' value='<?php echo $rfd_id; ?>'>
+						<input type='text' name='dr_id' value='<?php echo $dr_id; ?>'>
 						<input type="submit" class="btn btn-primary btn-block" value="Save changes">
 					</div>
 				</form>
@@ -202,13 +202,15 @@
 		    		<tr><td class="f13" colspan="20" align="center"><br></td></tr>
 		    		<tr><td colspan="20" align="center"><h5><b class="text-red">DELIVERY RECEIPT</b></h5></td></tr>
 		    		<!-- <tr><td class="f13" colspan="20" align="center"><br></td></tr> -->
+		    		<?php foreach($head AS $h){ ?>
 		    		<tr>
-		    			<td colspan="13" class="all-border "><b class="text-red nomarg">DR No. </b></td>
+		    			<td colspan="13" class="all-border "><b class="text-red nomarg">DR No. <?php echo $h->dr_no; ?></b></td>
 		    			<td colspan="7" class="all-border " align="right"><b style="color: blue;margin-right: 5px">Direct Purchase</b></td>
 		    		</tr>
 		    		<tr>
-		    			<td colspan="20" class="all-border "><b class="nomarg">Date : </b></td>		    			
+		    			<td colspan="20" class="all-border "><b class="nomarg">Date : <?php echo date('F j, Y', strtotime($h->dr_no)); ?> </b></td>		    			
 		    		</tr>
+		    		<?php } ?>
 		    		<tr>
 		    			<td colspan="20" class="all-border "><b class="nomarg"><button type="button" data-toggle="modal" data-target="#addpur" class="btn btn-xs btn-primary" onclick="" >Add Purpose/ EndUse/ Requestor</button></b></td>		    			
 		    		</tr>
