@@ -296,6 +296,9 @@
 
 		    		$net = array_sum($gross) - $less_amount;
 		    		 ?>
+		    		 <input type='hidden' name='gross' value='<?php echo array_sum($gross); ?>'>
+		    		 <input type='hidden' name='less_amount' value='<?php echo $less_amount; ?>'>
+		    		 <input type='hidden' name='net' value='<?php echo $net; ?>'>
 		    		<tr>
 
 		    			<td align="right" colspan="17" class="bor-right"><b class="nomarg">Less: <?php echo number_format($ewt); ?>% EWT<br>
