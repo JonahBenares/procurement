@@ -13,30 +13,60 @@
                 <div class="col-lg-12">
                     <div class="sparkline8-list shadow-reset">
                         <div class="hr-bold"></div>
-                        <div class="sparkline8-graph">
+                        <div class="sparkline8-graph" style="text-align: left">
                             <form method='POST' action="<?php echo base_url(); ?>">
                             <div class="datatable-dashv1-list custom-datatable-overright">
-                                <h4>Item List</h4>
-                                <table class="table table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th>Item Description</th>
-                                            <th width="10%">Qty</th>
-                                            <th width="20%">Price</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                            <input type='hidden' name=''>
-                                        <tr>
-                                            <td></td>
-                                            <td class="td" style="padding-left: 0px!important;"><!-- <input type="text" class="form-control" name="" onkeypress="return isNumberKey(this, event)" autocomplete='off'> --></td>
-                                            <td class="td" style="padding-left: 0px!important;"><!-- <input type="text" class="form-control" name="price<?php echo $x; ?>" onkeypress="return isNumberKey(this, event)" autocomplete='off'> --></td>
-                                        </tr>           
-                                    </tbody>
-                                </table>
-                                <!-- <input type='hidden' name='count_item' value="<?php echo $x; ?>">
-                                <input type='hidden' name='rfd_id' value='<?php echo $rfd_id; ?>'> -->
-                                <input type='submit' class="btn btn-primary btn-block" value='Save'>
+                                <div class="form-group">
+                                    <h5 class="nomarg">Supplier:</h5>
+                                    <h5 class="nomarg"><b>
+                                         <select name='requested_by' class="form-control">
+                                            <option value='' selected>-Select Supplier-</option>
+                                                <option value="">
+                                                </option>
+                                        </select>
+                                    </b></h5>
+                                </div>
+                                <div class="form-group">
+                                    <h5 class="nomarg">Item Description:</h5>
+                                    <h5 class="nomarg"><b>
+                                        <select name='purpose' class="form-control">
+                                            <option value='' selected>-Select Item Description-</option>
+                                                <option value="">
+                                                </option>
+                                        </select>
+                                    </b></h5>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-6">
+                                        <div class="form-group">
+                                            <h5 class="nomarg">Delivered:</h5>
+                                            <h5 class="nomarg"><b>
+                                                <input type="number" name="" class="form-control">
+                                            </b></h5>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-6">
+                                        <div class="form-group">
+                                            <h5 class="nomarg">Received:</h5>
+                                            <h5 class="nomarg"><b>
+                                                <input type="number" name="" class="form-control">
+                                            </b></h5>
+                                        </div>
+                                    </div>                                    
+                                </div>
+                                <div class="form-group">
+                                    <h5 class="nomarg">UOM:</h5>
+                                    <h5 class="nomarg"><b>
+                                        <input type="text" name="" class="form-control">
+                                    </b></h5>
+                                </div>
+                                <div class="form-group">
+                                    <h5 class="nomarg">Remarks:</h5>
+                                    <h5 class="nomarg"><b>
+                                        <textarea type="text" name="" class="form-control"></textarea>
+                                    </b></h5>
+                                </div>
+                                <input type="submit" class="btn btn-primary btn-block" value="Save changes">
                             </div>
                         </form>
                         </div>   
