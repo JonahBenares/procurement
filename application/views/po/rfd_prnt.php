@@ -391,6 +391,7 @@
 		    	</table>		    
 	    	</div>
 	    	<input type='hidden' name='po_id' value='<?php echo $po_id; ?>'>
+	    	<input type='hidden' name='supplier_id' value='<?php echo $supplier_id; ?>'>
     	</form>
     </div>
     <script type="text/javascript">
