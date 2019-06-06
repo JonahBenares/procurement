@@ -334,7 +334,7 @@
 		    			<td class="f10 table-borreg" align="center"><?php echo $x; ?></td>
 		    			<td colspan="2" class="f10 table-borreg" align="left"> <?php echo $it['item']; ?></td>
 		    			<td class="f10 table-borreg" align="center"><?php echo $it['qty']; ?></td>
-		    			<td class="f10 table-borreg" align="center"><?php echo $it['uom']; ?>asd</td>
+		    			<td class="f10 table-borreg" align="center"><?php echo $it['uom']; ?></td>
 		    		<?php foreach($supplier AS $sup){ ?>
 		    			<td colspan="5" style='border:1px solid #000;vertical-align: text-top;' >		    			
 		    				<?php 
