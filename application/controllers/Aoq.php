@@ -693,15 +693,15 @@ class Aoq extends CI_Controller {
 
 			}
 
-			$objPHPExcel->getActiveSheet()->getStyle('A'.$num2.":X".$num2)->applyFromArray($styleArray);
+			$objPHPExcel->getActiveSheet()->getStyle('A'.$q.":X".$q)->applyFromArray($styleArray);
 	        $objPHPExcel->getActiveSheet()->getStyle('A'.$num1.":X".$num1)->applyFromArray($styleArray);
 			$y++;
 			$x++;
 			$num1++;
-			$num2++;
+			$num2 = $q;
 		}
 
-		/*$a = $num2+2;
+		$a = $num2+2;
 	    $b = $num2+4;
 	    $c = $num2+6;
 	    $d = $num2+8;
@@ -782,7 +782,7 @@ class Aoq extends CI_Controller {
 			$objPHPExcel->getActiveSheet()->getStyle('K'.$f)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
 
 		}
-		*/
+		
 		$objPHPExcel->getActiveSheet()->getStyle('A8:X8')->getFont()->setBold(true);
 		$objPHPExcel->getActiveSheet()->getStyle('A8:X8')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
 
