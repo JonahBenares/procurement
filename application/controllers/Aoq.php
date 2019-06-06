@@ -628,6 +628,7 @@ class Aoq extends CI_Controller {
 				        'COMMENTS',
 				    )
 				);
+
 				$objPHPExcel->setActiveSheetIndex(0);
 				$objPHPExcel->getActiveSheet()->fromArray($header, null, $col.$two);
 
@@ -636,12 +637,13 @@ class Aoq extends CI_Controller {
 				$reco_offer = $reco[0];
 				$reco_supplier = $reco[1];
 				//$objPHPExcel->setActiveSheetIndex(0)->setCellValue($cols.$nums, $sheet);
-
+				$q = $num2;
 				foreach($this->get_all_rfq_items($supplier_id, $items->item_id,$rfq->rfq_id) AS $allrfq) { 
 		        	$amount = $items->quantity*$allrfq->unit_price;
 		        	/*foreach($this->get_aoq_others('comments', $supplier_id, $items->item_id, $aoq_id) AS $cm){
 		        		$comment = $cm->comment;
 		        	}*/
+		        	$comment = $this->super_model->select_column_custom_where("aoq_comments", "comment", "supplier_id = '$supplier_id' AND item_id = '$items->item_id' AND aoq_id = '$aoq_id'");
 		        	$phpColor = new PHPExcel_Style_Color();
 		        	$phpColor->setRGB('FF0000'); 
 		        	$objPHPExcel->getActiveSheet()->getStyle($col.$num2)->getFont()->setColor($phpColor);
@@ -650,23 +652,30 @@ class Aoq extends CI_Controller {
 		        			$allrfq->offer.", ".$this->super_model->select_column_where("item", "item_name", "item_id", $allrfq->item_id),
 		        			$allrfq->unit_price,
 		        			$amount,
-		        			//$comment,
+		        			$comment,
 		        		)
 		        	);
 
+		        	//print_r($sheet);
+
 		        	if($min==$allrfq->unit_price && $allrfq->unit_price!=0){
 		        		$col2 = chr(ord($col) + 1);
-						$objPHPExcel->getActiveSheet()->getStyle($col2.$num2)->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID)->getStartColor()->setRGB('f4e542');
+						$objPHPExcel->getActiveSheet()->getStyle($col2.$q)->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID)->getStartColor()->setRGB('f4e542');
 					}
 
 					if($reco_supplier==$supplier_id && $reco_offer == $allrfq->offer){
 						$col2 = chr(ord($col) + 2);
-						$objPHPExcel->getActiveSheet()->getStyle($col2.$num2)->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID)->getStartColor()->setRGB('92D050');
+						$objPHPExcel->getActiveSheet()->getStyle($col2.$q)->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID)->getStartColor()->setRGB('92D050');
 					}
-		        	$objPHPExcel->getActiveSheet()->fromArray($sheet, null, $col.$num2);
+					
+					//foreach($sheet AS $s){
+					echo "inside " .$col. $q . "<br>";
+		        	$objPHPExcel->getActiveSheet()->fromArray($sheet, null, $col.$q);
+		        	$q++;
 		        	/*$objPHPExcel->setActiveSheetIndex(0)->setCellValue($col.$num2, "$allrfq->offer".", ".$this->super_model->	select_column_where("item", "item_name", "item_id", $allrfq->item_id));
 		        	$objPHPExcel->setActiveSheetIndex(0)->setCellValue($col.$num2, "$amount");*/
 		        }
+		        //echo "outside " . $num2 . "<br><br>";
 		        $objPHPExcel->getActiveSheet()->getStyle($col.$one)->getFont()->setBold(true);
 		        for($i=0;$i<3; $i++) {
 		        	$objPHPExcel->setActiveSheetIndex(0)->setCellValue($col.$one, "$supplier\n$contact\n$phone");
@@ -682,14 +691,15 @@ class Aoq extends CI_Controller {
 				}
 				$num++;
 				$col++;
+
 			}
 
-			$objPHPExcel->getActiveSheet()->getStyle('A'.$num2.":X".$num2)->applyFromArray($styleArray);
+			$objPHPExcel->getActiveSheet()->getStyle('A'.$q.":X".$q)->applyFromArray($styleArray);
 	        $objPHPExcel->getActiveSheet()->getStyle('A'.$num1.":X".$num1)->applyFromArray($styleArray);
 			$y++;
 			$x++;
 			$num1++;
-			$num2++;
+			$num2 = $q;
 		}
 
 		$a = $num2+2;
@@ -773,6 +783,7 @@ class Aoq extends CI_Controller {
 			$objPHPExcel->getActiveSheet()->getStyle('K'.$f)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
 
 		}
+		
 		$objPHPExcel->getActiveSheet()->getStyle('A8:X8')->getFont()->setBold(true);
 		$objPHPExcel->getActiveSheet()->getStyle('A8:X8')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
 
