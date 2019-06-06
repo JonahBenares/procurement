@@ -130,11 +130,9 @@
                                     </thead>
                                     <tbody>
                                         <?php 
-                                        if(!empty($rfd)){
-                                            foreach($rfd AS $r){ ?>
-                                        
+                                            if(!empty($rfd)){
+                                            foreach($rfd AS $r){ ?>                                        
                                         <tr>
-
                                             <td><?php echo date('F j, Y', strtotime($r['rfd_date'])); ?></td>
                                             <td><?php echo $r['company']; ?></td>
                                             <td><?php echo $r['pay_to']; ?></td>
@@ -143,9 +141,15 @@
                                             <td><?php echo $r['type']; ?></td>
                                             <td>
                                                 <center>
-                                                     <a href="<?php echo base_url(); ?>rfdis/rfdis_prnt/<?php echo $r['rfd_id']; ?>" class="btn btn-custon-three btn-warning btn-xs" target='_blank'>
+                                                    <?php if($r['type']=='Direct Purchase'){ ?>
+                                                         <a href="<?php echo base_url(); ?>rfdis/rfdis_prnt/<?php echo $r['rfd_id']; ?>" class="btn btn-custon-three btn-warning btn-xs" target='_blank'>
+                                                            <span class="fa fa-eye"></span>
+                                                        </a>
+                                                    <?php } else { ?>
+                                                         <a href="<?php echo base_url(); ?>po/rfd_prnt/<?php echo $r['po_id']; ?>" class="btn btn-custon-three btn-warning btn-xs" target='_blank'>
                                                         <span class="fa fa-eye"></span>
-                                                    </a>
+                                                         </a>
+                                                    <?php } ?>
                                                 </center>
                                             </td>
                                         </tr>    

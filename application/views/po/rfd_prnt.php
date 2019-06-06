@@ -253,26 +253,30 @@
 		    			<td align="left" colspan="17" class="bor-right"><b class="nomarg">Payment for:</b></td>
 		    			<td align="right" colspan="3"></td>
 		    		</tr>
-		    		<?php foreach($items AS $it){ 
-		    			$total = $it['price'] * $it['quantity']; 
-		    			$gross[]=$total;?>
-		    		<tr>
-		    			<td align="left" colspan="17" class="bor-right">
-		    				<b class="nomarg"><?php echo $it['quantity'] . " " . $it['uom']. ", ". $it['item'] . " " . $it['item_specs'].", @Php " . number_format($it['price'],2) . " per " . $it['uom']; ?></b>
-		    			</td>
-		    			<td align="right" colspan="3">
-		    				<span class="pull-left nomarg">₱</span>
-		    				<span class="nomarg" id=''><b><?php echo number_format($total,2); ?></b></span>
-		    			</td>
-		    		</tr>
-		    		<?php } 
-		    		if($vat==1){
-		    			$less_amount = array_sum($gross) / 1.12 * ($ewt/100);
-		    		}else {
-		    			$less_amount = array_sum($gross) * ($ewt/100);
-		    		}
+		    		<?php
+		    		if(!empty($items)){
+			    		 foreach($items AS $it){ 
+			    			$total = $it['price'] * $it['quantity']; 
+			    			$gross[]=$total;?>
+			    		<tr>
+			    			<td align="left" colspan="17" class="bor-right">
+			    				<b class="nomarg"><?php echo $it['quantity'] . " " . $it['uom']. ", ". $it['item'] . " " . $it['item_specs'].", @Php " . number_format($it['price'],2) . " per " . $it['uom']; ?></b>
+			    			</td>
+			    			<td align="right" colspan="3">
+			    				<span class="pull-left nomarg">₱</span>
+			    				<span class="nomarg" id=''><b><?php echo number_format($total,2); ?></b></span>
+			    			</td>
+			    		</tr>
+			    		<?php } 
 
-		    		$net = array_sum($gross) - $less_amount;
+			    		if($vat==1){
+			    			$less_amount = array_sum($gross) / 1.12 * ($ewt/100);
+			    		}else {
+			    			$less_amount = array_sum($gross) * ($ewt/100);
+			    		}
+
+			    		$net = array_sum($gross) - $less_amount;
+		    		}
 		    		?>
 		    		<input type="hidden" name="pay_to" value="<?php echo $supplier; ?>">
 		    		<input type='hidden' name='gross_amount' value="<?php echo array_sum($gross); ?>">
@@ -288,7 +292,9 @@
 		    		<tr>
 		    			<td align="right" colspan="17" class="bor-right"><b class="nomarg"><?php if($vat==1) { echo 'Vatable'; }else { echo 'Non-Vatable'; }  ?></b></td>
 		    		</tr>
-		    		<?php foreach($detail AS $det){ ?>
+		    		<?php 
+		    		if(!empty($detail)){
+		    		foreach($detail AS $det){ ?>
 		    		<tr>
 		    			<td align="left" colspan="17" class="bor-right">
 		    				<b class="nomarg">Purpose: <?php echo $det['purpose']; ?></b>
@@ -311,14 +317,17 @@
 		    			<td align="center" colspan="17" class="bor-right"><br></td>
 		    			<td align="center" colspan="3"><br></td>
 		    		</tr>
-		    		<?php } ?>
+		    		<?php } 
+		    	    } ?>
 		    		
 		    		<tr>
 		    			<td align="left" colspan="7" ><b class="nomarg">P.O. No: <?php echo $po_no; ?></b></td>
 		    			<td align="right" colspan="10" class="bor-right"><b class="nomarg" style="font-weight: 900">Total Amount Due</b></td>
 		    			<td align="right" colspan="3" style="border-bottom: 2px solid #000">
 		    				<span class="pull-left nomarg">₱</span>
+		    				<?php if(!empty($items)){ ?>
 		    				<span class="nomarg" id=''><b style="font-weight: 900"><?php echo number_format($net,2); ?></b></span>
+		    				<?php } ?>
 		    			</td>
 		    		</tr>
 		    		<tr>
@@ -382,6 +391,7 @@
 		    	</table>		    
 	    	</div>
 	    	<input type='hidden' name='po_id' value='<?php echo $po_id; ?>'>
+	    	<input type='hidden' name='supplier_id' value='<?php echo $supplier_id; ?>'>
     	</form>
     </div>
     <script type="text/javascript">

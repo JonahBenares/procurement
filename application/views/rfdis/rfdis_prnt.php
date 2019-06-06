@@ -274,7 +274,9 @@
 		    			</td>
 		    			<td align="right" colspan="3"></td>
 		    		</tr>
-		    		<?php foreach($items AS $it){ 
+		    		<?php 
+		    		if(!empty($items)){
+		    		foreach($items AS $it){ 
 		    			$total = $it['quantity'] * $it['price'];
 		    			$gross[]=$total;?>
 		    		<tr>
@@ -308,7 +310,7 @@
 		    				<span class="nomarg" id=''><b><?php echo number_format($less_amount,2); ?></b></span>
 		    			</td>
 		    		</tr>
-		    		
+		    		<?php } ?>
 		    		<tr id="hide">
 
 		    			<td align="left" colspan="12" >
@@ -367,7 +369,9 @@
 		    			<td align="right" colspan="10" class="bor-right"><b class="nomarg" style="font-weight: 900">Total Amount Due</b></td>
 		    			<td align="right" colspan="3" style="border-bottom: 2px solid #000">
 		    				<span class="pull-left nomarg">₱</span>
+		    				<?php if(!empty($items)){ ?>
 		    				<span class="nomarg" id=''><b style="font-weight: 900"><?php echo number_format($net,2); ?></b></span>
+		    				<?php } ?>
 		    			</td>
 		    		</tr>
 		    		<tr>
