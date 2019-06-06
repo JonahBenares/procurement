@@ -109,7 +109,7 @@
 					<div class="form-group">
 						<h5 class="nomarg">Notes:</h5>
 						<h5 class="nomarg"><b>
-							<input type='text' name='notes' class="form-control">
+							<input type='text' name='notes' class="form-control" autocomplete="off">
 						</b></h5>
 					</div>
 					<div class="form-group">
@@ -230,7 +230,10 @@
 		    		</tr>
 		    		
 		    		<!-- loop here start-->
-		    		<?php foreach($drpurp AS $purp){ ?>
+		    		<?php
+		    		if(!empty($drpurp)){
+		    		 foreach($drpurp AS $purp){ ?>
+		    		
 		    		<tr>
 		    			<td colspan="13" class="all-border"><b class="nomarg">Item #4: <?php echo $purp['notes']; ?></b></td>
 		    			<td colspan="7" class="all-border">
@@ -248,7 +251,8 @@
 		    		<tr>
 		    			<td colspan="21" class="all-border "><b class="nomarg"></td>
 		    		</tr>
-		    		<?php } ?>
+		    		<?php }
+		    		} ?>
 		    		<!-- loop here end-->
 		    		<tr>
 		    			<td colspan="20" class="all-border "><b class="nomarg">
@@ -272,6 +276,7 @@
 		    		<!-- <loop  start-->
 		    		<?php 
 		    		$a=1;
+		    		if(!empty($items)){
 		    		foreach($items AS $it){ ?>
 		       		<tr>
 		    			<td class="all-border" align="center"><?php echo $a; ?></td>
@@ -287,7 +292,8 @@
 		    			<?php } ?>
 		    			</td>
 		    		</tr>		   
-		    		<?php $a++; } ?> 		
+		    		<?php $a++; } 
+		    		} ?> 		
 		    		<!-- Loop end here-->
 		    		<tr><td class="f13" colspan="20" align="center"><br></td></tr>
 		    		<tr>

@@ -82,14 +82,16 @@ class Dr extends CI_Controller {
 
 
     public function dr_list(){   
+        $data['head'] =  $this->super_model->select_all('dr_head');
         $this->load->view('template/header');
         $this->load->view('template/navbar');
-        $this->load->view('dr/dr_list');
+        $this->load->view('dr/dr_list',$data);
         $this->load->view('template/footer');
     }
 
     public function dr_prnt(){   
         $dr_id=$this->uri->segment(3);
+      
         $data['dr_id']=$dr_id;
         $data['saved']=$this->super_model->select_column_where('dr_head','saved','dr_id',$dr_id);
         $data['head'] =  $this->super_model->select_row_where('dr_head', 'dr_id', $dr_id);
@@ -120,6 +122,9 @@ class Dr extends CI_Controller {
                 'remarks'=>$dritems->remarks
             );
         }
+
+
+
         $this->load->view('template/header');
         $this->load->view('dr/dr_prnt',$data);
         $this->load->view('template/footer');
