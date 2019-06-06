@@ -643,6 +643,7 @@ class Aoq extends CI_Controller {
 		        	/*foreach($this->get_aoq_others('comments', $supplier_id, $items->item_id, $aoq_id) AS $cm){
 		        		$comment = $cm->comment;
 		        	}*/
+		        	$comment = $this->super_model->select_column_custom_where("aoq_comments", "comment", "supplier_id = '$supplier_id' AND item_id = '$items->item_id' AND aoq_id = '$aoq_id'");
 		        	$phpColor = new PHPExcel_Style_Color();
 		        	$phpColor->setRGB('FF0000'); 
 		        	$objPHPExcel->getActiveSheet()->getStyle($col.$num2)->getFont()->setColor($phpColor);
@@ -651,7 +652,7 @@ class Aoq extends CI_Controller {
 		        			$allrfq->offer.", ".$this->super_model->select_column_where("item", "item_name", "item_id", $allrfq->item_id),
 		        			$allrfq->unit_price,
 		        			$amount,
-		        			//$comment,
+		        			$comment,
 		        		)
 		        	);
 
