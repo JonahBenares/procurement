@@ -130,11 +130,9 @@
                                     </thead>
                                     <tbody>
                                         <?php 
-                                        if(!empty($rfd)){
-                                            foreach($rfd AS $r){ ?>
-                                        
+                                            if(!empty($rfd)){
+                                            foreach($rfd AS $r){ ?>                                        
                                         <tr>
-
                                             <td><?php echo date('F j, Y', strtotime($r['rfd_date'])); ?></td>
                                             <td><?php echo $r['company']; ?></td>
                                             <td><?php echo $r['pay_to']; ?></td>
