@@ -287,7 +287,9 @@
 					    			<td colspan="<?php echo (($saved==1) ? '12' : '11'); ?>" class="bor-right" align="left"><b></b></td>
 					    			<td colspan="2" class="bor-right" align="center"><b></b></td>
 					    			<td colspan="3" class="bor-right" align="right"><b></b></td>
+					    			<?php if($saved==0){ ?>
 					    			<td colspan="" class="bor-right" align="center"><b></b></td>
+					    			<?php } ?>		
 
 					    		</tr> 
 					    		<?php 
@@ -307,7 +309,9 @@
 						    		</td>
 					    			<td colspan="2" class="bor-right" align="center"><b></b></td>
 					    			<td colspan="3" class="bor-right" align="right"><b></b></td>
+					    			<?php if($saved==0){ ?>
 					    			<td colspan="" class="bor-right" align="center"><b></b></td>
+					    			<?php } ?>		
 
 					    		</tr> 
 
@@ -318,7 +322,9 @@
 					    			<td colspan="<?php echo (($saved==1) ? '12' : '11'); ?>" class="bor-right" align="left"><b></b></td>
 					    			<td colspan="2" class="bor-right" align="center"><b></b></td>
 					    			<td colspan="3" class="bor-right" align="right"><b></b></td>
+					    			<?php if($saved==0){ ?>
 					    			<td colspan="" class="bor-right" align="center"><b></b></td>
+					    			<?php } ?>		
 
 					    		</tr> 
 					    		

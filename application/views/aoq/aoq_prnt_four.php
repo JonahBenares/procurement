@@ -331,7 +331,7 @@
 
 			    				foreach($CI->get_all_rfq_items($sup['supplier_id'], $it['item_id'],$sup['rfq_id']) AS $allrfq) { 
 			    					$amount = $it['qty'] *$allrfq->unit_price; ?>
-			    				   	<table class="table-borsdered" style='border:0px solid #000'>						
+			    				   	<table class="table-borsdered" width="100%" style='border:0px solid #000'>						
 			    					<tr class="bor-btm">
 				    					<td style='width:26%' class="bor-right f10" >
 				    						<b class="text-red nomarg">
@@ -414,15 +414,15 @@
 		    		</tr>
 		    		<tr>
 		    			<td class="f10 table-borreg" align="center"></td>
-		    			<td colspan="8" class="f10 table-borreg text-red" align="center"><b>REMARK</b></td>
+		    			<td colspan="4" class="f10 table-borreg text-red" align="center"><b>REMARK</b></td>
 
 		    			<!-- loop ka here -->
 		    			<!-- and delete the other two below salamats -->
 
-		    			<td colspan="6" class="f10 table-borreg" align="left"><br></td>
-		    			<td colspan="6" class="f10 table-borreg" align="left"><br></td>
-		    			<td colspan="6" class="f10 table-borreg" align="left"><br></td>
-		    			<td colspan="6" class="f10 table-borreg" align="left"><br></td>
+		    			<td colspan="7" class="f10 table-borreg" align="left"><br></td>
+		    			<td colspan="7" class="f10 table-borreg" align="left"><br></td>
+		    			<td colspan="7" class="f10 table-borreg" align="left"><br></td>
+		    			<td colspan="7" class="f10 table-borreg" align="left"><br></td>
 		    		</tr>
 		    		<tr><td class="f10" colspan="33" align="center"><br></td></tr>
 		    		<tr>
