@@ -129,7 +129,10 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php foreach($rfd AS $r){ ?>
+                                        <?php 
+                                        if(!empty($rfd)){
+                                            foreach($rfd AS $r){ ?>
+                                        
                                         <tr>
 
                                             <td><?php echo date('F j, Y', strtotime($r['rfd_date'])); ?></td>
@@ -146,7 +149,8 @@
                                                 </center>
                                             </td>
                                         </tr>    
-                                        <?php } ?>                             
+                                        <?php } 
+                                    } ?>                             
                                     </tbody>
                                 </table>
 
