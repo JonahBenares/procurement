@@ -167,9 +167,11 @@
 	    		<center>
 			    	<div class="btn-group">
 						<a href="javascript:history.go(-1)" class="btn btn-success btn-md p-l-100 p-r-100"><span class="fa fa-arrow-left"></span> Back</a>
+						<?php if($saved==0){ ?>
 						<input type='submit' class="btn btn-primary btn-md p-l-100 p-r-100" value="Save">
+						<?php } else { ?>
 						<a  onclick="printPage()" class="btn btn-warning btn-md p-l-100 p-r-100"><span class="fa fa-print"></span> Print</a>
-
+						<?php } ?>
 						<!-- <input type='submit' class="btn btn-primary btn-md p-l-100 p-r-100" value="Save">	 -->
 
 					</div>
@@ -221,7 +223,10 @@
 		    		</tr>
 		    		<?php } ?>
 		    		<tr>
-		    			<td colspan="20" class="all-border "><b class="nomarg"><button type="button" data-toggle="modal" data-target="#addpur" class="btn btn-xs btn-primary" onclick="" >Add Purpose/ EndUse/ Requestor</button></b></td>		    			
+		    			<td colspan="20" class="all-border "><b class="nomarg">
+		    				<?php if($saved==0){ ?>
+		    				<button type="button" data-toggle="modal" data-target="#addpur" class="btn btn-xs btn-primary" onclick="" >Add Purpose/ EndUse/ Requestor</button>
+		    				<?php } ?></b></td>		    			
 		    		</tr>
 		    		
 		    		<!-- loop here start-->
@@ -230,7 +235,10 @@
 		    			<td colspan="13" class="all-border"><b class="nomarg">Item #4: <?php echo $purp['notes']; ?></b></td>
 		    			<td colspan="7" class="all-border">
 		    				<b class="nomarg">Requestor: <?php echo $purp['requestor']; ?></b>
-		    				<div class="pull-right m-r-10"><a href="<?php echo base_url(); ?>dr/delete_purpose/<?php echo $purp['id']; ?>/<?php echo $dr_id ?>" onclick="return confirm('Are you sure you want to delete purpose?')" class="btn btn-xs btn-danger"><span class="fa fa-times"></span></a></span></button></b></div>
+		    				<div class="pull-right m-r-10">
+		    					<?php if($saved==0){ ?>
+		    					<a href="<?php echo base_url(); ?>dr/delete_purpose/<?php echo $purp['id']; ?>/<?php echo $dr_id ?>" onclick="return confirm('Are you sure you want to delete purpose?')" class="btn btn-xs btn-danger"><span class="fa fa-times"></span></a>
+		    					<?php } ?></div>
 		    			</td>
 		    		</tr>		    		
 		    		<tr>
@@ -244,7 +252,9 @@
 		    		<!-- loop here end-->
 		    		<tr>
 		    			<td colspan="20" class="all-border "><b class="nomarg">
-		    				<a href="javascript:void()" onclick="additemdr('<?php echo base_url(); ?>','<?php echo $dr_id; ?>')" class="btn btn-xs btn-primary">Add Item/s</a></b>
+		    				<?php if($saved==0){ ?>
+		    				<a href="javascript:void()" onclick="additemdr('<?php echo base_url(); ?>','<?php echo $dr_id; ?>')" class="btn btn-xs btn-primary">Add Item/s</a>
+		    				<?php } ?></b>
 		    			</td>		    			
 		    		</tr>
 		    		<tr>
@@ -272,7 +282,9 @@
 		    			<td class="all-border" align="center" colspan="2"><?php echo $it['unit']; ?></td>
 		    			<td class="all-border" align="center" colspan="2"><?php echo $it['remarks']; ?></td>
 		    			<td class="all-border" align="center" >
-		    				<a href="<?php echo base_url(); ?>dr/delete_dritem/<?php echo $it['id']; ?>/<?php echo $dr_id ?>" onclick="return confirm('Are you sure you want to delete item?')" class="btn btn-xs btn-danger"><span class="fa fa-times"></span></a></button>
+		    				<?php if($saved==0){ ?>
+		    				<a href="<?php echo base_url(); ?>dr/delete_dritem/<?php echo $it['id']; ?>/<?php echo $dr_id ?>" onclick="return confirm('Are you sure you want to delete item?')" class="btn btn-xs btn-danger"><span class="fa fa-times"></span></a>
+		    			<?php } ?>
 		    			</td>
 		    		</tr>		   
 		    		<?php $a++; } ?> 		

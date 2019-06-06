@@ -1,4 +1,4 @@
-<?php
+   <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Aoq extends CI_Controller {

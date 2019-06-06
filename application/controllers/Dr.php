@@ -91,6 +91,7 @@ class Dr extends CI_Controller {
     public function dr_prnt(){   
         $dr_id=$this->uri->segment(3);
         $data['dr_id']=$dr_id;
+        $data['saved']=$this->super_model->select_column_where('dr_head','saved','dr_id',$dr_id);
         $data['head'] =  $this->super_model->select_row_where('dr_head', 'dr_id', $dr_id);
         $data['employee']=$this->super_model->select_all_order_by("employees", "employee_name", "ASC");
         $data['enduse']=$this->super_model->select_all_order_by("enduse", "enduse_name", "ASC");
@@ -191,8 +192,12 @@ class Dr extends CI_Controller {
     public function save_dr(){
          $dr_id=$this->input->post('dr_id');
          $data = array(
-            'saved'=1
+            'saved'=>1
          );
+
+         if($this->super_model->update_where("dr_head", $data, "dr_id", $dr_id)){
+              redirect(base_url().'dr/dr_prnt/'.$dr_id, 'refresh');
+         }
     }
 }
 
