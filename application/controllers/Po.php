@@ -746,7 +746,7 @@ class Po extends CI_Controller {
        
             foreach($this->super_model->select_row_where("rfd", "po_id", $po_id) AS $rfd){
                 $data['company']=$rfd->company;
-                $data['pay_to']=$rfd->pay_to;
+                $data['pay_to']=$this->super_model->select_column_where('vendor_head', 'vendor_name', 'vendor_id', $rfd->pay_to);
                 $data['check_name']=$rfd->check_name;
                 $data['apv_no']=$rfd->apv_no;
                 $data['cash']=$rfd->cash;
