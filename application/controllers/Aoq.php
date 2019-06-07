@@ -257,15 +257,20 @@ class Aoq extends CI_Controller {
 				$uom=$this->super_model->select_column_where('unit','unit_name','unit_id', $i->unit_id);
 			}
 			//$min =$this->super_model->get_min_where('rfq_detail','unit_price',"item_id = '$items->item_id' AND unit_price != '0'");
-			foreach($allprice AS $var=>$key){
-				foreach($key AS $v=>$k){
-					/*$item_name=$this->super_model->select_column_where('item','item_name','item_id', $key['item_id']);*/
-					if($key['item_id']==$items->item_id){
-						$minprice[$x][] = $key['price'];
-					}
-				}				
+		
+			if(!empty($allprice)){
+				foreach($allprice AS $var=>$key){
+					foreach($key AS $v=>$k){
+						/*$item_name=$this->super_model->select_column_where('item','item_name','item_id', $key['item_id']);*/
+						if($key['item_id']==$items->item_id){
+							$minprice[$x][] = $key['price'];
+						}
+					}				
+				}
+				$min=min($minprice[$x]);
+			} else {
+				$min=0;
 			}
-			$min=min($minprice[$x]);
 			$item = $item_name . ", " .$specs;
 			
 

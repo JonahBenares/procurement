@@ -82,7 +82,19 @@ class Dr extends CI_Controller {
 
 
     public function dr_list(){   
-        $data['head'] =  $this->super_model->select_all('dr_head');
+        foreach($this->super_model->select_all('dr_head') AS $head){
+            $cancelled = $this->super_model->select_column_where("po_head", "cancelled", "po_id",$head->po_id);
+            if($cancelled ==0 ){
+                $data['head'][]=array(
+                    'create_date'=>$head->create_date,
+                    'direct_purchase'=>$head->direct_purchase,
+                    'dr_no'=>$head->dr_no,
+                    'po_id'=>$head->po_id,
+                    'rfd_id'=>$head->rfd_id,
+                    'dr_id'=>$head->dr_id
+                );
+            }
+        }
         $this->load->view('template/header');
         $this->load->view('template/navbar');
         $this->load->view('dr/dr_list',$data);

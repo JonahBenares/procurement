@@ -1,5 +1,5 @@
    	<?php 
-   	$CI =& get_instance(); ?>
+   	$CI =& get_instance();  ?>
    	<style type="text/css">
         html, body{
             background: #2d2c2c!important;
@@ -315,6 +315,7 @@
 		    				$c=1;
 
 		    			
+
 
 			    				foreach($CI->get_all_rfq_items($sup['supplier_id'], $it['item_id'],$sup['rfq_id']) AS $allrfq) { 
 			    					$amount = $it['qty'] *$allrfq->unit_price; ?>
