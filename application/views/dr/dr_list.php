@@ -80,7 +80,10 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php foreach($head AS $h){ ?>
+                                        <?php
+                                        if(!empty($head)){
+                                         foreach($head AS $h){ ?>
+                                        
                                         <tr>
                                             <td><?php echo date('F j, Y', strtotime($h['create_date'])); ?></td>
                                             <td><?php echo $h['dr_no']; ?></td>
@@ -109,7 +112,8 @@
                                                 </center>
                                             </td>
                                         </tr>      
-                                        <?php } ?>                           
+                                        <?php } 
+                                        }?>                           
                                     </tbody>
                                 </table>
 
