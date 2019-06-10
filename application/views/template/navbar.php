@@ -55,14 +55,14 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="<?php echo base_url(); ?>index.php/rfdis/rfdis_list"  role="button" class="nav-link dropdown-toggle" title="Abstract of Quotation">
+                            <a href="<?php echo base_url(); ?>index.php/rfdis/rfdis_list"  role="button" class="nav-link dropdown-toggle" title="REQUEST FOR DISBURSEMENT">
                                 <i class="fa big-icon fa-list-alt "></i>
                                 <span class="mini-dn">RFD</span> 
                                 <span class="indicator-right-menu mini-dn"></span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="<?php echo base_url(); ?>index.php/dr/dr_list"  role="button" class="nav-link dropdown-toggle" title="Abstract of Quotation">
+                            <a href="<?php echo base_url(); ?>index.php/dr/dr_list"  role="button" class="nav-link dropdown-toggle" title="DELIVERY RECEIPT">
                                 <i class="fa big-icon fa-truck "></i>
                                 <span class="mini-dn">DR</span> 
                                 <span class="indicator-right-menu mini-dn"></span>

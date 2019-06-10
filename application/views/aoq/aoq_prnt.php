@@ -341,7 +341,7 @@
 				    						<?php } else if($saved=='1' && $completed=='1') { 
 				    							foreach($CI->get_aoq_others('comments', $sup['supplier_id'], $it['item_id'], $aoq_id) AS $cm){
 				    								if($cm['supplier'] == $sup['supplier_id'] && $cm['offer'] == $allrfq->offer){ ?>
-				    									<textarea cols="4" rows="3" readonly="readonly" style='resize: none; border: 0px'><?php echo $cm['comment']; ?></textarea>
+				    								<!-- 	<textarea cols="4" rows="3" readonly="readonly" style='resize: none; border: 0px'> --><?php echo $cm['comment']; ?><!-- </textarea> -->
 				    								<?php } 
 				    							}
 				    						 } else if($saved=='0' && $completed=='0') { ?>
