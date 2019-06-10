@@ -239,7 +239,7 @@
                                             <td><?php if($head['repeat_order'] == 1){ echo 'Repeat Order'; }else { echo 'Purchase Request'; }?></td>
                                             <td>
                                                 <center>
-                                                    <a href="<?php echo base_url(); ?>po/update_done/<?php echo $head['po_id']; ?>" class="btn btn-custon-three btn-success btn-xs" title='View'>
+                                                    <a href="<?php echo base_url(); ?>po/update_done/<?php echo $head['po_id']; ?>" class="btn btn-custon-three btn-success btn-xs" title='Done PO'>
                                                         <span class="fa fa-check"></span>
                                                     </a>
                                                     <?php if($head['repeat_order'] == 1){ ?>
