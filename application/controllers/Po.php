@@ -381,12 +381,28 @@ class Po extends CI_Controller {
 
         $po = $this->super_model->get_max("po_head", "po_id");
         $next_po = $po + 1;
+
+
            foreach($this->super_model->select_row_where("po_head", "po_id", $po_id) AS $header){
+
+              $head_rows = $this->super_model->count_rows("po_head");
+                if($head_rows==0){
+                    $po_no = 1000;
+                } else {
+                    $maxno=$this->super_model->get_max("po_head", "po_series");
+                    $po_no = $maxno + 1;
+                }
+
+                $po_series = $header->po_no."-".$po_no;
+
+                $po_data = substr($header->po_no, 0, -4);
+
+                $newpo= $po_data.$po_no;
                 $head = array(
                     'po_id'=>$next_po,
                     'po_date'=>$header->po_date,
-                    'po_no'=>$header->po_no,
-                    'po_series'=>$header->po_series,
+                    'po_no'=>$newpo,
+                    'po_series'=>$po_no,
                     'supplier_id'=>$header->supplier_id,
                     'notes'=>$header->notes,
                     'prepared_by'=>$header->prepared_by,
@@ -730,7 +746,7 @@ class Po extends CI_Controller {
        
             foreach($this->super_model->select_row_where("rfd", "po_id", $po_id) AS $rfd){
                 $data['company']=$rfd->company;
-                $data['pay_to']=$rfd->pay_to;
+                $data['pay_to']=$this->super_model->select_column_where('vendor_head', 'vendor_name', 'vendor_id', $rfd->pay_to);
                 $data['check_name']=$rfd->check_name;
                 $data['apv_no']=$rfd->apv_no;
                 $data['cash']=$rfd->cash;

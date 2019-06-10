@@ -96,16 +96,20 @@ class Rfdis extends CI_Controller {
             } else {
                 $type='Purchase Order';
             }
-            $data['rfd'][] =  array(
-                'rfd_id'=>$rfd->rfd_id,
-                'rfd_date'=>$rfd->rfd_date,
-                'apv_no'=>$rfd->apv_no,
-                'po_id'=>$rfd->po_id,
-                'company'=>$rfd->company,
-                'pay_to'=>$this->super_model->select_column_where("vendor_head", "vendor_name", "vendor_id", $rfd->pay_to),
-                'net_amount'=>$rfd->net_amount,
-                'type'=>$type
-            );
+
+            $cancelled = $this->super_model->select_column_where("po_head", "cancelled", "po_id",$rfd->po_id);
+            if($cancelled ==0 ){
+                $data['rfd'][] =  array(
+                    'rfd_id'=>$rfd->rfd_id,
+                    'rfd_date'=>$rfd->rfd_date,
+                    'apv_no'=>$rfd->apv_no,
+                    'po_id'=>$rfd->po_id,
+                    'company'=>$rfd->company,
+                    'pay_to'=>$this->super_model->select_column_where("vendor_head", "vendor_name", "vendor_id", $rfd->pay_to),
+                    'net_amount'=>$rfd->net_amount,
+                    'type'=>$type
+                );
+            }
         }
         $this->load->view('template/header');
         $this->load->view('template/navbar');

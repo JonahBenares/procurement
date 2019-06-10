@@ -257,15 +257,20 @@ class Aoq extends CI_Controller {
 				$uom=$this->super_model->select_column_where('unit','unit_name','unit_id', $i->unit_id);
 			}
 			//$min =$this->super_model->get_min_where('rfq_detail','unit_price',"item_id = '$items->item_id' AND unit_price != '0'");
-			foreach($allprice AS $var=>$key){
-				foreach($key AS $v=>$k){
-					/*$item_name=$this->super_model->select_column_where('item','item_name','item_id', $key['item_id']);*/
-					if($key['item_id']==$items->item_id){
-						$minprice[$x][] = $key['price'];
-					}
-				}				
+		
+			if(!empty($allprice)){
+				foreach($allprice AS $var=>$key){
+					foreach($key AS $v=>$k){
+						/*$item_name=$this->super_model->select_column_where('item','item_name','item_id', $key['item_id']);*/
+						if($key['item_id']==$items->item_id){
+							$minprice[$x][] = $key['price'];
+						}
+					}				
+				}
+				$min=min($minprice[$x]);
+			} else {
+				$min=0;
 			}
-			$min=min($minprice[$x]);
 			$item = $item_name . ", " .$specs;
 			
 
@@ -503,6 +508,7 @@ class Aoq extends CI_Controller {
         $exportfilename="AOQ Five.xlsx";
         $aoq_id=$this->uri->segment(3);
 		$data['served']=$this->super_model->select_column_where('aoq_header','served','aoq_id', $aoq_id);
+
 		foreach($this->super_model->select_row_where("aoq_header", "aoq_id", $aoq_id) AS $head){
 			$department=$this->super_model->select_column_where('department','department_name','department_id', $head->department_id);
 			$enduse=$this->super_model->select_column_where('enduse','enduse_name','enduse_id', $head->enduse_id);
@@ -511,14 +517,16 @@ class Aoq extends CI_Controller {
 			$noted=$this->super_model->select_column_where('employees','employee_name','employee_id', $head->noted_by);
 			$approved=$this->super_model->select_column_where('employees','employee_name','employee_id', $head->approved_by);
 			$prepared=$this->super_model->select_column_where('employees','employee_name','employee_id', $head->prepared_by);
-			$objPHPExcel->setActiveSheetIndex(0)->setCellValue('E1', "ABSTRACT OF QUOTATION");
-			$objPHPExcel->setActiveSheetIndex(0)->setCellValue('C2', "Department: $department");
-			$objPHPExcel->setActiveSheetIndex(0)->setCellValue('C3', "Purpose: $purpose");
-			$objPHPExcel->setActiveSheetIndex(0)->setCellValue('C4', "Enduse: $enduse");
-			$objPHPExcel->setActiveSheetIndex(0)->setCellValue('C5', "Requested By: $requested");
-			$objPHPExcel->setActiveSheetIndex(0)->setCellValue('G2', "Date: ".date('F j, Y',strtotime($head->aoq_date)));
-			$objPHPExcel->setActiveSheetIndex(0)->setCellValue('G3', "PR#: $head->pr_no");
-			$objPHPExcel->setActiveSheetIndex(0)->setCellValue('G4', "Date Needed: ".date('F j, Y',strtotime($head->date_needed)));
+			$objPHPExcel->setActiveSheetIndex(0)->setCellValue('F1', "ABSTRACT OF QUOTATION");
+			$objPHPExcel->setActiveSheetIndex(0)->setCellValue('E2', "Department: $department");
+			$objPHPExcel->setActiveSheetIndex(0)->setCellValue('E3', "Purpose: $purpose");
+			$objPHPExcel->setActiveSheetIndex(0)->setCellValue('E4', "Enduse: $enduse");
+			$objPHPExcel->setActiveSheetIndex(0)->setCellValue('E5', "Requested By: $requested");
+			$objPHPExcel->setActiveSheetIndex(0)->setCellValue('H2', "Date: ".date('F j, Y',strtotime($head->aoq_date)));
+			$objPHPExcel->setActiveSheetIndex(0)->setCellValue('H3', "PR#: $head->pr_no");
+			$objPHPExcel->setActiveSheetIndex(0)->setCellValue('H4', "Date Needed: ".date('F j, Y',strtotime($head->date_needed)));
+			$objPHPExcel->getActiveSheet()->getStyle('F1:G1')->getFont()->setBold(true);
+			$objPHPExcel->getActiveSheet()->mergeCells('F1:G1');
 		}
 		
 
@@ -640,13 +648,7 @@ class Aoq extends CI_Controller {
 				$q = $num2;
 				foreach($this->get_all_rfq_items($supplier_id, $items->item_id,$rfq->rfq_id) AS $allrfq) { 
 		        	$amount = $items->quantity*$allrfq->unit_price;
-		        	/*foreach($this->get_aoq_others('comments', $supplier_id, $items->item_id, $aoq_id) AS $cm){
-		        		$comment = $cm->comment;
-		        	}*/
 		        	$comment = $this->super_model->select_column_custom_where("aoq_comments", "comment", "supplier_id = '$supplier_id' AND item_id = '$items->item_id' AND aoq_id = '$aoq_id'");
-		        	$phpColor = new PHPExcel_Style_Color();
-		        	$phpColor->setRGB('FF0000'); 
-		        	$objPHPExcel->getActiveSheet()->getStyle($col.$num2)->getFont()->setColor($phpColor);
 		        	$sheet = array(
 		        		array(
 		        			$allrfq->offer.", ".$this->super_model->select_column_where("item", "item_name", "item_id", $allrfq->item_id),
@@ -656,7 +658,17 @@ class Aoq extends CI_Controller {
 		        		)
 		        	);
 
-		        	//print_r($sheet);
+		        	/*$objRichText = new PHPExcel_RichText();
+					$run1 = $objRichText->createTextRun($allrfq->offer);
+					$run1->getFont()->setColor( new PHPExcel_Style_Color( PHPExcel_Style_Color::COLOR_RED ) );
+
+					$run2 = $objRichText->createTextRun(", ".$this->super_model->select_column_where("item", "item_name", "item_id", $allrfq->item_id));
+					$run2->getFont()->setColor( new PHPExcel_Style_Color( PHPExcel_Style_Color::COLOR_BLACK ) );
+
+					$objPHPExcel->setActiveSheetIndex(0)->setCellValue('E'.$q, $objRichText);*/
+		        	$phpColor = new PHPExcel_Style_Color();
+		        	$phpColor->setRGB('FF0000'); 
+		        	$objPHPExcel->getActiveSheet()->getStyle($col.$q)->getFont()->setColor($phpColor);
 
 		        	if($min==$allrfq->unit_price && $allrfq->unit_price!=0){
 		        		$col2 = chr(ord($col) + 1);
@@ -667,10 +679,21 @@ class Aoq extends CI_Controller {
 						$col2 = chr(ord($col) + 2);
 						$objPHPExcel->getActiveSheet()->getStyle($col2.$q)->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID)->getStartColor()->setRGB('92D050');
 					}
+
 					
-					//foreach($sheet AS $s){
-					echo "inside " .$col. $q . "<br>";
 		        	$objPHPExcel->getActiveSheet()->fromArray($sheet, null, $col.$q);
+		        	$objPHPExcel->getActiveSheet()->getStyle('C'.$q)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+		        	$objPHPExcel->getActiveSheet()->getStyle('F'.$q.":G".$q)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+		        	$objPHPExcel->getActiveSheet()->getStyle('F'.$q.":G".$q)->getNumberFormat()->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1);
+		        	$objPHPExcel->getActiveSheet()->getStyle('J'.$q.":K".$q)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+		        	$objPHPExcel->getActiveSheet()->getStyle('J'.$q.":K".$q)->getNumberFormat()->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1);
+		        	$objPHPExcel->getActiveSheet()->getStyle('N'.$q.":O".$q)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+		        	$objPHPExcel->getActiveSheet()->getStyle('N'.$q.":O".$q)->getNumberFormat()->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1);
+		        	$objPHPExcel->getActiveSheet()->getStyle('R'.$q.":S".$q)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+		        	$objPHPExcel->getActiveSheet()->getStyle('R'.$q.":S".$q)->getNumberFormat()->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1);
+		        	$objPHPExcel->getActiveSheet()->getStyle('V'.$q.":W".$q)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+		        	$objPHPExcel->getActiveSheet()->getStyle('V'.$q.":W".$q)->getNumberFormat()->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1);
+		        	$objPHPExcel->getActiveSheet()->getStyle('A'.$q.":X".$q)->applyFromArray($styleArray);
 		        	$q++;
 		        	/*$objPHPExcel->setActiveSheetIndex(0)->setCellValue($col.$num2, "$allrfq->offer".", ".$this->super_model->	select_column_where("item", "item_name", "item_id", $allrfq->item_id));
 		        	$objPHPExcel->setActiveSheetIndex(0)->setCellValue($col.$num2, "$amount");*/
@@ -691,10 +714,7 @@ class Aoq extends CI_Controller {
 				}
 				$num++;
 				$col++;
-
 			}
-
-			$objPHPExcel->getActiveSheet()->getStyle('A'.$q.":X".$q)->applyFromArray($styleArray);
 	        $objPHPExcel->getActiveSheet()->getStyle('A'.$num1.":X".$num1)->applyFromArray($styleArray);
 			$y++;
 			$x++;

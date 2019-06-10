@@ -331,7 +331,7 @@
 
 						 ?>
 		    		<tr>
-		    			<td class="f10 table-borreg" align="center"><?php echo $x; ?></td>
+		    			<td class="f10 table-borreg" align="center"><?php echo $a; ?></td>
 		    			<td colspan="2" class="f10 table-borreg" align="left"> <?php echo $it['item']; ?></td>
 		    			<td class="f10 table-borreg" align="center"><?php echo $it['qty']; ?></td>
 		    			<td class="f10 table-borreg" align="center"><?php echo $it['uom']; ?></td>
