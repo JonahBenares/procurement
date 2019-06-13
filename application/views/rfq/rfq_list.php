@@ -21,6 +21,12 @@ $(document).on("click", ".cancelRFQ", function () {
   
 });
 
+$(document).on("click", ".duplicateRFQ", function () {
+     var rfq_id = $(this).data('id');
+     $(".modal #rfq_id").val(rfq_id);
+  
+});
+
   function toggle_multi(source) {
       checkboxes_multi = document.getElementsByClassName('rfq_list');
       for(var i=0, n=checkboxes_multi.length;i<n;i++) {
@@ -43,6 +49,35 @@ $(document).on("click", ".cancelRFQ", function () {
                         <div class="form-group">
                             <p class="m-b-0">Reason for Cancelling RFQ:</p>
                             <textarea name="reason" class="form-control"></textarea>
+                        </div>
+                        <center>       
+                            <input type = "hidden" id='rfq_id' name='rfq_id' >                 
+                            <input type = "submit" class="btn btn-custon-three btn-primary btn-block" value = "Save">
+                        </center>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+       <div id="duplicateRFQ" class="modal modal-adminpro-general default-popup-PrimaryModal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header header-color-modal bg-color-1">
+                    <h4 class="modal-title">Duplicate RFQ</h4>
+                    <div class="modal-close-area modal-close-df">
+                        <a class="close" data-dismiss="modal" href="#"><i class="fa fa-close"></i></a>
+                    </div>
+                </div>
+                <form method="POST" action = "<?php echo base_url();?>rfq/duplicate_rfq">
+                    <div class="modal-body-lowpad">
+                        <div class="form-group">
+                            <p class="m-b-0">PR No:</p>
+                            <input type='text' name="pr_no" class="form-control">
+                        </div>
+                         <div class="form-group">
+                            <p class="m-b-0">Notes:</p>
+                             <textarea name="notes" class="form-control"></textarea>
                         </div>
                         <center>       
                             <input type = "hidden" id='rfq_id' name='rfq_id' >                 
@@ -107,6 +142,7 @@ $(document).on("click", ".cancelRFQ", function () {
                                         <tr>
                                             <th width="5%"><input type="checkbox" class="form-control" name="" onClick="toggle_multi(this)"></th>
                                             <th width="10%">RFQ #</th>
+                                            <th width="10%">PR #</th>
                                             <th>Supplier</th>
                                             <th width="10%">RFQ Date</th>
                                             <th width="30%">Items</th>
@@ -133,6 +169,7 @@ $(document).on("click", ".cancelRFQ", function () {
                                             <input type="checkbox" class="form-control rfq_list" name="rfq[]" value="<?php echo $li['rfq_id']; ?>">
                                             <?php } ?></td>
                                             <td><?php echo $li['rfq_no']; ?></td>
+                                            <td><?php echo $li['pr_no']; ?></td>
                                             <td><?php echo $li['supplier']; ?></td>
                                             <td><?php echo date('M d, Y',strtotime($li['rfq_date'])); ?></td>
                                             <td>
@@ -144,7 +181,7 @@ $(document).on("click", ".cancelRFQ", function () {
                                                     <a href="javascript:void(0)" onclick="incomingRfq('<?php echo base_url(); ?>','<?php echo $li['rfq_id']; ?>')" class="btn btn-custon-three btn-warning btn-xs">
                                                         <span class="fa fa-eye"></span>
                                                     </a>
-                                                     <a class="btn btn-custon-three btn-info btn-xs" title="Duplicate" onclick="return confirm('Are you sure you want to duplicate RFQ?')">
+                                                     <a class="duplicateRFQ btn btn-custon-three btn-info btn-xs" title="Duplicate" data-toggle="modal" data-target="#duplicateRFQ" data-id="<?php echo $li['rfq_id']; ?>">
                                                         <span class="fa fa-files-o"></span>
                                                     </a>
                                                      <a class="cancelRFQ btn btn-custon-three btn-danger btn-xs" data-toggle="modal" data-target="#cancelRFQ" data-id="<?php echo $li['rfq_id']; ?>"><span class="fa fa-ban" title="Cancel"></span></a>
