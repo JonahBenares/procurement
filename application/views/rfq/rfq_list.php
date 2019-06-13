@@ -93,13 +93,9 @@ $(document).on("click", ".cancelRFQ", function () {
                                 <h1>RFQ List</h1>
                                 <small>REQUEST FOR QUOTATION</small> 
                                 <div class="sparkline8-outline-icon">
-                                 <a href="<?php echo base_url(); ?>index.php/rfq/served_rfq" class="btn btn-custon-three btn-success" ><span class="fa fa-archive p-l-0"></span> Served RFQ</a> 
                                 <input type='submit' id='createAOQ' class="btn btn-custon-three btn-primary" value='Create AOQ' >
-
-                                  <!--   <a class="btn btn-custon-three btn-primary" href=">
-                                        <span class="fa fa-plus p-l-0"></span>
-                                        Create AOQ
-                                    </a> -->
+                                <a href="<?php echo base_url(); ?>index.php/rfq/served_rfq" class="btn btn-custon-three btn-success" ><span class="fa fa-archive p-l-0"></span> Served RFQ</a> 
+                                <a href="<?php echo base_url(); ?>rfq/cancelled_rfq" class="btn btn-custon-three btn-danger"><span class="p-l-0 fa fa-ban"></span> Cancelled RFQ</a>
                                 </div>
                             </div>
                         </div>
@@ -114,8 +110,8 @@ $(document).on("click", ".cancelRFQ", function () {
                                             <th>Supplier</th>
                                             <th width="10%">RFQ Date</th>
                                             <th width="30%">Items</th>
-                                            <th width="15%">Notes</th>
-                                            <th width="10%"><center><span class="fa fa-bars"></span></center></th>
+                                            <th width="10%">Notes</th>
+                                            <th width="15%"><center><span class="fa fa-bars"></span></center></th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -125,7 +121,7 @@ $(document).on("click", ".cancelRFQ", function () {
                                         $item='';
                                         foreach($items AS $it){ 
                                             if($it['rfq_id']==$li['rfq_id']){
-                                                $item .="- ".$it['item_name']. ", " .$it['specs']. "<br> ";
+                                                $item .="<b>- ".$it['item_name']. "</b>, " .$it['specs']. "<br> ";
                                             }
                                         }
                                         $item = substr($item, 0, -2);
@@ -140,7 +136,7 @@ $(document).on("click", ".cancelRFQ", function () {
                                             <td><?php echo $li['supplier']; ?></td>
                                             <td><?php echo date('M d, Y',strtotime($li['rfq_date'])); ?></td>
                                             <td>
-                                                <span style='text-align: left; font-size: 11px;'> <?php echo $item; ?></span>
+                                                <span style='text-align: left;'> <?php echo $item; ?></span>
                                             </td>
                                             <td style='font-size: 12px'><?php echo $li['notes']; ?></td>
                                             <td>

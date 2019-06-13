@@ -303,8 +303,9 @@ class Rfq extends CI_Controller {
 	 			);
 	 		}*/
 	 	}
-
+	 	$this->load->view('template/header');
         $this->load->view('rfq/rfq_incoming', $data);
+        $this->load->view('template/footer');
     }
 
     public function complete_rfq(){
@@ -394,6 +395,13 @@ class Rfq extends CI_Controller {
         if($this->super_model->update_where("rfq_head", $data, "rfq_id", $rfq_id)){
             redirect(base_url().'rfq/rfq_list/'.$rfq_id);
         }
+    }
+
+    public function cancelled_rfq(){
+        $this->load->view('template/header');
+        $this->load->view('template/navbar');
+        $this->load->view('rfq/cancelled_rfq');
+        $this->load->view('template/footer');
     }
 
 }

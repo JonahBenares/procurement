@@ -32,6 +32,12 @@
         	background-size: contain!important;
         	background-position: center center!important;
         }
+        .cancel{
+        	background-image: url('../../../assets/img/cancel.png')!important;
+        	background-repeat:no-repeat!important;
+        	background-size: contain!important;
+        	background-position: center center!important;
+        }	
         .table-bordered>tbody>tr>td, 
         .table-bordered>tbody>tr>th, 
         .table-bordered>tfoot>tr>td, 
@@ -55,7 +61,7 @@
 			width: 100%;
 		}
 		@media print{
-			#prnt_btn, .reco{
+			#prnt_btn, .reco, #printnotes{
 				display: none;
 			}
 			html, body{
@@ -68,6 +74,12 @@
 	        	background-size: contain!important;
 	        	background-position: center center!important;
 	        }
+	        .cancel{
+	        	background-image: url('../../../assets/img/cancel.png')!important;
+	        	background-repeat:no-repeat!important;
+	        	background-size: contain!important;
+	        	background-position: center center!important;
+	        }
 		}
 		.text-white{
 			color: #fff;
@@ -76,7 +88,39 @@
 			/*border-bottom: 1px solid red!important;*/
 			background-color: #ffe5e5!important;
 		}
-    </style>
+    </style>    
+
+<!-- Modal -->
+	<div class="modal fade" id="editbrp" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog " role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Edit Brand/Offer & Unit Price
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</h5>				
+				</div>
+				<form>
+					<div class="modal-body">
+						<div class="form-group">
+							<h5 style="margin: 0px">Brand/Offer:
+								<input type="text" name="" class="form-control">
+							</h5>
+						</div>
+						<div class="form-group">
+							<h5 style="margin: 0px">Unit Price:
+								<input type="text" name="" class="form-control">
+							</h5>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-info btn-block">Save changes</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
     <div  class="pad">
     	<form method='POST' action="<?php echo base_url(); ?>rfq/complete_rfq">  
     		<div  id="prnt_btn">
@@ -95,7 +139,7 @@
 					<p class="text-white">Instructions: When printing REQUEST FOR QUOTATION make sure the following options are set correctly -- <u>Browser</u>: Chrome, <u>Layout</u>: Portrait, <u>Paper Size</u>: A4, <u>Margin</u> : Default, <u>Scale</u>: 100</p>
 				</center>
 			</div>
-	    	<div style="background: #fff;" <?php echo (($served == 1) ? 'class="served"' : ''); ?>>    		  			
+	    	<div style="background: #fff;" class="cancel" <?php echo (($served == 1) ? 'class="served"' : ''); ?>>    		  			
 		    	<table class="table-bodrdered" width="100%" style="border:2px solid #000">
 		    		<tr>
 		    			<td width="5%"><br></td>
@@ -146,7 +190,7 @@
 		    			<td class="f13" colspan="3">Tel. No.:</td>
 		    			<td class="f13 bor-btm" colspan="6"><?php echo $h['phone']; ?></td>
 		    		</tr>
-		    		<tr>
+		    		<tr id="printnotes">
 		    			<td class="f13" colspan="2">Notes:</td>
 		    			<td class="f13 bor-btm" colspan="8"><?php echo $h['notes']; ?></td>
 		    			<td class="f13" colspan="1"></td>
@@ -165,7 +209,7 @@
 		    						<td class="f13" align="center"><b>Item Description</b></td>
 		    						<td class="f13" align="center"><b>Brand/Offer</b></td>
 		    						<td class="f13" align="center" width="20%"><b>Unit Price</b></td>
-		    						<!-- <td class="f13 reco" align="center" width="5%"><b>Reco</b></td> -->
+		    						<td class="f13 reco" align="center" width="5%"><b><span class="fa fa-bars"></span></b></td>
 		    					</tr>
 		    					<?php
 		    					$x=1; 
@@ -175,13 +219,12 @@
 		    						<td class="f13" align="center" rowspan='3'><?php echo $x; ?></td>
 		    						<td class="f13" align="center" rowspan='3'><?php echo $item['unit']; ?></td>
 		    						<td class="f13" align="center" rowspan='3' style='width:35%'><?php echo $item['item']; ?></td>
-		    						<td class="f13" align="center">		    						
-		    							    
-		    							<textarea rows="1" name="offer<?php echo $x; ?>_1" class="sel-des emphasis" ><?php echo $item['offer']; ?></textarea>				
+		    						<td class="f13" align="center">
+		    							<textarea rows="1" name="offer<?php echo $x; ?>_1" class="sel-des emphasis" ><?php echo $item['offer']; ?></textarea>
 		    						</td>
 		    						<td class="f13" align="center" style="background-color: #ffe5e5">		    					
 		    							<input type="text" name="price<?php echo $x; ?>_1" class="sel-des emphasis" autocomplete="off"  onkeypress="return isNumberKey(this, event)">		    							
-		    						</td>		    					
+		    						</td>
 		    					</tr>
 		    					<tr>		    					
 		    						<td class="f13" align="center">
@@ -193,23 +236,19 @@
 		    						</td>
 		    						<td class="f13" align="center" style="background-color: #ffe5e5">		    						
 		    							<input type="text" name="price<?php echo $x; ?>_2" class="sel-des emphasis" autocomplete="off"  onkeypress="return isNumberKey(this, event)">		    						
-		    						</td>		    					
+		    						</td>
 		    					</tr>
 		    					<tr>
 		    						<td class="f13" align="center">
 		    						<?php if($completed==0){ ?>
-		    							<!-- <input type="text" name="offer<?php echo $x; ?>_3" class="sel-des emphasis" autocomplete="off" > -->
 		    							<textarea rows="1" name="offer<?php echo $x; ?>_3" class="sel-des emphasis" ></textarea>		
 		    						<?php } else {
 		    							echo $item['offer'];
 		    						} ?>
 		    						</td>
-		    						<td class="f13" align="center" style="background-color: #ffe5e5">
-		    						
-		    							<input type="text" name="price<?php echo $x; ?>_3" class="sel-des emphasis" autocomplete="off"  onkeypress="return isNumberKey(this, event)">
-		    							
+		    						<td class="f13" align="center" style="background-color: #ffe5e5">		    						
+		    							<input type="text" name="price<?php echo $x; ?>_3" class="sel-des emphasis" autocomplete="off"  onkeypress="return isNumberKey(this, event)">	    							
 		    						</td>
-		    					
 		    					</tr>
 		    					<input type='hidden' name='detail_id<?php echo $x; ?>' value='<?php echo $item['detail_id']; ?>'>
 		    				<?php
@@ -229,11 +268,13 @@
 		    						<td class="f13" style='width:40%' rowspan="<?php echo $com['row']; ?>"><?php echo $com['item']; ?></td>
 		    						<td class='f13' style='width:40%'><?php echo $com['offer']; ?></td>
 		    						<td class='f13' style='width:10%; text-align: center'><?php echo number_format($com['price'],2); ?></td>
+		    						<td class="f13 reco" align="center"><button type="button" data-toggle="modal" data-target="#editbrp" class="btn btn-xs btn-info"><span class="fa fa-pencil"></span></button></td>
 		    						</tr>
 		    						<?php $b++;	$c=$c+$com['row'];  } else { ?>
 		    							<tr>
 		    								<td class='f13' style='width:40%'><?php echo $com['offer']; ?></td>
 		    								<td class='f13' style='width:10%; text-align: center'><?php echo number_format($com['price'],2); ?></td>
+		    								<td class="f13 reco" align="center"><button type="button" data-toggle="modal" data-target="#editbrp" class="btn btn-xs btn-info"><span class="fa fa-pencil"></span></button></td>
 		    							</tr>
 
 		    						<?php } 
@@ -395,6 +436,7 @@
 	    	<input type='hidden' name='rfq_id' value="<?php echo $rfq_id; ?>">
     	</form>
     </div>
+  
     <script type="text/javascript">
     	function printPage() {
 		  window.print();

@@ -26,6 +26,12 @@
         	padding:0px 0px 0px 0px
         	}
         }
+        .cancel{
+        	background-image: url('../../assets/img/cancel.png')!important;
+        	background-repeat:no-repeat!important;
+        	background-size: contain!important;
+        	background-position: center center!important;
+        }
         .table-bordered>tbody>tr>td, 
         .table-bordered>tbody>tr>th, 
         .table-bordered>tfoot>tr>td, 
@@ -45,7 +51,7 @@
 			border: 0px!important;
 		}
 		@media print{
-			#prnt_btn{
+			#prnt_btn, #printnotes{
 				display: none;
 			}
 			.emphasis{
@@ -55,10 +61,17 @@
 	            background: #fff!important;
 	            font-size:12px!important;
 	        }
+	        .cancel{
+	        	background-image: url('../../assets/img/cancel.png')!important;
+	        	background-repeat:no-repeat!important;
+	        	background-size: contain!important;
+	        	background-position: center center!important;
+	        }
 		}
 		.text-white{
 			color: #fff;
 		}
+
 		.select-des{			
 		    -webkit-appearance: none;
 		    border: 0px;
@@ -95,8 +108,8 @@
 					<p class="text-white">Instructions: When printing REQUEST FOR QUOTATION make sure the following options are set correctly -- <u>Browser</u>: Chrome, <u>Layout</u>: Portrait, <u>Paper Size</u>: A4, <u>Margin</u> : Default, <u>Scale</u>: 100</p>
 				</center>
 			</div>
-	    	<div style="background: #fff;">    		  			
-		    	<table class="table-boSrdered" width="100%" style="border:2px solid #000">
+	    	<div style="background: #fff;" class="cancel">    		  			
+		    	<table class="table-borsdered" width="100%" style="border:2px solid #000">
 		    		<tr>
 		    			<td width="5%"><br></td>
 		    			<td width="5%"><br></td>
@@ -132,40 +145,40 @@
 		    		<tr><td class="f13" colspan="20" align="center"><br></td></tr>
 		    		<tr>
 		    			<td class="f13" colspan="2">Date:</td>
-		    			<td class="f13 bor-btm" colspan="8"><?php echo date('F j, Y', strtotime($date)); ?></td>
+		    			<td class="f13 bor-btm" colspan="9"><?php echo date('F j, Y', strtotime($date)); ?></td>
 		    			<td class="f13" colspan="1"></td>
-		    			<td class="f13" colspan="3">RFQ No.:</td>
+		    			<td class="f13" colspan="2">RFQ No.:</td>
 		    			<td class="f13 bor-btm" colspan="6"><?php echo $rfq_no; ?></td>
 		    		</tr>
 		    		<tr><td class="f13" colspan="20" align="center"></td></tr>
 		    		<tr>
 		    			<td class="f13" colspan="2">Supplier:</td>
-		    			<td class="f13 bor-btm" colspan="8"><?php echo $supplier; ?></td>
+		    			<td class="f13 bor-btm" colspan="9"><?php echo $supplier; ?></td>
 		    			<td class="f13" colspan="1"></td>
-		    			<td class="f13" colspan="3">Tel. No.:</td>
+		    			<td class="f13" colspan="2">Tel. No.:</td>
 		    			<td class="f13 bor-btm" colspan="6"><?php echo $phone; ?></td>
 		    		</tr>
-		    		<tr>
+		    		<tr id="printnotes">
 
 		    			<td class="f13" colspan="2">Notes:</td>
 		    				<?php if($h['saved']==0){ ?>
-	    					<td class="f13" colspan="8">
-			    			 <textarea name="notes" rows='1' cols='25' style='border: 0px; border-bottom: 2px solid red'><?php
+	    					<td class="f13" colspan="9">
+			    			 <textarea name="notes" rows='1' cols='25' style='width:100%;border: 0px; border-bottom: 2px solid red'><?php
 			    			 	echo (!empty($h['notes']) ? $h['notes'] :'');
 			    			 ?></textarea>
 			    			</td>
 			    			 <?php } else { ?>
-			    			 <td class="f13 bor-btm" colspan="8"> <?php
+			    			 <td class="f13 bor-btm" colspan="9"> <?php
 			    			 	echo (!empty($h['notes']) ? $h['notes'] :'');
 			    			 ?>	</td> <?php
 			    			  } ?>
 		    			</td>
 		    			<td class="f13" colspan="1"></td>
-		    			<td class="f13" colspan="3">PR No:</td>
+		    			<td class="f13" colspan="2">PR No:</td>
 		    			
 	    					<?php if($h['saved']==0){ ?>
 	    					<td class="f13" colspan="6">
-			    			 <input class="emphasis" type="text" name="pr_no" style='border: 0px; border-bottom: 2px solid red' required value="<?php
+			    			 <input class="emphasis" type="text" name="pr_no" style='width:100%;border: 0px; border-bottom: 2px solid red' required value="<?php
 			    			 	echo (!empty($h['pr_no']) ? $h['pr_no'] :'');
 			    			 ?>">
 			    			</td>
@@ -173,11 +186,7 @@
 			    			 <td class="f13 bor-btm" colspan="6"> <?php
 			    			 	echo (!empty($h['pr_no']) ? $h['pr_no'] :'');
 			    			 ?>	</td> <?php
-			    			  } ?>
-		    		
-		    			<td class="f13" colspan="1"></td>
-		    			<td class="f13" colspan="3"></td>
-		    			<td class="f13" colspan="6"></td>
+			    			  } ?>		    		
 		    		</tr>
 		    		<tr><td class="f13" colspan="20" align="center"></td></tr>	    		
 		    		<tr><td class="f13" colspan="20" align="center"><br></td></tr>	    		

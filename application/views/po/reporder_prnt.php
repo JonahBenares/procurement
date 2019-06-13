@@ -13,6 +13,7 @@
 	    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/bootstrap.min.css">
 	    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/mixins.css">
 	    <script src="<?php echo base_url(); ?>assets/js/all-scripts.js"></script> 
+
 	</head>
 
   	<style type="text/css">
@@ -84,9 +85,8 @@
 			margin: 0px 2px 0px 2px;
 		}
 
-    </style>
-    <!-- Modal -->
-	 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    </style>  	
+	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -160,9 +160,6 @@
 			</div>
 		</div>
 	</div>
-
-	
-
     <div  class="pad">
 
     	<form method='POST' action='<?php echo base_url(); ?>po/save_repeatPO'>  
