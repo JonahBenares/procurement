@@ -164,6 +164,7 @@ class Rfq extends CI_Controller {
 
 			$data['list'][] = array(
 				'rfq_id'=>$rfq->rfq_id,
+				'pr_no'=>$rfq->pr_no,
 				'rfq_no'=>$rfq->rfq_no,
 				'rfq_date'=>$rfq->rfq_date,
 				'notes'=>$rfq->notes,
@@ -394,6 +395,92 @@ class Rfq extends CI_Controller {
         if($this->super_model->update_where("rfq_head", $data, "rfq_id", $rfq_id)){
             redirect(base_url().'rfq/rfq_list/'.$rfq_id);
         }
+    }
+
+
+    public function duplicate_rfq(){
+    	$rfq_id=$this->input->post('rfq_id');
+    	$pr_no=$this->input->post('pr_no');
+    	$notes=$this->input->post('notes');
+
+		$rows_head = $this->super_model->count_rows("rfq_head");
+		if($rows_head==0){
+			$new_rfq_id=1;
+		} else {
+			$max = $this->super_model->get_max("rfq_head", "rfq_id");
+			$new_rfq_id = $max+1;
+		}
+
+
+		$rfq_format = date("Y-m");
+        $rfq_form=date("Ym");
+       // $rfqdet=implode("-", $rfq_format);
+        $rows=$this->super_model->count_custom_where("rfq_head","create_date LIKE '$rfq_format%'");
+        if($rows==0){
+            $rfq_no= $rfq_form."-1001";
+        } else {
+            $series = $this->super_model->get_max("rfq_series", "series","year_month LIKE '$rfq_form%'");
+            $next=$series+1;
+            $rfq_no = $rfq_form."-".$next;
+        }
+
+        $rfqdetails=explode("-", $rfq_no);
+        $rfq_prefix1=$rfqdetails[0];
+        $rfq_prefix=$rfq_prefix1;
+        $series = $rfqdetails[1];
+
+        $rfq_data= array(
+            'year_month'=>$rfq_prefix,
+            'series'=>$series
+        );
+
+        $this->super_model->insert_into("rfq_series", $rfq_data);
+
+
+
+    	foreach($this->super_model->select_row_where("rfq_head", "rfq_id", $rfq_id) AS $head){
+
+    	
+    		$rfq_head= array(
+    			'rfq_id'=>$new_rfq_id,
+    			'rfq_no'=>$rfq_no,
+    			'pr_no'=>$pr_no,
+    			'rfq_date'=>$head->rfq_date,
+    			'supplier_id'=>$head->supplier_id,
+    			'due_date'=>$head->due_date,
+    			'price_validity'=>$head->price_validity,
+    			'payment_terms'=>$head->payment_terms,
+    			'delivery_date'=>$head->delivery_date,
+    			'warranty'=>$head->warranty,
+    			'supplier_tin'=>$head->supplier_tin,
+    			'prepared_by'=>$head->prepared_by,
+    			'noted_by'=>$head->noted_by,
+    			'approved_by'=>$head->approved_by,
+    			'notes'=>$notes,
+    			'saved'=>1,
+    			'completed'=>1
+
+    		);
+
+    		$this->super_model->insert_into("rfq_head", $rfq_head);
+
+    	}
+
+
+
+    	foreach($this->super_model->select_row_where("rfq_detail", "rfq_id", $rfq_id) AS $det){
+    		 $detail = array(
+    		 	'rfq_id'=>$new_rfq_id,
+    		 	'item_id'=>$det->item_id,
+    		 	'unit_id'=>$det->unit_id,
+    		 	'offer'=>$det->offer,
+    		 	'unit_price'=>$det->unit_price,
+
+    		 );
+    		 $this->super_model->insert_into("rfq_detail", $detail);
+    	}
+
+    	   redirect(base_url().'rfq/rfq_list/', 'refresh');
     }
 
 }
