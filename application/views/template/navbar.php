@@ -23,7 +23,7 @@
                                 <span class="mini-dn">Masterfile</span> 
                                 <span class="indicator-right-menu mini-dn"><i class="fa indicator-mn fa-angle-left"></i></span>
                             </a>
-                            <div role="menu" class="dropdown-menu left-menu-dropdown animated flipInX p-t-0">
+                            <div role="menu" class="dropdown-menu left-menu-dropdown animated flipInX p-t-0" style="width: 180px">
                                 <a href="<?php echo base_url(); ?>index.php/items/item_list" class="dropdown-item">Items</a>
                                 <a href="<?php echo base_url(); ?>index.php/vendors/vendor_list" class="dropdown-item">Vendors</a>
                                 <a href="<?php echo base_url(); ?>index.php/masterfile/employee_list" class="dropdown-item">Employee</a>
@@ -33,53 +33,76 @@
                                 <a href="<?php echo base_url(); ?>index.php/masterfile/enduse_list" class="dropdown-item">Enduse</a>
                             </div>
                         </li>
+
                         <li class="nav-item">
-                            <a href="<?php echo base_url(); ?>index.php/rfq/rfq_list"  role="button" class="nav-link dropdown-toggle" title="Request for Quotation">
-                                <i class="fa big-icon fa-pencil-square-o"></i>
-                                <span class="mini-dn">RFQ</span> 
-                                <span class="indicator-right-menu mini-dn"></span>
+                            <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle">
+                                <i class="fa big-icon fa-th-large"></i> 
+                                <span class="mini-dn">PO Transactions</span> 
+                                <span class="indicator-right-menu mini-dn"><i class="fa indicator-mn fa-angle-left"></i></span>
                             </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="<?php echo base_url(); ?>index.php/aoq/aoq_list"  role="button" class="nav-link dropdown-toggle" title="Abstract of Quotation">
-                                <i class="fa big-icon fa-folder"></i>
-                                <span class="mini-dn">AOQ</span> 
-                                <span class="indicator-right-menu mini-dn"></span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="<?php echo base_url(); ?>index.php/po/po_list"  role="button" class="nav-link dropdown-toggle" title="Purchase Order">
-                                <i class="fa big-icon fa-shopping-cart"></i>
-                                <span class="mini-dn">PO</span> 
-                                <span class="indicator-right-menu mini-dn"></span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="<?php echo base_url(); ?>index.php/rfdis/rfdis_list"  role="button" class="nav-link dropdown-toggle" title="REQUEST FOR DISBURSEMENT">
-                                <i class="fa big-icon fa-list-alt "></i>
-                                <span class="mini-dn">RFD</span> 
-                                <span class="indicator-right-menu mini-dn"></span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="<?php echo base_url(); ?>index.php/dr/dr_list"  role="button" class="nav-link dropdown-toggle" title="DELIVERY RECEIPT">
-                                <i class="fa big-icon fa-truck "></i>
-                                <span class="mini-dn">DR</span> 
-                                <span class="indicator-right-menu mini-dn"></span>
-                            </a>
-                        </li>
-                        <!-- <li class="nav-item"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle"><i class="fa big-icon fa-flask"></i> <span class="mini-dn">Interface</span> <span class="indicator-right-menu mini-dn"><i class="fa indicator-mn fa-angle-left"></i></span></a>
-                            <div role="menu" class="dropdown-menu left-menu-dropdown animated flipInX">
-                                <a href="google-map.html" class="dropdown-item">Google Map</a>
-                                <a href="data-maps.html" class="dropdown-item">Data Maps</a>
-                                <a href="pdf-viewer.html" class="dropdown-item">Pdf Viewer</a>
-                                <a href="x-editable.html" class="dropdown-item">X-Editable</a>
-                                <a href="code-editor.html" class="dropdown-item">Code Editor</a>
-                                <a href="tree-view.html" class="dropdown-item">Tree View</a>
-                                <a href="preloader.html" class="dropdown-item">Preloader</a>
-                                <a href="images-cropper.html" class="dropdown-item">Images Cropper</a>
+                            <div role="menu" class="dropdown-menu left-menu-dropdown animated flipInX p-t-0">
+                                <a href="<?php echo base_url(); ?>index.php/rfq/rfq_list"  role="button" class="nav-link dropdown-toggle" title="Request for Quotation">
+                                    <i class="fa big-icon fa-pencil-square-o"></i>
+                                    <span class="mini-dn">Request For Quotation</span> 
+                                    <span class="indicator-right-menu mini-dn"></span>
+                                </a>
+                                <a href="<?php echo base_url(); ?>index.php/aoq/aoq_list"  role="button" class="nav-link dropdown-toggle" title="Abstract of Quotation">
+                                    <i class="fa big-icon fa-folder"></i>
+                                    <span class="mini-dn">Abstract of Quotation</span> 
+                                    <span class="indicator-right-menu mini-dn"></span>
+                                </a>
+                                <a href="<?php echo base_url(); ?>index.php/po/po_list"  role="button" class="nav-link dropdown-toggle" title="Purchase Order">
+                                    <i class="fa big-icon fa-shopping-cart"></i>
+                                    <span class="mini-dn">Purchase Order</span> 
+                                    <span class="indicator-right-menu mini-dn"></span>
+                                </a>
+                                <a href="<?php echo base_url(); ?>index.php/rfdis/rfdis_list"  role="button" class="nav-link dropdown-toggle" title="Request for Disbursement">
+                                    <i class="fa big-icon fa-list-alt "></i>
+                                    <span class="mini-dn">Request for Disbursement</span> 
+                                    <span class="indicator-right-menu mini-dn"></span>
+                                </a>
+                                <a href="<?php echo base_url(); ?>index.php/dr/dr_list"  role="button" class="nav-link dropdown-toggle" title="Delivery Receipt">
+                                    <i class="fa big-icon fa-truck "></i>
+                                    <span class="mini-dn">Delivery Receipt</span> 
+                                    <span class="indicator-right-menu mini-dn"></span>
+                                </a>
                             </div>
-                        </li> -->
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle">
+                                <i class="fa big-icon fa-th-list"></i> 
+                                <span class="mini-dn">JO Transactions</span> 
+                                <span class="indicator-right-menu mini-dn"><i class="fa indicator-mn fa-angle-left"></i></span>
+                            </a>
+                            <div role="menu" class="dropdown-menu left-menu-dropdown animated flipInX p-t-0">
+                                <a href="<?php echo base_url(); ?>index.php/rfq/rfq_list"  role="button" class="nav-link dropdown-toggle" title="Request for Quotation">
+                                    <i class="fa big-icon fa-pencil-square-o"></i>
+                                    <span class="mini-dn">Request For Quotation</span> 
+                                    <span class="indicator-right-menu mini-dn"></span>
+                                </a>
+                                <a href="<?php echo base_url(); ?>index.php/aoq/aoq_list"  role="button" class="nav-link dropdown-toggle" title="Abstract of Quotation">
+                                    <i class="fa big-icon fa-folder"></i>
+                                    <span class="mini-dn">Abstract of Quotation</span> 
+                                    <span class="indicator-right-menu mini-dn"></span>
+                                </a>
+                                <a href="<?php echo base_url(); ?>index.php/po/po_list"  role="button" class="nav-link dropdown-toggle" title="Purchase Order">
+                                    <i class="fa big-icon fa-shopping-cart"></i>
+                                    <span class="mini-dn">Purchase Order</span> 
+                                    <span class="indicator-right-menu mini-dn"></span>
+                                </a>
+                                <a href="<?php echo base_url(); ?>index.php/rfdis/rfdis_list"  role="button" class="nav-link dropdown-toggle" title="Request for Disbursement">
+                                    <i class="fa big-icon fa-list-alt "></i>
+                                    <span class="mini-dn">Request for Disbursement</span> 
+                                    <span class="indicator-right-menu mini-dn"></span>
+                                </a>
+                                <a href="<?php echo base_url(); ?>index.php/dr/dr_list"  role="button" class="nav-link dropdown-toggle" title="Delivery Receipt">
+                                    <i class="fa big-icon fa-truck "></i>
+                                    <span class="mini-dn">Delivery Receipt</span> 
+                                    <span class="indicator-right-menu mini-dn"></span>
+                                </a>
+                            </div>
+                        </li>
                     </ul>
                 </div>
             </nav>
