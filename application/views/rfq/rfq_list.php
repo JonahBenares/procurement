@@ -15,6 +15,12 @@
     });
  });
 
+$(document).on("click", ".cancelRFQ", function () {
+     var rfq_id = $(this).data('id');
+     $(".modal #rfq_id").val(rfq_id);
+  
+});
+
   function toggle_multi(source) {
       checkboxes_multi = document.getElementsByClassName('rfq_list');
       for(var i=0, n=checkboxes_multi.length;i<n;i++) {
@@ -22,7 +28,32 @@
       }
     }
  </script>   
-   
+
+    <div id="cancelRFQ" class="modal modal-adminpro-general default-popup-PrimaryModal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header header-color-modal bg-color-1">
+                    <h4 class="modal-title">Cancel RFQ</h4>
+                    <div class="modal-close-area modal-close-df">
+                        <a class="close" data-dismiss="modal" href="#"><i class="fa fa-close"></i></a>
+                    </div>
+                </div>
+                <form method="POST" action = "<?php echo base_url();?>rfq/cancel_rfq">
+                    <div class="modal-body-lowpad">
+                        <div class="form-group">
+                            <p class="m-b-0">Reason for Cancelling RFQ:</p>
+                            <textarea name="reason" class="form-control"></textarea>
+                        </div>
+                        <center>       
+                            <input type = "hidden" id='rfq_id' name='rfq_id' >                 
+                            <input type = "submit" class="btn btn-custon-three btn-primary btn-block" value = "Save">
+                        </center>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+  
     <div class="breadcome-area mg-b-30 small-dn">
         <div class="container-fluid">
             <div class="row">
@@ -82,7 +113,8 @@
                                             <th width="10%">RFQ #</th>
                                             <th>Supplier</th>
                                             <th width="10%">RFQ Date</th>
-                                            <th width="40%">Items</th>
+                                            <th width="30%">Items</th>
+                                            <th width="15%">Notes</th>
                                             <th width="10%"><center><span class="fa fa-bars"></span></center></th>
                                         </tr>
                                     </thead>
@@ -93,7 +125,7 @@
                                         $item='';
                                         foreach($items AS $it){ 
                                             if($it['rfq_id']==$li['rfq_id']){
-                                                $item .="- ".$it['item_name']. "<br> ";
+                                                $item .="- ".$it['item_name']. ", " .$it['specs']. "<br> ";
                                             }
                                         }
                                         $item = substr($item, 0, -2);
@@ -108,13 +140,19 @@
                                             <td><?php echo $li['supplier']; ?></td>
                                             <td><?php echo date('M d, Y',strtotime($li['rfq_date'])); ?></td>
                                             <td>
-                                                <?php echo $item; ?>
+                                                <span style='text-align: left; font-size: 11px;'> <?php echo $item; ?></span>
                                             </td>
+                                            <td style='font-size: 12px'><?php echo $li['notes']; ?></td>
                                             <td>
                                                 <center>
                                                     <a href="javascript:void(0)" onclick="incomingRfq('<?php echo base_url(); ?>','<?php echo $li['rfq_id']; ?>')" class="btn btn-custon-three btn-warning btn-xs">
                                                         <span class="fa fa-eye"></span>
                                                     </a>
+                                                     <a class="btn btn-custon-three btn-info btn-xs" title="Duplicate" onclick="return confirm('Are you sure you want to duplicate RFQ?')">
+                                                        <span class="fa fa-files-o"></span>
+                                                    </a>
+                                                     <a class="cancelRFQ btn btn-custon-three btn-danger btn-xs" data-toggle="modal" data-target="#cancelRFQ" data-id="<?php echo $li['rfq_id']; ?>"><span class="fa fa-ban" title="Cancel"></span></a>
+
                                                     <a href="<?php echo base_url(); ?>rfq/update_served/<?php echo $li['rfq_id']?>" class="btn btn-custon-three btn-success btn-xs" onclick="return confirm('Are you sure?')" title="Served"><span class=" fa fa-archive"></span>
                                                     </a>
                                                 </center>

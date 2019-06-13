@@ -230,7 +230,7 @@
 		    			<td class="f10" colspan="2" align="right">Department: &nbsp;</td>
 		    			<td class="f10" colspan="9"><?php echo $h['department']; ?></td>		    			
 		    			<td class="f10" colspan="2" align="right">Date: &nbsp;</td>
-		    			<td class="f10" colspan="8"><?php echo date('F j, Y', strtotime($h['aoq_date'])); ?></td>
+		    			<td class="f10" colspan="8"><?php echo (!empty($h['aoq_date']) ? date('F j, Y', strtotime($h['aoq_date'])) : ''); ?></td>
 		    		</tr>	
 		    		<tr>
 		    			<td class="f10" colspan="2" align="right">Purpose: &nbsp;</td>
@@ -242,7 +242,7 @@
 		    			<td class="f10" colspan="2" align="right">Enduse: &nbsp;</td>
 		    			<td class="f10" colspan="9"><?php echo $h['enduse']; ?></td>		    			
 		    			<td class="f10" colspan="2" align="right">Date Needed: &nbsp;</td>
-		    			<td class="f10" colspan="8"><?php echo date('F j, Y', strtotime($h['date_needed'])); ?></td>
+		    			<td class="f10" colspan="8"><?php echo (!empty($h['date_needed']) ? date('F j, Y', strtotime($h['date_needed'])) : ''); ?></td>
 		    		</tr>	
 		    		<tr>
 		    			<td class="f10" colspan="2" align="right">Requested by: &nbsp;</td>

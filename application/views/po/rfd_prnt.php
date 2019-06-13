@@ -254,6 +254,7 @@
 		    			<td align="right" colspan="3"></td>
 		    		</tr>
 		    		<?php
+		    		$x=0;
 		    		if(!empty($items)){
 			    		 foreach($items AS $it){ 
 			    			$total = $it['price'] * $it['quantity']; 
@@ -267,7 +268,8 @@
 			    				<span class="nomarg" id=''><b><?php echo number_format($total,2); ?></b></span>
 			    			</td>
 			    		</tr>
-			    		<?php } 
+			    		<?php $x++;
+			    		} 
 
 			    		if($vat==1){
 			    			$less_amount = array_sum($gross) / 1.12 * ($ewt/100);
@@ -276,12 +278,22 @@
 			    		}
 
 			    		$net = array_sum($gross) - $less_amount;
+			    		
 		    		}
 		    		?>
 		    		<input type="hidden" name="pay_to" value="<?php echo $supplier; ?>">
 		    		<input type='hidden' name='gross_amount' value="<?php echo array_sum($gross); ?>">
 		    		<input type='hidden' name='less_amount' value="<?php echo $less_amount; ?>">
 		    		<input type='hidden' name='net_amount' value="<?php echo $net; ?>">
+		    		<?php if($x>1){ ?>
+		    		<tr>
+		    			<td align="right" colspan="17" class="bor-right"><b class="nomarg">Subtotal</b></td>
+		    			<td align="right" colspan="3" class=" bor-top">
+		    				<span class="pull-left nomarg">₱</span>
+		    				<span class="nomarg" id=''><b style="font-weight: 900"><?php echo number_format(array_sum($gross),2); ?></b></span>
+		    			</td>
+		    		</tr>
+		    		<?php } ?>
 		    		<tr>
 		    			<td align="right" colspan="17" class="bor-right"><b class="nomarg">Less: <?php echo $ewt; ?>% EWT</b></td>
 		    			<td align="right" colspan="3">

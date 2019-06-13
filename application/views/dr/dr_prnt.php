@@ -312,7 +312,7 @@
 		    		</tr>
 		    		<tr>
 		    			<td></td>
-		    			<td colspan="6"></td>
+		    			<td colspan="6"><?php echo $_SESSION['fullname']; ?></td>
 		    			<td colspan="5"></td>
 		    			<td colspan="6">Print Name & Signature with Date Received</td>
 		    			<td colspan="2"></td>

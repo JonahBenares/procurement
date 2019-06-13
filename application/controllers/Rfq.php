@@ -107,11 +107,15 @@ class Rfq extends CI_Controller {
 	 	$rfq_id=$this->uri->segment(3);
 	 	$data['rfq_id']=$rfq_id;
 	 	foreach($this->super_model->select_row_where("rfq_head", "rfq_id", $rfq_id) AS $head){
+	 		$data['noted_by']=$head->noted_by;
+	 		$data['approved_by']=$head->approved_by;
 	 		$noted=$this->super_model->select_column_where('employees','employee_name','employee_id', $head->noted_by); 
 	 		$approved=$this->super_model->select_column_where('employees','employee_name','employee_id', $head->approved_by);
 	 		$data['head'][] = array(
 	 			'due_date'=>$head->due_date,
 	 			'rfq_date'=>$head->rfq_date,
+	 			'pr_no'=>$head->pr_no,
+	 			'notes'=>$head->notes,
 	 			'rfq_no'=>$head->rfq_no,
 	 			'supplier'=>$this->super_model->select_column_where('vendor_head','vendor_name','vendor_id', $head->supplier_id),
 	 			'phone'=>$this->super_model->select_column_where('vendor_head','phone_number','vendor_id', $head->supplier_id),
@@ -139,6 +143,8 @@ class Rfq extends CI_Controller {
     public function save_rfq(){
     	$rfq_id = $this->input->post('rfq_id');
     	$data = array(
+    		'pr_no'=>$this->input->post('pr_no'),
+    		'notes'=>$this->input->post('notes'),
     		'due_date'=>$this->input->post('due_date'),
     		'noted_by'=>$this->input->post('noted'),
     		'approved_by'=>$this->input->post('approved'),
@@ -153,12 +159,14 @@ class Rfq extends CI_Controller {
 
 	public function rfq_list(){
 		$data =array();
-		foreach($this->super_model->select_custom_where("rfq_head", "saved='1' ORDER BY rfq_id DESC") AS $rfq){
+		foreach($this->super_model->select_custom_where("rfq_head", "saved='1' AND cancelled ='0' ORDER BY rfq_id DESC") AS $rfq){
 			$supplier = $this->super_model->select_column_where('vendor_head','vendor_name','vendor_id', $rfq->supplier_id);
+
 			$data['list'][] = array(
 				'rfq_id'=>$rfq->rfq_id,
 				'rfq_no'=>$rfq->rfq_no,
 				'rfq_date'=>$rfq->rfq_date,
+				'notes'=>$rfq->notes,
 				'supplier'=>$supplier,
 				'completed'=>$rfq->completed,
 				'served'=>$rfq->served
@@ -166,10 +174,12 @@ class Rfq extends CI_Controller {
 
 			foreach($this->super_model->select_custom_where_group("rfq_detail", "rfq_id ='$rfq->rfq_id'", "item_id") AS $it){
 				$item = $this->super_model->select_column_where('item','item_name','item_id', $it->item_id);
+				$specs = $this->super_model->select_column_where('item','item_specs','item_id', $it->item_id);
 				//$item_name .= $item. ", ";
 				$data['items'][] = array(
 					'rfq_id'=>$it->rfq_id,
-					'item_name'=>$item
+					'item_name'=>$item,
+					'specs'=>$specs
 				);
 			}
 
@@ -236,6 +246,8 @@ class Rfq extends CI_Controller {
 	 			'due_date'=>$head->due_date,
 	 			'rfq_date'=>$head->rfq_date,
 	 			'rfq_no'=>$head->rfq_no,
+	 			'pr_no'=>$head->pr_no,
+	 			'notes'=>$head->notes,
 	 			'supplier'=>$this->super_model->select_column_where('vendor_head','vendor_name','vendor_id', $head->supplier_id),
 	 			'phone'=>$this->super_model->select_column_where('vendor_head','phone_number','vendor_id', $head->supplier_id),
 	 			'validity'=>$head->price_validity,
@@ -348,6 +360,41 @@ class Rfq extends CI_Controller {
 
     }
 
+
+    public function override_rfq(){
+        $rfq_id=$this->uri->segment(3);
+        $data=array(
+            'saved'=>0
+        );
+        if($this->super_model->update_where("rfq_head", $data, "rfq_id", $rfq_id)){
+            redirect(base_url().'rfq/rfq_outgoing/'.$rfq_id);
+        }
+    }
+
+
+     public function override_rfq_incoming(){
+        $rfq_id=$this->uri->segment(3);
+        $data=array(
+            'completed'=>0
+        );
+        if($this->super_model->update_where("rfq_head", $data, "rfq_id", $rfq_id)){
+            redirect(base_url().'rfq/rfq_incoming/'.$rfq_id, 'refresh');
+        }
+    }
+
+
+    public function cancel_rfq(){
+        $rfq_id=$this->input->post('rfq_id');
+        $date=date('Y-m-d H:i:s');
+        $data=array(
+            'cancelled'=>1,
+            'cancel_reason'=>$this->input->post('reason'),
+            'cancelled_date'=>$date
+        );
+        if($this->super_model->update_where("rfq_head", $data, "rfq_id", $rfq_id)){
+            redirect(base_url().'rfq/rfq_list/'.$rfq_id);
+        }
+    }
 
 }
 

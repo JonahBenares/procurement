@@ -85,6 +85,7 @@
 			    	<div class="btn-group">
 						<a href="" onclick="return quitBox('quit');" class="btn btn-success btn-md p-l-100 p-r-100"><span class="fa fa-arrow-left"></span> Back</a>
 						<?php if($saved==1){ ?>
+							<a  href='<?php echo base_url(); ?>rfq/override_rfq/<?php echo $rfq_id; ?>' onclick="return confirm('Are you sure you want to override RFQ?')" class="btn btn-info btn-md p-l-25 p-r-25"><span class="fa fa-pencil"></span> Override <u><b>RFQ</b></u></a>
 						<a  onclick="printPage()" class="btn btn-warning btn-md p-l-100 p-r-100"><span class="fa fa-print"></span> Print</a>
 						<?php }  if($saved==0){?>
 						<input type='submit' class="btn btn-primary btn-md p-l-100 p-r-100" value="Save">  		
@@ -144,6 +145,40 @@
 		    			<td class="f13" colspan="3">Tel. No.:</td>
 		    			<td class="f13 bor-btm" colspan="6"><?php echo $phone; ?></td>
 		    		</tr>
+		    		<tr>
+
+		    			<td class="f13" colspan="2">Notes:</td>
+		    				<?php if($h['saved']==0){ ?>
+	    					<td class="f13" colspan="8">
+			    			 <textarea name="notes" rows='1' cols='25' style='border: 0px; border-bottom: 2px solid red'><?php
+			    			 	echo (!empty($h['notes']) ? $h['notes'] :'');
+			    			 ?></textarea>
+			    			</td>
+			    			 <?php } else { ?>
+			    			 <td class="f13 bor-btm" colspan="8"> <?php
+			    			 	echo (!empty($h['notes']) ? $h['notes'] :'');
+			    			 ?>	</td> <?php
+			    			  } ?>
+		    			</td>
+		    			<td class="f13" colspan="1"></td>
+		    			<td class="f13" colspan="3">PR No:</td>
+		    			
+	    					<?php if($h['saved']==0){ ?>
+	    					<td class="f13" colspan="6">
+			    			 <input class="emphasis" type="text" name="pr_no" style='border: 0px; border-bottom: 2px solid red' required value="<?php
+			    			 	echo (!empty($h['pr_no']) ? $h['pr_no'] :'');
+			    			 ?>">
+			    			</td>
+			    			 <?php } else { ?>
+			    			 <td class="f13 bor-btm" colspan="6"> <?php
+			    			 	echo (!empty($h['pr_no']) ? $h['pr_no'] :'');
+			    			 ?>	</td> <?php
+			    			  } ?>
+		    		
+		    			<td class="f13" colspan="1"></td>
+		    			<td class="f13" colspan="3"></td>
+		    			<td class="f13" colspan="6"></td>
+		    		</tr>
 		    		<tr><td class="f13" colspan="20" align="center"></td></tr>	    		
 		    		<tr><td class="f13" colspan="20" align="center"><br></td></tr>	    		
 		    		<tr>
@@ -176,7 +211,9 @@
 		    			
 		    			<td class="f13" colspan="20">1. Quotation must be submitted on or before
 		    			<?php if($h['saved']==0){ ?>
-		    			 <input class="emphasis" type="date" name="due_date" >
+		    			 <input class="emphasis" type="date" name="due_date" style='border: 0px; border-bottom: 2px solid red' value="<?php
+			    			 	echo (!empty($h['due_date']) ? $h['due_date'] :'');
+			    			 ?>">
 		    			 <?php } else { 
 		    			 	echo (!empty($h['due_date']) ? date('F j, Y', strtotime($h['due_date'])) :'');
 		    			  } ?>
@@ -234,7 +271,9 @@
 		    			<td class="f13" colspan="2"></td>
 		    			<td class="f13" colspan="18">&nbsp; f. Vat <input type="checkbox" name=""> ||  non-Vat <input type="checkbox" name=""></td>
 		    		</tr>
+		    		
 		    		<tr><td class="f13" colspan="20" align="center"><br></td></tr>	
+
 		    		<tr>
 		    			<td class="f13" colspan="2"></td>
 		    			<td class="f13" colspan="4">Prepared by:</td>
@@ -266,7 +305,7 @@
 		    			<select name='noted' class="select-des emphasis">
 			    			<option value=''>-Select Employee-</option>
 			    			<?php foreach($employee AS $emp){ ?>
-			    				<option value='<?php echo $emp->employee_id; ?>'><?php echo $emp->employee_name; ?></option>
+			    				<option value='<?php echo $emp->employee_id; ?>' <?php echo (!empty($noted_by) ? (($emp->employee_id == $noted_by) ? ' selected' : '') : ''); ?>><?php echo $emp->employee_name; ?></option>
 			    			<?php } ?>
 		    			</select>
 		    			<?php } else { 
@@ -279,7 +318,7 @@
 		    				<select name='approved' class="select-des emphasis">
 			    			<option value=''>-Select Employee-</option>
 			    			<?php foreach($employee AS $emp){ ?>
-			    				<option value='<?php echo $emp->employee_id; ?>'><?php echo $emp->employee_name; ?></option>
+			    				<option value='<?php echo $emp->employee_id; ?>' <?php echo (!empty($approved_by) ? (($emp->employee_id == $approved_by) ? ' selected' : '') : ''); ?>><?php echo $emp->employee_name; ?></option>
 			    			<?php } ?>
 		    			</select>
 		    			<?php } else { 

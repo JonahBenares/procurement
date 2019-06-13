@@ -84,8 +84,10 @@
 			    	<div class="btn-group">
 						<a href="" onclick="return quitBox('quit');" class="btn btn-success btn-md p-l-100 p-r-100"><span class="fa fa-arrow-left"></span> Back</a>
 						<?php if($completed==1){ ?>
+					
 						<a  onclick="printPage()" class="btn btn-warning btn-md p-l-100 p-r-100"><span class="fa fa-print"></span> Print</a>
 						<?php } if($completed==0){ ?>
+						<a  href='<?php echo base_url(); ?>rfq/override_rfq/<?php echo $rfq_id; ?>' onclick="return confirm('Are you sure you want to override RFQ?')" class="btn btn-info btn-md p-l-25 p-r-25"><span class="fa fa-pencil"></span> Override <u><b>RFQ</b></u></a>
 						<input type='submit' class="btn btn-primary btn-md p-l-100 p-r-100" value="Save"> 	
 						<?php } ?>	
 					</div>
@@ -144,6 +146,13 @@
 		    			<td class="f13" colspan="3">Tel. No.:</td>
 		    			<td class="f13 bor-btm" colspan="6"><?php echo $h['phone']; ?></td>
 		    		</tr>
+		    		<tr>
+		    			<td class="f13" colspan="2">Notes:</td>
+		    			<td class="f13 bor-btm" colspan="8"><?php echo $h['notes']; ?></td>
+		    			<td class="f13" colspan="1"></td>
+		    			<td class="f13" colspan="3">PR No.:</td>
+		    			<td class="f13 bor-btm" colspan="6"><?php echo $h['pr_no']; ?></td>
+		    		</tr>
 		    		<tr><td class="f13" colspan="20" align="center"></td></tr>	    		
 		    		<tr><td class="f13" colspan="20" align="center"><br></td></tr>	  
 		    	<?php } ?>  		
@@ -168,7 +177,7 @@
 		    						<td class="f13" align="center" rowspan='3' style='width:35%'><?php echo $item['item']; ?></td>
 		    						<td class="f13" align="center">		    						
 		    							    
-		    							<textarea rows="1" name="offer<?php echo $x; ?>_1" class="sel-des emphasis" ></textarea>				
+		    							<textarea rows="1" name="offer<?php echo $x; ?>_1" class="sel-des emphasis" ><?php echo $item['offer']; ?></textarea>				
 		    						</td>
 		    						<td class="f13" align="center" style="background-color: #ffe5e5">		    					
 		    							<input type="text" name="price<?php echo $x; ?>_1" class="sel-des emphasis" autocomplete="off"  onkeypress="return isNumberKey(this, event)">		    							
@@ -177,7 +186,7 @@
 		    					<tr>		    					
 		    						<td class="f13" align="center">
 		    						<?php if($completed==0){ ?>
-		    							<textarea rows="1" name="offer<?php echo $x; ?>_2" class="sel-des emphasis" ></textarea>
+		    							<textarea rows="1" name="offer<?php echo $x; ?>_2" class="sel-des emphasis"><?php echo $item['offer']; ?></textarea>
 		    						<?php } else {
 		    							echo $item['offer'];
 		    						} ?>

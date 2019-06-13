@@ -86,40 +86,77 @@
 
     </style>
     <!-- Modal -->
-	<div class="modal fade" id="add-pr" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">Add PR
+					<h5 class="modal-title" id="exampleModalLabel">Add 
 						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 						</button>
 					</h5>					
 				</div>
-				<form method="POST" action="<?php echo base_url(); ?>po/add_pr">
-					<div class="modal-body">
-						<div class="form-group">
-							<h5 class="nomarg">PR No:</h5>
-							<h5 class="nomarg"><b><input type="" class="form-control" name=""></b></h5>
-						</div>
-						<div class="form-group">
-							<h5 class="nomarg">Requestor:</h5>
-							<h5 class="nomarg"><b><input type="" class="form-control" name=""></b></h5>
-						</div>
-						<div class="form-group">
-							<h5 class="nomarg">Purpose:</h5>
-							<h5 class="nomarg"><b><input type="" class="form-control" name=""></b></h5>
-						</div>
+				<div class="modal-body">
+				<form method='POST' action="<?php echo base_url(); ?>po/add_rfd_purpose">
+				<div class="form-group">
+					<h5 class="nomarg">PR No:</h5>
+					<h5 class="nomarg"><b>
+						<input type='text' name='pr_no' class="form-control">
+					</b></h5>
+				</div>
+				<div class="form-group">
+					<h5 class="nomarg">Notes:</h5>
+					<h5 class="nomarg"><b>
+						<input type='text' name='notes' class="form-control">
+					</b></h5>
+				</div>
+				<div class="form-group">
+					<h5 class="nomarg">Requestor:</h5>
+					<h5 class="nomarg"><b>
+						 <select name='requested_by' class="form-control">
+                            <option value='' selected>-Select Employee-</option>
+                            <?php foreach($employee AS $emp){ ?>
+                                <option value="<?php echo $emp->employee_id; ?>">
+                                <?php echo $emp->employee_name; ?>
+                                </option>
+                            <?php }  ?> 
+                        </select>
+					</b></h5>
+				</div>
+				<div class="form-group">
+					<h5 class="nomarg">Purpose:</h5>
+					<h5 class="nomarg"><b>
+						<select name='purpose' class="form-control">
+                            <option value='' selected>-Select Purpose-</option>
+                            <?php foreach($purpose AS $purp){ ?>
+                                <option value="<?php echo $purp->purpose_id; ?>">
+                                <?php echo $purp->purpose_name; ?>
+                                </option>
+                            <?php }  ?> 
+                        </select>
+					</b></h5>
+				</div>
 
-						<div class="form-group">
-							<h5 class="nomarg">Enduse:</h5>
-							<h5 class="nomarg"><b><input type="" class="form-control" name=""></b></h5>
-						</div>
-						<input type="hidden" class="form-control" name="po_id" id="po_id">
-					</div>
-					<div class="modal-footer">
-					</div>
-				</form>
+				<div class="form-group">
+					<h5 class="nomarg">Enduse:</h5>
+					<h5 class="nomarg"><b>
+						 <select name='enduse' class="form-control">
+                            <option value='' selected>-Select End Use-</option>
+                            <?php foreach($enduse AS $end){ ?>
+                                <option value="<?php echo $end->enduse_id; ?>">
+                                <?php echo $end->enduse_name; ?>
+                                </option>
+                            <?php }  ?> 
+                        </select>
+					</b></h5>
+				</div>
+				
+				</div>
+				<div class="modal-footer">
+					<input type='hidden' name='po_id' value='<?php echo $po_id; ?>'>
+					<input type="submit" class="btn btn-primary btn-block" value="Save changes">
+				</div>
+			</form>
 			</div>
 		</div>
 	</div>
@@ -138,7 +175,7 @@
 						<?php if($saved==1){ ?>
 						<a  href='<?php echo base_url(); ?>po/revise_repeatpo/<?php echo $po_id; ?>' onclick="return confirm('Are you sure you want to revise PO?')" class="btn btn-info btn-md p-l-25 p-r-25"><span class="fa fa-pencil"></span> Revise <u><b>PO</b></u></a>
 						<a  onclick="printPage()" class="btn btn-warning btn-md p-l-25 p-r-25"><span class="fa fa-print"></span> Print <u><b>PO</b></u></a>
-						<a  href="<?php echo base_url(); ?>po/delivery_receipt/<?php echo $po_id; ?>" class="btn btn-warning btn-md p-l-25 p-r-25"><span class="fa fa-print"></span> Print <u><b>DR</b></u></a>
+						<a  href="<?php echo base_url(); ?>po/reporder_dr/<?php echo $po_id; ?>" class="btn btn-warning btn-md p-l-25 p-r-25"><span class="fa fa-print"></span> Print <u><b>DR</b></u></a>
 						<a  href="<?php echo base_url(); ?>po/rfd_prnt/<?php echo $po_id; ?>" class="btn btn-warning btn-md p-l-25 p-r-25"><span class="fa fa-print"></span> Print <u><b>RFD</b></u></a>
 					<?php } else { ?>
 						<input type='submit' class="btn btn-primary btn-md p-l-100 p-r-100" value="Save">	
@@ -292,7 +329,22 @@
 					    			<?php } ?>		
 
 					    		</tr> 
-					    		<?php 
+					    		<?php if($saved==0){ ?>
+					    		<tr>
+					    			<td colspan="" class="bor-right" align="center"><b></b></td>
+					    			<td colspan="" class="bor-right" align="center"><b></b></td>
+					    			<td colspan="" class="bor-right" align="center"><b></b></td>
+					    			<td colspan="<?php echo (($saved==1) ? '12' : '11'); ?>" class="bor-right" align="left">
+
+					    			<button type="button" data-toggle="modal" data-target="#exampleModal" class="btn btn-xs btn-primary" onclick="" >Add Purpose/ EndUse/ Requestor</button>
+					    			</td>
+					    			<td colspan="2" class="bor-right" align="center"><b></b></td>
+					    			<td colspan="3" class="bor-right" align="right"><b></b></td>
+					    			<?php if($saved==0){ ?>
+					    			<td colspan="" class="bor-right" align="center"><b></b></td>
+					    			<?php } ?>	
+					    		</tr>
+					    		<?php }
 					    		if(!empty($popr)){
 					    		foreach($popr AS $pr) { ?>
 					    		<tr>
@@ -303,7 +355,7 @@
 					    				<b>
 					    					<p class="f12 nomarg">Purpose: <?php echo $pr['purpose']; ?></p>
 					    					<p class="f12 nomarg">End Use:<?php echo $pr['enduse']; ?> </p>
-					    					<p class="f12 nomarg">PR No: <?php echo $pr['pr_no'] . " " . $pr['item_no']; ?></p>
+					    					<p class="f12 nomarg">PR No: <?php echo $pr['pr_no'] . " (" . $pr['notes'] .")"; ?></p>
 					    					<p class="f12 nomarg">Requestor:  <?php echo $pr['requestor']; ?></p>
 						    			</b>
 						    		</td>

@@ -1150,6 +1150,8 @@ class Po extends CI_Controller {
         $data['approved']=$this->super_model->select_column_where('employees', 'employee_name', 'employee_id',  $approved_id );
         $data['notes']=$this->super_model->select_column_where('po_head', 'notes', 'po_id', $po_id);
          $data['employee']=$this->super_model->select_all_order_by("employees", "employee_name", "ASC");
+        $data['enduse']=$this->super_model->select_all_order_by("enduse", "enduse_name", "ASC");
+        $data['purpose']=$this->super_model->select_all_order_by("purpose", "purpose_name", "ASC");
         foreach($this->super_model->select_row_where("po_head", "po_id", $po_id) AS $head){
             
             $data['head'][]=array(
@@ -1178,17 +1180,17 @@ class Po extends CI_Controller {
         }
 
         foreach($this->super_model->select_row_where("po_pr", "po_id", $po_id) AS $popr){
-            $item_no = "";
-            foreach($this->super_model->select_row_where("po_items", "po_pr_id", $popr->po_pr_id) AS $poitems){
+            //$item_no = "";
+           /* foreach($this->super_model->select_row_where("po_items", "po_pr_id", $popr->po_pr_id) AS $poitems){
                 $item_no.= $poitems->item_no. ", ";
             }
-            $it_no = "(items ". substr($item_no, 0, -2). ")";
+            $it_no = "(items ". substr($item_no, 0, -2). ")";*/
             $data['popr'][] = array(
                 'pr_no'=>$popr->pr_no,
                 'requestor'=>$this->super_model->select_column_where('employees', 'employee_name', 'employee_id', $popr->requested_by),
                 'enduse'=>$this->super_model->select_column_where('enduse', 'enduse_name', 'enduse_id', $popr->enduse_id),
                 'purpose'=>$this->super_model->select_column_where('purpose', 'purpose_name', 'purpose_id', $popr->purpose_id),
-                'item_no'=>$it_no,
+                'notes'=>$popr->notes,
             );
         }
 
@@ -1328,17 +1330,16 @@ class Po extends CI_Controller {
                   $item_no = $max_item_no+1;
               }
 
-                $pr_details = array(
+           /*     $pr_details = array(
                     'po_pr_id'=>$po_pr_id,
                     'po_id'=>$po_id,
                     'pr_no'=>$pr_no,
                     'requested_by'=>$this->super_model->select_column_where('po_pr', 'requested_by', 'po_pr_id',$pr_id),
                     'enduse_id'=>$this->super_model->select_column_where('po_pr', 'enduse_id', 'po_pr_id',$pr_id),
                     'purpose_id'=>$this->super_model->select_column_where('po_pr', 'purpose_id', 'po_pr_id',$pr_id)
-                );
-                 if($this->super_model->insert_into("po_pr", $pr_details)){
+                );*/
+                // if($this->super_model->insert_into("po_pr", $pr_details)){
                         $pr_items = array(
-                            'po_pr_id'=>$po_pr_id,
                             'po_id'=>$po_id,
                             'item_id'=>$item_id,
                             'offer'=>$offer,
@@ -1348,7 +1349,7 @@ class Po extends CI_Controller {
                             'source_poid'=>$old_po,
                         );
                         $this->super_model->insert_into("po_items", $pr_items);
-                 }
+               //  }
             } else {
                  $item_no_count = $this->super_model->count_custom_where("po_items","po_id= '$po_id'");
               if($item_no_count==0){
@@ -1445,6 +1446,62 @@ class Po extends CI_Controller {
         $this->load->view('po/done_po',$data);
         $this->load->view('template/footer');
     }
+
+     public function add_rfd_purpose(){
+        $po_id = $this->input->post('po_id');
+        $data= array(
+            'po_id'=>$po_id,
+            'pr_no'=>$this->input->post('pr_no'),
+            'purpose_id'=>$this->input->post('purpose'),
+            'requested_by'=>$this->input->post('requested_by'),
+            'enduse_id'=>$this->input->post('enduse'),
+            'notes'=>$this->input->post('notes')
+        );
+        if($this->super_model->insert_into("po_pr", $data)){
+            redirect(base_url().'po/reporder_prnt/'.$po_id, 'refresh');
+        }
+
+    }
+
+    public function reporder_dr(){
+        $po_id=$this->uri->segment(3);
+      
+        $data['po_id']=$po_id;
+        $supplierid=$this->super_model->select_column_where('po_head','supplier_id','po_id',$po_id);
+        $data['head'] =  $this->super_model->select_row_where('dr_head', 'po_id', $po_id);
+     /*   $data['employee']=$this->super_model->select_all_order_by("employees", "employee_name", "ASC");
+        $data['enduse']=$this->super_model->select_all_order_by("enduse", "enduse_name", "ASC");
+        $data['purpose']=$this->super_model->select_all_order_by("purpose", "purpose_name", "ASC");*/
+
+        foreach($this->super_model->select_row_where("po_pr", "po_id", $po_id) AS $drdet){
+          
+            $data['drpurp'][]= array(
+                'pr_no'=>$drdet->pr_no,
+                'notes'=>$drdet->notes,
+                'purpose'=>$this->super_model->select_column_where('purpose','purpose_name','purpose_id', $drdet->purpose_id),
+                'enduse'=>$this->super_model->select_column_where('enduse','enduse_name','enduse_id', $drdet->enduse_id),
+                'requestor'=>$this->super_model->select_column_where('employees','employee_name','employee_id', $drdet->requested_by)
+            );
+        }
+
+        foreach($this->super_model->select_row_where("po_items", "po_id", $po_id) AS $dritems){
+            $unit_id = $this->super_model->select_column_where('item','unit_id','item_id', $dritems->item_id);
+            $data['items'][]= array(
+                'supplier'=>$this->super_model->select_column_where('vendor_head','vendor_name','vendor_id',$supplierid),
+                'item'=>$this->super_model->select_column_where('item','item_name','item_id', $dritems->item_id),
+                'specs'=>$this->super_model->select_column_where('item','item_specs','item_id', $dritems->item_id),
+                'unit'=>$this->super_model->select_column_where('unit','unit_name','unit_id', $unit_id),
+                'delivered'=>$dritems->quantity,
+            );
+        }
+
+
+
+        $this->load->view('template/header');
+        $this->load->view('po/reporder_dr',$data);
+        $this->load->view('template/footer');
+    }
+
 }
 
 ?>

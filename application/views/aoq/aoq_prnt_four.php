@@ -233,7 +233,7 @@
 		    			<td colspan="4" class="f12" align="right">Department: &nbsp;</td>
 		    			<td colspan="13" class="f12" ><?php echo $h['department']; ?></td>		    			
 		    			<td colspan="3" class="f12" align="right">Date: &nbsp;</td>
-		    			<td colspan="13" class="f12" ><?php echo date('F j, Y', strtotime($h['aoq_date'])); ?></td>
+		    			<td colspan="13" class="f12" ><?php echo (!empty($h['aoq_date']) ? date('F j, Y', strtotime($h['aoq_date'])) : ''); ?></td>
 		    		</tr>	
 		    		<tr>
 		    			<td colspan="4" class="f12" align="right">Purpose: &nbsp;</td>
@@ -245,7 +245,7 @@
 		    			<td colspan="4" class="f12" align="right">Enduse: &nbsp;</td>
 		    			<td colspan="13" class="f12" ><?php echo $h['enduse']; ?></td>		    			
 		    			<td colspan="3"class="f12" align="right">Date Needed: &nbsp;</td>
-		    			<td colspan="13" class="f12" ><?php echo date('F j, Y', strtotime($h['date_needed'])); ?></td>
+		    			<td colspan="13" class="f12" ><?php echo (!empty($h['date_needed']) ? date('F j, Y', strtotime($h['date_needed'])) : ''); ?></td>
 		    		</tr>	
 		    		<tr>
 		    			<td colspan="4" class="f12"  align="right">Requested by: &nbsp;</td>
