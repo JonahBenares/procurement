@@ -41,6 +41,11 @@
                                 <span class="indicator-right-menu mini-dn"><i class="fa indicator-mn fa-angle-left"></i></span>
                             </a>
                             <div role="menu" class="dropdown-menu left-menu-dropdown animated flipInX p-t-0">
+                                <a href="<?php echo base_url(); ?>index.php/pr/pr_list"  role="button" class="nav-link dropdown-toggle" title="Request">
+                                    <i class="fa big-icon fa-file-o"></i>
+                                    <span class="mini-dn">Purchase Request</span> 
+                                    <span class="indicator-right-menu mini-dn"></span>
+                                </a>
                                 <a href="<?php echo base_url(); ?>index.php/rfq/rfq_list"  role="button" class="nav-link dropdown-toggle" title="Request for Quotation">
                                     <i class="fa big-icon fa-pencil-square-o"></i>
                                     <span class="mini-dn">Request For Quotation</span> 
