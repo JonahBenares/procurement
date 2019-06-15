@@ -26,7 +26,11 @@ $(document).on("click", ".duplicateRFQ", function () {
      $(".modal #rfq_id").val(rfq_id);
   
 });
-
+$(document).on("click", ".reviseRFQ", function () {
+     var rfq_id = $(this).data('id');
+     $(".modal #rfq_id").val(rfq_id);
+  
+});
   function toggle_multi(source) {
       checkboxes_multi = document.getElementsByClassName('rfq_list');
       for(var i=0, n=checkboxes_multi.length;i<n;i++) {
@@ -48,6 +52,31 @@ $(document).on("click", ".duplicateRFQ", function () {
                     <div class="modal-body-lowpad">
                         <div class="form-group">
                             <p class="m-b-0">Reason for Cancelling RFQ:</p>
+                            <textarea name="reason" class="form-control"></textarea>
+                        </div>
+                        <center>       
+                            <input type = "hidden" id='rfq_id' name='rfq_id' >                 
+                            <input type = "submit" class="btn btn-custon-three btn-primary btn-block" value = "Save">
+                        </center>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="reviseRFQ" class="modal modal-adminpro-general default-popup-PrimaryModal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header header-color-modal bg-color-1">
+                    <h4 class="modal-title">Revise RFQ</h4>
+                    <div class="modal-close-area modal-close-df">
+                        <a class="close" data-dismiss="modal" href="#"><i class="fa fa-close"></i></a>
+                    </div>
+                </div>
+                <form method="POST" action = "<?php echo base_url();?>rfq/revise_rfq">
+                    <div class="modal-body-lowpad">
+                        <div class="form-group">
+                            <p class="m-b-0">Reason for Revising RFQ:</p>
                             <textarea name="reason" class="form-control"></textarea>
                         </div>
                         <center>       
@@ -181,9 +210,14 @@ $(document).on("click", ".duplicateRFQ", function () {
                                                     <a href="javascript:void(0)" onclick="incomingRfq('<?php echo base_url(); ?>','<?php echo $li['rfq_id']; ?>')" class="btn btn-custon-three btn-warning btn-xs">
                                                         <span class="fa fa-eye"></span>
                                                     </a>
+                                                     <?php if($li['completed']==1){ ?>
                                                      <a class="duplicateRFQ btn btn-custon-three btn-info btn-xs" title="Duplicate" data-toggle="modal" data-target="#duplicateRFQ" data-id="<?php echo $li['rfq_id']; ?>">
                                                         <span class="fa fa-files-o"></span>
                                                     </a>
+                                                      <a class="reviseRFQ btn btn-custon-three btn-secondary btn-xs" title="Revise" data-toggle="modal" data-target="#reviseRFQ" data-id="<?php echo $li['rfq_id']; ?>">
+                                                        <span class="fa fa-pencil"></span>
+                                                    </a>
+                                                    <?php } ?>
                                                      <a class="cancelRFQ btn btn-custon-three btn-danger btn-xs" data-toggle="modal" data-target="#cancelRFQ" data-id="<?php echo $li['rfq_id']; ?>"><span class="fa fa-ban" title="Cancel"></span></a>
 
                                                     <a href="<?php echo base_url(); ?>rfq/update_served/<?php echo $li['rfq_id']?>" class="btn btn-custon-three btn-success btn-xs" onclick="return confirm('Are you sure?')" title="Served"><span class=" fa fa-archive"></span>
