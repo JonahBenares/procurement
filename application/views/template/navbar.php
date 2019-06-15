@@ -81,34 +81,44 @@
                                 <span class="indicator-right-menu mini-dn"><i class="fa indicator-mn fa-angle-left"></i></span>
                             </a>
                             <div role="menu" class="dropdown-menu left-menu-dropdown animated flipInX p-t-0">
-                                <a href="<?php echo base_url(); ?>index.php/jor/jor_list"  role="button" class="nav-link dropdown-toggle" title="Job Order Request">
-                                    <i class="fa big-icon fa-pencil-square-o"></i>
+                                <a href="<?php echo base_url(); ?>index.php/jo_jor/jor_list"  role="button" class="nav-link dropdown-toggle" title="Job Order Request">
+                                    <i class="fa big-icon fa-file-o"></i>
                                     <span class="mini-dn">Job Order Request</span> 
                                     <span class="indicator-right-menu mini-dn"></span>
                                 </a>
-                                <a href="<?php echo base_url(); ?>index.php/rfq/rfq_list"  role="button" class="nav-link dropdown-toggle" title="Request for Quotation">
+                                <a href="<?php echo base_url(); ?>index.php/jo_rfq/rfq_list"  role="button" class="nav-link dropdown-toggle" title="Request for Quotation">
                                     <i class="fa big-icon fa-pencil-square-o"></i>
                                     <span class="mini-dn">Request For Quotation</span> 
                                     <span class="indicator-right-menu mini-dn"></span>
                                 </a>
-                                <a href="<?php echo base_url(); ?>index.php/aoq/aoq_list"  role="button" class="nav-link dropdown-toggle" title="Abstract of Quotation">
+                                <a href="<?php echo base_url(); ?>index.php/jo_aoq/aoq_list"  role="button" class="nav-link dropdown-toggle" title="Abstract of Quotation">
                                     <i class="fa big-icon fa-folder"></i>
                                     <span class="mini-dn">Abstract of Quotation</span> 
                                     <span class="indicator-right-menu mini-dn"></span>
                                 </a>
-                                <a href="<?php echo base_url(); ?>index.php/po/po_list"  role="button" class="nav-link dropdown-toggle" title="Purchase Order">
+                                <a href="<?php echo base_url(); ?>index.php/jo_jo/jo_list"  role="button" class="nav-link dropdown-toggle" title="Job Order">
+                                    <i class="fa big-icon fa-file-text"></i>
+                                    <span class="mini-dn"> Job Order</span> 
+                                    <span class="indicator-right-menu mini-dn"></span>
+                                </a>
+                                <a href="<?php echo base_url(); ?>index.php/jo_po/po_list"  role="button" class="nav-link dropdown-toggle" title="Purchase Order">
                                     <i class="fa big-icon fa-shopping-cart"></i>
                                     <span class="mini-dn">Purchase Order</span> 
                                     <span class="indicator-right-menu mini-dn"></span>
                                 </a>
-                                <a href="<?php echo base_url(); ?>index.php/rfdis/rfdis_list"  role="button" class="nav-link dropdown-toggle" title="Request for Disbursement">
+                                <a href="<?php echo base_url(); ?>index.php/jo_rfdis/rfdis_list"  role="button" class="nav-link dropdown-toggle" title="Request for Disbursement">
                                     <i class="fa big-icon fa-list-alt "></i>
                                     <span class="mini-dn">Request for Disbursement</span> 
                                     <span class="indicator-right-menu mini-dn"></span>
                                 </a>
-                                <a href="<?php echo base_url(); ?>index.php/dr/dr_list"  role="button" class="nav-link dropdown-toggle" title="Delivery Receipt">
+                                <a href="<?php echo base_url(); ?>index.php/jo_dr/dr_list"  role="button" class="nav-link dropdown-toggle" title="Delivery Receipt">
                                     <i class="fa big-icon fa-truck "></i>
                                     <span class="mini-dn">Delivery Receipt</span> 
+                                    <span class="indicator-right-menu mini-dn"></span>
+                                </a>
+                                <a href="<?php echo base_url(); ?>index.php/jo_ar/ar_list"  role="button" class="nav-link dropdown-toggle" title="Acknowledgement Receipt">
+                                    <i class="fa big-icon fa-clipboard"></i>
+                                    <span class="mini-dn">Acknowledgement Receipt</span> 
                                     <span class="indicator-right-menu mini-dn"></span>
                                 </a>
                             </div>
