@@ -12,7 +12,7 @@
                         <div class="sparkline8-graph">
                             <div class="datatable-dashv1-list custom-datatable-overright">
                                 <h4>PR Add Item</h4>
-                                <form>
+                                <form method="POST" action = "<?php echo base_url();?>pr/insert_items">
                                     <table class="table table-bordered table-hover">
                                         <thead>
                                             <tr>
@@ -22,119 +22,26 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            <?php $z=1; for($x=1;$x<=10;$x++){ ?>
                                             <tr>
-                                                <td style="padding-bottom: 1px!important">1</td>
+                                                <td style="padding-bottom: 1px!important"><?php echo $z; ?></td>
                                                 <td style="padding: 0px!important">
-                                                    <select class="form-control">
-                                                        <option>item name</option>
+                                                    <select class="form-control" name = "item<?php echo $x; ?>">
+                                                        <option value = ''>--Select Item--</option>
+                                                        <?php foreach($item AS $i){ ?>
+                                                        <option value = "<?php echo $i->item_id;?>"><?php echo $i->item_name; ?></option>
+                                                        <?php } ?>
                                                     </select>
                                                 </td>
                                                 <td style="padding: 0px!important">
-                                                    <input type="number" name="" class="form-control">
+                                                    <input type="number" name="qty<?php echo $x; ?>" class="form-control">
                                                 </td>
                                             </tr> 
-                                            <tr>
-                                                <td style="padding-bottom: 1px!important">2</td>
-                                                <td style="padding: 0px!important">
-                                                    <select class="form-control">
-                                                        <option>item name</option>
-                                                    </select>
-                                                </td>
-                                                <td style="padding: 0px!important">
-                                                    <input type="number" name="" class="form-control">
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td style="padding-bottom: 1px!important">3</td>
-                                                <td style="padding: 0px!important">
-                                                    <select class="form-control">
-                                                        <option>item name</option>
-                                                    </select>
-                                                </td>
-                                                <td style="padding: 0px!important">
-                                                    <input type="number" name="" class="form-control">
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td style="padding-bottom: 1px!important">4</td>
-                                                <td style="padding: 0px!important">
-                                                    <select class="form-control">
-                                                        <option>item name</option>
-                                                    </select>
-                                                </td>
-                                                <td style="padding: 0px!important">
-                                                    <input type="number" name="" class="form-control">
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td style="padding-bottom: 1px!important">5</td>
-                                                <td style="padding: 0px!important">
-                                                    <select class="form-control">
-                                                        <option>item name</option>
-                                                    </select>
-                                                </td>
-                                                <td style="padding: 0px!important">
-                                                    <input type="number" name="" class="form-control">
-                                                </td>
-                                            </tr> 
-                                            <tr>
-                                                <td style="padding-bottom: 1px!important">6</td>
-                                                <td style="padding: 0px!important">
-                                                    <select class="form-control">
-                                                        <option>item name</option>
-                                                    </select>
-                                                </td>
-                                                <td style="padding: 0px!important">
-                                                    <input type="number" name="" class="form-control">
-                                                </td>
-                                            </tr> 
-                                            <tr>
-                                                <td style="padding-bottom: 1px!important">7</td>
-                                                <td style="padding: 0px!important">
-                                                    <select class="form-control">
-                                                        <option>item name</option>
-                                                    </select>
-                                                </td>
-                                                <td style="padding: 0px!important">
-                                                    <input type="number" name="" class="form-control">
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td style="padding-bottom: 1px!important">8</td>
-                                                <td style="padding: 0px!important">
-                                                    <select class="form-control">
-                                                        <option>item name</option>
-                                                    </select>
-                                                </td>
-                                                <td style="padding: 0px!important">
-                                                    <input type="number" name="" class="form-control">
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td style="padding-bottom: 1px!important">9</td>
-                                                <td style="padding: 0px!important">
-                                                    <select class="form-control">
-                                                        <option>item name</option>
-                                                    </select>
-                                                </td>
-                                                <td style="padding: 0px!important">
-                                                    <input type="number" name="" class="form-control">
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td style="padding-bottom: 1px!important">10</td>
-                                                <td style="padding: 0px!important">
-                                                    <select class="form-control">
-                                                        <option>item name</option>
-                                                    </select>
-                                                </td>
-                                                <td style="padding: 0px!important">
-                                                    <input type="number" name="" class="form-control">
-                                                </td>
-                                            </tr>            
+                                            <?php $z++; } ?>       
                                         </tbody>
                                     </table>
-                                    <button class="btn btn-primary btn-block">Save</button>
+                                    <input type="hidden" name="pr_id" value="<?php echo $pr_id;?>" class="form-control"> 
+                                    <button class="btn btn-primary btn-block" type = "submit">Save</button>
                                 </form>
                             </div>
                         </div>   
