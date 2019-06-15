@@ -33,20 +33,42 @@
     </div>
     <div class="admin-dashone-data-table-area">
         <div class="container-fluid">
-             <form name="myform" action="<?php echo base_url(); ?>index.php/aoq/add_aoq" method="post">
+             <form name="myform" action="<?php echo base_url(); ?>index.php/pr/saved_pr" method="post">
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="sparkline8-list shadow-reset">
                             <div class="sparkline8-hd p-b-0" >
                                 <div class="main-sparkline8-hd">
-                                    <h1>PR No: <b>PR-IT1001-2019</b> </h1>
-                                    <h5>Date: June 21, 1990</h5>                                     
+                                    <?php foreach($head AS $h){ ?>
+                                    <h1>PR No: <b><?php echo $h['pr_no']; ?></b> </h1>
+                                    <h5>Date: <?php echo $h['pr_date']; ?></h5> 
+                                    <div class = "row">
+                                        <div class = "col-lg-4">
+                                            <label> Attachment 1: </label>
+                                            <div class="thumbnail">
+                                                <a href='uploads/<?php echo $h['pr_attach1']; ?>' id = "cert_href1" class='display' ><?php echo $h['pr_attach1']; ?></a>
+                                                <!-- <img id="pic1" class="pictures" src="<?php echo (empty($h['pr_attach1']) ? base_url().'assets/default/default-img.jpg' : base_url().'uploads/'.$h['pr_attach1']); ?>" alt="your image" /> -->
+                                            </div>
+                                        </div>
+                                        <div class = "col-lg-4">
+                                            <label> Attachment 2: </label>
+                                            <div class="thumbnail">
+                                                <a href='uploads/<?php echo $h['pr_attach2']; ?>' id = "cert_href2" class='display' ><?php echo $h['pr_attach2']; ?></a>
+                                                <!-- <img id="pic1" class="pictures" src="<?php echo (empty($h['pr_attach2']) ? base_url().'assets/img/default-img.jpg' : base_url().'uploads/'.$h['pr_attach2']); ?>" alt="your image" /> -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <?php } ?>                                
                                     <div class="sparkline8-outline-icon">
-                                        <a type='button' class="btn btn-custon-three btn-primary" onclick="prAdditem('<?php echo base_url(); ?>')"> 
-                                            <span class="fa fa-plus p-l-0"></span> Add Item
-                                        </a>
+                                        <?php if($saved==0 && $cancelled==0){ ?>
+                                            <a type='button' class="btn btn-custon-three btn-primary" onclick="prAdditem('<?php echo base_url(); ?>','<?php echo $pr_id; ?>')"> 
+                                                <span class="fa fa-plus p-l-0"></span> Add Item
+                                            </a>
+                                        <?php } ?>
                                         <!-- if cancel ang item -->
-                                        <a readonly class="btn btn-danger">Cancelled</a>
+                                        <?php if($cancelled==1){ ?>
+                                            <a readonly class="btn btn-danger">Cancelled</a>
+                                        <?php } ?>
                                     </div>
                                 </div>
                             </div>                       
@@ -58,25 +80,34 @@
                                                 <tr>
                                                     <th>Item Name</th>
                                                     <th>Qty</th>
+                                                    <?php if($saved==0 && $cancelled==0){ ?>
                                                     <th width="5%"><center><span class="fa fa-bars"></span></center></th>
+                                                    <?php }?>
                                                 </tr>
                                             </thead>
-                                            <tbody>                                        
+                                            <tbody>    
+                                                <?php foreach($details AS $d){ ?>                                    
                                                 <tr>
-                                                    <td>das</td>
-                                                    <td>asda</td>
+                                                    <td><?php echo $d['item'];?></td>
+                                                    <td><?php echo $d['qty'];?></td>
+                                                    <?php if($saved==0 && $cancelled==0){ ?>
                                                     <td>
                                                         <center>
-                                                            <a href="" class="btn btn-custon-three btn-danger btn-xs">
-                                                            <span class="fa fa-times"></span>
+                                                            <a href="<?php echo base_url(); ?>index.php/pr/delete_item/<?php echo $d['pr_details_id'];?>/<?php echo $pr_id; ?>" class="btn btn-custon-three btn-danger btn-xs">
+                                                                <span class="fa fa-times"></span>
                                                             </a>
                                                         </center>
                                                     </td>
-                                                </tr>                       
+                                                    <?php } ?>
+                                                </tr> 
+                                                <?php } ?>                      
                                             </tbody>
                                         </table>
-                                    </div>                      
-                                    <center><button class="btn btn-custon-three btn-primary btn-block ">Save PR</button></center>
+                                    </div>  
+                                    <input type="hidden" name="pr_id" value = '<?php echo $pr_id; ?>'>
+                                    <?php if($saved==0 && $cancelled==0){ ?>                    
+                                        <center><button class="btn btn-custon-three btn-primary btn-block ">Save PR</button></center>
+                                    <?php } ?>
                                 </form>     
                             </div>
                         </div>

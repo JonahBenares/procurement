@@ -54,17 +54,22 @@
                                         </tr>
                                     </thead>
                                     <tbody>                                        
+                                        <?php 
+                                            foreach($pr_head AS $p){ 
+                                                if($p->cancelled==1){
+                                        ?>                                       
                                         <tr>
-                                            <td>das</td>
-                                            <td>asda</td>
+                                            <td><?php echo $p->pr_no; ?></td>
+                                            <td><?php echo $p->pr_date; ?></td>
                                             <td>
                                                 <center>
-                                                    <a href="<?php echo base_url(); ?>pr/purchase_request" class="btn btn-custon-three btn-warning btn-xs">
+                                                    <a href="<?php echo base_url(); ?>pr/purchase_request/<?php echo $p->pr_id; ?>" class="btn btn-custon-three btn-warning btn-xs">
                                                     <span class="fa fa-eye"></span>
                                                     </a>
                                                 </center>
                                             </td>
-                                        </tr>                       
+                                        </tr>
+                                        <?php } } ?>                        
                                     </tbody>
                                 </table>
                             </div>                           

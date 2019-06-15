@@ -35,19 +35,27 @@
                         <a class="close" data-dismiss="modal" href="#"><i class="fa fa-close"></i></a>
                     </div>
                 </div>
-                <form method="POST" action = "<?php echo base_url();?>">
+                <form method="POST" action = "<?php echo base_url();?>pr/insert_pr" enctype="multipart/form-data">
                     <div class="modal-body-lowpad">
                         <div class="form-group">
                             <p class="m-b-0">PR No.:</p>
-                            <input type="text" name="dr_date" class="form-control">
+                            <input type="text" name="pr_no" class="form-control">
                         </div>
                         <div class="form-group">
                             <p class="m-b-0">Date Received:</p>
-                            <input type="date" name="dr_date" class="form-control">
+                            <input type="date" name="date_rec" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <p class="m-b-0">Attachment 1:</p>
+                            <input type="file" name="pic1">
+                        </div>
+                        <div class="form-group">
+                            <p class="m-b-0">Attachment 2:</p>
+                            <input type="file" name="pic2">
                         </div>
                         <center>                           
                             <input type = "submit" class="btn btn-custon-three btn-primary btn-block" value = "Proceed">
-                            <a href="<?php echo base_url(); ?>index.php/pr/purchase_request">Proceed</a>
+                           <!--  <a href="<?php echo base_url(); ?>index.php/pr/purchase_request">Proceed</a> -->
                         </center>
                     </div>
                 </form>
@@ -82,18 +90,26 @@
                                                 <th><center><span class="fa fa-bars"></span></center></th>
                                             </tr>
                                         </thead>
-                                        <tbody>                                        
+                                        <tbody> 
+                                            <?php 
+                                                foreach($pr_head AS $p){ 
+                                                    if($p->cancelled==0){
+                                            ?>                                       
                                             <tr>
-                                                <td>das</td>
-                                                <td>asda</td>
+                                                <td><?php echo $p->pr_no; ?></td>
+                                                <td><?php echo $p->pr_date; ?></td>
                                                 <td>
                                                     <center>
-                                                        <a href="<?php echo base_url(); ?>pr/purchase_request" class="btn btn-custon-three btn-warning btn-xs">
+                                                        <a href="<?php echo base_url(); ?>pr/purchase_request/<?php echo $p->pr_id; ?>" class="btn btn-custon-three btn-warning btn-xs">
                                                         <span class="fa fa-eye"></span>
+                                                        </a>
+                                                        <a href="<?php echo base_url(); ?>pr/cancel_pr/<?php echo $p->pr_id; ?>" class="btn btn-custon-three btn-danger btn-xs">
+                                                            <span class="p-l-0 fa fa-ban"></span>
                                                         </a>
                                                     </center>
                                                 </td>
-                                            </tr>                       
+                                            </tr>
+                                            <?php } } ?>                       
                                         </tbody>
                                     </table>
                                 </div>                           
