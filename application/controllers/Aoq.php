@@ -361,6 +361,7 @@ class Aoq extends CI_Controller {
 		    		$price = $reco[2];
 		    		$qty = $reco[3];
 		    		$offer = $reco[4];
+		    		$rfq_detail_id = $reco[5];
 
 		    		$data = array(
 		    			'supplier_id'=>$supplier,
@@ -370,7 +371,8 @@ class Aoq extends CI_Controller {
 		    			'unit_price'=>$price,
 		    			'offer'=>$offer,
 		    			'quantity'=>$qty,
-		    			'balance'=>$qty
+		    			'balance'=>$qty,
+		    			'rfq_detail_id'=>$rfq_detail_id
 		    		);
 	    	
 	    			$this->super_model->insert_into("aoq_reco", $data);

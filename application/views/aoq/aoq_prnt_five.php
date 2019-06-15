@@ -364,7 +364,7 @@
 					    						<?php echo number_format($allrfq->unit_price,2); ?>
 					    						<br>	
 					    						<?php if($saved=='1' && $completed==0){ ?>
-				    							<input type="radio" name="reco<?php echo $a . "_".$c; ?>" value='<?php echo $sup['supplier_id']."_".$it['item_id']."_".$allrfq->unit_price."_".$it['qty']."_".$allrfq->offer ; ?>' >
+				    							<input type="radio" name="reco<?php echo $a . "_".$c; ?>" value='<?php echo $sup['supplier_id']."_".$it['item_id']."_".$allrfq->unit_price."_".$it['qty']."_".$allrfq->offer."_".$allrfq->rfq_detail_id ; ?>' >
 				    							<?php } ?>
 					    					</td>
 					    					<td colspan="2" class="bor-btm bor-right <?php echo (($reco_supplier == $sup['supplier_id'] && $reco_offer == $allrfq->offer) ? ' green-back' : ''); ?> " align="center"><?php echo number_format($amount,2); ?></td>
