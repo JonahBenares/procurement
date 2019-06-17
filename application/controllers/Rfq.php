@@ -111,10 +111,12 @@ class Rfq extends CI_Controller {
 	 		$data['approved_by']=$head->approved_by;
 	 		$noted=$this->super_model->select_column_where('employees','employee_name','employee_id', $head->noted_by); 
 	 		$approved=$this->super_model->select_column_where('employees','employee_name','employee_id', $head->approved_by);
+	 		$data['pr']=$this->super_model->select_custom_where("pr_head", "cancelled='0'");
+	 		$pr_no=$this->super_model->select_column_where('pr_head','pr_no','pr_id', $head->pr_id);
 	 		$data['head'][] = array(
 	 			'due_date'=>$head->due_date,
 	 			'rfq_date'=>$head->rfq_date,
-	 			'pr_no'=>$head->pr_no,
+	 			'pr_no'=>$pr_no,
 	 			'notes'=>$head->notes,
 	 			'rfq_no'=>$head->rfq_no,
 	 			'supplier'=>$this->super_model->select_column_where('vendor_head','vendor_name','vendor_id', $head->supplier_id),
@@ -143,7 +145,7 @@ class Rfq extends CI_Controller {
     public function save_rfq(){
     	$rfq_id = $this->input->post('rfq_id');
     	$data = array(
-    		'pr_no'=>$this->input->post('pr_no'),
+    		'pr_id'=>$this->input->post('pr_no'),
     		'notes'=>$this->input->post('notes'),
     		'due_date'=>$this->input->post('due_date'),
     		'noted_by'=>$this->input->post('noted'),
@@ -161,10 +163,10 @@ class Rfq extends CI_Controller {
 		$data =array();
 		foreach($this->super_model->select_custom_where("rfq_head", "saved='1' AND cancelled ='0' ORDER BY rfq_id DESC") AS $rfq){
 			$supplier = $this->super_model->select_column_where('vendor_head','vendor_name','vendor_id', $rfq->supplier_id);
-
+			$pr_no=$this->super_model->select_column_where('pr_head','pr_no','pr_id', $rfq->pr_id);
 			$data['list'][] = array(
 				'rfq_id'=>$rfq->rfq_id,
-				'pr_no'=>$rfq->pr_no,
+				'pr_no'=>$pr_no,
 				'rfq_no'=>$rfq->rfq_no,
 				'rfq_date'=>$rfq->rfq_date,
 				'notes'=>$rfq->notes,
@@ -243,11 +245,12 @@ class Rfq extends CI_Controller {
 	 		$noted=$this->super_model->select_column_where('employees','employee_name','employee_id', $head->noted_by); 
 	 		$approved=$this->super_model->select_column_where('employees','employee_name','employee_id', $head->approved_by);
 	 		$prepared=$this->super_model->select_column_where('users','fullname','user_id', $head->prepared_by);
+	 		$pr_no=$this->super_model->select_column_where('pr_head','pr_no','pr_id', $head->pr_id);
 	 		$data['head'][] = array(
 	 			'due_date'=>$head->due_date,
 	 			'rfq_date'=>$head->rfq_date,
 	 			'rfq_no'=>$head->rfq_no,
-	 			'pr_no'=>$head->pr_no,
+	 			'pr_no'=>$pr_no,
 	 			'notes'=>$head->notes,
 	 			'supplier'=>$this->super_model->select_column_where('vendor_head','vendor_name','vendor_id', $head->supplier_id),
 	 			'phone'=>$this->super_model->select_column_where('vendor_head','phone_number','vendor_id', $head->supplier_id),

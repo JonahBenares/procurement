@@ -25,7 +25,15 @@
                                                             <div class="col-lg-6">
                                                                 <div class="form-group">
                                                                     <p class="m-b-0">PR #:</p>
-                                                                    <input type="text" name="pr" class="form-control">
+                                                                    <!-- <input type="text" name="pr" class="form-control"> -->
+                                                                    <select name='pr' class="form-control">
+                                                                        <option value='' selected>-Select PR Number-</option>
+                                                                        <?php foreach($pr AS $p){ ?>
+                                                                            <option value="<?php echo $p->pr_id; ?>">
+                                                                            <?php echo $p->pr_no; ?>
+                                                                            </option>
+                                                                        <?php }  ?> 
+                                                                    </select>
                                                                 </div>
                                                             </div>
                                                         </div>                                                        

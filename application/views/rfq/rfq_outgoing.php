@@ -178,15 +178,25 @@
 		    			
 	    					<?php if($h['saved']==0){ ?>
 	    					<td class="f13" colspan="6">
-			    			 <input class="emphasis" type="text" name="pr_no" style='width:100%;border: 0px; border-bottom: 2px solid red' required value="<?php
+			    			 <!-- <input class="emphasis" type="text" name="pr_no" style='width:100%;border: 0px; border-bottom: 2px solid red' required value="<?php
 			    			 	echo (!empty($h['pr_no']) ? $h['pr_no'] :'');
-			    			 ?>">
+			    			 ?>"> -->
+				    			<select name='pr_no' class="emphasis" style='width:100%;border: 0px; border-bottom: 2px solid red' required>
+	                                <option value='' selected>-Select PR Number-</option>
+	                                <?php foreach($pr AS $p){ ?>
+	                                    <option value="<?php echo $p->pr_id; ?>" <?php echo (($h['pr_no'] == $p->pr_id) ? ' selected' : '');?>>
+	                                    <?php echo $p->pr_no; ?>
+	                                    </option>
+	                                <?php }  ?> 
+                            	</select>
 			    			</td>
 			    			 <?php } else { ?>
-			    			 <td class="f13 bor-btm" colspan="6"> <?php
-			    			 	echo (!empty($h['pr_no']) ? $h['pr_no'] :'');
-			    			 ?>	</td> <?php
-			    			  } ?>		    		
+			    			 <td class="f13 bor-btm" colspan="6"> 
+			    			 	<?php
+			    			 		echo (!empty($h['pr_no']) ? $h['pr_no'] :'');
+			    			 	?>
+			    			 </td> 
+			    			 <?php } ?>		    		
 		    		</tr>
 		    		<tr><td class="f13" colspan="20" align="center"></td></tr>	    		
 		    		<tr><td class="f13" colspan="20" align="center"><br></td></tr>	    		
