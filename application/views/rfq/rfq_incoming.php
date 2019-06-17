@@ -89,7 +89,17 @@
 			background-color: #ffe5e5!important;
 		}
     </style>    
-
+    <script type="text/javascript">
+    	$(document).on("click", ".editbrp", function () {
+		     var detail_id = $(this).data('id');
+		     var offer = $(this).data('offer');
+		     var price = $(this).data('price');
+		     $(".modal #detail_id").val(detail_id);
+		     $(".modal #offer").val(offer);
+		     $(".modal #price").val(price);
+		  
+		});
+    </script>
 <!-- Modal -->
 	<div class="modal fade" id="editbrp" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog " role="document">
@@ -101,21 +111,23 @@
 						</button>
 					</h5>				
 				</div>
-				<form>
+				<form method='POST' action="<?php echo base_url(); ?>rfq/save_revision_rfq">
 					<div class="modal-body">
 						<div class="form-group">
 							<h5 style="margin: 0px">Brand/Offer:
-								<input type="text" name="" class="form-control">
+								<input type="text" name="offer" id='offer' class="form-control">
 							</h5>
 						</div>
 						<div class="form-group">
 							<h5 style="margin: 0px">Unit Price:
-								<input type="text" name="" class="form-control">
+								<input type="text" name="price" id='price' class="form-control">
 							</h5>
 						</div>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-info btn-block">Save changes</button>
+						<input type="hidden" name="detail_id" id='detail_id' class="form-control">
+						<input type="hidden" name="rfq_id" id='rfq_id' value="<?php echo $rfq_id; ?>">
+						<input type="submit" class="btn btn-info btn-block" value='Save changes'>
 					</div>
 				</form>
 			</div>
@@ -133,13 +145,15 @@
 						<?php } if($completed==0){ ?>
 						<a  href='<?php echo base_url(); ?>rfq/override_rfq/<?php echo $rfq_id; ?>' onclick="return confirm('Are you sure you want to override RFQ?')" class="btn btn-info btn-md p-l-25 p-r-25"><span class="fa fa-pencil"></span> Override <u><b>RFQ</b></u></a>
 						<input type='submit' class="btn btn-primary btn-md p-l-100 p-r-100" value="Save"> 	
+						<?php } if($revised==1){ ?>
+							<a  href='<?php echo base_url(); ?>rfq/save_revisions/<?php echo $rfq_id; ?>' onclick="return confirm('Are you sure you want to save revisions?')" class="btn btn-info btn-md p-l-25 p-r-25"> Save <b>Revisions</b></a>
 						<?php } ?>	
 					</div>
 					<h4 class="text-white"> <b>INCOMING</b> RFQ</h4>
 					<p class="text-white">Instructions: When printing REQUEST FOR QUOTATION make sure the following options are set correctly -- <u>Browser</u>: Chrome, <u>Layout</u>: Portrait, <u>Paper Size</u>: A4, <u>Margin</u> : Default, <u>Scale</u>: 100</p>
 				</center>
 			</div>
-	    	<div style="background: #fff;" class="cancel" <?php echo (($served == 1) ? 'class="served"' : ''); ?>>    		  			
+	    	<div style="background: #fff;" <?php echo (($cancelled == 1) ? 'class="cancel"' : ''); ?> <?php echo (($served == 1) ? 'class="served"' : ''); ?>>    		  			
 		    	<table class="table-bodrdered" width="100%" style="border:2px solid #000">
 		    		<tr>
 		    			<td width="5%"><br></td>
@@ -180,7 +194,7 @@
 		    			<td class="f13 bor-btm" colspan="8"><?php echo date('F j, Y', strtotime($h['rfq_date'])); ?></td>
 		    			<td class="f13" colspan="1"></td>
 		    			<td class="f13" colspan="3">RFQ No.:</td>
-		    			<td class="f13 bor-btm" colspan="6"><?php echo $h['rfq_no']; ?></td>
+		    			<td class="f13 bor-btm" colspan="6"><?php echo $h['rfq_no'] . (($revision_no==0) ? '' : '.r'.$revision_no); ?></td>
 		    		</tr>
 		    		<tr><td class="f13" colspan="20" align="center"></td></tr>
 		    		<tr>
@@ -209,7 +223,9 @@
 		    						<td class="f13" align="center"><b>Item Description</b></td>
 		    						<td class="f13" align="center"><b>Brand/Offer</b></td>
 		    						<td class="f13" align="center" width="20%"><b>Unit Price</b></td>
+		    						<?php if($revised==1){ ?>
 		    						<td class="f13 reco" align="center" width="5%"><b><span class="fa fa-bars"></span></b></td>
+		    						<?php } ?>
 		    					</tr>
 		    					<?php
 		    					$x=1; 
@@ -268,13 +284,17 @@
 		    						<td class="f13" style='width:40%' rowspan="<?php echo $com['row']; ?>"><?php echo $com['item']; ?></td>
 		    						<td class='f13' style='width:40%'><?php echo $com['offer']; ?></td>
 		    						<td class='f13' style='width:10%; text-align: center'><?php echo number_format($com['price'],2); ?></td>
-		    						<td class="f13 reco" align="center"><button type="button" data-toggle="modal" data-target="#editbrp" class="btn btn-xs btn-info"><span class="fa fa-pencil"></span></button></td>
+		    						<?php if($revised==1){ ?>
+		    							<td class="f13 reco" align="center"><button type="button" data-toggle="modal" data-target="#editbrp" class="btn btn-xs btn-info editbrp" data-offer="<?php echo $com['offer']; ?>" data-price="<?php echo $com['price']; ?>"  data-id="<?php echo $com['detail_id']; ?>"><span class="fa fa-pencil"></span></button></td>
+		    						<?php } ?>
 		    						</tr>
 		    						<?php $b++;	$c=$c+$com['row'];  } else { ?>
 		    							<tr>
 		    								<td class='f13' style='width:40%'><?php echo $com['offer']; ?></td>
 		    								<td class='f13' style='width:10%; text-align: center'><?php echo number_format($com['price'],2); ?></td>
-		    								<td class="f13 reco" align="center"><button type="button" data-toggle="modal" data-target="#editbrp" class="btn btn-xs btn-info"><span class="fa fa-pencil"></span></button></td>
+		    								<?php if($revised==1){ ?>
+		    								<td class="f13 reco" align="center"><button type="button" data-toggle="modal" data-target="#editbrp" class="btn btn-xs btn-info editbrp" data-offer="<?php echo $com['offer']; ?>" data-price="<?php echo $com['price']; ?>"  data-id="<?php echo $com['detail_id']; ?>"><span class="fa fa-pencil"></span></button></td>
+		    								<?php } ?>
 		    							</tr>
 
 		    						<?php } 

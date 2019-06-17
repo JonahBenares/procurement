@@ -241,6 +241,9 @@ class Rfq extends CI_Controller {
     	$data['rfq_id']=$rfq_id;
     	$data['completed'] = $this->super_model->select_column_where('rfq_head','completed','rfq_id', $rfq_id);
     	$data['served'] = $this->super_model->select_column_where('rfq_head','served','rfq_id', $rfq_id);
+    	$data['cancelled'] = $this->super_model->select_column_where('rfq_head','cancelled','rfq_id', $rfq_id);
+    	$data['revised'] = $this->super_model->select_column_where('rfq_head','revised','rfq_id', $rfq_id);
+    	$data['revision_no'] = $this->super_model->select_column_where('rfq_head','revision_no','rfq_id', $rfq_id);
 	 	foreach($this->super_model->select_row_where("rfq_head", "rfq_id", $rfq_id) AS $head){
 	 		$noted=$this->super_model->select_column_where('employees','employee_name','employee_id', $head->noted_by); 
 	 		$approved=$this->super_model->select_column_where('employees','employee_name','employee_id', $head->approved_by);
@@ -311,6 +314,15 @@ class Rfq extends CI_Controller {
         $this->load->view('rfq/rfq_incoming', $data);
         $this->load->view('template/footer');
     }
+
+
+ /*   public function save_revision_rfq(){
+    	$detail_id = $this->input->post('detail_id');
+    	$offer = $this->input->post('offer');
+    	$price = $this->input->post('price');
+
+    	
+    }*/
 
     public function complete_rfq(){
     	$rfq_id = $this->input->post('rfq_id');
@@ -403,10 +415,93 @@ class Rfq extends CI_Controller {
 
 
     public function cancelled_rfq(){
+    		$data =array();
+		foreach($this->super_model->select_custom_where("rfq_head", "saved='1' AND cancelled ='1' ORDER BY rfq_id DESC") AS $rfq){
+			$supplier = $this->super_model->select_column_where('vendor_head','vendor_name','vendor_id', $rfq->supplier_id);
+
+			$data['list'][] = array(
+				'rfq_id'=>$rfq->rfq_id,
+				'pr_no'=>$rfq->pr_no,
+				'rfq_no'=>$rfq->rfq_no,
+				'rfq_date'=>$rfq->rfq_date,
+				'notes'=>$rfq->notes,
+				'supplier'=>$supplier,
+				'completed'=>$rfq->completed,
+				'served'=>$rfq->served
+			);
+
+			foreach($this->super_model->select_custom_where_group("rfq_detail", "rfq_id ='$rfq->rfq_id'", "item_id") AS $it){
+				$item = $this->super_model->select_column_where('item','item_name','item_id', $it->item_id);
+				$specs = $this->super_model->select_column_where('item','item_specs','item_id', $it->item_id);
+				//$item_name .= $item. ", ";
+				$data['items'][] = array(
+					'rfq_id'=>$it->rfq_id,
+					'item_name'=>$item,
+					'specs'=>$specs
+				);
+			}
+
+		}
         $this->load->view('template/header');
         $this->load->view('template/navbar');
-        $this->load->view('rfq/cancelled_rfq');
+        $this->load->view('rfq/cancelled_rfq',$data);
         $this->load->view('template/footer');
+    }
+
+    public function revise_rfq(){
+		$rfq_id=$this->input->post('rfq_id');
+
+   		$revision_no = $this->super_model->get_max("rfq_head", "revision_no","rfq_id = '$rfq_id'");
+   		$new_rev_no = $revision_no+1;
+
+   		$update_head = array(
+   			'revised'=>1,
+   			'revision_no'=>$new_rev_no
+   		);
+   		$this->super_model->update_where("rfq_head", $update_head, "rfq_id", $rfq_id);
+
+    	foreach($this->super_model->select_row_where("rfq_head", "rfq_id", $rfq_id) AS $head){
+
+    		$rfq_head= array(
+    			'rfq_id'=>$rfq_id,
+    			'rfq_no'=>$head->rfq_no,
+    			'pr_no'=>$head->pr_no,
+    			'rfq_date'=>$head->rfq_date,
+    			'supplier_id'=>$head->supplier_id,
+    			'due_date'=>$head->due_date,
+    			'price_validity'=>$head->price_validity,
+    			'payment_terms'=>$head->payment_terms,
+    			'delivery_date'=>$head->delivery_date,
+    			'warranty'=>$head->warranty,
+    			'supplier_tin'=>$head->supplier_tin,
+    			'prepared_by'=>$head->prepared_by,
+    			'noted_by'=>$head->noted_by,
+    			'approved_by'=>$head->approved_by,
+    			'revision_no'=>$head->revision_no,
+    			'revise_reason'=>$this->input->post('reason'),
+    			'saved'=>1,
+    			'completed'=>1
+
+    		);
+
+    		$this->super_model->insert_into("revised_rfq_head", $rfq_head);
+
+    	}
+
+    	foreach($this->super_model->select_row_where("rfq_detail", "rfq_id", $rfq_id) AS $det){
+    		 $detail = array(
+    		 	'rfq_id'=>$rfq_id,
+    		 	'item_id'=>$det->item_id,
+    		 	'unit_id'=>$det->unit_id,
+    		 	'offer'=>$det->offer,
+    		 	'unit_price'=>$det->unit_price,
+
+    		 );
+    		 $this->super_model->insert_into("revised_rfq_detail", $detail);
+    	}
+
+    	redirect(base_url().'rfq/rfq_incoming/'.$rfq_id);
+
     }
 
     public function duplicate_rfq(){
@@ -492,6 +587,37 @@ class Rfq extends CI_Controller {
     	}
 
     	   redirect(base_url().'rfq/rfq_list/', 'refresh');
+
+    }
+
+    public function save_revision_rfq(){
+    	$rfq_id = $this->input->post('rfq_id');
+    	$detail_id = $this->input->post('detail_id');
+    	$offer = $this->input->post('offer');
+    	$price = $this->input->post('price');
+
+    	$data=array(
+    		'offer'=>$offer,
+    		'unit_price'=>$price
+    	);
+    	$this->super_model->update_where("rfq_detail", $data, "rfq_detail_id", $detail_id);
+
+    	$this->super_model->update_where("aoq_reco", $data, "rfq_detail_id", $detail_id);
+
+    	 redirect(base_url().'rfq/rfq_incoming/'.$rfq_id, 'refresh');
+
+    	
+    }
+
+    public function save_revisions(){
+    	$rfq_id = $this->uri->segment(3);
+    	$head = array(
+    		'revised'=>0
+    	);
+
+    	if($this->super_model->update_where("rfq_head", $head, "rfq_id", $rfq_id)){
+    		 redirect(base_url().'rfq/rfq_incoming/'.$rfq_id, 'refresh');
+    	}
 
     }
 

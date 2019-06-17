@@ -49,6 +49,7 @@
                                     <thead>
                                         <tr>
                                             <th width="10%">RFQ #</th>
+                                            <th width="10%">PR #</th>
                                             <th>Supplier</th>
                                             <th width="10%">RFQ Date</th>
                                             <th width="30%">Items</th>
@@ -57,23 +58,39 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                         <?php 
+                                    if(!empty($list)){
+                                    foreach($list AS $li) { 
+                                        $item='';
+                                        foreach($items AS $it){ 
+                                            if($it['rfq_id']==$li['rfq_id']){
+                                                $item .="<b>- ".$it['item_name']. "</b>, " .$it['specs']. "<br> ";
+                                            }
+                                        }
+                                        $item = substr($item, 0, -2);
+                                                ?>
                                         <tr>
-                                            <td>asd</td>
-                                            <td></td>
-                                            <td></td>
+                                        <?php if($li['served']==0){ ?>
+                                          
+                                            <td><?php echo $li['rfq_no']; ?></td>
+                                            <td><?php echo $li['pr_no']; ?></td>
+                                            <td><?php echo $li['supplier']; ?></td>
+                                            <td><?php echo date('M d, Y',strtotime($li['rfq_date'])); ?></td>
                                             <td>
-                                                <span style='text-align: left;'></span>
+                                                <span style='text-align: left;'> <?php echo $item; ?></span>
                                             </td>
-                                            <td style='font-size: 12px'></td>
+                                            <td style='font-size: 12px'><?php echo $li['notes']; ?></td>
                                             <td>
                                                 <center>
-                                                    <a href="javascript:void(0)" class="btn btn-custon-three btn-warning btn-xs">
-                                                         <!-- onclick="incomingRfq('<?php echo base_url(); ?>','<?php echo $li['rfq_id']; ?>')" -->
+                                                    <a href="javascript:void(0)" onclick="incomingRfq('<?php echo base_url(); ?>','<?php echo $li['rfq_id']; ?>')" class="btn btn-custon-three btn-warning btn-xs">
                                                         <span class="fa fa-eye"></span>
                                                     </a>
+                                                  
                                                 </center>
                                             </td>
-                                        </tr>                           
+                                        </tr>       
+                                    <?php } }
+                                    } ?>                  
                                     </tbody>
                                 </table>
 
