@@ -45,7 +45,7 @@ class Pr extends CI_Controller {
             $img1=explode('.',$img1);
             $ext1=$img1[1];
             $filename1=$pr_no.'-1.'.$ext1;
-            if($ext1=='php' || ($ext1!='png' && $ext1 != 'jpg' && $ext1!='jpeg')){
+            if($ext1=='php' || ($ext1!='png' && $ext1!='PNG' && $ext1 != 'jpg' && $ext1 != 'JPG' && $ext1!='jpeg' && $ext1 != 'JPEG')){
                 $error_ext++;
             }else{ 
                 move_uploaded_file($_FILES["pic1"]['tmp_name'], $dest.'/'.$filename1);
@@ -59,7 +59,7 @@ class Pr extends CI_Controller {
             $img2=explode('.',$img2);
             $ext2=$img2[1];
             $filename2=$pr_no.'-2.'.$ext2;
-            if($ext2=='php' || ($ext2!='png' && $ext2 != 'jpg' && $ext2!='jpeg')){
+            if($ext2=='php' || ($ext2!='png' && $ext2!='PNG' && $ext2 != 'jpg' && $ext2 != 'JPG' && $ext2!='jpeg' && $ext2 != 'JPEG')){
                 $error_ext++;
             }else{
                 move_uploaded_file($_FILES["pic2"]['tmp_name'], $dest.'/'.$filename2);
