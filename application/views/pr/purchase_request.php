@@ -44,6 +44,9 @@
                                             <?php foreach($head AS $h){ ?>
                                             <h1>PR No: <b><?php echo $h['pr_no']; ?></b> </h1>
                                             <h5>Date: <?php echo $h['pr_date']; ?></h5> 
+                                            <h5>Enduse: <?php echo $h['enduse']; ?></h5> 
+                                            <h5>Purpose: <?php echo $h['purpose']; ?></h5> 
+                                            <h5>Requestor: <?php echo $h['requestor']; ?></h5> 
                                             <div class = "row">
                                                 <div class="col-lg-6 col-md-4 col-xs-6 thumb">
                                                     <label> Attachment 1:</label>
@@ -90,6 +93,9 @@
                                             </div>
                                             <?php } ?>                                
                                             <div class="sparkline8-outline-icon">
+                                                <?php if($saved==1 && $cancelled==0){ ?>
+                                                <a  href='<?php echo base_url(); ?>pr/override_pr/<?php echo $pr_id; ?>' onclick="return confirm('Are you sure you want to Override PR?')" class="btn btn-info btn-md p-l-25 p-r-25"><span class="fa fa-pencil"></span> Override <u><b>PR</b></u></a>
+                                                <?php } ?>
                                                 <?php if($saved==0 && $cancelled==0){ ?>
                                                     <a type='button' class="btn btn-custon-three btn-primary" onclick="prAdditem('<?php echo base_url(); ?>','<?php echo $pr_id; ?>')"> 
                                                         <span class="fa fa-plus p-l-0"></span> Add Item

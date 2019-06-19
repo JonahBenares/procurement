@@ -27,10 +27,24 @@ class Pr extends CI_Controller {
 
 	}
 
+
     public function pr_list(){  
+        $data['employee']=$this->super_model->select_all_order_by("employees", "employee_name", "ASC");
+        $data['enduse']=$this->super_model->select_all_order_by("enduse", "enduse_name", "ASC");
+        $data['purpose']=$this->super_model->select_all_order_by("purpose", "purpose_name", "ASC");
         $this->load->view('template/header');
         $this->load->view('template/navbar');
-        $data['pr_head']=$this->super_model->select_all_order_by('pr_head','pr_date','ASC');
+        //$data['pr_head']=$this->super_model->select_all_order_by('pr_head','pr_date','ASC');
+        foreach($this->super_model->select_row_where('pr_head','cancelled','0') AS $head){
+            $data['head'][] = array(
+                'pr_id'=>$head->pr_id,
+                'pr_no'=>$head->pr_no,
+                'pr_date'=>$head->pr_date,
+                'purpose'=>$this->super_model->select_column_where("purpose",'purpose_name','purpose_id',$head->purpose_id),
+                'enduse'=>$this->super_model->select_column_where("enduse",'enduse_name','enduse_id',$head->enduse_id),
+                'requestor'=>$this->super_model->select_column_where("employees",'employee_name','employee_id',$head->requested_by),
+            );
+        }
         $this->load->view('pr/pr_list',$data);
         $this->load->view('template/footer');
     }
@@ -38,6 +52,9 @@ class Pr extends CI_Controller {
     public function insert_pr(){
         $pr_no = $this->input->post('pr_no');
         $date_rec = $this->input->post('date_rec');
+        $purpose = $this->input->post('purpose');
+        $enduse = $this->input->post('enduse');
+        $requestor = $this->input->post('requested_by');
         $dest= realpath(APPPATH . '../uploads/');
         $error_ext=0;
         if(!empty($_FILES['pic1']['name'])){
@@ -71,13 +88,24 @@ class Pr extends CI_Controller {
         $data = array(
             'pr_no'=>$pr_no,
             'pr_date'=>$date_rec,
+            'enduse_id'=>$enduse,
+            'purpose_id'=>$purpose,
+            'requested_by'=>$requestor,
             'pr_attach1'=>$filename1,
             'pr_attach2'=>$filename2,
             'create_date'=>date('Y-m-d H:i:s'),
         );
 
+        $head_rows = $this->super_model->count_rows("pr_head");
+        if($head_rows==0){
+            $prid=1;
+        } else {
+            $maxid=$this->super_model->get_max("pr_head", "pr_id");
+            $prid=$maxid+1;
+        }
+
         if($this->super_model->insert_into("pr_head", $data)){
-            echo "<script>alert('Successfully Added!'); window.location ='".base_url()."index.php/pr/pr_list'; </script>";
+            echo "<script>window.location ='".base_url()."index.php/pr/purchase_request/$prid'; </script>";
         }
     }
 
@@ -94,6 +122,9 @@ class Pr extends CI_Controller {
                 $data['head'][]=array(
                     'pr_no'=>$h->pr_no,
                     'pr_date'=>$h->pr_date,
+                    'purpose'=>$this->super_model->select_column_where("purpose",'purpose_name','purpose_id',$h->purpose_id),
+                    'enduse'=>$this->super_model->select_column_where("enduse",'enduse_name','enduse_id',$h->enduse_id),
+                    'requestor'=>$this->super_model->select_column_where("employees",'employee_name','employee_id',$h->requested_by),
                     'saved'=>$h->saved,
                     'cancelled'=>$h->cancelled,
                     'pr_attach1'=>$h->pr_attach1,
@@ -124,6 +155,17 @@ class Pr extends CI_Controller {
         }
         $this->load->view('pr/purchase_request',$data);
         $this->load->view('template/footer');
+    }
+
+    public function override_pr(){
+        $pr_id=$this->uri->segment(3);
+        $data = array(
+            'saved'=>0
+        );
+
+        if($this->super_model->update_where("pr_head", $data, "pr_id", $pr_id)){
+            redirect(base_url().'pr/purchase_request/'.$pr_id);
+        }
     }
 
     public function pr_additem(){  

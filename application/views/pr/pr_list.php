@@ -41,10 +41,44 @@
                             <p class="m-b-0">PR No.:</p>
                             <input type="text" name="pr_no" class="form-control">
                         </div>
-                        <div class="form-group">
+                         <div class="form-group">
                             <p class="m-b-0">Date Received:</p>
                             <input type="date" name="date_rec" class="form-control">
                         </div>
+                          <div class="form-group">
+                            <p class="m-b-0">Enduse:</p>
+                            <select name='enduse' class="form-control">
+                                <option value='' selected>-Select End Use-</option>
+                                <?php foreach($enduse AS $end){ ?>
+                                    <option value="<?php echo $end->enduse_id; ?>">
+                                    <?php echo $end->enduse_name; ?>
+                                    </option>
+                                <?php }  ?> 
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <p class="m-b-0">Purpose:</p>
+                            <select name='purpose' class="form-control">
+                                <option value='' selected>-Select Purpose-</option>
+                                <?php foreach($purpose AS $purp){ ?>
+                                    <option value="<?php echo $purp->purpose_id; ?>">
+                                    <?php echo $purp->purpose_name; ?>
+                                    </option>
+                                <?php }  ?> 
+                            </select>
+                        </div>
+                          <div class="form-group">
+                            <p class="m-b-0">Requested by:</p>
+                            <select name='requested_by' class="form-control">
+                                <option value='' selected>-Select Employee-</option>
+                                <?php foreach($employee AS $emp){ ?>
+                                    <option value="<?php echo $emp->employee_id; ?>">
+                                    <?php echo $emp->employee_name; ?>
+                                    </option>
+                                <?php }  ?> 
+                            </select>
+                        </div>
+                       
                         <div class="form-group">
                             <p class="m-b-0">Attachment 1:</p>
                             <input type="file" name="pic1">
@@ -87,29 +121,36 @@
                                             <tr>
                                                 <th>PR NO</th>
                                                 <th>Date Received</th>
+                                                <th>Purpose</th>
+                                                <th>Enduse</th>
+                                                <th>Requestor</th>
                                                 <th><center><span class="fa fa-bars"></span></center></th>
                                             </tr>
                                         </thead>
                                         <tbody> 
                                             <?php 
-                                                foreach($pr_head AS $p){ 
-                                                    if($p->cancelled==0){
+                                                if(!empty($head)){
+                                                foreach($head AS $p){ 
+                                                   
                                             ?>                                       
                                             <tr>
-                                                <td><?php echo $p->pr_no; ?></td>
-                                                <td><?php echo $p->pr_date; ?></td>
+                                                <td><?php echo $p['pr_no']; ?></td>
+                                                <td><?php echo $p['pr_date']; ?></td>
+                                                <td><?php echo $p['purpose']; ?></td>
+                                                <td><?php echo $p['enduse']; ?></td>
+                                                <td><?php echo $p['requestor']; ?></td>
                                                 <td>
                                                     <center>
-                                                        <a href="<?php echo base_url(); ?>pr/purchase_request/<?php echo $p->pr_id; ?>" class="btn btn-custon-three btn-warning btn-xs">
+                                                        <a href="<?php echo base_url(); ?>pr/purchase_request/<?php echo $p['pr_id']; ?>" class="btn btn-custon-three btn-warning btn-xs">
                                                         <span class="fa fa-eye"></span>
                                                         </a>
-                                                        <a href="<?php echo base_url(); ?>pr/cancel_pr/<?php echo $p->pr_id; ?>" class="btn btn-custon-three btn-danger btn-xs">
+                                                        <a href="<?php echo base_url(); ?>pr/cancel_pr/<?php echo $p['pr_id']; ?>" class="btn btn-custon-three btn-danger btn-xs">
                                                             <span class="p-l-0 fa fa-ban"></span>
                                                         </a>
                                                     </center>
                                                 </td>
                                             </tr>
-                                            <?php } } ?>                       
+                                            <?php } }  ?>                       
                                         </tbody>
                                     </table>
                                 </div>                           

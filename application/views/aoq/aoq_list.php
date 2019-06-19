@@ -74,12 +74,19 @@
                                             <td><?php echo $head['enduse']; ?></td>
                                             <td><?php echo $head['requestor']; ?></td>
                                             <td><?php echo date('F j, Y', strtotime($head['date_needed'])); ?></td>
-                                            <td><?php  
-                                            if($head['saved'] == '1' && $head['completed'] =='0') { 
-                                                echo "<span class='label label-warning'> For TE </span>";
-                                            } else if($head['saved'] == '1' && $head['completed'] =='1'){
-                                                echo "<span class='label label-success'>Completed</span";
-                                            }?></td>
+                                            <?php if($head['refer_mnl']=='1') { ?>
+                                            <td><span class='label label-primary'> Refer To Manila </span></td>
+                                            <?php }else { ?>
+                                            <td>
+                                                <?php  
+                                                    if($head['saved'] == '1' && $head['completed'] =='0') { 
+                                                        echo "<span class='label label-warning'> For TE </span>";
+                                                    } else if($head['saved'] == '1' && $head['completed'] =='1'){
+                                                        echo "<span class='label label-success'>Completed</span";
+                                                    }
+                                                ?>
+                                            </td>
+                                            <?php } ?>
                                             <td>
                                                 <center>
                                                 <?php if($head['rows']<=3){ ?>
@@ -95,6 +102,8 @@
                                                         <span class="fa fa-eye"></span>
                                                     </a>
                                                 <?php } ?>
+                                                    <a href="<?php echo base_url(); ?>aoq/refer_mnl/<?php echo $head['aoq_id']; ?>" class="btn btn-custon-three btn-primary btn-xs"  onclick="return confirm('Are you sure?')" title="Refer To MNL"><span class="fa fa-location-arrow"></span>
+                                                    </a>
                                                     <a href="<?php echo base_url(); ?>aoq/update_served/<?php echo $head['aoq_id']; ?>" class="btn btn-custon-three btn-success btn-xs"  onclick="return confirm('Are you sure?')" title="Served"><span class="fa fa-archive"></span>
                                                     </a>
                                                 </center>

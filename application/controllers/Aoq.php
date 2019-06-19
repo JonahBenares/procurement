@@ -41,6 +41,22 @@ class Aoq extends CI_Controller {
 
 	}
 
+	  public function getpr(){
+
+        $pr = $this->input->post('pr');
+        $enduse_id= $this->super_model->select_column_where('pr_head', 'enduse_id', 'pr_id', $pr);
+        $purpose_id= $this->super_model->select_column_where('pr_head', 'purpose_id', 'pr_id', $pr);
+        $requestor_id= $this->super_model->select_column_where('pr_head', 'requested_by', 'pr_id', $pr);
+        $enduse = $this->super_model->select_column_where('enduse', 'enduse_name', 'enduse_id', $enduse_id);
+        $purpose = $this->super_model->select_column_where('purpose', 'purpose_name', 'purpose_id', $purpose_id);
+        $requestor = $this->super_model->select_column_where('employees', 'employee_name', 'employee_id', $requestor_id);
+        
+        $return = array('enduse_id' => $enduse_id, 'purpose_id' => $purpose_id, 'requestor_id' => $requestor_id, 'enduse' => $enduse, 'purpose' => $purpose, 'requestor' => $requestor);
+        echo json_encode($return);
+    
+    }
+
+
 	public function aoq_list(){
 		$data=array();
 		foreach($this->super_model->select_custom_where("aoq_header", "saved='1' AND served='0'") AS $list){
@@ -65,6 +81,7 @@ class Aoq extends CI_Controller {
 				'date_needed'=>$list->date_needed,
 				'requestor'=>$requested,
 				'saved'=>$list->saved,
+				'refer_mnl'=>$list->refer_mnl,
 				'completed'=>$list->completed,
 				'rows'=>$rows,
 				'supplier'=>$sup
@@ -77,6 +94,18 @@ class Aoq extends CI_Controller {
         $this->load->view('template/navbar');
         $this->load->view('aoq/aoq_list',$data);
         $this->load->view('template/footer');
+    }
+
+    public function refer_mnl(){
+    	$aoq_id=$this->uri->segment(3);
+    	$data = array(
+    		'refer_date'=>date('Y-m-d H:i:s'),
+    		'refer_mnl'=>1
+    	);
+
+    	if($this->super_model->update_where("aoq_header", $data, "aoq_id", $aoq_id)){
+    		redirect(base_url().'aoq/aoq_list', 'refresh');
+    	}
     }
 
     public function served_aoq(){
