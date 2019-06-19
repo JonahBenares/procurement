@@ -388,7 +388,36 @@
 		    		</tr>
 		    		<tr>
 		    			<td colspan="20" style="padding: 10px!important">
-		    				Terms & Conditions:<br>
+		    				<button type="button" class="btn btn-primary btn-xs " data-toggle="modal" data-target="#exampleModal">
+							 Add Terms & Conditions:
+							</button>
+
+							<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+								<div class="modal-dialog" role="document">
+									<div class="modal-content">
+										<div class="modal-header">
+											<h5 class="modal-title" id="exampleModalLabel">Add Terms & Conditions
+												<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+												<span aria-hidden="true">&times;</span>
+												</button>
+											</h5>
+											
+										</div>
+										<form>
+											<div class="modal-body">
+												<div class="form-group">
+													Terms & Conditions:
+													<input type="text" class="form-control" name="">
+												</div>
+											</div>
+											<div class="modal-footer">
+												<button type="button" class="btn btn-primary btn-block">Save changes</button>
+											</div>
+										</form>
+									</div>
+								</div>
+							</div>
+		    				<br>Terms & Conditions:<br>
 		    				1. Price is inclusive of taxes.<br>
 		    				2. PO No. must appear on all copies of Invoices, Delivery Receipt & Correspondences submitted.<br>
 		    				3. Sub-standard items shall be returned to supplier @ no cost to CENPRI.<br>
