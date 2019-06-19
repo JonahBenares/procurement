@@ -49,26 +49,31 @@ class Po extends CI_Controller {
         }
      
 
-        $data['pr'] = $this->super_model->select_custom_where("aoq_header", "completed='1' AND served='0' ORDER BY pr_no ASC");
+        /*$data['pr'] = $this->super_model->select_custom_where("aoq_header", "completed='1' AND served='0' ORDER BY pr_id ASC");*/
+        foreach($this->super_model->select_custom_where("aoq_header", "completed='1' AND served='0' ORDER BY pr_id ASC") AS $ao){
+            $data['pr']=$this->super_model->select_custom_where("pr_head", "cancelled='0' AND pr_id = '$ao->pr_id' ORDER BY pr_id ASC");
+        }
 
         foreach($this->super_model->select_row_where("po_pr", "po_id", $po_id) AS $prdet){
             $purpose= $this->super_model->select_column_where('purpose', 'purpose_name', 'purpose_id', $prdet->purpose_id);
             $requestor= $this->super_model->select_column_where('employees', 'employee_name', 'employee_id', $prdet->requested_by);
             $enduse= $this->super_model->select_column_where('enduse', 'enduse_name', 'enduse_id', $prdet->enduse_id);
+            $pr_no=$this->super_model->select_column_where('pr_head','pr_no','pr_id', $prdet->pr_id);
             $data['prdetails'][]=array(
                 'po_pr_id'=>$prdet->po_pr_id,
                 'po_id'=>$prdet->po_id,
-                'pr_no'=>$prdet->pr_no,
+                'pr_no'=>$pr_no,
                 'purpose'=>$purpose,
                 'requestor'=>$requestor,
                 'enduse'=>$enduse
               
             );
-            foreach($this->super_model->select_row_where("aoq_header", "pr_no", $prdet->pr_no) AS $list){
+            foreach($this->super_model->select_row_where("aoq_header", "pr_id", $prdet->pr_id) AS $list){
                foreach($this->super_model->select_custom_where("aoq_reco", "aoq_id = '$list->aoq_id' AND supplier_id = '$supplier'") AS $reco){
                 $unit_id=$this->super_model->select_column_where('item', 'unit_id', 'item_id', $reco->item_id);
+                $pr_no=$this->super_model->select_column_where('pr_head','pr_no','pr_id', $list->pr_id);
                     $data['items'][] = array(
-                        'pr_no'=>$list->pr_no,
+                        'pr_no'=>$pr_no,
                         'reco_id'=>$reco->aoq_reco_id,
                         'item_id'=>$reco->item_id,
                         'item'=>$this->super_model->select_column_where('item', 'item_name', 'item_id', $reco->item_id),
@@ -114,16 +119,22 @@ class Po extends CI_Controller {
 
 
         }
-        $data['pr'] = $this->super_model->select_row_where_order_by("aoq_header", "served", "0", "pr_no", "ASC");
+        
+        //$data['pr'] = $this->super_model->select_row_where_order_by("aoq_header", "served", "0", "pr_no", "ASC");
+
+        foreach($this->super_model->select_row_where_order_by("aoq_header", "served", "0", "pr_id", "ASC") AS $ao){
+            $data['pr']=$this->super_model->select_custom_where("pr_head", "cancelled='0' AND pr_id = '$ao->pr_id' ORDER BY pr_id ASC");
+        }
 
         foreach($this->super_model->select_row_where("po_pr", "po_id", $po_id) AS $prdet){
             $purpose= $this->super_model->select_column_where('purpose', 'purpose_name', 'purpose_id', $prdet->purpose_id);
             $requestor= $this->super_model->select_column_where('employees', 'employee_name', 'employee_id', $prdet->requested_by);
             $enduse= $this->super_model->select_column_where('enduse', 'enduse_name', 'enduse_id', $prdet->enduse_id);
+            $pr_no=$this->super_model->select_column_where('pr_head','pr_no','pr_id', $prdet->pr_id);
             $data['prdetails'][]=array(
                 'po_pr_id'=>$prdet->po_pr_id,
                 'po_id'=>$prdet->po_id,
-                'pr_no'=>$prdet->pr_no,
+                'pr_no'=>$pr_no,
                 'purpose'=>$purpose,
                 'requestor'=>$requestor,
                 'enduse'=>$enduse
@@ -178,16 +189,20 @@ class Po extends CI_Controller {
 
 
         }
-        $data['pr'] = $this->super_model->select_row_where_order_by("aoq_header", "served", "0", "pr_no", "ASC");
+        //$data['pr'] = $this->super_model->select_row_where_order_by("aoq_header", "served", "0", "pr_no", "ASC");
 
+        foreach($this->super_model->select_row_where_order_by("aoq_header", "served", "0", "pr_id", "ASC") AS $ao){
+            $data['pr']=$this->super_model->select_custom_where("pr_head", "cancelled='0' AND pr_id = '$ao->pr_id' ORDER BY pr_id ASC");
+        }
         foreach($this->super_model->select_row_where("po_pr", "po_id", $po_id) AS $prdet){
             $purpose= $this->super_model->select_column_where('purpose', 'purpose_name', 'purpose_id', $prdet->purpose_id);
             $requestor= $this->super_model->select_column_where('employees', 'employee_name', 'employee_id', $prdet->requested_by);
             $enduse= $this->super_model->select_column_where('enduse', 'enduse_name', 'enduse_id', $prdet->enduse_id);
+            $pr_no=$this->super_model->select_column_where('pr_head','pr_no','pr_id', $prdet->pr_id);
             $data['prdetails'][]=array(
                 'po_pr_id'=>$prdet->po_pr_id,
                 'po_id'=>$prdet->po_id,
-                'pr_no'=>$prdet->pr_no,
+                'pr_no'=>$pr_no,
                 'purpose'=>$purpose,
                 'requestor'=>$requestor,
                 'enduse'=>$enduse
@@ -240,16 +255,21 @@ class Po extends CI_Controller {
                 'contact'=>$this->super_model->select_column_where('vendor_head', 'contact_person', 'vendor_id',$head->supplier_id)
             );
 
-            $data['pr'] = $this->super_model->select_row_where_order_by("aoq_header", "served", "0", "pr_no", "ASC");
+            //$data['pr'] = $this->super_model->select_row_where_order_by("aoq_header", "served", "0", "pr_no", "ASC");
+
+            foreach($this->super_model->select_row_where_order_by("aoq_header", "served", "0", "pr_id", "ASC") AS $ao){
+                $data['pr']=$this->super_model->select_custom_where("pr_head", "cancelled='0' AND pr_id = '$ao->pr_id' ORDER BY pr_id ASC");
+            }
 
             foreach($this->super_model->select_custom_where("revised_po_pr", "po_id ='$po_id' AND revision_no = '$revise_no'") AS $prdet){
                 $purpose= $this->super_model->select_column_where('purpose', 'purpose_name', 'purpose_id', $prdet->purpose_id);
                 $requestor= $this->super_model->select_column_where('employees', 'employee_name', 'employee_id', $prdet->requested_by);
                 $enduse= $this->super_model->select_column_where('enduse', 'enduse_name', 'enduse_id', $prdet->enduse_id);
+                $pr_no=$this->super_model->select_column_where('pr_head','pr_no','pr_id', $prdet->pr_id);
                 $data['prdetails'][]=array(
                     'po_pr_id'=>$prdet->po_pr_id,
                     'po_id'=>$prdet->po_id,
-                    'pr_no'=>$prdet->pr_no,
+                    'pr_no'=>$pr_no,
                     'purpose'=>$purpose,
                     'requestor'=>$requestor,
                     'enduse'=>$enduse
@@ -320,7 +340,8 @@ class Po extends CI_Controller {
         foreach($this->super_model->select_custom_where("po_head", "saved='1' AND cancelled='1' ORDER BY po_id DESC") AS $head){
             $pr='';
             foreach($this->super_model->select_row_where("po_pr", "po_id", $head->po_id) AS $prd){
-                $pr .= "-".$prd->pr_no."<br>";
+                $pr_no=$this->super_model->select_column_where('pr_head', 'pr_no', 'pr_id', $prd->pr_id);
+                $pr .= "-".$pr_no."<br>";
             }
             $data['header'][]=array(
                 'po_id'=>$head->po_id,
@@ -415,10 +436,11 @@ class Po extends CI_Controller {
             foreach($this->super_model->select_row_where("po_pr", "po_id", $po_id) AS $popr){
                 $po_pr_id = $this->super_model->get_max("po_pr", "po_pr_id");
                 $next_po_pr = $po_pr_id + 1;
+                //$pr_no=$this->super_model->select_column_where('pr_head', 'pr_no', 'pr_id', $popr->pr_id);
                 $pr = array(
                     'po_pr_id'=>$next_po_pr,
                     'po_id'=>$next_po,
-                    'pr_no'=>$popr->pr_no,
+                    'pr_id'=>$popr->pr_id,
                     'requested_by'=>$popr->requested_by,
                     'enduse_id'=>$popr->enduse_id,
                     'purpose_id'=>$popr->purpose_id,
@@ -470,7 +492,7 @@ class Po extends CI_Controller {
             $drdetails = array(
                 'dr_details_id'=>$dr_details_id,
                 'dr_id'=>$dr_id,
-                'pr_no'=>$list->pr_no,
+                'pr_id'=>$list->pr_id,
                 'po_pr_id'=>$list->po_pr_id,
             );
 
@@ -505,7 +527,8 @@ class Po extends CI_Controller {
              $rfd=$this->super_model->count_rows_where("rfd","po_id",$head->po_id);
              $pr='';
             foreach($this->super_model->select_row_where("po_pr", "po_id", $head->po_id) AS $prd){
-            $pr .= "-".$prd->pr_no."<br>";
+                $pr_no=$this->super_model->select_column_where('pr_head','pr_no','pr_id', $prd->pr_id);
+                $pr .= "-".$pr_no."<br>";
             }
             $data['header'][]=array(
                 'po_id'=>$head->po_id,
@@ -595,7 +618,7 @@ class Po extends CI_Controller {
     public function getpr(){
 
         $pr = $this->input->post('pr');
-        foreach($this->super_model->select_custom_where("aoq_header", "pr_no = '$pr' AND served='0' ORDER BY pr_no ASC LIMIT 1") AS $head){
+        foreach($this->super_model->select_custom_where("aoq_header", "pr_id = '$pr' AND served='0' ORDER BY pr_id ASC LIMIT 1") AS $head){
             $purpose= $this->super_model->select_column_where('purpose', 'purpose_name', 'purpose_id', $head->purpose_id);
             $requestor= $this->super_model->select_column_where('employees', 'employee_name', 'employee_id', $head->requested_by);
             $enduse= $this->super_model->select_column_where('enduse', 'enduse_name', 'enduse_id', $head->enduse_id);
@@ -642,7 +665,7 @@ class Po extends CI_Controller {
         $po_id = $this->input->post('po_id');
          $data = array(
             'po_id'=>$this->input->post('po_id'),
-            'pr_no'=>$this->input->post('pr'),
+            'pr_id'=>$this->input->post('pr'),
             'requested_by'=>$this->input->post('requested_by'),
             'enduse_id'=>$this->input->post('enduse_id'),
             'purpose_id'=>$this->input->post('purpose_id')
@@ -669,9 +692,10 @@ class Po extends CI_Controller {
             $purpose= $this->super_model->select_column_where('purpose', 'purpose_name', 'purpose_id', $prdet->purpose_id);
             $requestor= $this->super_model->select_column_where('employees', 'employee_name', 'employee_id', $prdet->requested_by);
             $enduse= $this->super_model->select_column_where('enduse', 'enduse_name', 'enduse_id', $prdet->enduse_id);
+            $pr_no=$this->super_model->select_column_where('pr_head','pr_no','pr_id', $prdet->pr_id);
             $data['detail'][]=array(
                 'po_pr_id'=>$prdet->po_pr_id,
-                'pr_no'=>$prdet->pr_no,
+                'pr_no'=>$pr_no,
                 'purpose'=>$purpose,
                 'requestor'=>$requestor,
                 'enduse'=>$enduse
@@ -734,9 +758,10 @@ class Po extends CI_Controller {
             $purpose= $this->super_model->select_column_where('purpose', 'purpose_name', 'purpose_id', $prdet->purpose_id);
             $requestor= $this->super_model->select_column_where('employees', 'employee_name', 'employee_id', $prdet->requested_by);
             $enduse= $this->super_model->select_column_where('enduse', 'enduse_name', 'enduse_id', $prdet->enduse_id);
+            $pr_no=$this->super_model->select_column_where('pr_head','pr_no','pr_id', $prdet->pr_id);
             $data['detail'][]=array(
                 'po_pr_id'=>$prdet->po_pr_id,
-                'pr_no'=>$prdet->pr_no,
+                'pr_no'=>$pr_no,
                 'purpose'=>$purpose,
                 'requestor'=>$requestor,
                 'enduse'=>$enduse
@@ -823,7 +848,7 @@ class Po extends CI_Controller {
         $data['pr_no']=$pr_no;
         $data['supplier']=$supplier;
 
-        foreach($this->super_model->select_row_where("aoq_header", "pr_no", $pr_no) AS $list){
+        foreach($this->super_model->select_row_where("aoq_header", "pr_id", $pr_no) AS $list){
            foreach($this->super_model->select_custom_where("aoq_reco", "aoq_id = '$list->aoq_id' AND supplier_id = '$supplier'") AS $reco){
                 $data['items'][] = array(
                     'reco_id'=>$reco->aoq_reco_id,
@@ -924,7 +949,7 @@ class Po extends CI_Controller {
             $drdetails = array(
                 'dr_details_id'=>$dr_details_id,
                 'dr_id'=>$dr_id,
-                'pr_no'=>$list->pr_no,
+                'pr_id'=>$list->pr_id,
                 'po_pr_id'=>$list->po_pr_id,
             );
 
@@ -1041,7 +1066,7 @@ class Po extends CI_Controller {
             $data_pr = array(
                 'po_pr_id'=>$popr->po_pr_id,
                 'po_id'=>$poid,
-                'pr_no'=>$popr->pr_no,
+                'pr_id'=>$popr->pr_id,
                 'requested_by'=>$popr->requested_by,
                 'enduse_id'=>$popr->enduse_id,
                 'purpose_id'=>$popr->purpose_id,
@@ -1165,6 +1190,10 @@ class Po extends CI_Controller {
             );
         }
 
+        /*foreach($this->super_model->select_row_where_order_by("aoq_header", "served", "0", "pr_id", "ASC") AS $ao){*/
+            $data['pr']=$this->super_model->select_custom_where("pr_head", "cancelled='0' ORDER BY pr_id ASC");
+        //}
+
         foreach($this->super_model->select_row_where("po_items", "po_id", $po_id) AS $items){
             $unit_id = $this->super_model->select_column_where('item', 'unit_id', 'item_id', $items->item_id);
             $data['items'][] = array(
@@ -1185,8 +1214,9 @@ class Po extends CI_Controller {
                 $item_no.= $poitems->item_no. ", ";
             }
             $it_no = "(items ". substr($item_no, 0, -2). ")";*/
+            $pr_no=$this->super_model->select_column_where('pr_head','pr_no','pr_id', $popr->pr_id);
             $data['popr'][] = array(
-                'pr_no'=>$popr->pr_no,
+                'pr_no'=>$pr_no,
                 'requestor'=>$this->super_model->select_column_where('employees', 'employee_name', 'employee_id', $popr->requested_by),
                 'enduse'=>$this->super_model->select_column_where('enduse', 'enduse_name', 'enduse_id', $popr->enduse_id),
                 'purpose'=>$this->super_model->select_column_where('purpose', 'purpose_name', 'purpose_id', $popr->purpose_id),
@@ -1242,7 +1272,7 @@ class Po extends CI_Controller {
             $drdetails = array(
                 'dr_details_id'=>$dr_details_id,
                 'dr_id'=>$dr_id,
-                'pr_no'=>$list->pr_no,
+                'pr_id'=>$list->pr_id,
                 'po_pr_id'=>$list->po_pr_id,
             );
 
@@ -1282,9 +1312,15 @@ class Po extends CI_Controller {
         $data['po'] = $this->super_model->select_custom_where("po_head", "supplier_id = '$supplier' AND saved='1' AND cancelled='0' ORDER BY po_no ASC");
 
         foreach($this->super_model->select_row_where("po_items", "po_id", $old_po) AS $item){
-           $unit_id =  $this->super_model->select_column_where('item', 'unit_id', 'item_id', $item->item_id);
+            $unit_id =  $this->super_model->select_column_where('item', 'unit_id', 'item_id', $item->item_id);
+
+            foreach($this->super_model->select_row_where("po_pr",'po_pr_id',$item->po_pr_id) AS $p){
+                $pr_no = $this->super_model->select_column_where('pr_head', 'pr_no', 'pr_id', $p->pr_id);
+            }
+
             $data['items'][] = array(
-                'pr_no'=>$this->super_model->select_column_where('po_pr', 'pr_no', 'po_pr_id', $item->po_pr_id),
+                //'pr_no'=>$this->super_model->select_column_where('po_pr', 'pr_no', 'po_pr_id', $item->po_pr_id),
+                'pr_no'=>$pr_no,
                 'pr_id'=>$item->po_pr_id,
                 'item_id'=>$item->item_id,
                 'item'=>$this->super_model->select_column_where('item', 'item_name', 'item_id', $item->item_id),
@@ -1312,7 +1348,7 @@ class Po extends CI_Controller {
             $item_id = $this->input->post('item_id'.$a);
             $offer = $this->input->post('offer'.$a);
 
-            $exist_pr = $this->super_model->count_custom_where("po_pr","po_id= '$po_id' AND pr_no = '$pr_no'");
+            $exist_pr = $this->super_model->count_custom_where("po_pr","po_id= '$po_id' AND pr_id = '$pr_no'");
             if($exist_pr==0){
                     $pr_det = $this->super_model->count_rows("po_pr");
                     if($pr_det==0){
@@ -1359,7 +1395,7 @@ class Po extends CI_Controller {
                   $item_no = $max_item_no+1;
               }
 
-                $po_pr_id = $this->super_model->select_column_custom_where("po_pr", "po_pr_id","po_id= '$po_id' AND pr_no = '$pr_no'");
+                $po_pr_id = $this->super_model->select_column_custom_where("po_pr", "po_pr_id","po_id= '$po_id' AND pr_id = '$pr_no'");
                  $pr_items = array(
                             'po_pr_id'=>$po_pr_id,
                             'po_id'=>$po_id,
@@ -1428,7 +1464,8 @@ class Po extends CI_Controller {
              $rfd=$this->super_model->count_rows_where("rfd","po_id",$head->po_id);
              $pr='';
             foreach($this->super_model->select_row_where("po_pr", "po_id", $head->po_id) AS $prd){
-            $pr .= "-".$prd->pr_no."<br>";
+                $pr_no=$this->super_model->select_column_where('pr_head', 'pr_no', 'pr_id', $prd->pr_id);
+                $pr .= "-".$pr_no."<br>";
             }
             $data['header'][]=array(
                 'po_id'=>$head->po_id,
@@ -1451,7 +1488,7 @@ class Po extends CI_Controller {
         $po_id = $this->input->post('po_id');
         $data= array(
             'po_id'=>$po_id,
-            'pr_no'=>$this->input->post('pr_no'),
+            'pr_id'=>$this->input->post('pr_no'),
             'purpose_id'=>$this->input->post('purpose'),
             'requested_by'=>$this->input->post('requested_by'),
             'enduse_id'=>$this->input->post('enduse'),
@@ -1474,9 +1511,9 @@ class Po extends CI_Controller {
         $data['purpose']=$this->super_model->select_all_order_by("purpose", "purpose_name", "ASC");*/
 
         foreach($this->super_model->select_row_where("po_pr", "po_id", $po_id) AS $drdet){
-          
+            $pr_no=$this->super_model->select_column_where('pr_head','pr_no','pr_id', $drdet->pr_id);
             $data['drpurp'][]= array(
-                'pr_no'=>$drdet->pr_no,
+                'pr_no'=>$pr_no,
                 'notes'=>$drdet->notes,
                 'purpose'=>$this->super_model->select_column_where('purpose','purpose_name','purpose_id', $drdet->purpose_id),
                 'enduse'=>$this->super_model->select_column_where('enduse','enduse_name','enduse_id', $drdet->enduse_id),

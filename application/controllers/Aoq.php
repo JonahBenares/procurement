@@ -89,6 +89,7 @@ class Aoq extends CI_Controller {
 			$enduse=$this->super_model->select_column_where('enduse','enduse_name','enduse_id', $list->enduse_id);
 			$requested=$this->super_model->select_column_where('employees','employee_name','employee_id', $list->requested_by);
 			$supplier='';
+			$pr_no = $this->super_model->select_column_where('pr_head','pr_no','pr_id', $list->pr_id);
 			foreach($this->super_model->select_row_where("aoq_rfq", "aoq_id", $list->aoq_id) AS $rfq){
 				$supplier_id=$this->super_model->select_column_where('rfq_head','supplier_id','rfq_id', $rfq->rfq_id);
 				$supplier.="-".$this->super_model->select_column_where('vendor_head','vendor_name','vendor_id', $supplier_id). "<br> ";
@@ -97,7 +98,7 @@ class Aoq extends CI_Controller {
 			$data['header'][]=array(
 				'aoq_id'=>$list->aoq_id,
 				'aoq_date'=>$list->aoq_date,
-				'pr'=>$list->pr_no,
+				'pr'=>$pr_no,
 				'department'=>$department,
 				'enduse'=>$enduse,
 				'date_needed'=>$list->date_needed,

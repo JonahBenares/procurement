@@ -161,6 +161,7 @@ class Rfq extends CI_Controller {
 
 	public function rfq_list(){
 		$data =array();
+		$data['pr']=$this->super_model->select_custom_where("pr_head", "cancelled='0' ORDER BY pr_id ASC");
 		foreach($this->super_model->select_custom_where("rfq_head", "saved='1' AND cancelled ='0' ORDER BY rfq_id DESC") AS $rfq){
 			$supplier = $this->super_model->select_column_where('vendor_head','vendor_name','vendor_id', $rfq->supplier_id);
 			$pr_no=$this->super_model->select_column_where('pr_head','pr_no','pr_id', $rfq->pr_id);
@@ -418,10 +419,10 @@ class Rfq extends CI_Controller {
     		$data =array();
 		foreach($this->super_model->select_custom_where("rfq_head", "saved='1' AND cancelled ='1' ORDER BY rfq_id DESC") AS $rfq){
 			$supplier = $this->super_model->select_column_where('vendor_head','vendor_name','vendor_id', $rfq->supplier_id);
-
+			$pr_no = $this->super_model->select_column_where('pr_head','pr_no','pr_id', $rfq->pr_id);
 			$data['list'][] = array(
 				'rfq_id'=>$rfq->rfq_id,
-				'pr_no'=>$rfq->pr_no,
+				'pr_no'=>$pr_no,
 				'rfq_no'=>$rfq->rfq_no,
 				'rfq_date'=>$rfq->rfq_date,
 				'notes'=>$rfq->notes,
@@ -461,11 +462,11 @@ class Rfq extends CI_Controller {
    		$this->super_model->update_where("rfq_head", $update_head, "rfq_id", $rfq_id);
 
     	foreach($this->super_model->select_row_where("rfq_head", "rfq_id", $rfq_id) AS $head){
-
+    		$pr_no = $this->super_model->select_column_where('pr_head','pr_no','pr_id', $head->pr_id);
     		$rfq_head= array(
     			'rfq_id'=>$rfq_id,
     			'rfq_no'=>$head->rfq_no,
-    			'pr_no'=>$head->pr_no,
+    			'pr_id'=>$pr_no,
     			'rfq_date'=>$head->rfq_date,
     			'supplier_id'=>$head->supplier_id,
     			'due_date'=>$head->due_date,
@@ -550,7 +551,7 @@ class Rfq extends CI_Controller {
     		$rfq_head= array(
     			'rfq_id'=>$new_rfq_id,
     			'rfq_no'=>$rfq_no,
-    			'pr_no'=>$pr_no,
+    			'pr_id'=>$pr_no,
     			'rfq_date'=>$head->rfq_date,
     			'supplier_id'=>$head->supplier_id,
     			'due_date'=>$head->due_date,
