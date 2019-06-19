@@ -90,6 +90,9 @@
                                             </div>
                                             <?php } ?>                                
                                             <div class="sparkline8-outline-icon">
+                                                <?php if($saved==1 && $cancelled==0){ ?>
+                                                <a  href='<?php echo base_url(); ?>pr/override_pr/<?php echo $pr_id; ?>' onclick="return confirm('Are you sure you want to Override PR?')" class="btn btn-info btn-md p-l-25 p-r-25"><span class="fa fa-pencil"></span> Override <u><b>PR</b></u></a>
+                                                <?php } ?>
                                                 <?php if($saved==0 && $cancelled==0){ ?>
                                                     <a type='button' class="btn btn-custon-three btn-primary" onclick="prAdditem('<?php echo base_url(); ?>','<?php echo $pr_id; ?>')"> 
                                                         <span class="fa fa-plus p-l-0"></span> Add Item

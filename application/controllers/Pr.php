@@ -76,8 +76,16 @@ class Pr extends CI_Controller {
             'create_date'=>date('Y-m-d H:i:s'),
         );
 
+        $head_rows = $this->super_model->count_rows("pr_head");
+        if($head_rows==0){
+            $prid=1;
+        } else {
+            $maxid=$this->super_model->get_max("pr_head", "pr_id");
+            $prid=$maxid+1;
+        }
+
         if($this->super_model->insert_into("pr_head", $data)){
-            echo "<script>alert('Successfully Added!'); window.location ='".base_url()."index.php/pr/pr_list'; </script>";
+            echo "<script>window.location ='".base_url()."index.php/pr/purchase_request/$prid'; </script>";
         }
     }
 
@@ -124,6 +132,17 @@ class Pr extends CI_Controller {
         }
         $this->load->view('pr/purchase_request',$data);
         $this->load->view('template/footer');
+    }
+
+    public function override_pr(){
+        $pr_id=$this->uri->segment(3);
+        $data = array(
+            'saved'=>0
+        );
+
+        if($this->super_model->update_where("pr_head", $data, "pr_id", $pr_id)){
+            redirect(base_url().'pr/purchase_request/'.$pr_id);
+        }
     }
 
     public function pr_additem(){  
