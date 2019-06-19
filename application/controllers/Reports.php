@@ -32,6 +32,12 @@ class Reports extends CI_Controller {
         redirect(base_url().'reports/pr_report/'.$year.'/'.$month);
     }
 
+    public function generate_po_summary(){
+        $year = $this->input->post('year');
+        $month = $this->input->post('month');
+        redirect(base_url().'reports/po_report/'.$year.'/'.$month);
+    }
+
 	public function pr_report(){
         $year=$this->uri->segment(3);
         $month=$this->uri->segment(4);
@@ -41,6 +47,17 @@ class Reports extends CI_Controller {
         
         $this->load->view('template/header');        
         $this->load->view('reports/pr_report',$data);
+        $this->load->view('template/footer');
+    }
+
+    public function po_report(){
+        $year=$this->uri->segment(3);
+        $month=$this->uri->segment(4);
+        $date = $year."-".$month;
+        $data['date']=date('F Y', strtotime($date));
+
+        $this->load->view('template/header');        
+        $this->load->view('reports/po_report',$data);
         $this->load->view('template/footer');
     }
 }
