@@ -14,9 +14,11 @@ function choosePR()
               
                document.getElementById("purpose_name").innerHTML  = response.purpose;
                document.getElementById("enduse_name").innerHTML  = response.enduse;
+               document.getElementById("department_name").innerHTML  = response.department;
                document.getElementById("requested_name").innerHTML  = response.requestor;
                document.getElementById("purpose").value =  response.purpose_id;
                document.getElementById("enduse").value =  response.enduse_id;
+               document.getElementById("department").value =  response.department_id;
                document.getElementById("requested_by").value =  response.requestor_id;
             
            }

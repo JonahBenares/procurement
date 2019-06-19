@@ -39,14 +39,16 @@
                                                         </div>                                                        
                                                         <div class="form-group">
                                                             <p class="m-b-0">Department:</p>
-                                                            <select name='department' class="form-control">
+                                                            <span id='department_name'></span>
+                                                            <input type='hidden' name='department' id='department'>
+                                                            <!-- <select name='department' class="form-control">
                                                                 <option value='' selected>-Select Department-</option>
                                                                 <?php foreach($department AS $dept){ ?>
                                                                     <option value="<?php echo $dept->department_id; ?>">
                                                                     <?php echo $dept->department_name; ?>
                                                                     </option>
                                                                 <?php }  ?> 
-                                                            </select>
+                                                            </select> -->
                                                         </div>
                                                         <div class="form-group">
                                                             <p class="m-b-0">Enduse:</p>

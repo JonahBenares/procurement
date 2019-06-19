@@ -32,6 +32,7 @@ class Pr extends CI_Controller {
         $data['employee']=$this->super_model->select_all_order_by("employees", "employee_name", "ASC");
         $data['enduse']=$this->super_model->select_all_order_by("enduse", "enduse_name", "ASC");
         $data['purpose']=$this->super_model->select_all_order_by("purpose", "purpose_name", "ASC");
+        $data['department']=$this->super_model->select_all_order_by("department", "department_name", "ASC");
         $this->load->view('template/header');
         $this->load->view('template/navbar');
         //$data['pr_head']=$this->super_model->select_all_order_by('pr_head','pr_date','ASC');
@@ -40,6 +41,7 @@ class Pr extends CI_Controller {
                 'pr_id'=>$head->pr_id,
                 'pr_no'=>$head->pr_no,
                 'pr_date'=>$head->pr_date,
+                'department'=>$this->super_model->select_column_where("department",'department_name','department_id',$head->department_id),
                 'purpose'=>$this->super_model->select_column_where("purpose",'purpose_name','purpose_id',$head->purpose_id),
                 'enduse'=>$this->super_model->select_column_where("enduse",'enduse_name','enduse_id',$head->enduse_id),
                 'requestor'=>$this->super_model->select_column_where("employees",'employee_name','employee_id',$head->requested_by),
@@ -52,6 +54,7 @@ class Pr extends CI_Controller {
     public function insert_pr(){
         $pr_no = $this->input->post('pr_no');
         $date_rec = $this->input->post('date_rec');
+        $department = $this->input->post('department');
         $purpose = $this->input->post('purpose');
         $enduse = $this->input->post('enduse');
         $requestor = $this->input->post('requested_by');
@@ -89,6 +92,7 @@ class Pr extends CI_Controller {
             'pr_no'=>$pr_no,
             'pr_date'=>$date_rec,
             'enduse_id'=>$enduse,
+            'department_id'=>$department,
             'purpose_id'=>$purpose,
             'requested_by'=>$requestor,
             'pr_attach1'=>$filename1,
@@ -122,6 +126,7 @@ class Pr extends CI_Controller {
                 $data['head'][]=array(
                     'pr_no'=>$h->pr_no,
                     'pr_date'=>$h->pr_date,
+                    'department'=>$this->super_model->select_column_where("department",'department_name','department_id',$h->department_id),
                     'purpose'=>$this->super_model->select_column_where("purpose",'purpose_name','purpose_id',$h->purpose_id),
                     'enduse'=>$this->super_model->select_column_where("enduse",'enduse_name','enduse_id',$h->enduse_id),
                     'requestor'=>$this->super_model->select_column_where("employees",'employee_name','employee_id',$h->requested_by),
