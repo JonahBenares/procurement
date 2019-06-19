@@ -34,7 +34,6 @@ class Pr extends CI_Controller {
         $this->load->view('template/header');
         $this->load->view('template/navbar');
         //$data['pr_head']=$this->super_model->select_all_order_by('pr_head','pr_date','ASC');
-      
         foreach($this->super_model->select_row_where('pr_head','cancelled','0') AS $head){
             $data['head'][] = array(
                 'pr_id'=>$head->pr_id,
