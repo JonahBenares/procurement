@@ -131,7 +131,7 @@
                                 <span class="indicator-right-menu mini-dn"><i class="fa indicator-mn fa-angle-left"></i></span>
                             </a>
                             <div role="menu" class="dropdown-menu left-menu-dropdown animated flipInX p-t-0" style="width: 180px">
-                                <a href="<?php echo base_url(); ?>index.php/reports/pr_report" target="_blank" class="dropdown-item">PR Summary</a>
+                                <a class="dropdown-item" data-toggle="modal" data-target="#exampleModal">PR Summary</a>
                                 <a href="<?php echo base_url(); ?>index.php/reports/" class="dropdown-item">PO Summary</a>
                             </div>
                         </li>
@@ -194,6 +194,35 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Choose Month and Year
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </h5>                            
+                        </div>
+                        <form>
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    Choose Year:
+                                    <input type="text" class="form-control" name="">
+                                </div>
+                                <div class="form-group">
+                                    Choose Month:
+                                    <input type="text" class="form-control" name="">
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary btn-block">Proceed</button>
+                                <a href="<?php echo base_url(); ?>index.php/reports/pr_report"  class="btn btn-primary " target="_blank">Proceed</a>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
