@@ -123,6 +123,19 @@
                                 </a>
                             </div>
                         </li>
+
+                        <li class="nav-item">
+                            <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle">
+                                <i class="fa big-icon fa-bar-chart"></i> 
+                                <span class="mini-dn">Reports</span> 
+                                <span class="indicator-right-menu mini-dn"><i class="fa indicator-mn fa-angle-left"></i></span>
+                            </a>
+                            <div role="menu" class="dropdown-menu left-menu-dropdown animated flipInX p-t-0" style="width: 180px">
+                                <a href="<?php echo base_url(); ?>index.php/reports/pr_report" target="_blank" class="dropdown-item">PR Report</a>
+                                <a href="<?php echo base_url(); ?>index.php/reports/" class="dropdown-item">PO Report</a>
+                            </div>
+                        </li>
+
                     </ul>
                 </div>
             </nav>
