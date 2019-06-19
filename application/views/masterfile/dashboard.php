@@ -1,3 +1,8 @@
+    <style type="text/css">
+        .fixed-table-body {
+            overflow-x: hidden!important; 
+        }
+    </style>
     <div class="breadcome-area mg-b-30 small-dn">
         <div class="container-fluid">
             <div class="row">
@@ -26,13 +31,64 @@
             </div>
         </div>
     </div>
-    <!-- Breadcome End-->
-
-                
-    
-     <div class="welcome-adminpro-area">
+    <!-- Breadcome End-->                  
+    <div class="welcome-adminpro-area">
         <div class="container-fluid">
             <div class="row">
+                <!-- pr and for te -->
+                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                    <div class="income-dashone-total user-monthly shadow-reset nt-mg-b-30">
+                        <div class="income-title">
+                            <div class="main-income-head">
+                                <h2>PR</h2>
+                                <div class="main-income-phara low-value-cl">
+                                    <p>Low Value</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="income-dashone-pro">
+                            <div class="income-rate-total">
+                                <div class="price-adminpro-rate">
+                                    <h3><span class="counter">88,200</span></h3>
+                                </div>
+                                <div class="price-graph">
+                                    <span id="sparkline5"></span>
+                                </div>
+                            </div>
+                            <div class="income-range low-value-cl">
+                                <p>PR</p>
+                                <span class="income-percentange">33% <i class="fa fa-level-down"></i></span>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                    </div>
+                    <div class="income-dashone-total visitor-monthly shadow-reset nt-mg-b-30">
+                        <div class="income-title">
+                            <div class="main-income-head">
+                                <h2>For TE</h2>
+                                <div class="main-income-phara visitor-cl">
+                                    <p>Pending</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="income-dashone-pro">
+                            <div class="income-rate-total">
+                                <div class="price-adminpro-rate">
+                                    <h3><span class="counter"><?php echo $for_te; ?></span></h3>
+                                </div>
+                                <div class="price-graph">
+                                    <span id="sparkline2"></span>
+                                </div>
+                            </div>
+                            <div class="income-range visitor-cl">
+                                <p>TE Percentage</p>
+                                <span class="income-percentange"><?php echo number_format($percent_te,2); ?>% <i class="fa fa-level-up"></i></span>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                    </div>
+                </div>
+                <!-- rfq and rfd -->
                 <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
                     <div class="income-dashone-total income-monthly shadow-reset nt-mg-b-30 res-mg-t-30">
                         <div class="income-title">
@@ -84,84 +140,129 @@
                             <div class="clear"></div>
                         </div>
                     </div>                    
-                </div>
-                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-                    <div class="income-dashone-total visitor-monthly shadow-reset nt-mg-b-30">
-                            <div class="income-title">
-                                <div class="main-income-head">
-                                    <h2>For TE</h2>
-                                    <div class="main-income-phara visitor-cl">
-                                        <p>Pending</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="income-dashone-pro">
-                                <div class="income-rate-total">
-                                    <div class="price-adminpro-rate">
-                                        <h3><span class="counter"><?php echo $for_te; ?></span></h3>
-                                    </div>
-                                    <div class="price-graph">
-                                        <span id="sparkline2"></span>
-                                    </div>
-                                </div>
-                                <div class="income-range visitor-cl">
-                                    <p>TE Percentage</p>
-                                    <span class="income-percentange"><?php echo number_format($percent_te,2); ?>% <i class="fa fa-level-up"></i></span>
-                                </div>
-                                <div class="clear"></div>
-                            </div>
-                    </div>
-                    <div class="income-dashone-total user-monthly shadow-reset nt-mg-b-30">
-                        <div class="income-title">
-                            <div class="main-income-head">
-                                <h2>User activity</h2>
-                                <div class="main-income-phara low-value-cl">
-                                    <p>Low Value</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="income-dashone-pro">
-                            <div class="income-rate-total">
-                                <div class="price-adminpro-rate">
-                                    <h3><span class="counter">88,200</span></h3>
-                                </div>
-                                <div class="price-graph">
-                                    <span id="sparkline5"></span>
-                                </div>
-                            </div>
-                            <div class="income-range low-value-cl">
-                                <p>In first month</p>
-                                <span class="income-percentange">33% <i class="fa fa-level-down"></i></span>
-                            </div>
-                            <div class="clear"></div>
-                        </div>
-                    </div>
-                </div>
+                </div>     
+
                 <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 desplay-n-tablet">
-                    <div class="dashone-adminprowrap shadow-reset mg-b-30">
+                    <div class="dashone-adminprowrap shadow-reset mg-b-30" style="height: 325px;max-height: 325px " >
                         <div class="dash-adminpro-project-title">
-                            <h2>Project progress</h2>
-                            <p>You have two project right now.</p>
+                            <h2 class="m-b-0" >Reminders <p class="m-b-0">You have two project right now.</p></h2>                            
                         </div>
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <div class="dashone-doughnut">
-                                    <div id="sparklinedask1"></div>
-                                    <h3>Design</h3>
+                        <div style="overflow-y: scroll;height: 255px;max-height: 255px  ">
+                            <!-- loop here -->
+                            <div class="row m-t-5" style="width: 310px">
+                                <div class="col-lg-12">
+                                    <div class="project-dashone-phara pad-5" style="border:1px solid #b5b2b2;border-radius: 5px;">
+                                        <p class="">Lorem Ipsum is simply dummy one text of the printing and the typesetting industry.</p>
+                                    </div>
+                                </div>
+                            </div>     
+                            <!-- loop here --> 
+                            
+                            <div class="row m-t-5" style="width: 310px">
+                                <div class="col-lg-12">
+                                    <div class="project-dashone-phara pad-5" style="border:1px solid #b5b2b2;border-radius: 5px;">
+                                        <p class="">Lorem Ipsum is simply dummy one text of the printing and the typesetting industry.</p>
+                                    </div>
+                                </div>
+                            </div> 
+                            <div class="row m-t-5" style="width: 310px">
+                                <div class="col-lg-12">
+                                    <div class="project-dashone-phara pad-5" style="border:1px solid #b5b2b2;border-radius: 5px;">
+                                        <p class="">Lorem Ipsum is simply dummy one text of the printing and the typesetting industry.</p>
+                                    </div>
+                                </div>
+                            </div> 
+                            <div class="row m-t-5" style="width: 310px">
+                                <div class="col-lg-12">
+                                    <div class="project-dashone-phara pad-5" style="border:1px solid #b5b2b2;border-radius: 5px;">
+                                        <p class="">Lorem Ipsum is simply dummy one text of the printing and the typesetting industry.</p>
+                                    </div>
+                                </div>
+                            </div> 
+                            <div class="row m-t-5" style="width: 310px">
+                                <div class="col-lg-12">
+                                    <div class="project-dashone-phara pad-5" style="border:1px solid #b5b2b2;border-radius: 5px;">
+                                        <p class="">Lorem Ipsum is simply dummy one text of the printing and the typesetting industry.</p>
+                                    </div>
+                                </div>
+                            </div> 
+                            <div class="row m-t-5" style="width: 310px">
+                                <div class="col-lg-12">
+                                    <div class="project-dashone-phara pad-5" style="border:1px solid #b5b2b2;border-radius: 5px;">
+                                        <p class="">Lorem Ipsum is simply dummy one text of the printing and the typesetting industry.</p>
+                                    </div>
+                                </div>
+                            </div> 
+                            <div class="row m-t-5" style="width: 310px">
+                                <div class="col-lg-12">
+                                    <div class="project-dashone-phara pad-5" style="border:1px solid #b5b2b2;border-radius: 5px;">
+                                        <p class="">Lorem Ipsum is simply dummy one text of the printing and the typesetting industry.</p>
+                                    </div>
+                                </div>
+                            </div>                          
+                        </div>    
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+     <div class="admin-dashone-data-table-area">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="sparkline8-list shadow-reset">
+                        <div class="sparkline8-hd">
+                            <div class="main-sparkline8-hd">
+                                <h1>Projects Data Table</h1>
+                                <div class="sparkline8-outline-icon">
+                                    <span class="sparkline8-collapse-link"><i class="fa fa-chevron-up"></i></span>
+                                    <span><i class="fa fa-wrench"></i></span>
+                                    <span class="sparkline8-collapse-close"><i class="fa fa-times"></i></span>
                                 </div>
                             </div>
-                            <div class="col-lg-6">
-                                <div class="dashone-doughnut">
-                                    <div id="sparklinedask2"></div>
-                                    <h3>Development</h3>
-                                </div>
-                            </div>
                         </div>
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <div class="project-dashone-phara">
-                                    <p>Lorem Ipsum is simply dummy one text of the printing and the typesetting industry.</p>
+                        <div class="sparkline8-graph">
+                            <div class="datatable-dashv1-list custom-datatable-overright">
+                                <div id="toolbar">
+                                    <select class="form-control">
+                                        <option value="">Export Basic</option>
+                                        <option value="all">Export All</option>
+                                        <option value="selected">Export Selected</option>
+                                    </select>
                                 </div>
+                                <table id="table" data-toggle="table" data-pagination="true" data-search="true"  data-show-pagination-switch="true"  data-cookie="true"  data-show-export="true" data-toolbar="#toolbar" data-resizable="true">
+                                    <thead>
+                                        <tr>
+                                            <th rowspan="2" data-field="prno" >PR No</th>
+                                            <th rowspan="2" data-field="item" >Item Description</th>
+                                            <th rowspan="2" data-field="pr" >PR</th>
+                                            <th colspan="2" data-field="rfq" >RFQ</th>
+                                            <th colspan="2" data-field="aoq" >AOQ</th>
+                                            <th rowspan="2" data-field="po" >PO</th>
+                                        </tr>
+                                        <tr>
+                                            <th width="20%">Outgoing</th>
+                                            <th width="20%">Incoming</th>
+                                            <th width="20%">For TE</th>
+                                            <th width="20%">TE Done</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td> PR-admin-1029-29823</td>
+                                            <td><span style="color:blue">Pipe</span> B.I., Sched. 40, 2 1/2" diameter, Seamless, ASTM A53</td>
+                                            <td class="datatable-ct"><i class="fa fa-check"></i></td>
+                                            <td class="datatable-ct"><i class="fa fa-check"></i></td>
+                                            <td class="datatable-ct"><i class="fa fa-check"></i></td>
+                                            <td class="datatable-ct"><i class="fa fa-check"></i></td>
+                                            <td class="datatable-ct"><i class="fa fa-check"></i></td>
+                                            <td class="datatable-ct"><i class="fa fa-check"></i></td>
+                                        </tr>
+                                    </tbody>
+                                    
+                                </table>
                             </div>
                         </div>
                     </div>
@@ -171,7 +272,7 @@
     </div>
 
     <!-- welcome Project, sale area start-->
-    <div class="welcome-adminpro-area">
+    <!-- <div class="welcome-adminpro-area">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
@@ -257,10 +358,10 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
     <!-- welcome Project, sale area start-->
     <!-- stockprice, feed area start-->
-    <div class="stockprice-feed-project-area">
+    <!-- <div class="stockprice-feed-project-area">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
@@ -635,7 +736,7 @@
                             <div class="clear"></div>
                         </div>
                     </div>
-                    <!-- <div class="income-dashone-total user-monthly shadow-reset nt-mg-b-30">
+                    <div class="income-dashone-total user-monthly shadow-reset nt-mg-b-30">
                         <div class="income-title">
                             <div class="main-income-head">
                                 <h2>User activity</h2>
@@ -659,14 +760,14 @@
                             </div>
                             <div class="clear"></div>
                         </div>
-                    </div> -->
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
     <!-- stockprice, feed area end-->
     <!-- Data table area Start-->
-    <div class="admin-dashone-data-table-area">
+    <!-- <div class="admin-dashone-data-table-area">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-12">
@@ -1030,5 +1131,5 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
     <!-- Data table area End-->

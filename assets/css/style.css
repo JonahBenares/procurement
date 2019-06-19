@@ -984,8 +984,8 @@ ul.message-list-menu li .message-serial.message-cl-six {
 .project-dashone-phara p{
 	font-size: 14px;
     margin: 0px;
-    line-height: 24px;
-    padding-top: 17px;
+   /* line-height: 24px;
+    padding-top: 17px;*/
 }
 /*----------------------------------------*/
 /*  11.  Dashboard v.1.0 comment
@@ -4136,7 +4136,7 @@ div#sparklinedask2, div#sparklinedask1 {
     padding: 5px;
 }
 .pad-10 {
-    padding: 10px;
+    padding: 10px!important;
 }
 .pad-15 {
     padding: 15px;
@@ -4211,11 +4211,11 @@ div#sparklinedask2, div#sparklinedask1 {
 }
 
 .p-b-5 {
-    padding-bottom: 5px;
+    padding-bottom: 5px!important;
 }
 
 .p-t-5 {
-    padding-top: 5px;
+    padding-top: 5px!important;
 }
 
 .p-r-5 {
