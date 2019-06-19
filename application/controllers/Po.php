@@ -89,10 +89,32 @@ class Po extends CI_Controller {
              }
         }
 
+        $rows = $this->super_model->count_rows_where('po_tc','po_id',$po_id);
+        if($rows!=0){
+            foreach($this->super_model->select_row_where("po_tc","po_id",$po_id) AS $tc){
+                $data['terms'][]=array(
+                    'po_id'=>$tc->po_id,                    
+                    'tc_name'=>$tc->tc_name,                    
+                );
+            }
+        }else{
+            $data['terms']=array();
+        }
         $data['employee']=$this->super_model->select_all_order_by("employees", "employee_name", "ASC");
         $this->load->view('template/header');        
         $this->load->view('po/purchase_order',$data);
         $this->load->view('template/footer');
+    }
+
+    public function add_tc(){
+        $po_id = $this->input->post('po_id');
+        $data = array(
+            'po_id'=>$this->input->post('po_id'),
+            'tc_name'=>$this->input->post('tc_name'),
+        );
+        if($this->super_model->insert_into("po_tc", $data)){
+            redirect(base_url().'po/purchase_order/'.$po_id, 'refresh');
+        }
     }
 
 
