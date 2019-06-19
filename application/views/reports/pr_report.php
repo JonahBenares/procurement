@@ -49,8 +49,10 @@
                     <div class="sparkline8-list shadow-reset">
                         <div class="sparkline8-hd p-b-0" >
                             <div class="main-sparkline8-hd">
-                                <h1>PR Summary <b style="color:blue"><?php echo $date; ?></b></h1>
-                                <small>PURCHASE REQUEST</small> 
+                                <h1><button onclick="goBack()" class=" btn btn-xs btn-success"><span class="fa fa-arrow-left"></span></button>
+                                    PR Summary <b style="color:blue"><?php echo $date; ?></b>
+                                </h1>
+                                <small class="p-l-25">&nbsp;PURCHASE REQUEST</small> 
                                 <div class="sparkline8-outline-icon">
                                     <a type='button' class="btn btn-custon-three btn-success"  data-toggle="modal" data-target="#filter_pr"> 
                                         <span class="fa fa-filter p-l-0"></span> Filter
@@ -111,6 +113,11 @@
             </div>
         </div>
     </div>
+    <script type="text/javascript">
+        function goBack() {
+            window.history.back();
+        }
+    </script>
 
     
     <!-- Data table area End-->
