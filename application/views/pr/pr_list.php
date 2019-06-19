@@ -129,6 +129,7 @@
                                         </thead>
                                         <tbody> 
                                             <?php 
+                                                if(!empty($head)){
                                                 foreach($head AS $p){ 
                                                    
                                             ?>                                       
@@ -149,7 +150,7 @@
                                                     </center>
                                                 </td>
                                             </tr>
-                                            <?php }  ?>                       
+                                            <?php } }  ?>                       
                                         </tbody>
                                     </table>
                                 </div>                           

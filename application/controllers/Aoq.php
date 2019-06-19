@@ -65,6 +65,7 @@ class Aoq extends CI_Controller {
 				'date_needed'=>$list->date_needed,
 				'requestor'=>$requested,
 				'saved'=>$list->saved,
+				'refer_mnl'=>$list->refer_mnl,
 				'completed'=>$list->completed,
 				'rows'=>$rows,
 				'supplier'=>$sup
@@ -77,6 +78,18 @@ class Aoq extends CI_Controller {
         $this->load->view('template/navbar');
         $this->load->view('aoq/aoq_list',$data);
         $this->load->view('template/footer');
+    }
+
+    public function refer_mnl(){
+    	$aoq_id=$this->uri->segment(3);
+    	$data = array(
+    		'refer_date'=>date('Y-m-d H:i:s'),
+    		'refer_mnl'=>1
+    	);
+
+    	if($this->super_model->update_where("aoq_header", $data, "aoq_id", $aoq_id)){
+    		redirect(base_url().'aoq/aoq_list', 'refresh');
+    	}
     }
 
     public function served_aoq(){
