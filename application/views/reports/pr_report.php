@@ -49,7 +49,7 @@
                     <div class="sparkline8-list shadow-reset">
                         <div class="sparkline8-hd p-b-0" >
                             <div class="main-sparkline8-hd">
-                                <h1>PR Summary</h1>
+                                <h1>PR Summary <b style="color:blue">June 2019</b></h1>
                                 <small>PURCHASE REQUEST</small> 
                                 <div class="sparkline8-outline-icon">
                                     <a type='button' class="btn btn-custon-three btn-success"  data-toggle="modal" data-target="#filter_pr"> 
