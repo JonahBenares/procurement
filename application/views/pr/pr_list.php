@@ -45,7 +45,18 @@
                             <p class="m-b-0">Date Received:</p>
                             <input type="date" name="date_rec" class="form-control">
                         </div>
-                          <div class="form-group">
+                        <div class="form-group">
+                            <p class="m-b-0">Department:</p>
+                            <select name='department' class="form-control">
+                                <option value='' selected>-Select Department-</option>
+                                <?php foreach($department AS $d){ ?>
+                                    <option value="<?php echo $d->department_id; ?>">
+                                    <?php echo $d->department_name; ?>
+                                    </option>
+                                <?php }  ?> 
+                            </select>
+                        </div>
+                        <div class="form-group">
                             <p class="m-b-0">Enduse:</p>
                             <select name='enduse' class="form-control">
                                 <option value='' selected>-Select End Use-</option>
@@ -121,6 +132,7 @@
                                             <tr>
                                                 <th>PR NO</th>
                                                 <th>Date Received</th>
+                                                <th>Department</th>
                                                 <th>Purpose</th>
                                                 <th>Enduse</th>
                                                 <th>Requestor</th>
@@ -136,6 +148,7 @@
                                             <tr>
                                                 <td><?php echo $p['pr_no']; ?></td>
                                                 <td><?php echo $p['pr_date']; ?></td>
+                                                <td><?php echo $p['department']; ?></td>
                                                 <td><?php echo $p['purpose']; ?></td>
                                                 <td><?php echo $p['enduse']; ?></td>
                                                 <td><?php echo $p['requestor']; ?></td>

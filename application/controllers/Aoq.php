@@ -44,14 +44,16 @@ class Aoq extends CI_Controller {
 	  public function getpr(){
 
         $pr = $this->input->post('pr');
+        $department_id= $this->super_model->select_column_where('pr_head', 'department_id', 'pr_id', $pr);
         $enduse_id= $this->super_model->select_column_where('pr_head', 'enduse_id', 'pr_id', $pr);
         $purpose_id= $this->super_model->select_column_where('pr_head', 'purpose_id', 'pr_id', $pr);
         $requestor_id= $this->super_model->select_column_where('pr_head', 'requested_by', 'pr_id', $pr);
+        $department = $this->super_model->select_column_where('department', 'department_name', 'department_id', $department_id);
         $enduse = $this->super_model->select_column_where('enduse', 'enduse_name', 'enduse_id', $enduse_id);
         $purpose = $this->super_model->select_column_where('purpose', 'purpose_name', 'purpose_id', $purpose_id);
         $requestor = $this->super_model->select_column_where('employees', 'employee_name', 'employee_id', $requestor_id);
         
-        $return = array('enduse_id' => $enduse_id, 'purpose_id' => $purpose_id, 'requestor_id' => $requestor_id, 'enduse' => $enduse, 'purpose' => $purpose, 'requestor' => $requestor);
+        $return = array('enduse_id' => $enduse_id, 'department_id' => $department_id, 'purpose_id' => $purpose_id, 'requestor_id' => $requestor_id, 'enduse' => $enduse, 'department' => $department, 'purpose' => $purpose, 'requestor' => $requestor);
         echo json_encode($return);
     
     }
