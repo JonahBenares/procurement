@@ -207,20 +207,41 @@
                                 </button>
                             </h5>                            
                         </div>
-                        <form>
+                        <form method='POST' action="<?php echo base_url(); ?>reports/generate_pr_summary">
                             <div class="modal-body">
                                 <div class="form-group">
                                     Choose Year:
-                                    <input type="text" class="form-control" name="">
+                                    <select class="form-control" name="year">
+                                        <option value='' selected="selected">-Select Year-</option>
+                                        <?php
+                                        $curr_year = date('Y'); 
+                                        for($x=2019;$x<=$curr_year;$x++){ ?>
+                                            <option value="<?php echo $x; ?>"><?php echo $x; ?></option>
+                                        <?php } ?>
+                                    </select>
                                 </div>
                                 <div class="form-group">
                                     Choose Month:
-                                    <input type="text" class="form-control" name="">
+                                    <select class="form-control" name="month">
+                                        <option value='' selected="selected">-Select Month-</option>
+                                        <option value='01'>January</option>
+                                        <option value='02'>February</option>
+                                        <option value='03'>March</option>
+                                        <option value='04'>April</option>
+                                        <option value='05'>May</option>
+                                        <option value='06'>June</option>
+                                        <option value='07'>July</option>
+                                        <option value='08'>August</option>
+                                        <option value='09'>September</option>
+                                        <option value='10'>October</option>
+                                        <option value='11'>November</option>
+                                        <option value='12'>December</option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-primary btn-block">Proceed</button>
-                                <a href="<?php echo base_url(); ?>index.php/reports/pr_report"  class="btn btn-primary " target="_blank">Proceed</a>
+                                <input type="submit" class="btn btn-primary btn-block" value='Proceed'>
+                                <!-- <a href="<?php echo base_url(); ?>index.php/reports/pr_report"  class="btn btn-primary " target="_blank">Proceed</a> -->
                             </div>
                         </form>
                     </div>

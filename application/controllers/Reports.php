@@ -25,9 +25,22 @@ class Reports extends CI_Controller {
             }
         }
 	}
+
+    public function generate_pr_summary(){
+        $year = $this->input->post('year');
+        $month = $this->input->post('month');
+        redirect(base_url().'reports/pr_report/'.$year.'/'.$month);
+    }
+
 	public function pr_report(){
+        $year=$this->uri->segment(3);
+        $month=$this->uri->segment(4);
+        $date = $year."-".$month;
+        $data['date']=date('F Y', strtotime($date));
+
+        
         $this->load->view('template/header');        
-        $this->load->view('reports/pr_report');
+        $this->load->view('reports/pr_report',$data);
         $this->load->view('template/footer');
     }
 }

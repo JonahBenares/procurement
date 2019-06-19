@@ -44,6 +44,9 @@
                                             <?php foreach($head AS $h){ ?>
                                             <h1>PR No: <b><?php echo $h['pr_no']; ?></b> </h1>
                                             <h5>Date: <?php echo $h['pr_date']; ?></h5> 
+                                            <h5>Enduse: <?php echo $h['enduse']; ?></h5> 
+                                            <h5>Purpose: <?php echo $h['purpose']; ?></h5> 
+                                            <h5>Requestor: <?php echo $h['requestor']; ?></h5> 
                                             <div class = "row">
                                                 <div class="col-lg-6 col-md-4 col-xs-6 thumb">
                                                     <label> Attachment 1:</label>
