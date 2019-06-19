@@ -93,7 +93,7 @@
 							<select name='pr' id='pr' class="form-control" onchange='getPRInfo()'>
 							<option value="" selected=""></option>
 							<?php foreach($pr AS $p){ ?>
-								<option value="<?php echo $p->pr_no; ?>"><?php echo $p->pr_no; ?></option>
+								<option value="<?php echo $p->pr_id; ?>"><?php echo $p->pr_no; ?></option>
 							<?php } ?>
 							</select>
 						</div>

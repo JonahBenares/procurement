@@ -48,6 +48,7 @@ class Aoq extends CI_Controller {
 			$department=$this->super_model->select_column_where('department','department_name','department_id', $list->department_id);
 			$enduse=$this->super_model->select_column_where('enduse','enduse_name','enduse_id', $list->enduse_id);
 			$requested=$this->super_model->select_column_where('employees','employee_name','employee_id', $list->requested_by);
+			$pr_no=$this->super_model->select_column_where('pr_head','pr_no','pr_id', $list->pr_id);
 			$supplier='';
 			foreach($this->super_model->select_row_where("aoq_rfq", "aoq_id", $list->aoq_id) AS $rfq){
 				$supplier_id=$this->super_model->select_column_where('rfq_head','supplier_id','rfq_id', $rfq->rfq_id);
@@ -58,7 +59,7 @@ class Aoq extends CI_Controller {
 			$data['header'][]=array(
 				'aoq_id'=>$list->aoq_id,
 				'aoq_date'=>$list->aoq_date,
-				'pr'=>$list->pr_no,
+				'pr'=>$pr_no,
 				'department'=>$department,
 				'enduse'=>$enduse,
 				'date_needed'=>$list->date_needed,
@@ -88,6 +89,7 @@ class Aoq extends CI_Controller {
 			$enduse=$this->super_model->select_column_where('enduse','enduse_name','enduse_id', $list->enduse_id);
 			$requested=$this->super_model->select_column_where('employees','employee_name','employee_id', $list->requested_by);
 			$supplier='';
+			$pr_no = $this->super_model->select_column_where('pr_head','pr_no','pr_id', $list->pr_id);
 			foreach($this->super_model->select_row_where("aoq_rfq", "aoq_id", $list->aoq_id) AS $rfq){
 				$supplier_id=$this->super_model->select_column_where('rfq_head','supplier_id','rfq_id', $rfq->rfq_id);
 				$supplier.="-".$this->super_model->select_column_where('vendor_head','vendor_name','vendor_id', $supplier_id). "<br> ";
@@ -96,7 +98,7 @@ class Aoq extends CI_Controller {
 			$data['header'][]=array(
 				'aoq_id'=>$list->aoq_id,
 				'aoq_date'=>$list->aoq_date,
-				'pr'=>$list->pr_no,
+				'pr'=>$pr_no,
 				'department'=>$department,
 				'enduse'=>$enduse,
 				'date_needed'=>$list->date_needed,
@@ -120,6 +122,7 @@ class Aoq extends CI_Controller {
     	$data['department']=$this->super_model->select_all_order_by("department", "department_name", "ASC");
 		$data['enduse']=$this->super_model->select_all_order_by("enduse", "enduse_name", "ASC");
 		$data['purpose']=$this->super_model->select_all_order_by("purpose", "purpose_name", "ASC");
+		$data['pr']=$this->super_model->select_custom_where("pr_head", "cancelled='0'");
         $this->load->view('template/header');
         $this->load->view('template/navbar');
         $this->load->view('aoq/add_aoq',$data);
@@ -142,7 +145,7 @@ class Aoq extends CI_Controller {
 		$head = array(
 			'aoq_id'=>$aoq_id,
 			'aoq_date'=>$this->input->post('aoq_date'),
-			'pr_no'=>$this->input->post('pr'),
+			'pr_id'=>$this->input->post('pr'),
 			'department_id'=>$this->input->post('department'),
 			'enduse_id'=>$this->input->post('enduse'),
 			'purpose_id'=>$this->input->post('purpose'),
@@ -186,10 +189,11 @@ class Aoq extends CI_Controller {
 			$noted=$this->super_model->select_column_where('employees','employee_name','employee_id', $head->noted_by);
 			$approved=$this->super_model->select_column_where('employees','employee_name','employee_id', $head->approved_by);
 			$prepared=$this->super_model->select_column_where('employees','employee_name','employee_id', $head->prepared_by);
+			$pr_no=$this->super_model->select_column_where('pr_head','pr_no','pr_id', $head->pr_id);
 			$data['head'][] = array(
 				'aoq_id'=>$head->aoq_id,
 				'aoq_date'=>$head->aoq_date,
-				'pr'=>$head->pr_no,
+				'pr'=>$pr_no,
 				'department'=>$department,
 				'enduse'=>$enduse,
 				'purpose'=>$purpose,
@@ -197,9 +201,6 @@ class Aoq extends CI_Controller {
 				'requested'=>$requested,
 				'remarks'=>$head->remarks,
 				'prepared'=>$prepared,
-
-
-
 			);
 			$data['noted'] = $noted;
 			$data['approved'] = $approved;
@@ -408,10 +409,11 @@ class Aoq extends CI_Controller {
 			$noted=$this->super_model->select_column_where('employees','employee_name','employee_id', $head->noted_by);
 			$approved=$this->super_model->select_column_where('employees','employee_name','employee_id', $head->approved_by);
 			$prepared=$this->super_model->select_column_where('employees','employee_name','employee_id', $head->prepared_by);
+			$pr_no=$this->super_model->select_column_where('pr_head','pr_no','pr_id', $head->pr_id);
 			$data['head'][] = array(
 				'aoq_id'=>$head->aoq_id,
 				'aoq_date'=>$head->aoq_date,
-				'pr'=>$head->pr_no,
+				'pr'=>$pr_no,
 				'department'=>$department,
 				'enduse'=>$enduse,
 				'purpose'=>$purpose,
@@ -419,9 +421,6 @@ class Aoq extends CI_Controller {
 				'requested'=>$requested,
 				'remarks'=>$head->remarks,
 				'prepared'=>$prepared,
-
-
-
 			);
 			$data['noted'] = $noted;
 			$data['approved'] = $approved;
@@ -519,13 +518,14 @@ class Aoq extends CI_Controller {
 			$noted=$this->super_model->select_column_where('employees','employee_name','employee_id', $head->noted_by);
 			$approved=$this->super_model->select_column_where('employees','employee_name','employee_id', $head->approved_by);
 			$prepared=$this->super_model->select_column_where('employees','employee_name','employee_id', $head->prepared_by);
+			$pr_no=$this->super_model->select_column_where('pr_head','pr_no','pr_id', $head->pr_id);
 			$objPHPExcel->setActiveSheetIndex(0)->setCellValue('F1', "ABSTRACT OF QUOTATION");
 			$objPHPExcel->setActiveSheetIndex(0)->setCellValue('E2', "Department: $department");
 			$objPHPExcel->setActiveSheetIndex(0)->setCellValue('E3', "Purpose: $purpose");
 			$objPHPExcel->setActiveSheetIndex(0)->setCellValue('E4', "Enduse: $enduse");
 			$objPHPExcel->setActiveSheetIndex(0)->setCellValue('E5', "Requested By: $requested");
 			$objPHPExcel->setActiveSheetIndex(0)->setCellValue('H2', "Date: ".date('F j, Y',strtotime($head->aoq_date)));
-			$objPHPExcel->setActiveSheetIndex(0)->setCellValue('H3', "PR#: $head->pr_no");
+			$objPHPExcel->setActiveSheetIndex(0)->setCellValue('H3', "PR#: $pr_no");
 			$objPHPExcel->setActiveSheetIndex(0)->setCellValue('H4', "Date Needed: ".date('F j, Y',strtotime($head->date_needed)));
 			$objPHPExcel->getActiveSheet()->getStyle('F1:G1')->getFont()->setBold(true);
 			$objPHPExcel->getActiveSheet()->mergeCells('F1:G1');
@@ -803,7 +803,6 @@ class Aoq extends CI_Controller {
 			$objPHPExcel->getActiveSheet()->getStyle('G'.$f)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
 			$objPHPExcel->getActiveSheet()->getStyle('I'.$f)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
 			$objPHPExcel->getActiveSheet()->getStyle('K'.$f)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
-
 		}
 		
 		$objPHPExcel->getActiveSheet()->getStyle('A8:X8')->getFont()->setBold(true);
@@ -834,10 +833,11 @@ class Aoq extends CI_Controller {
 			$noted=$this->super_model->select_column_where('employees','employee_name','employee_id', $head->noted_by);
 			$approved=$this->super_model->select_column_where('employees','employee_name','employee_id', $head->approved_by);
 			$prepared=$this->super_model->select_column_where('employees','employee_name','employee_id', $head->prepared_by);
+			$pr_no=$this->super_model->select_column_where('pr_head','pr_no','pr_id', $head->pr_id);
 			$data['head'][] = array(
 				'aoq_id'=>$head->aoq_id,
 				'aoq_date'=>$head->aoq_date,
-				'pr'=>$head->pr_no,
+				'pr'=>$pr_no,
 				'department'=>$department,
 				'enduse'=>$enduse,
 				'purpose'=>$purpose,
@@ -845,9 +845,6 @@ class Aoq extends CI_Controller {
 				'requested'=>$requested,
 				'remarks'=>$head->remarks,
 				'prepared'=>$prepared,
-
-
-
 			);
 			$data['noted'] = $noted;
 			$data['approved'] = $approved;

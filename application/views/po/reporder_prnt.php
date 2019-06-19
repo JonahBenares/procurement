@@ -101,7 +101,13 @@
 				<div class="form-group">
 					<h5 class="nomarg">PR No:</h5>
 					<h5 class="nomarg"><b>
-						<input type='text' name='pr_no' class="form-control">
+						<!-- <input type='text' name='pr_no' class="form-control"> -->
+						<select name='pr_no' id='pr' class="form-control" onchange='getPRInfo()'>
+							<option value="" selected=""></option>
+							<?php foreach($pr AS $p){ ?>
+								<option value="<?php echo $p->pr_id; ?>"><?php echo $p->pr_no; ?></option>
+							<?php } ?>
+						</select>
 					</b></h5>
 				</div>
 				<div class="form-group">

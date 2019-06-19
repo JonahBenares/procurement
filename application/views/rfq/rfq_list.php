@@ -102,7 +102,13 @@ $(document).on("click", ".reviseRFQ", function () {
                     <div class="modal-body-lowpad">
                         <div class="form-group">
                             <p class="m-b-0">PR No:</p>
-                            <input type='text' name="pr_no" class="form-control">
+                            <!-- <input type='text' name="pr_no" class="form-control"> -->
+                            <select name='pr_no' class="form-control">
+                                <option value="" selected=""></option>
+                                <?php foreach($pr AS $p){ ?>
+                                <option value="<?php echo $p->pr_id; ?>"><?php echo $p->pr_no; ?></option>
+                                <?php } ?>
+                            </select>
                         </div>
                          <div class="form-group">
                             <p class="m-b-0">Notes:</p>
