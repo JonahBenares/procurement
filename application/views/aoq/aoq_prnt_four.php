@@ -588,15 +588,16 @@
 					  	<?php } ?>
 					</select>
                 </div>                                   
-                <div class="form-group">
+            <!--     <div class="form-group">
                     <h5 class="m-b-0" style="text-align: left">Qty:</h5>
                     <input type='text' name="qty" class="form-control" required="" autocomplete="off" onkeypress="return isNumberKey(this, event)">
                 </div>
-
+ -->
 		      	</div>
 		      	<div class="modal-footer">
 			        <input type="submit" class="btn btn-primary btn-block" value="Add">
 		      	</div>
+		      	<input type='hidden' name='pr_id' value="<?php echo $pr_id; ?>">
 		      	<input type='hidden' name='aoq_id' value="<?php echo $aoq_id; ?>">
 		      	<input type='hidden' name='count' value="4">
 		      	</form>

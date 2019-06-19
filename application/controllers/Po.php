@@ -100,6 +100,12 @@ class Po extends CI_Controller {
         $po_id=$this->uri->segment(3);
         $data['po_id']=$po_id;
         $supplier=$this->super_model->select_column_where('po_head', 'supplier_id', 'po_id', $po_id);
+
+         $vendor=$this->super_model->select_column_custom_where('po_head', 'supplier_id', "po_id = '$po_id'");
+        $pr_id=$this->super_model->select_column_custom_where('po_pr', 'pr_id', "po_id = '$po_id'");
+
+        $data['terms']= $this->super_model->select_column_custom_where('rfq_head', 'payment_terms', "supplier_id = '$vendor' AND pr_id = '$pr_id'");
+        
         $data['saved']=$this->super_model->select_column_where('po_head', 'saved', 'po_id', $po_id);
         $data['notes']=$this->super_model->select_column_where('po_head', 'notes', 'po_id', $po_id);
         $approved_id=$this->super_model->select_column_where('po_head', 'approved_by', 'po_id', $po_id);
@@ -167,6 +173,12 @@ class Po extends CI_Controller {
         $po_id=$this->uri->segment(3);
         $data['po_id']=$po_id;
         $supplier=$this->super_model->select_column_where('po_head', 'supplier_id', 'po_id', $po_id);
+
+          $vendor=$this->super_model->select_column_custom_where('po_head', 'supplier_id', "po_id = '$po_id'");
+        $pr_id=$this->super_model->select_column_custom_where('po_pr', 'pr_id', "po_id = '$po_id'");
+
+        $data['terms']= $this->super_model->select_column_custom_where('rfq_head', 'payment_terms', "supplier_id = '$vendor' AND pr_id = '$pr_id'");
+
         $data['saved']=$this->super_model->select_column_where('po_head', 'saved', 'po_id', $po_id);
         $data['cancelled']=$this->super_model->select_column_where('po_head', 'cancelled', 'po_id', $po_id);
         $data['cancel_date']=$this->super_model->select_column_where('po_head', 'cancelled_date', 'po_id', $po_id);
@@ -235,6 +247,11 @@ class Po extends CI_Controller {
         $po_id=$this->uri->segment(3);
         $revise_no=$this->uri->segment(4);
         $data['po_id']=$po_id;
+
+        $vendor=$this->super_model->select_column_custom_where('po_head', 'supplier_id', "po_id = '$po_id'");
+        $pr_id=$this->super_model->select_column_custom_where('po_pr', 'pr_id', "po_id = '$po_id'");
+
+        $data['terms']= $this->super_model->select_column_custom_where('rfq_head', 'payment_terms', "supplier_id = '$vendor' AND pr_id = '$pr_id'");
         $supplier=$this->super_model->select_column_custom_where('revised_po_head', 'supplier_id', "po_id = '$po_id' AND revision_no = '$revise_no'");
         $data['saved']=$this->super_model->select_column_custom_where('revised_po_head', 'saved', "po_id = '$po_id' AND revision_no = '$revise_no'");
         $data['cancelled']=$this->super_model->select_column_custom_where('revised_po_head', 'cancelled', "po_id = '$po_id' AND revision_no = '$revise_no'");

@@ -118,12 +118,12 @@
                                                     <tbody>    
                                                         <?php foreach($details AS $d){ ?>                                    
                                                         <tr>
-                                                            <td><?php echo $d['item'];?></td>
+                                                            <td><?php echo $d['item']. ", ". $d['specs'];?></td>
                                                             <td><?php echo $d['qty'];?></td>
                                                             <?php if($saved==0 && $cancelled==0){ ?>
                                                             <td>
                                                                 <center>
-                                                                    <a href="<?php echo base_url(); ?>index.php/pr/delete_item/<?php echo $d['pr_details_id'];?>/<?php echo $pr_id; ?>" class="btn btn-custon-three btn-danger btn-xs">
+                                                                    <a href="<?php echo base_url(); ?>index.php/pr/delete_item/<?php echo $d['pr_details_id'];?>/<?php echo $pr_id; ?>" onclick="return confirm('Are you sure you want to delete item?')" class="btn btn-custon-three btn-danger btn-xs">
                                                                         <span class="fa fa-times"></span>
                                                                     </a>
                                                                 </center>
