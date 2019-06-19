@@ -1,4 +1,4 @@
-
+<script src="<?php echo base_url(); ?>assets/js/aoq.js"></script> 
     <div class="admin-dashone-data-table-area m-t-15">
         <div class="container-fluid">
             <div class="row">
@@ -26,7 +26,7 @@
                                                                 <div class="form-group">
                                                                     <p class="m-b-0">PR #:</p>
                                                                     <!-- <input type="text" name="pr" class="form-control"> -->
-                                                                    <select name='pr' class="form-control">
+                                                                    <select name='pr' id='pr' class="form-control" onchange='choosePR()'>
                                                                         <option value='' selected>-Select PR Number-</option>
                                                                         <?php foreach($pr AS $p){ ?>
                                                                             <option value="<?php echo $p->pr_id; ?>">
@@ -50,25 +50,29 @@
                                                         </div>
                                                         <div class="form-group">
                                                             <p class="m-b-0">Enduse:</p>
-                                                            <select name='enduse' class="form-control">
+                                                           <!--  <select name='enduse' class="form-control">
                                                                 <option value='' selected>-Select End Use-</option>
                                                                 <?php foreach($enduse AS $end){ ?>
                                                                     <option value="<?php echo $end->enduse_id; ?>">
                                                                     <?php echo $end->enduse_name; ?>
                                                                     </option>
                                                                 <?php }  ?> 
-                                                            </select>
+                                                            </select> -->
+                                                            <span id='enduse_name'></span>
+                                                            <input type='hidden' name='enduse' id='enduse'>
                                                         </div>
                                                         <div class="form-group">
                                                             <p class="m-b-0">Purpose:</p>
-                                                            <select name='purpose' class="form-control">
+                                                           <!--  <select name='purpose' class="form-control">
                                                                 <option value='' selected>-Select Purpose-</option>
                                                                 <?php foreach($purpose AS $purp){ ?>
                                                                     <option value="<?php echo $purp->purpose_id; ?>">
                                                                     <?php echo $purp->purpose_name; ?>
                                                                     </option>
                                                                 <?php }  ?> 
-                                                            </select>
+                                                            </select> -->
+                                                            <span id='purpose_name'></span>
+                                                            <input type='hidden' name='purpose' id='purpose'>
                                                         </div>
                                                         <div class="form-group">
                                                             <p class="m-b-0">Date needed:</p>
@@ -76,14 +80,16 @@
                                                         </div>
                                                         <div class="form-group">
                                                             <p class="m-b-0">Requested by:</p>
-                                                            <select name='requested_by' class="form-control">
+                                                           <!--  <select name='requested_by' class="form-control">
                                                                 <option value='' selected>-Select Employee-</option>
                                                                 <?php foreach($employee AS $emp){ ?>
                                                                     <option value="<?php echo $emp->employee_id; ?>">
                                                                     <?php echo $emp->employee_name; ?>
                                                                     </option>
                                                                 <?php }  ?> 
-                                                            </select>
+                                                            </select> -->
+                                                            <span id='requested_name'></span>
+                                                            <input type='hidden' name='requested_by' id='requested_by'>
                                                         </div>
                                                        <!--  <div class="form-group">
                                                             <p class="m-b-0">Remarks:</p>
@@ -100,6 +106,7 @@
                                                       echo '<input type="hidden" name="rfq[]" value="'. $r. '">';
                                                     }
                                                   ?>
+                                                  <input type='hidden' name='baseurl' id='baseurl' value="<?php echo base_url(); ?>">
                                                 </form>
                                             </td>
                                         </tr>                                     

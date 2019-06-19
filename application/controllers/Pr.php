@@ -27,6 +27,7 @@ class Pr extends CI_Controller {
 
 	}
 
+
     public function pr_list(){  
         $data['employee']=$this->super_model->select_all_order_by("employees", "employee_name", "ASC");
         $data['enduse']=$this->super_model->select_all_order_by("enduse", "enduse_name", "ASC");
