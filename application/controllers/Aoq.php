@@ -190,6 +190,7 @@ class Aoq extends CI_Controller {
 			$approved=$this->super_model->select_column_where('employees','employee_name','employee_id', $head->approved_by);
 			$prepared=$this->super_model->select_column_where('employees','employee_name','employee_id', $head->prepared_by);
 			$pr_no=$this->super_model->select_column_where('pr_head','pr_no','pr_id', $head->pr_id);
+			$data['pr_id'] = $head->pr_id;
 			$data['head'][] = array(
 				'aoq_id'=>$head->aoq_id,
 				'aoq_date'=>$head->aoq_date,
@@ -410,6 +411,7 @@ class Aoq extends CI_Controller {
 			$approved=$this->super_model->select_column_where('employees','employee_name','employee_id', $head->approved_by);
 			$prepared=$this->super_model->select_column_where('employees','employee_name','employee_id', $head->prepared_by);
 			$pr_no=$this->super_model->select_column_where('pr_head','pr_no','pr_id', $head->pr_id);
+			$data['pr_id'] = $head->pr_id;
 			$data['head'][] = array(
 				'aoq_id'=>$head->aoq_id,
 				'aoq_date'=>$head->aoq_date,
@@ -834,6 +836,7 @@ class Aoq extends CI_Controller {
 			$approved=$this->super_model->select_column_where('employees','employee_name','employee_id', $head->approved_by);
 			$prepared=$this->super_model->select_column_where('employees','employee_name','employee_id', $head->prepared_by);
 			$pr_no=$this->super_model->select_column_where('pr_head','pr_no','pr_id', $head->pr_id);
+			$data['pr_id'] = $head->pr_id;
 			$data['head'][] = array(
 				'aoq_id'=>$head->aoq_id,
 				'aoq_date'=>$head->aoq_date,
@@ -934,10 +937,13 @@ class Aoq extends CI_Controller {
     public function add_item(){
     	$count=$this->input->post('count');
     	$aoq_id=$this->input->post('aoq_id');
+    	$pr_id=$this->input->post('pr_id');
+    	$item_id = $this->input->post('item');
+    	$qty = $this->super_model->select_column_custom_where('pr_details', 'quantity', "item_id = '$item_id' AND pr_id = '$pr_id'");
     	$items = array(
     		'aoq_id'=>$aoq_id,
-    		'item_id'=>$this->input->post('item'),
-    		'quantity'=>$this->input->post('qty'),
+    		'item_id'=>$item_id,
+    		'quantity'=>$qty,
     	);
     	
     	//$this->super_model->insert_into("aoq_items", $items);

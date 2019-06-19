@@ -103,7 +103,8 @@ function changePrice(count,countPR){
    //  document.getElementById("total_pr"+countPR).value  =total_pr;
     var grandtotal=0;
     $(".tprice").each(function(){
-          grandtotal += parseFloat($(this).val());
+          var p = $(this).val().replace(",", "");
+          grandtotal += parseFloat(p);
     });
    
      document.getElementById("grandtotal").innerHTML  =grandtotal;

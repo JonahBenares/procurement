@@ -110,10 +110,12 @@ class Pr extends CI_Controller {
         if($count!=0){
             foreach($this->super_model->select_row_where("pr_details","pr_id",$pr_id) AS $det){
                 $item = $this->super_model->select_column_where("item",'item_name','item_id',$det->item_id);
+                $specs = $this->super_model->select_column_where("item",'item_specs','item_id',$det->item_id);
                 $data['details'][] = array(
                     'pr_details_id'=>$det->pr_details_id,
                     'pr_id'=>$pr_id,
                     'item'=>$item,
+                    'specs'=>$specs,
                     'qty'=>$det->quantity,
                 );
             }
