@@ -242,10 +242,26 @@ class Pr extends CI_Controller {
         }
     }
 
-    public function cancelled_pr(){  
+    public function cancelled_pr(){
         $this->load->view('template/header');
         $this->load->view('template/navbar');
-        $data['pr_head']=$this->super_model->select_all_order_by('pr_head','pr_date','ASC');
+        /*$data['pr_head']=$this->super_model->select_all_order_by('pr_head','pr_date','ASC');*/
+        $count = $this->super_model->count_rows_where('pr_head','cancelled','1');
+        if($count!=0){
+            foreach($this->super_model->select_row_where('pr_head','cancelled','1') AS $heads){
+                $data['pr_head'][] = array(
+                    'pr_id'=>$heads->pr_id,
+                    'pr_no'=>$heads->pr_no,
+                    'pr_date'=>$heads->pr_date,
+                    'urgency_num'=>$heads->urgency_num,
+                    'urgency_des'=>$heads->urgency_des,
+                    'department'=>$this->super_model->select_column_where("department",'department_name','department_id',$heads->department_id),
+                    'requestor'=>$this->super_model->select_column_where("employees",'employee_name','employee_id',$heads->requested_by),
+                );
+            }
+        }else {
+            $data['pr_head']=array();
+        }
         $this->load->view('pr/cancelled_pr',$data);
         $this->load->view('template/footer');
     }

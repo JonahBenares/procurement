@@ -52,10 +52,6 @@
                                             <?php if($cancelled==1){ ?>
                                                 <a readonly class="btn btn-danger">Cancelled</a>
                                             <?php } ?>
-                                            <h5 class="m-b-5">Enduse: <?php echo $h['enduse']; ?></h5> 
-                                            <h5 class="m-b-5">Purpose: <?php echo $h['purpose']; ?></h5> 
-                                            <h5 class="m-b-5">Department: <?php echo $h['department']; ?></h5> 
-                                            <h5 class="m-b-5">Requestor: <?php echo $h['requestor']; ?></h5> 
                                             <div class = "row">
                                                 <div class="col-lg-6 col-md-4 col-xs-6 thumb">
                                                     <label> Attachment 1:</label>
