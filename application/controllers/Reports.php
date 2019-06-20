@@ -44,14 +44,51 @@ class Reports extends CI_Controller {
         $date = $year."-".$month;
         $data['date']=date('F Y', strtotime($date));
 
-        foreach($this->super_model->select_all_order_by('pr_head', 'pr_date', 'DESC') AS $head){
+        foreach($this->super_model->custom_query("SELECT ph.pr_id, ph.pr_no, ph.pr_date, ph.purpose_id, ph.enduse_id, ph.requested_by, pd.item_id, pd.quantity, pd.cancelled, pd.cancel_reason, pd.cancel_date FROM pr_head ph INNER JOIN pr_details pd ON ph.pr_id = pd.pr_id") AS $head){
+
+            $po = $this->super_model->count_custom_query("SELECT pop.po_id FROM po_head ph INNER JOIN po_pr pop ON ph.po_id = pop.po_id INNER JOIN po_items pi ON pop.po_pr_id = pi.po_pr_id  WHERE pop.pr_id = '$head->pr_id' AND pi.item_id = '$head->item_id' AND  ph.saved='1' AND ph.cancelled = '0' GROUP BY pi.item_id");
+        
+            $refer_mnl = $this->super_model->select_column_custom_where("aoq_header", "refer_mnl", "pr_id = '$head->pr_id'");
+            $refer_date = $this->super_model->select_column_custom_where("aoq_header", "refer_date", "pr_id = '$head->pr_id'");
+
+               if($po==1){
+              
+                foreach($this->super_model->custom_query("SELECT pop.po_id, ph.po_date, pi.item_id FROM po_head ph INNER JOIN po_pr pop ON ph.po_id = pop.po_id INNER JOIN po_items pi ON pop.po_pr_id = pi.po_pr_id  WHERE pop.pr_id = '$head->pr_id' AND pi.item_id = '$head->item_id' AND ph.saved='1' AND ph.cancelled = '0' GROUP BY pi.item_id") AS $pod){
+                    $po_date = $pod->po_date;
+                    $po_id = $pod->po_id;
+                    //echo $pod->item_id ."<br>";
+                    $status='Fully Served';
+                    $status_remarks=date('m.d.y', strtotime($po_date)) . ' - Served DR#'. $this->super_model->select_column_where("dr_head",'dr_no','po_id',$po_id);
+                }
+                 
+             /*   $status='Fully served';
+                $status_remarks='';*/
+              } else if($head->cancelled=='1'){
+                $status='Cancelled';
+                $status_remarks= $head->cancel_reason ." - " . date('m.d.y', strtotime($head->cancel_date));
+              } else if($refer_mnl==1){
+                $status='Manila';
+                $status_remarks='c/o Manila - '.date('m.d.y', strtotime($refer_date)) ;
+              } else {
+                $status='';
+                 $status_remarks='';
+              }
+
+            $unit_id = $this->super_model->select_column_where("item",'unit_id','item_id',$head->item_id);
+            $unit = $this->super_model->select_column_where("unit",'unit_name','unit_id',$unit_id);
             $data['pr'][] = array(
                 'pr_id'=>$head->pr_id,
                 'pr_no'=>$head->pr_no,
                 'pr_date'=>$head->pr_date,
                 'purpose'=>$this->super_model->select_column_where("purpose",'purpose_name','purpose_id',$head->purpose_id),
                 'enduse'=>$this->super_model->select_column_where("enduse",'enduse_name','enduse_id',$head->enduse_id),
-                
+                'requestor'=>$this->super_model->select_column_where("employees",'employee_name','employee_id',$head->requested_by),
+                'qty'=>$head->quantity,
+                'uom'=>$unit,
+                'item_name'=>$this->super_model->select_column_where("item",'item_name','item_id',$head->item_id),
+                'item_specs'=>$this->super_model->select_column_where("item",'item_specs','item_id',$head->item_id),
+                'status'=>$status,
+                'status_remarks'=>$status_remarks
             );
         }
         

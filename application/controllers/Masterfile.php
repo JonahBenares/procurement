@@ -160,7 +160,7 @@ class Masterfile extends CI_Controller {
 
             $te_done = $this->super_model->count_custom_query("SELECT ah.aoq_id FROM aoq_header ah INNER JOIN aoq_items ai ON ah.aoq_id = ai.aoq_id WHERE ah.pr_id = '$res[pr_id]' AND ai.item_id = '$res[item_id]'  AND ah.saved = '1' AND ah.completed='1' GROUP BY ai.item_id");
 
-            $po = $this->super_model->count_custom_query("SELECT pop.po_id FROM po_head ph INNER JOIN po_pr pop ON ph.po_id = pop.po_id INNER JOIN po_items pi ON pop.po_pr_id = pi.po_pr_id  WHERE pop.pr_id = '$res[pr_id]' AND pi.item_id = '$res[item_id]'  AND ph.cancelled = '0' GROUP BY pi.item_id");
+            $po = $this->super_model->count_custom_query("SELECT pop.po_id FROM po_head ph INNER JOIN po_pr pop ON ph.po_id = pop.po_id INNER JOIN po_items pi ON pop.po_pr_id = pi.po_pr_id  WHERE pop.pr_id = '$res[pr_id]' AND pi.item_id = '$res[item_id]' AND  ph.saved='1' AND ph.cancelled = '0' GROUP BY pi.item_id");
 
           
             $data['pr_details'][]= array(
