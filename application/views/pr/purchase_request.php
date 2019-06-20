@@ -39,24 +39,35 @@
                         <div class="sparkline8-list shadow-reset">                     
                             <div class="sparkline8-graph">
                                 <div class="row">
-                                    <div class="col-lg-6">
+                                    <div class="col-lg-4">
                                         <div class="main-sparkline8-hd" style="text-align: left!important">
                                             <?php foreach($head AS $h){ ?>
                                             <h1>PR No: <b><?php echo $h['pr_no']; ?></b> </h1>
                                             <h5>Date: <?php echo $h['pr_date']; ?></h5> 
-                                            <h5>Enduse: <?php echo $h['enduse']; ?></h5> 
-                                            <h5>Purpose: <?php echo $h['purpose']; ?></h5> 
-                                            <h5>Department: <?php echo $h['department']; ?></h5> 
-                                            <h5>Requestor: <?php echo $h['requestor']; ?></h5> 
+                                            <?php if($cancelled==1){ ?>
+                                                <a readonly class="btn btn-danger">Cancelled</a>
+                                            <?php } ?>
+                                            <h5 class="m-b-5">Enduse: <?php echo $h['enduse']; ?></h5> 
+                                            <h5 class="m-b-5">Purpose: <?php echo $h['purpose']; ?></h5> 
+                                            <h5 class="m-b-5">Department: <?php echo $h['department']; ?></h5> 
+                                            <h5 class="m-b-5">Requestor: <?php echo $h['requestor']; ?></h5> 
                                             <div class = "row">
                                                 <div class="col-lg-6 col-md-4 col-xs-6 thumb">
                                                     <label> Attachment 1:</label>
-                                                    <a class="thumbnail" href="#" data-image-id="" data-toggle="modal" data-title="<?php echo $h['pr_attach1']; ?>" data-caption="<?php echo $h['pr_attach1']; ?>" data-image="../../uploads/<?php echo $h['pr_attach1']; ?>" data-target="#attachment1">
-                                                        <img class="img-responsive" src="../../uploads/<?php echo $h['pr_attach1']; ?>" alt="<?php echo $h['pr_attach1']; ?>">
+                                                    <a class="thumbnail" href="#" data-image-id="" data-toggle="modal" data-title="<?php echo $h['pr_attach1']; ?>" data-caption="<?php echo $h['pr_attach1']; ?>" data-image="../../../uploads/<?php echo $h['pr_attach1']; ?>" data-target="#image-gallery">
+                                                        <img class="img-responsive" src="../../../uploads/<?php echo $h['pr_attach1']; ?>" alt="<?php echo $h['pr_attach1']; ?>">
                                                     </a>
                                                 </div>
-                                                <div class="modal fade" id="attachment1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                                    <div class="modal-dialog">
+
+                                                <div class="col-lg-6 col-md-4 col-xs-6 thumb">
+                                                    <label> Attachment 2:</label>
+                                                    <a class="thumbnail thumbs" href="#" data-image-id="" data-toggle="modal" data-title="<?php echo $h['pr_attach2']; ?>" data-caption="<?php echo $h['pr_attach2']; ?>" data-image="../../../uploads/<?php echo $h['pr_attach2']; ?>" data-target="#image-gallery">
+                                                        <img class="img-responsive" src="../../../uploads/<?php echo $h['pr_attach2']; ?>" alt="<?php echo $h['pr_attach2']; ?>">
+                                                    </a>
+                                                </div>
+
+                                                <div class="modal fade bd-example-modal-lg" id="image-gallery" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog modal-lg">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
                                                                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
@@ -65,51 +76,34 @@
                                                             <div class="modal-body">
                                                                 <img id="image-gallery-image" class="img-responsive" src="">
                                                             </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <!-- asdasdasdasdasssssssssssssssssssssssssssssss -->
-                                                <div class="col-lg-6 col-md-4 col-xs-6 thumb">
-                                                    <label> Attachment 2:</label>
-                                                    <a class="thumbnail thumbs" href="#" data-image-id="" data-toggle="modal" data-title="<?php echo $h['pr_attach2']; ?>" data-caption="<?php echo $h['pr_attach2']; ?>" data-image="../../uploads/<?php echo $h['pr_attach2']; ?>" data-target="#attachment2">
-                                                        <img class="img-responsive" src="../../uploads/<?php echo $h['pr_attach2']; ?>" alt="<?php echo $h['pr_attach2']; ?>">
-                                                    </a>
-                                                </div>
-
-                                                <div class="modal fade" id="attachment2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                                    <div class="modal-dialog">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
-                                                                <h4 class="modal-title" id="image-gallery-title2"></h4>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                <img id="image-gallery-image2" class="img-responsive" src="">
-                                                            </div>
+                                                            <!-- <div class="modal-footer">
+                                                                <div class="col-md-2">
+                                                                    <button type="button" class="btn btn-primary" id="show-previous-image">Previous</button>
+                                                                </div>
+                                                                <div class="col-md-8 text-justify" >                                                            
+                                                                </div>
+                                                                <div class="col-md-2">
+                                                                    <button type="button" id="show-next-image" class="btn btn-default">Next</button>
+                                                                </div>
+                                                            </div> -->
                                                         </div>
                                                     </div>
                                                 </div> 
-
                                             </div>
-                                            <?php } ?>                                
-                                            <div class="sparkline8-outline-icon">
-                                                <?php if($saved==1 && $cancelled==0){ ?>
-                                                <a  href='<?php echo base_url(); ?>pr/override_pr/<?php echo $pr_id; ?>' onclick="return confirm('Are you sure you want to Override PR?')" class="btn btn-info btn-md p-l-25 p-r-25"><span class="fa fa-pencil"></span> Override <u><b>PR</b></u></a>
-                                                <?php } ?>
-                                                <?php if($saved==0 && $cancelled==0){ ?>
-                                                    <a type='button' class="btn btn-custon-three btn-primary" onclick="prAdditem('<?php echo base_url(); ?>','<?php echo $pr_id; ?>')"> 
-                                                        <span class="fa fa-plus p-l-0"></span> Add Item
-                                                    </a>
-                                                <?php } ?>
-                                                <!-- if cancel ang item -->
-                                                <?php if($cancelled==1){ ?>
-                                                    <a readonly class="btn btn-danger">Cancelled</a>
-                                                <?php } ?>
-                                            </div>
+                                            <?php } ?>
                                         </div>
                                     </div>
-                                    <div class="col-lg-6">
+                                    <div class="col-lg-8">
+                                        <div class="pull-right">
+                                            <?php if($saved==1 && $cancelled==0){ ?>
+                                            <a  href='<?php echo base_url(); ?>pr/override_pr/<?php echo $pr_id; ?>' onclick="return confirm('Are you sure you want to Override PR?')" class="btn btn-info btn-md p-l-25 p-r-25"><span class="fa fa-pencil"></span> Override <u><b>PR</b></u></a>
+                                            <?php } ?>
+                                            <?php if($saved==0 && $cancelled==0){ ?>
+                                                <a type='button' class="btn btn-custon-three btn-primary" onclick="prAdditem('<?php echo base_url(); ?>','<?php echo $pr_id; ?>')"> 
+                                                    <span class="fa fa-plus p-l-0"></span> Add Item
+                                                </a>
+                                            <?php } ?>
+                                        </div>
                                         <form>
                                             <div class="datatable-dashv1-list custom-datatable-overright">
                                                 <table class="table table-bordered table-hovered">
@@ -164,10 +158,37 @@
 
             loadGallery(true, 'a.thumbnail');
 
+            //This function disables buttons when needed
+            function disableButtons(counter_max, counter_current){
+                $('#show-previous-image, #show-next-image').show();
+                if(counter_max == counter_current){
+                    $('#show-next-image').hide();
+                } else if (counter_current == 1){
+                    $('#show-previous-image').hide();
+                }
+            }
+
+            /**
+             *
+             * @param setIDs        Sets IDs when DOM is loaded. If using a PHP counter, set to false.
+             * @param setClickAttr  Sets the attribute for the click handler.
+             */
+
             function loadGallery(setIDs, setClickAttr){
                 var current_image,
                     selector,
                     counter = 0;
+
+                $('#show-next-image, #show-previous-image').click(function(){
+                    if($(this).attr('id') == 'show-previous-image'){
+                        current_image--;
+                    } else {
+                        current_image++;
+                    }
+
+                    selector = $('[data-image-id="' + current_image + '"]');
+                    updateGallery(selector);
+                });
 
                 function updateGallery(selector) {
                     var $sel = selector;
@@ -189,37 +210,4 @@
                 });
             }
         });
-
-
-        $(document).ready(function(){
-
-            loadGallery1(true, 'a.thumbs');
-
-            function loadGallery1(setIDs, setClickAttr){
-                var current_image,
-                    selector,
-                    counter = 0;
-
-                function updateGallery1(selector) {
-                    var $sel = selector;
-                    current_image = $sel.data('image-id');
-                    $('#image-gallery-caption').text($sel.data('caption'));
-                    $('#image-gallery-title2').text($sel.data('title'));
-                    $('#image-gallery-image2').attr('src', $sel.data('image'));
-                    disableButtons(counter, $sel.data('image-id'));
-                }
-
-                if(setIDs == true){
-                    $('[data-image-id]').each(function(){
-                        counter++;
-                        $(this).attr('data-image-id',counter);
-                    });
-                }
-                $(setClickAttr).on('click',function(){
-                    updateGallery1($(this));
-                });
-            }
-        });
-
-       
     </script>
