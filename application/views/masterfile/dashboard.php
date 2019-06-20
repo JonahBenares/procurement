@@ -269,7 +269,6 @@
                                         <tr>
                                             <th rowspan="2" data-field="prno" >PR No</th>
                                             <th rowspan="2" data-field="item" >Item Description</th>
-                                            <th rowspan="2" data-field="pr" >PR</th>
                                             <th colspan="2" data-field="rfq" >RFQ</th>
                                             <th colspan="2" data-field="aoq" >AOQ</th>
                                             <th rowspan="2" data-field="po" >PO</th>
@@ -282,16 +281,17 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        <?php foreach($pr_details AS $pr){ ?>
                                         <tr>
-                                            <td> PR-admin-1029-29823</td>
-                                            <td><span style="color:blue">Pipe</span> B.I., Sched. 40, 2 1/2" diameter, Seamless, ASTM A53</td>
-                                            <td class="datatable-ct"><i class="fa fa-check"></i></td>
-                                            <td class="datatable-ct"><i class="fa fa-check"></i></td>
+                                            <td><?php echo $pr['pr_no']; ?></td>
+                                            <td><span style="color:blue"><?php echo $pr['item_name'].", "; ?></span> <?php echo $pr['item_specs']; ?></td>
+                                            <td class="datatable-ct"><?php echo $pr['rfq_incoming']; ?><i class="fa fa-check"></i></td>
                                             <td class="datatable-ct"><i class="fa fa-check"></i></td>
                                             <td class="datatable-ct"><i class="fa fa-check"></i></td>
                                             <td class="datatable-ct"><i class="fa fa-check"></i></td>
                                             <td class="datatable-ct"><i class="fa fa-check"></i></td>
                                         </tr>
+                                        <?php } ?>
                                     </tbody>
                                     
                                 </table>

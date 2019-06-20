@@ -129,8 +129,45 @@ class Masterfile extends CI_Controller {
         $data['count_aoq']=$this->super_model->count_rows('aoq_header');
         $data['count_po']=$this->super_model->count_rows('po_head');
 
+        foreach($this->super_model->custom_query("SELECT * FROM pr_head INNER JOIN pr_details ON pr_head.pr_id = pr_details.pr_id WHERE pr_details.cancelled = '0' ORDER BY pr_date DESC") AS $pr){
+
+                $pr_arr[] = array(
+                    'pr_id'=>$pr->pr_id,
+                    'item_id'=>$pr->item_id
+                );
+        }
+
+        foreach($this->super_model->custom_query("SELECT * FROM po_pr INNER JOIN po_items ON po_pr.po_pr_id = po_items.po_pr_id") AS $po){
+             $po_arr[] = array(
+                'pr_id'=>$po->pr_id,
+                'item_id'=>$po->item_id
+            );
+
+        }
+
+         $result = $this->check_diff_multi($pr_arr, $po_arr);
+          foreach($result AS $res){
+
+            $rfq_incoming = $this->super_model->count_custom_query("SELECT rh.rfq_id FROM rfq_head rh INNER JOIN rfq_detail rd ON rh.rfq_id = rd.rfq_id WHERE rh.pr_id = '$res[pr_id]' AND rd.item_id = '$res[item_id]' AND rh.saved = '1' AND rh.completed='1' GROUP BY rd.item_id");
+            $data['pr_details'][]= array(
+                'pr_id'=>$res['pr_id'],
+                'pr_no'=>$this->super_model->select_column_where("pr_head",'pr_no','pr_id',$res['pr_id']), 
+                'item_name'=>$this->super_model->select_column_where("item",'item_name','item_id',$res['item_id']), 
+                'item_specs'=>$this->super_model->select_column_where("item",'item_specs','item_id',$res['item_id']), 
+                'rfq_incoming'=>$rfq_incoming,
+            );
+        }
         $this->load->view('masterfile/dashboard',$data);
         $this->load->view('template/footer');
+    }
+
+    public function check_diff_multi($arraya, $arrayb){
+        foreach ($arraya as $keya => $valuea) {
+            if (in_array($valuea, $arrayb)) {
+                unset($arraya[$keya]);
+            }
+        }
+        return $arraya;
     }
 
     public function login(){

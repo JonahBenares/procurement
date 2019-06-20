@@ -64,6 +64,7 @@
                             <div class="datatable-dashv1-list custom-datatable-overright" style="overflow-x: scroll;">
                                 <table class="table-bordered" width="200%">
                                     <thead>
+                                       
                                         <tr>
                                             <th>Date Received/ Emailed</th>
                                             <th>Purpose</th>
@@ -86,24 +87,28 @@
                                             <th>Remarks</th>
                                             <th>End User's Comments</th>											
                                         </tr>
+                                       
                                     </thead>
-                                    <tbody>                                      
+                                    <tbody>    
+                                     <?php foreach($pr AS $p){ 
+                                        ?>                                  
                                         <tr>
-                                            <td>asd</td>
+                                            <td><?php echo date('m-d-y', strtotime($p['pr_date'])); ?></td>
+                                            <td><?php echo $p['purpose']; ?></td>
+                                            <td><?php echo $p['enduse']; ?></td>
+                                            <td><?php echo $p['pr_no']; ?></td>
+                                            <td><?php echo $p['requestor']; ?></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td><?php echo $p['qty']; ?></td>
+                                            <td><?php echo $p['item_name']. ", " . $p['item_specs']; ?></td>
                                             <td></td>
                                             <td></td>
                                             <td></td>
                                             <td></td>
                                             <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>                       
+                                        </tr>     
+                                     <?php } ?>                  
                                     </tbody>
                                 </table>
                             </div>                           
