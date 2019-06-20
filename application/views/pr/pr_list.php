@@ -161,10 +161,10 @@
                                                 <td><?php echo $p['requestor']; ?></td>
                                                 <td>
                                                     <center>
-                                                        <a href="<?php echo base_url(); ?>pr/purchase_request/<?php echo $p['pr_id']; ?>" class="btn btn-custon-three btn-warning btn-xs">
+                                                        <a href="<?php echo base_url(); ?>index.php/pr/purchase_request/<?php echo $p['pr_id']; ?>" class="btn btn-custon-three btn-warning btn-xs">
                                                         <span class="fa fa-eye"></span>
                                                         </a>
-                                                        <a href="<?php echo base_url(); ?>pr/cancel_pr/<?php echo $p['pr_id']; ?>" class="btn btn-custon-three btn-danger btn-xs">
+                                                        <a href="<?php echo base_url(); ?>index.php/pr/cancel_pr/<?php echo $p['pr_id']; ?>" class="btn btn-custon-three btn-danger btn-xs">
                                                             <span class="p-l-0 fa fa-ban"></span>
                                                         </a>
                                                     </center>

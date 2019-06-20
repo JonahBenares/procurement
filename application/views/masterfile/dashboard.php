@@ -143,9 +143,41 @@
                 </div>     
 
                 <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 desplay-n-tablet">
-                    <div class="dashone-adminprowrap shadow-reset mg-b-30" style="height: 325px;max-height: 325px " >
+                    <div class="dashone-adminprowrap shadow-reset mg-b-30" style="height: 326px;max-height: 326px " >
                         <div class="dash-adminpro-project-title">
-                            <h2 class="m-b-0" >Reminders <p class="m-b-0">You have two project right now.</p></h2>                            
+                            <h2 class="m-b-0" >
+                                <b>
+                                    Reminders 
+                                    <button type="button" class="btn btn-primary btn-xs pull-right btn-custon-three" data-toggle="modal" data-target="#remindermowdal">
+                                        <span class="fa fa-plus"></span>
+                                    </button>
+                                </b>
+                                <p class="m-b-0">You have project right now.</p>
+                                <div class="modal fade" id="remindermowdal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Add Reminder
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </h5>                                                
+                                            </div>
+                                            <form>
+                                                <div class="modal-body">
+                                                    <div class="form-group">
+                                                        Reminder:
+                                                        <textarea class="form-control" rows="5" placeholder="...."></textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">                                            
+                                                    <button type="button" class="btn btn-primary btn-block">Save</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </h2>                            
                         </div>
                         <div style="overflow-y: scroll;height: 255px;max-height: 255px  ">
                             <!-- loop here -->
@@ -157,7 +189,7 @@
                                 </div>
                             </div>     
                             <!-- loop here --> 
-                            
+
                             <div class="row m-t-5" style="width: 310px">
                                 <div class="col-lg-12">
                                     <div class="project-dashone-phara pad-5" style="border:1px solid #b5b2b2;border-radius: 5px;">
