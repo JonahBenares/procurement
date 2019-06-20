@@ -50,26 +50,37 @@
                                         <tr>
                                             <th>PR NO</th>
                                             <th>Date Received</th>
+                                            <th>Department</th>
+                                            <th>Urgency Number</th>
+                                            <th>Urgency Description</th>
+                                            <th>Requestor</th>
                                             <th><center><span class="fa fa-bars"></span></center></th>
                                         </tr>
                                     </thead>
                                     <tbody>                                        
                                         <?php 
                                             foreach($pr_head AS $p){ 
-                                                if($p->cancelled==1){
                                         ?>                                       
                                         <tr>
-                                            <td><?php echo $p->pr_no; ?></td>
-                                            <td><?php echo $p->pr_date; ?></td>
+                                            <td><?php echo $p['pr_no']; ?></td>
+                                            <td><?php echo $p['pr_date']; ?></td>
+                                            <td><?php echo $p['department']; ?></td>
+                                            <td ><center><?php echo $p['urgency_num']; ?></center></td>
+                                            <td><?php echo $p['urgency_des']; ?></td>
+                                            <td><?php echo $p['requestor']; ?></td>
                                             <td>
                                                 <center>
-                                                    <a href="<?php echo base_url(); ?>pr/purchase_request/<?php echo $p->pr_id; ?>" class="btn btn-custon-three btn-warning btn-xs">
+<<<<<<< HEAD
+                                                    <a href="<?php echo base_url(); ?>pr/purchase_request/<?php echo $p['pr_id']; ?>" class="btn btn-custon-three btn-warning btn-xs">
+=======
+                                                    <a href="<?php echo base_url(); ?>index.php/pr/purchase_request/<?php echo $p->pr_id; ?>" class="btn btn-custon-three btn-warning btn-xs">
+>>>>>>> c450592820ab68941de71d2a72344fb898c162b8
                                                     <span class="fa fa-eye"></span>
                                                     </a>
                                                 </center>
                                             </td>
                                         </tr>
-                                        <?php } } ?>                        
+                                        <?php } ?>                        
                                     </tbody>
                                 </table>
                             </div>                           

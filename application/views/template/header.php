@@ -34,12 +34,12 @@
         <!-- meanmenu icon CSS
     		============================================ -->
         <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/meanmenu.min.css">
-        <!-- mCustomScrollbar CSS
-    		============================================ -->
-        <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/jquery.mCustomScrollbar.min.css">
         <!-- animate CSS
     		============================================ -->
         <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/animate.css">
+        <!-- mCustomScrollbar CSS
+    		============================================ -->
+        <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/jquery.mCustomScrollbar.min.css">
         <!-- data-table CSS
     		============================================ -->
         <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/data-table/bootstrap-table.css">

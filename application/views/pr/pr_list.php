@@ -41,7 +41,7 @@
                             <p class="m-b-0">PR No.:</p>
                             <input type="text" name="pr_no" class="form-control">
                         </div>
-                         <div class="form-group">
+                        <div class="form-group">
                             <p class="m-b-0">Date Received:</p>
                             <input type="date" name="date_rec" class="form-control">
                         </div>
@@ -89,7 +89,14 @@
                                 <?php }  ?> 
                             </select>
                         </div>
-                       
+                        <div class="form-group">
+                            <p class="m-b-0">Urgency Number:</p>
+                            <input type="number" name="urnum" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <p class="m-b-0">Urgency Description:</p>
+                            <textarea name = "urdes" class="form-control"></textarea>
+                        </div>
                         <div class="form-group">
                             <p class="m-b-0">Attachment 1:</p>
                             <input type="file" name="pic1">
@@ -133,8 +140,8 @@
                                                 <th>PR NO</th>
                                                 <th>Date Received</th>
                                                 <th>Department</th>
-                                                <th>Purpose</th>
-                                                <th>Enduse</th>
+                                                <th>Urgency Number</th>
+                                                <th>Urgency Description</th>
                                                 <th>Requestor</th>
                                                 <th><center><span class="fa fa-bars"></span></center></th>
                                             </tr>
@@ -149,15 +156,15 @@
                                                 <td><?php echo $p['pr_no']; ?></td>
                                                 <td><?php echo $p['pr_date']; ?></td>
                                                 <td><?php echo $p['department']; ?></td>
-                                                <td><?php echo $p['purpose']; ?></td>
-                                                <td><?php echo $p['enduse']; ?></td>
+                                                <td ><center><?php echo $p['urgency_num']; ?></center></td>
+                                                <td><?php echo $p['urgency_des']; ?></td>
                                                 <td><?php echo $p['requestor']; ?></td>
                                                 <td>
                                                     <center>
-                                                        <a href="<?php echo base_url(); ?>pr/purchase_request/<?php echo $p['pr_id']; ?>" class="btn btn-custon-three btn-warning btn-xs">
+                                                        <a href="<?php echo base_url(); ?>index.php/pr/purchase_request/<?php echo $p['pr_id']; ?>" class="btn btn-custon-three btn-warning btn-xs">
                                                         <span class="fa fa-eye"></span>
                                                         </a>
-                                                        <a href="<?php echo base_url(); ?>pr/cancel_pr/<?php echo $p['pr_id']; ?>" class="btn btn-custon-three btn-danger btn-xs">
+                                                        <a href="<?php echo base_url(); ?>index.php/pr/cancel_pr/<?php echo $p['pr_id']; ?>" class="btn btn-custon-three btn-danger btn-xs">
                                                             <span class="p-l-0 fa fa-ban"></span>
                                                         </a>
                                                     </center>
