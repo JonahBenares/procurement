@@ -7,12 +7,20 @@
                         <a class="close" data-dismiss="modal" href="#"><i class="fa fa-close"></i></a>
                     </div>
                 </div>
-                <form method="POST" action = "<?php echo base_url();?>pr/insert_pr" enctype="multipart/form-data">
+                <form method="POST" action = "<?php echo base_url();?>" enctype="multipart/form-data">
                     <div class="modal-body-lowpad">                        
                         <div class="form-group">
-                            <p class="m-b-0">Date Received/Email:</p>
+                            <p class="m-b-0">PR No:</p>
+                            <input type="text" name="" class="form-control">
+                        </div>   
+                        <div class="form-group">
+                            <p class="m-b-0">Date of PO:</p>
                             <input type="date" name="" class="form-control">
                         </div>    
+                        <div class="form-group">
+                            <p class="m-b-0">PO No:</p>
+                            <input type="text" name="" class="form-control">
+                        </div> 
                         <div class="form-group">
                             <p class="m-b-0">Purpose:</p>
                             <input type="text" name="" class="form-control">
@@ -22,17 +30,17 @@
                             <input type="text" name="" class="form-control">
                         </div>   
                         <div class="form-group">
-                            <p class="m-b-0">PR No:</p>
-                            <input type="text" name="" class="form-control">
-                        </div>   
-                        <div class="form-group">
                             <p class="m-b-0">Requestor:</p>
                             <input type="text" name="" class="form-control">
                         </div>   
                         <div class="form-group">
                             <p class="m-b-0">Description:</p>
                             <input type="text" name="" class="form-control">
-                        </div>                      
+                        </div>      
+                        <div class="form-group">
+                            <p class="m-b-0">Supplier:</p>
+                            <input type="text" name="" class="form-control">
+                        </div>                   
                         <center>                           
                             <input type = "submit" class="btn btn-custon-three btn-primary btn-block" value = "Proceed">
                            <!--  <a href="<?php echo base_url(); ?>index.php/pr/purchase_request">Proceed</a> -->
@@ -50,9 +58,9 @@
                         <div class="sparkline8-hd p-b-0" >
                             <div class="main-sparkline8-hd">
                                 <h1><button onclick="goBack()" class=" btn btn-xs btn-success"><span class="fa fa-arrow-left"></span></button>
-                                    PR Summary <b style="color:blue"><?php echo $date; ?></b>
+                                    PO Summary <b style="color:blue"><?php echo $date; ?></b>
                                 </h1>
-                                <small class="p-l-25">&nbsp;PURCHASE REQUEST</small> 
+                                <small class="p-l-25">&nbsp;PURCHASE ORDER</small> 
                                 <div class="sparkline8-outline-icon">
                                     <a type='button' class="btn btn-custon-three btn-success"  data-toggle="modal" data-target="#filter_pr"> 
                                         <span class="fa fa-filter p-l-0"></span> Filter
@@ -65,31 +73,27 @@
                                 <table class="table-bordered" width="200%">
                                     <thead>
                                         <tr>
-                                            <th>Date Received/ Emailed</th>
+                                            <th>PR No.</th>
                                             <th>Purpose</th>
                                             <th>Enduse</th>
-                                            <th>PR No.</th>
-                                            <th>Requestor</th>
-                                            <th>WH Stocks</th>
-                                            <th>Item NO.</th>
+                                            <th>Date Of PO</th>
+                                            <th>PO No.</th>
+                                            <th>Requested By</th>
                                             <th>Qty</th>
-                                            <th>Description</th>
-                                            <th>Ro/ with AOQ </th>
-                                            <th>Status Remarks</th>
-                                            <th>Status
-                                            <!-- Pending
-												For Approval
-												Partial
-												Fully Served
-												Cancelled -->
-											</th>
-                                            <th>Remarks</th>
-                                            <th>End User's Comments</th>											
+                                            <th>UOM</th>
+                                            <th>Item Description</th>
+                                            <th>Status</th>
+                                            <th>Supplier </th>
+                                            <th>Payment Term</th>
+                                            <th>Unit Price</th>
+                                            <th>Total Price</th>
+                                            <th>Remarks</th>										
                                         </tr>
                                     </thead>
                                     <tbody>                                      
                                         <tr>
                                             <td>asd</td>
+                                            <td></td>
                                             <td></td>
                                             <td></td>
                                             <td></td>
@@ -118,6 +122,5 @@
             window.history.back();
         }
     </script>
-
     
     <!-- Data table area End-->
