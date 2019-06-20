@@ -3,6 +3,13 @@
             overflow-x: hidden!important; 
         }
     </style>
+    <script type="text/javascript">
+        $(document).on("click", ".cancelPR", function () {
+             var pr_details_id = $(this).data('id');
+             $(".modal #pr_details_id").val(pr_details_id);
+          
+        });
+    </script>
     <div class="breadcome-area mg-b-30 small-dn">
         <div class="container-fluid">
             <div class="row">
@@ -272,6 +279,7 @@
                                             <th colspan="2" data-field="rfq" >RFQ</th>
                                             <th colspan="2" data-field="aoq" >AOQ</th>
                                             <th rowspan="2" data-field="po" >PO</th>
+                                            <th rowspan="2" data-field="action" >Action</th>
                                         </tr>
                                         <tr>
                                             <th width="20%">Outgoing</th>
@@ -285,11 +293,17 @@
                                         <tr>
                                             <td><?php echo $pr['pr_no']; ?></td>
                                             <td><span style="color:blue"><?php echo $pr['item_name'].", "; ?></span> <?php echo $pr['item_specs']; ?></td>
-                                            <td class="datatable-ct"><?php echo $pr['rfq_incoming']; ?><i class="fa fa-check"></i></td>
-                                            <td class="datatable-ct"><i class="fa fa-check"></i></td>
-                                            <td class="datatable-ct"><i class="fa fa-check"></i></td>
-                                            <td class="datatable-ct"><i class="fa fa-check"></i></td>
-                                            <td class="datatable-ct"><i class="fa fa-check"></i></td>
+                                            <td class="datatable-ct"><?php echo (($pr['rfq_outgoing']==1) ? '<i class="fa fa-check"></i>' : ''); ?></td>
+                                            <td class="datatable-ct"><?php echo (($pr['rfq_incoming']==1) ? '<i class="fa fa-check"></i>' : ''); ?></td>
+                                            <?php if($pr['refer_mnl']==0){ ?>
+                                            <td class="datatable-ct"><?php echo (($pr['for_te']==1) ? '<i class="fa fa-check"></i>' : ''); ?></td>
+                                            <td class="datatable-ct"><?php echo (($pr['te_done']==1) ? '<i class="fa fa-check"></i>' : ''); ?></td>
+                                            <?php } else { ?>
+                                                <td colspan='2' class="datatable-ct">Refer to MNL - <?php echo $pr['refer_date']; ?></td>
+                                            <?php }  ?>
+                                                 <td class="datatable-ct"><?php echo (($pr['po']==1) ? '<i class="fa fa-check"></i>' : ''); ?></td>
+                                         
+                                            <td class="datatable-ct"><a href='' class="btn btn-danger btn-xs cancelPR" data-toggle="modal" data-target="#cancelPR" data-id="<?php echo $pr['pr_details_id']; ?>"><i class="fa fa-ban"></i></a></td>
                                         </tr>
                                         <?php } ?>
                                     </tbody>
@@ -302,6 +316,37 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="cancelPR" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                     <form method='POST' action="<?php echo base_url(); ?>masterfile/cancel_pr">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </h5>     
+                           
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    Reason for Cancelling:
+
+                                    <textarea class="form-control" name='cancel_reason' rows="5"></textarea> 
+                                   
+                                </div>                                
+                            </div>
+                            <div class="modal-footer">
+                                 <input type='hidden' name='pr_details_id' id='pr_details_id'>
+                                <input type="submit" class="btn btn-danger btn-block" value='Cancel'>
+                            </div>
+                                    
+                        </div>
+                        
+                    </div>
+                      </form>         
+                </div>
+            </div>
 
     <!-- welcome Project, sale area start-->
     <!-- <div class="welcome-adminpro-area">

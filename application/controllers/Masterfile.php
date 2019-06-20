@@ -148,14 +148,35 @@ class Masterfile extends CI_Controller {
          $result = $this->check_diff_multi($pr_arr, $po_arr);
           foreach($result AS $res){
 
+            $pr_details_id = $this->super_model->select_column_custom_where("pr_details", "pr_details_id", "pr_id = '$res[pr_id]' AND item_id = '$res[item_id]'");
+            $rfq_outgoing = $this->super_model->count_custom_query("SELECT rh.rfq_id FROM rfq_head rh INNER JOIN rfq_detail rd ON rh.rfq_id = rd.rfq_id WHERE rh.pr_id = '$res[pr_id]' AND rd.item_id = '$res[item_id]' GROUP BY rd.item_id");
+
             $rfq_incoming = $this->super_model->count_custom_query("SELECT rh.rfq_id FROM rfq_head rh INNER JOIN rfq_detail rd ON rh.rfq_id = rd.rfq_id WHERE rh.pr_id = '$res[pr_id]' AND rd.item_id = '$res[item_id]' AND rh.saved = '1' AND rh.completed='1' GROUP BY rd.item_id");
+
+            $refer_mnl = $this->super_model->select_column_custom_where("aoq_header", "refer_mnl", "pr_id = '$res[pr_id]'");
+            $refer_date = $this->super_model->select_column_custom_where("aoq_header", "refer_date", "pr_id = '$res[pr_id]'");
+
+            $aoq_for_te = $this->super_model->count_custom_query("SELECT ah.aoq_id FROM aoq_header ah INNER JOIN aoq_items ai ON ah.aoq_id = ai.aoq_id WHERE ah.pr_id = '$res[pr_id]' AND ai.item_id = '$res[item_id]' GROUP BY ai.item_id");
+
+            $te_done = $this->super_model->count_custom_query("SELECT ah.aoq_id FROM aoq_header ah INNER JOIN aoq_items ai ON ah.aoq_id = ai.aoq_id WHERE ah.pr_id = '$res[pr_id]' AND ai.item_id = '$res[item_id]'  AND ah.saved = '1' AND ah.completed='1' GROUP BY ai.item_id");
+
+            $po = $this->super_model->count_custom_query("SELECT pop.po_id FROM po_head ph INNER JOIN po_pr pop ON ph.po_id = pop.po_id INNER JOIN po_items pi ON pop.po_pr_id = pi.po_pr_id  WHERE pop.pr_id = '$res[pr_id]' AND pi.item_id = '$res[item_id]'  AND ph.cancelled = '0' GROUP BY pi.item_id");
+
+          
             $data['pr_details'][]= array(
-                'pr_id'=>$res['pr_id'],
+                'pr_details_id'=>$pr_details_id,
                 'pr_no'=>$this->super_model->select_column_where("pr_head",'pr_no','pr_id',$res['pr_id']), 
                 'item_name'=>$this->super_model->select_column_where("item",'item_name','item_id',$res['item_id']), 
                 'item_specs'=>$this->super_model->select_column_where("item",'item_specs','item_id',$res['item_id']), 
+                'rfq_outgoing'=>$rfq_outgoing,
                 'rfq_incoming'=>$rfq_incoming,
+                'for_te'=>$aoq_for_te,
+                'te_done'=>$te_done,
+                'po'=>$po,
+                'refer_mnl'=>$refer_mnl,
+                'refer_date'=>$refer_date,
             );
+
         }
         $this->load->view('masterfile/dashboard',$data);
         $this->load->view('template/footer');
@@ -168,6 +189,24 @@ class Masterfile extends CI_Controller {
             }
         }
         return $arraya;
+    }
+
+    public function cancel_pr(){
+        $pr_details_id =$this->input->post('pr_details_id');
+        $reason=$this->input->post('cancel_reason');
+        $cancel_date = date('Y-m-d H:i:s');
+
+
+        $data=array(
+            'cancelled'=>1,
+            'cancel_reason'=>$reason,
+            'cancel_date'=>$cancel_date
+        );
+      /*  echo  $pr_details_id;
+        print_r($data);*/
+        if($this->super_model->update_where("pr_details", $data, "pr_details_id", $pr_details_id)){
+            redirect(base_url().'masterfile/dashboard/');
+        }
     }
 
     public function login(){
