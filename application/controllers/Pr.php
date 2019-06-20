@@ -129,6 +129,7 @@ class Pr extends CI_Controller {
             foreach($this->super_model->select_row_where('pr_head','pr_id',$pr_id) AS $h){
                 $data['saved']=$h->saved;
                 $data['cancelled']=$h->cancelled;
+                $data['urgency_num']=$h->urgency_num;
                 $data['head'][]=array(
                     'pr_no'=>$h->pr_no,
                     'pr_date'=>$h->pr_date,
@@ -144,8 +145,9 @@ class Pr extends CI_Controller {
                 );
             }
         }else{
-            $data['saved']=array();
-            $data['cancelled']=array();
+            $data['urgency_num']='';
+            $data['saved']='';
+            $data['cancelled']='';
             $data['head']=array();
         }
 

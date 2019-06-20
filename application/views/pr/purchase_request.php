@@ -37,15 +37,19 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="sparkline8-list shadow-reset">
+                            <?php if($urgency_num==1){ ?>
                             <div class="main-sparkline8-hd" style="background-color: #ff4444">
                                 <b><p class="animated infinite headShake m-b-0 pad-5 text-white">URGENCY 1</p></b>
                             </div>
+                            <?php } else if($urgency_num==2){ ?>
                             <div class="main-sparkline8-hd" style="background-color: #ffbb33">
                                 <b><p class="animated infinite headShake m-b-0 pad-5 text-white">URGENCY 2</p></b>
                             </div>
+                            <?php } else if($urgency_num==3){ ?>
                             <div class="main-sparkline8-hd" style="background-color: #00C851">
                                 <b><p class="animated infinite headShake m-b-0 pad-5 text-white">URGENCY 3</p></b>
                             </div>
+                            <?php } ?>
                             <div class="sparkline8-graph">
                                 <div class="row">
                                     <div class="col-lg-4">
@@ -61,13 +65,6 @@
                                             <h5>Department: <?php echo $h['department']; ?></h5> 
                                             <h5>Requestor: <?php echo $h['requestor']; ?></h5> 
                                             <h5>Urgency Description: <?php echo $h['urgency_des']; ?></h5> 
-<<<<<<< HEAD
-                                            <?php if($cancelled==1){ ?>
-                                                <a readonly class="btn btn-danger">Cancelled</a>
-                                            <?php } ?>
-=======
-                                                                                       
->>>>>>> c450592820ab68941de71d2a72344fb898c162b8
                                             <div class = "row">
                                                 <div class="col-lg-6 col-md-4 col-xs-6 thumb">
                                                     <label> Attachment 1:</label>
