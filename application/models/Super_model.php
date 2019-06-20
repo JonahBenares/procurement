@@ -368,6 +368,15 @@ class super_model extends CI_Model
         return $rows;
     }
 
+
+     public function count_custom_query($query)
+    {
+       
+        $query =  $this->db->query($query);
+        $rows=$query->num_rows();
+        return $rows;
+    }
+
      public function count_join_where($table1,$table2, $where,$group_id)
     {
         $this->db->from($table1);
