@@ -399,7 +399,7 @@
 		    				<?php 
 		    					$c = 5; 
 		    					foreach($terms AS $t){ 
-		    						echo $c.".".$t['tc_name']."<br>";
+		    						echo $c.". ".$t['tc_name']."<br>";
 		    				 	$c++; 
 		    				 	} 
 		    				 ?>	    				
