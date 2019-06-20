@@ -38,6 +38,15 @@ class Reports extends CI_Controller {
         $date = $year."-".$month;
         $data['date']=date('F Y', strtotime($date));
 
+        foreach($this->super_model->select_all_order_by('pr_head', 'pr_date', 'DESC') AS $head){
+            $data['pr'][] = array(
+                'pr_id'=>$head->pr_id,
+                'pr_no'=>$head->pr_no,
+                'pr_date'=>$head->pr_date,
+                'purpose'=>$this->super_model->select_column_where("purpose",'purpose_name','purpose_id',$head->purpose_id),
+                'enduse'=>$this->super_model->select_column_where("enduse",'enduse_name','enduse_id',$head->enduse_id),
+            );
+        }
         
         $this->load->view('template/header');        
         $this->load->view('reports/pr_report',$data);
