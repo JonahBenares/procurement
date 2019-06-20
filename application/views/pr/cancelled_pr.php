@@ -70,7 +70,11 @@
                                             <td><?php echo $p['requestor']; ?></td>
                                             <td>
                                                 <center>
+<<<<<<< HEAD
                                                     <a href="<?php echo base_url(); ?>pr/purchase_request/<?php echo $p['pr_id']; ?>" class="btn btn-custon-three btn-warning btn-xs">
+=======
+                                                    <a href="<?php echo base_url(); ?>index.php/pr/purchase_request/<?php echo $p->pr_id; ?>" class="btn btn-custon-three btn-warning btn-xs">
+>>>>>>> c450592820ab68941de71d2a72344fb898c162b8
                                                     <span class="fa fa-eye"></span>
                                                     </a>
                                                 </center>
