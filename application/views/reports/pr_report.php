@@ -106,8 +106,8 @@
                                             <td><?php echo $p['qty']; ?></td>
                                             <td><?php echo $p['item_name']. ", " . $p['item_specs']; ?></td>
                                             <td></td>
-                                            <td></td>
-                                            <td></td>
+                                            <td><?php echo $p['status_remarks']; ?></td>
+                                            <td><?php echo $p['status']; ?></td>
                                             <td></td>
                                             <td></td>
                                         </tr>     
