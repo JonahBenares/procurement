@@ -63,7 +63,7 @@
                                             <td><?php echo $p->pr_date; ?></td>
                                             <td>
                                                 <center>
-                                                    <a href="<?php echo base_url(); ?>pr/purchase_request/<?php echo $p->pr_id; ?>" class="btn btn-custon-three btn-warning btn-xs">
+                                                    <a href="<?php echo base_url(); ?>index.php/pr/purchase_request/<?php echo $p->pr_id; ?>" class="btn btn-custon-three btn-warning btn-xs">
                                                     <span class="fa fa-eye"></span>
                                                     </a>
                                                 </center>
