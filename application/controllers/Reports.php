@@ -51,6 +51,7 @@ class Reports extends CI_Controller {
                 'pr_date'=>$head->pr_date,
                 'purpose'=>$this->super_model->select_column_where("purpose",'purpose_name','purpose_id',$head->purpose_id),
                 'enduse'=>$this->super_model->select_column_where("enduse",'enduse_name','enduse_id',$head->enduse_id),
+                
             );
         }
         
