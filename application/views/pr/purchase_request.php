@@ -68,16 +68,32 @@
                                             <div class = "row">
                                                 <div class="col-lg-6 col-md-4 col-xs-6 thumb">
                                                     <label> Attachment 1:</label>
-                                                    <a class="thumbnail" href="#" data-image-id="" data-toggle="modal" data-title="<?php echo $h['pr_attach1']; ?>" data-caption="<?php echo $h['pr_attach1']; ?>" data-image="../../../uploads/<?php echo $h['pr_attach1']; ?>" data-target="#image-gallery">
-                                                        <img class="img-responsive" src="../../../uploads/<?php echo $h['pr_attach1']; ?>" alt="<?php echo $h['pr_attach1']; ?>">
-                                                    </a>
+                                                    <?php if(!empty($h['pr_attach1'])){ ?>
+                                                        <a class="thumbnail" href="#" data-image-id="" data-toggle="modal" data-title="<?php echo $h['pr_attach1']; ?>" data-caption="<?php echo $h['pr_attach1']; ?>" data-image="../../../uploads/<?php echo $h['pr_attach1']; ?>" data-target="#image-gallery">
+                                                            <img class="img-responsive" src="../../../uploads/<?php echo $h['pr_attach1']; ?>" alt="<?php echo $h['pr_attach1']; ?>">
+                                                        </a>
+                                                        <small><?php echo $h['pr_attach1']; ?></small>
+                                                    <?php } else { ?>
+                                                        <a href="#" class="thumbnail">
+                                                            <img class="img-responsive" src="../../../default/nofile.png" alt="No Attached File">
+                                                        </a>
+                                                        <center><small>No Attached File</small></center>
+                                                    <?php } ?>
                                                 </div>
 
                                                 <div class="col-lg-6 col-md-4 col-xs-6 thumb">
                                                     <label> Attachment 2:</label>
-                                                    <a class="thumbnail thumbs" href="#" data-image-id="" data-toggle="modal" data-title="<?php echo $h['pr_attach2']; ?>" data-caption="<?php echo $h['pr_attach2']; ?>" data-image="../../../uploads/<?php echo $h['pr_attach2']; ?>" data-target="#image-gallery">
-                                                        <img class="img-responsive" src="../../../uploads/<?php echo $h['pr_attach2']; ?>" alt="<?php echo $h['pr_attach2']; ?>">
-                                                    </a>
+                                                    <?php if(!empty($h['pr_attach1'])){ ?>
+                                                        <a class="thumbnail" href="#" data-image-id="" data-toggle="modal" data-title="<?php echo $h['pr_attach2']; ?>" data-caption="<?php echo $h['pr_attach2']; ?>" data-image="../../../uploads/<?php echo $h['pr_attach2']; ?>" data-target="#image-gallery">
+                                                            <img class="img-responsive" src="../../../uploads/<?php echo $h['pr_attach2']; ?>" alt="<?php echo $h['pr_attach2']; ?>">
+                                                        </a>
+                                                        <small><?php echo $h['pr_attach1']; ?></small>
+                                                    <?php } else { ?>
+                                                        <a href="#" class="thumbnail">
+                                                            <img class="img-responsive" src="../../../default/nofile.png" alt="No Attached File">
+                                                        </a>
+                                                        <center><small>No Attached File</small></center>
+                                                    <?php } ?>
                                                 </div>
 
                                                 <div class="modal fade bd-example-modal-lg" id="image-gallery" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
