@@ -50,7 +50,7 @@
                         <center>
                            
                             <input type = "submit" class="btn btn-custon-three btn-primary btn-block" value = "Proceed">
-                            <!-- a href="<?php echo base_url(); ?>index.php/dr/dr_prnt" class="dropdown-item">Proceed</a> -->
+                            <a href="<?php echo base_url(); ?>index.php/jo_rfq/rfq" class="dropdown-item">Proceed</a>
                         </center>
                     </div>
                 </form>
