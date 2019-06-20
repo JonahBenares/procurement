@@ -191,6 +191,10 @@ class Reports extends CI_Controller {
         $objPHPExcel->getActiveSheet()->mergeCells('U4:V4');
         $objPHPExcel->getActiveSheet()->mergeCells('W4:X4');
         $objPHPExcel->getActiveSheet()->mergeCells('AA4:AD4');
+        $objPHPExcel->getActiveSheet()->getStyle("A1")->getFont()->setBold(true)->setName('Arial Black');
+        $objPHPExcel->getActiveSheet()->getStyle('A1')->getFont()->setSize(15);
+        $objPHPExcel->getActiveSheet()->getStyle('A2')->getFont()->setBold(true);
+        $objPHPExcel->getActiveSheet()->getStyle('A4:AD4')->getFont()->setBold(true);
         $objPHPExcel->getActiveSheet()->getStyle('A4:AD4')->applyFromArray($styleArray1);
         $num = 5;
         foreach($this->super_model->select_custom_where("po_head","po_date LIKE '%$po_date%'") AS $p){
@@ -247,26 +251,6 @@ class Reports extends CI_Controller {
                     $objPHPExcel->getActiveSheet()->mergeCells('W'.$num.":X".$num);
                     $objPHPExcel->getActiveSheet()->mergeCells('AA'.$num.":AD".$num);
                     $objPHPExcel->getActiveSheet()->getStyle('A'.$num.":AD".$num)->applyFromArray($styleArray);
-
-                    $data['po'][]=array(
-                        'po_id'=>$i->po_id,
-                        'pr_no'=>$pr_no,
-                        'enduse'=>$enduse,
-                        'purpose'=>$purpose,
-                        'requested_by'=>$requested_by,
-                        'qty'=>$i->quantity,
-                        'uom'=>$uom,
-                        'item'=>$item,
-                        'unit_price'=>$i->unit_price,
-                        'notes'=>$pr->notes,
-                        'po_id'=>$p->po_id,
-                        'po_date'=>$p->po_date,
-                        'po_no'=>$p->po_no,
-                        'saved'=>$p->saved,
-                        'cancelled'=>$p->cancelled,
-                        'supplier'=>$supplier,
-                        'terms'=>$terms,
-                    );
                     $num++;
                 }
             }
