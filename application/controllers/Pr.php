@@ -41,6 +41,8 @@ class Pr extends CI_Controller {
                 'pr_id'=>$head->pr_id,
                 'pr_no'=>$head->pr_no,
                 'pr_date'=>$head->pr_date,
+                'urgency_num'=>$head->urgency_num,
+                'urgency_des'=>$head->urgency_des,
                 'department'=>$this->super_model->select_column_where("department",'department_name','department_id',$head->department_id),
                 'purpose'=>$this->super_model->select_column_where("purpose",'purpose_name','purpose_id',$head->purpose_id),
                 'enduse'=>$this->super_model->select_column_where("enduse",'enduse_name','enduse_id',$head->enduse_id),
@@ -58,6 +60,8 @@ class Pr extends CI_Controller {
         $purpose = $this->input->post('purpose');
         $enduse = $this->input->post('enduse');
         $requestor = $this->input->post('requested_by');
+        $urnum = $this->input->post('urnum');
+        $urdes = $this->input->post('urdes');
         $dest= realpath(APPPATH . '../uploads/');
         $error_ext=0;
         if(!empty($_FILES['pic1']['name'])){
@@ -95,6 +99,8 @@ class Pr extends CI_Controller {
             'department_id'=>$department,
             'purpose_id'=>$purpose,
             'requested_by'=>$requestor,
+            'urgency_num'=>$urnum,
+            'urgency_des'=>$urdes,
             'pr_attach1'=>$filename1,
             'pr_attach2'=>$filename2,
             'create_date'=>date('Y-m-d H:i:s'),
@@ -126,6 +132,7 @@ class Pr extends CI_Controller {
                 $data['head'][]=array(
                     'pr_no'=>$h->pr_no,
                     'pr_date'=>$h->pr_date,
+                    'urgency_des'=>$h->urgency_des,
                     'department'=>$this->super_model->select_column_where("department",'department_name','department_id',$h->department_id),
                     'purpose'=>$this->super_model->select_column_where("purpose",'purpose_name','purpose_id',$h->purpose_id),
                     'enduse'=>$this->super_model->select_column_where("enduse",'enduse_name','enduse_id',$h->enduse_id),
