@@ -62,6 +62,9 @@
                                 </h1>
                                 <small class="p-l-25">&nbsp;PURCHASE ORDER</small> 
                                 <div class="sparkline8-outline-icon">
+                                    <a type='button' class="btn btn-custon-three btn-info"  data-toggle="modal" data-target="#filter_pr"> 
+                                        <span class="fa fa-print p-l-0"></span> Export to Excel
+                                    </a>
                                     <a type='button' class="btn btn-custon-three btn-success"  data-toggle="modal" data-target="#filter_pr"> 
                                         <span class="fa fa-filter p-l-0"></span> Filter
                                     </a>
@@ -90,24 +93,30 @@
                                             <th>Remarks</th>										
                                         </tr>
                                     </thead>
-                                    <tbody>                                      
+                                    <tbody> 
+                                        <?php 
+                                            foreach($po AS $p){ 
+                                                /*foreach($po_items AS $items){*/
+                                                    $total = $p['qty']*$p['unit_price'];
+                                        ?>                                     
                                         <tr>
-                                            <td>asd</td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>                       
+                                            <td><?php echo $p['pr_no'];?></td>
+                                            <td><?php echo $p['purpose'];?></td>
+                                            <td><?php echo $p['enduse'];?></td>
+                                            <td><?php echo $p['po_date'];?></td>
+                                            <td><?php echo $p['po_no'];?></td>
+                                            <td><?php echo $p['requested_by'];?></td>
+                                            <td><?php echo $p['qty'];?></td>
+                                            <td><?php echo $p['uom'];?></td>
+                                            <td><?php echo $p['item'];?></td>
+                                            <td><?php if($p['saved']==1){ echo 'Fully Served'; }else if($p['cancelled']==1) { echo 'Cancelled'; }?></td>
+                                            <td><?php echo $p['supplier'];?></td>
+                                            <td><?php echo $p['terms'];?></td>
+                                            <td><?php echo $p['unit_price'];?></td>
+                                            <td><?php echo number_format($total,2);?></td>
+                                            <td><?php echo $p['notes'];?></td>
+                                        </tr> 
+                                        <?php } //} ?>                      
                                     </tbody>
                                 </table>
                             </div>                           
