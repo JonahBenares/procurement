@@ -32,7 +32,7 @@ class Reports extends CI_Controller {
         redirect(base_url().'reports/pr_report/'.$year.'/'.$month);
     }
 
-    public function generate_po_summary1(){
+    public function generate_po_summary(){
         $year = $this->input->post('year');
         $month = $this->input->post('month');
         redirect(base_url().'reports/po_report/'.$year.'/'.$month);
