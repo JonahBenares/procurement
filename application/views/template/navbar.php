@@ -211,7 +211,7 @@
                             <div class="modal-body">
                                 <div class="form-group">
                                     Choose Year:
-                                    <select class="form-control" name="year">
+                                    <select class="form-control" name="year" required="required">
                                         <option value='' selected="selected">-Select Year-</option>
                                         <?php
                                         $curr_year = date('Y'); 

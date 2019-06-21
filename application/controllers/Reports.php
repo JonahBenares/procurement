@@ -41,10 +41,14 @@ class Reports extends CI_Controller {
 	public function pr_report(){
         $year=$this->uri->segment(3);
         $month=$this->uri->segment(4);
-        $date = $year."-".$month;
+        if(empty($month)){
+            $date = $year;
+        } else {
+         $date = $year."-".$month;
+        }
         $data['date']=date('F Y', strtotime($date));
 
-        foreach($this->super_model->custom_query("SELECT ph.pr_id, ph.pr_no, ph.pr_date, ph.purpose_id, ph.enduse_id, ph.requested_by, pd.item_id, pd.quantity, pd.cancelled, pd.cancel_reason, pd.cancel_date FROM pr_head ph INNER JOIN pr_details pd ON ph.pr_id = pd.pr_id") AS $head){
+        foreach($this->super_model->custom_query("SELECT ph.pr_id, ph.pr_no, ph.pr_date, ph.purpose_id, ph.enduse_id, ph.requested_by, pd.item_id, pd.quantity, pd.cancelled, pd.cancel_reason, pd.cancel_date FROM pr_head ph INNER JOIN pr_details pd ON ph.pr_id = pd.pr_id WHERE ph.pr_date LIKE '$date%'") AS $head){
 
             $po = $this->super_model->count_custom_query("SELECT pop.po_id FROM po_head ph INNER JOIN po_pr pop ON ph.po_id = pop.po_id INNER JOIN po_items pi ON pop.po_pr_id = pi.po_pr_id  WHERE pop.pr_id = '$head->pr_id' AND pi.item_id = '$head->item_id' AND  ph.saved='1' AND ph.cancelled = '0' GROUP BY pi.item_id");
         

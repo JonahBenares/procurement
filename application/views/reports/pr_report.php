@@ -93,7 +93,9 @@
                                        
                                     </thead>
                                     <tbody>    
-                                     <?php foreach($pr AS $p){ 
+                                     <?php 
+                                     if(!empty($pr)){
+                                     foreach($pr AS $p){ 
                                         ?>                                  
                                         <tr>
                                             <td><?php echo date('m-d-y', strtotime($p['pr_date'])); ?></td>
@@ -111,7 +113,8 @@
                                             <td></td>
                                             <td></td>
                                         </tr>     
-                                     <?php } ?>                  
+                                     <?php } 
+                                    } ?>                  
                                     </tbody>
                                 </table>
                             </div>                           
