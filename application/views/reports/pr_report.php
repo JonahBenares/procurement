@@ -88,7 +88,8 @@
 												Cancelled -->
 											</th>
                                             <th>Remarks</th>
-                                            <th>End User's Comments</th>											
+                                            <th>End User's Comments</th>	
+                                            <th><span class="fa fa-bars"></span></th>										
                                         </tr>
                                        
                                     </thead>
@@ -112,6 +113,16 @@
                                             <td><?php echo $p['status']; ?></td>
                                             <td></td>
                                             <td></td>
+                                            <td>
+                                                <div class="btn-group">
+                                                    <button type="button" class="btn btn-primary btn-xs " data-toggle="modal" data-target="#addremarks">
+                                                        <span class="fa fa-plus"></span>
+                                                    </button>
+                                                    <button type="button" class="btn btn-secondary btn-xs " data-toggle="modal" data-target="#updateremarks">
+                                                        <span class="text-white fa fa-pencil"></span>
+                                                    </button>
+                                                </div>
+                                            </td>
                                         </tr>     
                                      <?php } 
                                     } ?>                  
@@ -121,6 +132,49 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="addremarks" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add Remarks
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </h5>    
+                </div>
+                <form>
+                    <div class="modal-body">
+                        <textarea class="form-control" rows="5"></textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary btn-block">Save changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="updateremarks" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Update Remarks
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </h5>    
+                </div>
+                <form>
+                    <div class="modal-body">
+                        <textarea class="form-control" rows="5"></textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary btn-block text-white">Save changes</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
