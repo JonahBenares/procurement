@@ -151,7 +151,7 @@
                                             <td><?php echo $p['qty'];?></td>
                                             <td><?php echo $p['uom'];?></td>
                                             <td><?php echo $p['item'];?></td>
-                                            <td><?php if($p['saved']==1){ echo 'Fully Served'; }else if($p['cancelled']==1) { echo 'Cancelled'; }?></td>
+                                            <td><?php if($p['saved']==1){ echo 'Fully Served'; }else if($p['cancelled']==1) { echo 'Cancelled'; } else if($p['partial']==1){ echo 'Partially Served'; }?></td>
                                             <td><?php echo $p['supplier'];?></td>
                                             <td><?php echo $p['terms'];?></td>
                                             <td><?php echo $p['unit_price'];?></td>

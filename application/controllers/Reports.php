@@ -164,6 +164,7 @@ class Reports extends CI_Controller {
                         $uom=$this->super_model->select_column_where("unit",'unit_name','unit_id',$it->unit_id);
                         $item=$it->item_name." - ".$it->item_specs;
                     }
+                    $partial = $this->super_model->count_custom_query("SELECT ah.aoq_id FROM aoq_header ah INNER JOIN aoq_reco ai ON ah.aoq_id = ai.aoq_id WHERE ah.pr_id = '$pr->pr_id' AND ai.item_id = '$i->item_id' AND ai.balance != '0' AND ai.balance != ai.quantity GROUP BY ai.item_id");
                     $data['po'][]=array(
                         'po_id'=>$i->po_id,
                         'pr_no'=>$pr_no,
@@ -180,6 +181,7 @@ class Reports extends CI_Controller {
                         'po_no'=>$p->po_no,
                         'saved'=>$p->saved,
                         'cancelled'=>$p->cancelled,
+                        'partial'=>$partial,
                         'supplier'=>$supplier,
                         'terms'=>$terms,
                     );
