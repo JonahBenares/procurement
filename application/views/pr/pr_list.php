@@ -143,6 +143,7 @@
                                                 <th>Urgency Number</th>
                                                 <th>Urgency Description</th>
                                                 <th>Requestor</th>
+                                               
                                                 <th><center><span class="fa fa-bars"></span></center></th>
                                             </tr>
                                         </thead>

@@ -41,17 +41,24 @@ class Reports extends CI_Controller {
 	public function pr_report(){
         $year=$this->uri->segment(3);
         $month=$this->uri->segment(4);
-        $date = $year."-".$month;
+        if(empty($month)){
+            $date = $year;
+        } else {
+         $date = $year."-".$month;
+        }
         $data['date']=date('F Y', strtotime($date));
 
-        foreach($this->super_model->custom_query("SELECT ph.pr_id, ph.pr_no, ph.pr_date, ph.purpose_id, ph.enduse_id, ph.requested_by, pd.item_id, pd.quantity, pd.cancelled, pd.cancel_reason, pd.cancel_date FROM pr_head ph INNER JOIN pr_details pd ON ph.pr_id = pd.pr_id") AS $head){
+        foreach($this->super_model->custom_query("SELECT ph.pr_id, ph.pr_no, ph.pr_date, ph.purpose_id, ph.enduse_id, ph.requested_by, pd.item_id, pd.quantity, pd.cancelled, pd.cancel_reason, pd.cancel_date FROM pr_head ph INNER JOIN pr_details pd ON ph.pr_id = pd.pr_id WHERE ph.pr_date LIKE '$date%'") AS $head){
 
             $po = $this->super_model->count_custom_query("SELECT pop.po_id FROM po_head ph INNER JOIN po_pr pop ON ph.po_id = pop.po_id INNER JOIN po_items pi ON pop.po_pr_id = pi.po_pr_id  WHERE pop.pr_id = '$head->pr_id' AND pi.item_id = '$head->item_id' AND  ph.saved='1' AND ph.cancelled = '0' GROUP BY pi.item_id");
         
-            $refer_mnl = $this->super_model->select_column_custom_where("aoq_header", "refer_mnl", "pr_id = '$head->pr_id'");
-            $refer_date = $this->super_model->select_column_custom_where("aoq_header", "refer_date", "pr_id = '$head->pr_id'");
+              $refer_mnl = $this->super_model->count_custom_query("SELECT ah.aoq_id FROM aoq_header ah INNER JOIN aoq_items ai ON ah.aoq_id = ai.aoq_id WHERE ah.pr_id = '$head->pr_id' AND ai.item_id = '$head->item_id' AND ah.saved = '1' AND ah.refer_mnl='1'  GROUP BY ai.item_id");
 
-               if($po==1){
+            $refer_date = $this->super_model->custom_query_single("refer_date","SELECT ah.refer_date FROM aoq_header ah INNER JOIN aoq_items ai ON ah.aoq_id = ai.aoq_id WHERE ah.pr_id = '$head->pr_id' AND ai.item_id = '$head->item_id' AND ah.saved = '1' AND ah.refer_mnl='1'");
+
+              $partial = $this->super_model->count_custom_query("SELECT ah.aoq_id FROM aoq_header ah INNER JOIN aoq_reco ai ON ah.aoq_id = ai.aoq_id WHERE ah.pr_id = '$head->pr_id' AND ai.item_id = '$head->item_id' AND ai.balance != '0' AND ai.balance != ai.quantity GROUP BY ai.item_id");
+
+               if($po==1 && $partial==0){
               
                 foreach($this->super_model->custom_query("SELECT pop.po_id, ph.po_date, pi.item_id FROM po_head ph INNER JOIN po_pr pop ON ph.po_id = pop.po_id INNER JOIN po_items pi ON pop.po_pr_id = pi.po_pr_id  WHERE pop.pr_id = '$head->pr_id' AND pi.item_id = '$head->item_id' AND ph.saved='1' AND ph.cancelled = '0' GROUP BY pi.item_id") AS $pod){
                     $po_date = $pod->po_date;
@@ -59,19 +66,51 @@ class Reports extends CI_Controller {
                     //echo $pod->item_id ."<br>";
                     $status='Fully Served';
                     $status_remarks=date('m.d.y', strtotime($po_date)) . ' - Served DR#'. $this->super_model->select_column_where("dr_head",'dr_no','po_id',$po_id);
-                }
+                } 
                  
              /*   $status='Fully served';
                 $status_remarks='';*/
-              } else if($head->cancelled=='1'){
+              } 
+              else if($po==1 && $partial==1){
+                    foreach($this->super_model->custom_query("SELECT pop.po_id, ph.po_date, pi.item_id FROM po_head ph INNER JOIN po_pr pop ON ph.po_id = pop.po_id INNER JOIN po_items pi ON pop.po_pr_id = pi.po_pr_id  WHERE pop.pr_id = '$head->pr_id' AND pi.item_id = '$head->item_id' AND ph.saved='1' AND ph.cancelled = '0' GROUP BY pi.item_id") AS $pod){
+                    $po_date = $pod->po_date;
+                    $po_id = $pod->po_id;
+                    //echo $pod->item_id ."<br>";
+                    $status='Partially Served';
+                    $status_remarks=date('m.d.y', strtotime($po_date)) . ' - Served DR#'. $this->super_model->select_column_where("dr_head",'dr_no','po_id',$po_id);
+                }
+            } else if($head->cancelled=='1'){
                 $status='Cancelled';
                 $status_remarks= $head->cancel_reason ." - " . date('m.d.y', strtotime($head->cancel_date));
               } else if($refer_mnl==1){
                 $status='Manila';
                 $status_remarks='c/o Manila - '.date('m.d.y', strtotime($refer_date)) ;
               } else {
-                $status='';
-                 $status_remarks='';
+
+                $rfq_outgoing = $this->super_model->count_custom_query("SELECT rh.rfq_id FROM rfq_head rh INNER JOIN rfq_detail rd ON rh.rfq_id = rd.rfq_id WHERE rh.pr_id = '$head->pr_id' AND rd.item_id = '$head->item_id' AND rh.saved = '1'  GROUP BY rd.item_id");
+
+                $rfq_incoming = $this->super_model->count_custom_query("SELECT rh.rfq_id FROM rfq_head rh INNER JOIN rfq_detail rd ON rh.rfq_id = rd.rfq_id WHERE rh.pr_id = '$head->pr_id' AND rd.item_id = '$head->item_id' AND rh.saved = '1' AND rh.completed='1' GROUP BY rd.item_id");
+
+
+                $aoq_for_te = $this->super_model->count_custom_query("SELECT ah.aoq_id FROM aoq_header ah INNER JOIN aoq_items ai ON ah.aoq_id = ai.aoq_id WHERE ah.pr_id = '$head->pr_id' AND ai.item_id = '$head->item_id' GROUP BY ai.item_id");
+
+                $te_done = $this->super_model->count_custom_query("SELECT ah.aoq_id FROM aoq_header ah INNER JOIN aoq_items ai ON ah.aoq_id = ai.aoq_id WHERE ah.pr_id = '$head->pr_id' AND ai.item_id = '$head->item_id'  AND ah.saved = '1' AND ah.completed='1' GROUP BY ai.item_id");
+
+                if($rfq_outgoing==1 && $rfq_incoming==0){
+                    $status='Pending';
+                    $status_remarks='RFQ to be sent to supplier';
+                } else if($rfq_outgoing==1 && $rfq_incoming==1 && $aoq_for_te==0){
+                    $status='Pending';
+                    $status_remarks='For AOQ';
+                } else if($rfq_outgoing==1 && $rfq_incoming==1 && $aoq_for_te==1 && $te_done ==0){
+                    $status='Pending';
+                    $status_remarks='For TE';
+                } else if($rfq_outgoing==1 && $rfq_incoming==1 && $aoq_for_te==1 && $te_done ==1){
+                     $status='Pending';
+                    $status_remarks='for PO';
+                } 
+
+                 
               }
 
             $unit_id = $this->super_model->select_column_where("item",'unit_id','item_id',$head->item_id);

@@ -49,23 +49,23 @@
                             <div class="main-income-head">
                                 <h2>PR</h2>
                                 <div class="main-income-phara low-value-cl">
-                                    <p>Low Value</p>
+                                    <p>Pending</p>
                                 </div>
                             </div>
                         </div>
                         <div class="income-dashone-pro">
                             <div class="income-rate-total">
                                 <div class="price-adminpro-rate">
-                                    <h3><span class="counter">88,200</span></h3>
+                                    <h3><span class="counter"><?php echo $pending_pr; ?></span></h3>
                                 </div>
                                 <div class="price-graph">
                                     <span id="sparkline5"></span>
                                 </div>
                             </div>
-                            <div class="income-range low-value-cl">
+                           <!--  <div class="income-range low-value-cl">
                                 <p>PR</p>
                                 <span class="income-percentange">33% <i class="fa fa-level-down"></i></span>
-                            </div>
+                            </div> -->
                             <div class="clear"></div>
                         </div>
                     </div>
@@ -87,10 +87,10 @@
                                     <span id="sparkline2"></span>
                                 </div>
                             </div>
-                            <div class="income-range visitor-cl">
+                          <!--   <div class="income-range visitor-cl">
                                 <p>TE Percentage</p>
                                 <span class="income-percentange"><?php echo number_format($percent_te,2); ?>% <i class="fa fa-level-up"></i></span>
-                            </div>
+                            </div> -->
                             <div class="clear"></div>
                         </div>
                     </div>
@@ -115,10 +115,10 @@
                                     <span id="sparkline1"></span>
                                 </div>
                             </div>
-                            <div class="income-range">
+                          <!--   <div class="income-range">
                                 <p>Pending RFQ Percentage</p>
                                 <span class="income-percentange"><?php echo number_format($percent_rfq,2); ?>% <i class="fa fa-bolt"></i></span>
-                            </div>
+                            </div> -->
                             <div class="clear"></div>
                         </div>
                     </div>
@@ -140,10 +140,10 @@
                                     <span id="sparkline6"></span>
                                 </div>
                             </div>
-                            <div class="income-range order-cl">
+                            <!-- <div class="income-range order-cl">
                                 <p>Pending RFD Percentage</p>
                                 <span class="income-percentange"><?php echo number_format($percent_rfd,2); ?>% <i class="fa fa-level-up"></i></span>
-                            </div>
+                            </div> -->
                             <div class="clear"></div>
                         </div>
                     </div>                    
@@ -154,12 +154,12 @@
                         <div class="dash-adminpro-project-title">
                             <h2 class="m-b-0" >
                                 <b>
-                                    Reminders 
+                                    High-Urgency PRs 
                                     <button type="button" class="btn btn-primary btn-xs pull-right btn-custon-three" data-toggle="modal" data-target="#remindermowdal">
                                         <span class="fa fa-plus"></span>
                                     </button>
                                 </b>
-                                <p class="m-b-0">You have project right now.</p>
+                                <p class="m-b-0">Process immediately.</p>
                                 <div class="modal fade" id="remindermowdal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
@@ -188,57 +188,20 @@
                         </div>
                         <div style="overflow-y: scroll;height: 255px;max-height: 255px  ">
                             <!-- loop here -->
+
+                            <?php foreach($urgent AS $ur){ ?>
                             <div class="row m-t-5" style="width: 310px">
                                 <div class="col-lg-12">
                                     <div class="project-dashone-phara pad-5" style="border:1px solid #b5b2b2;border-radius: 5px;">
-                                        <p class="">Lorem Ipsum is simply dummy one text of the printing and the typesetting industry.</p>
+                                        <p><?php echo 'PR #: '.$ur['pr_no']; ?></p>
+                                        <p class=""><?php echo $ur['item_name'] .', '.$ur['item_specs']; ?></p>
                                     </div>
                                 </div>
                             </div>     
+                            <?php } ?>
                             <!-- loop here --> 
 
-                            <div class="row m-t-5" style="width: 310px">
-                                <div class="col-lg-12">
-                                    <div class="project-dashone-phara pad-5" style="border:1px solid #b5b2b2;border-radius: 5px;">
-                                        <p class="">Lorem Ipsum is simply dummy one text of the printing and the typesetting industry.</p>
-                                    </div>
-                                </div>
-                            </div> 
-                            <div class="row m-t-5" style="width: 310px">
-                                <div class="col-lg-12">
-                                    <div class="project-dashone-phara pad-5" style="border:1px solid #b5b2b2;border-radius: 5px;">
-                                        <p class="">Lorem Ipsum is simply dummy one text of the printing and the typesetting industry.</p>
-                                    </div>
-                                </div>
-                            </div> 
-                            <div class="row m-t-5" style="width: 310px">
-                                <div class="col-lg-12">
-                                    <div class="project-dashone-phara pad-5" style="border:1px solid #b5b2b2;border-radius: 5px;">
-                                        <p class="">Lorem Ipsum is simply dummy one text of the printing and the typesetting industry.</p>
-                                    </div>
-                                </div>
-                            </div> 
-                            <div class="row m-t-5" style="width: 310px">
-                                <div class="col-lg-12">
-                                    <div class="project-dashone-phara pad-5" style="border:1px solid #b5b2b2;border-radius: 5px;">
-                                        <p class="">Lorem Ipsum is simply dummy one text of the printing and the typesetting industry.</p>
-                                    </div>
-                                </div>
-                            </div> 
-                            <div class="row m-t-5" style="width: 310px">
-                                <div class="col-lg-12">
-                                    <div class="project-dashone-phara pad-5" style="border:1px solid #b5b2b2;border-radius: 5px;">
-                                        <p class="">Lorem Ipsum is simply dummy one text of the printing and the typesetting industry.</p>
-                                    </div>
-                                </div>
-                            </div> 
-                            <div class="row m-t-5" style="width: 310px">
-                                <div class="col-lg-12">
-                                    <div class="project-dashone-phara pad-5" style="border:1px solid #b5b2b2;border-radius: 5px;">
-                                        <p class="">Lorem Ipsum is simply dummy one text of the printing and the typesetting industry.</p>
-                                    </div>
-                                </div>
-                            </div>                          
+                                  
                         </div>    
 
                     </div>
@@ -254,7 +217,7 @@
                     <div class="sparkline8-list shadow-reset">
                         <div class="sparkline8-hd">
                             <div class="main-sparkline8-hd">
-                                <h1>Projects Data Table</h1>
+                                <h1>Pending PRs</h1>
                                 <div class="sparkline8-outline-icon">
                                     <span class="sparkline8-collapse-link"><i class="fa fa-chevron-up"></i></span>
                                     <span><i class="fa fa-wrench"></i></span>
@@ -279,6 +242,7 @@
                                             <th colspan="2" data-field="rfq" >RFQ</th>
                                             <th colspan="2" data-field="aoq" >AOQ</th>
                                             <th rowspan="2" data-field="po" >PO</th>
+                                            <th rowspan="2" data-field="status" >Status</th>
                                             <th rowspan="2" data-field="action" >Action</th>
                                         </tr>
                                         <tr>
@@ -289,7 +253,9 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php foreach($pr_details AS $pr){ ?>
+                                        <?php 
+
+                                        foreach($pr_details AS $pr){ ?>
                                         <tr>
                                             <td><?php echo $pr['pr_no']; ?></td>
                                             <td><span style="color:blue"><?php echo $pr['item_name'].", "; ?></span> <?php echo $pr['item_specs']; ?></td>
@@ -301,8 +267,8 @@
                                             <?php } else { ?>
                                                 <td colspan='2' class="datatable-ct">Refer to MNL - <?php echo $pr['refer_date']; ?></td>
                                             <?php }  ?>
-                                                 <td class="datatable-ct"><?php echo (($pr['po']==1) ? '<i class="fa fa-check"></i>' : ''); ?></td>
-                                         
+                                            <td class="datatable-ct"><?php echo (($pr['po']==1) ? '<i class="fa fa-check"></i>' : ''); ?></td>
+                                            <td class="datatable-ct"><?php echo (($pr['partial']==1) ? 'Partially Served' : ''); ?></td>
                                             <td class="datatable-ct"><a href='' class="btn btn-danger btn-xs cancelPR" data-toggle="modal" data-target="#cancelPR" data-id="<?php echo $pr['pr_details_id']; ?>"><i class="fa fa-ban"></i></a></td>
                                         </tr>
                                         <?php } ?>
