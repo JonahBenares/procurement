@@ -62,9 +62,11 @@
                                 </h1>
                                 <small class="p-l-25">&nbsp;PURCHASE ORDER</small> 
                                 <div class="sparkline8-outline-icon">
-                                    <a type='button' class="btn btn-custon-three btn-info"  data-toggle="modal" data-target="#filter_pr"> 
-                                        <span class="fa fa-print p-l-0"></span> Export to Excel
+
+                                    <a href="<?php echo base_url(); ?>reports/export_po/<?php echo $year; ?>/<?php echo $month; ?>" class="btn btn-custon-three btn-info"> 
+                                        <span class="fa fa-upload"></span> Export to Excel
                                     </a>
+
                                     <a type='button' class="btn btn-custon-three btn-success"  data-toggle="modal" data-target="#filter_pr"> 
                                         <span class="fa fa-filter p-l-0"></span> Filter
                                     </a>
