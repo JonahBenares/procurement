@@ -329,7 +329,7 @@ class Reports extends CI_Controller {
                                 )
                             )
                         );
-
+                        $partial = $this->super_model->count_custom_query("SELECT ah.aoq_id FROM aoq_header ah INNER JOIN aoq_reco ai ON ah.aoq_id = ai.aoq_id WHERE ah.pr_id = '$p->pr_id' AND ai.item_id = '$p->item_id' AND ai.balance != '0' AND ai.balance != ai.quantity GROUP BY ai.item_id");
                         $objPHPExcel->setActiveSheetIndex(0)->setCellValue('A'.$num, "$pr_no");
                         $objPHPExcel->setActiveSheetIndex(0)->setCellValue('B'.$num, "$purpose");
                         $objPHPExcel->setActiveSheetIndex(0)->setCellValue('C'.$num, "$enduse");
@@ -339,7 +339,9 @@ class Reports extends CI_Controller {
                         $objPHPExcel->setActiveSheetIndex(0)->setCellValue('G'.$num, "$p->quantity");
                         $objPHPExcel->setActiveSheetIndex(0)->setCellValue('H'.$num, "$uom");
                         $objPHPExcel->setActiveSheetIndex(0)->setCellValue('I'.$num, "$item");
-                        if($p->saved==1){
+                        if($partial==1){
+                        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('J'.$num, "Partially Served");
+                        }else if($p->saved==1){
                         $objPHPExcel->setActiveSheetIndex(0)->setCellValue('J'.$num, "Fully Served");
                         }else if($p->cancelled==1){
                         $objPHPExcel->setActiveSheetIndex(0)->setCellValue('J'.$num, "Cancelled");
@@ -394,7 +396,7 @@ class Reports extends CI_Controller {
                                 )
                             )
                         );
-
+                        $partial = $this->super_model->count_custom_query("SELECT ah.aoq_id FROM aoq_header ah INNER JOIN aoq_reco ai ON ah.aoq_id = ai.aoq_id WHERE ah.pr_id = '$pr->pr_id' AND ai.item_id = '$i->item_id' AND ai.balance != '0' AND ai.balance != ai.quantity GROUP BY ai.item_id");
                         $objPHPExcel->setActiveSheetIndex(0)->setCellValue('A'.$num, "$pr_no");
                         $objPHPExcel->setActiveSheetIndex(0)->setCellValue('B'.$num, "$purpose");
                         $objPHPExcel->setActiveSheetIndex(0)->setCellValue('C'.$num, "$enduse");
@@ -404,7 +406,9 @@ class Reports extends CI_Controller {
                         $objPHPExcel->setActiveSheetIndex(0)->setCellValue('G'.$num, "$i->quantity");
                         $objPHPExcel->setActiveSheetIndex(0)->setCellValue('H'.$num, "$uom");
                         $objPHPExcel->setActiveSheetIndex(0)->setCellValue('I'.$num, "$item");
-                        if($p->saved==1){
+                        if($partial==1){
+                        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('J'.$num, "Partially Served");
+                        }else if($p->saved==1){
                         $objPHPExcel->setActiveSheetIndex(0)->setCellValue('J'.$num, "Fully Served");
                         }else if($p->cancelled==1){
                         $objPHPExcel->setActiveSheetIndex(0)->setCellValue('J'.$num, "Cancelled");
@@ -596,6 +600,7 @@ class Reports extends CI_Controller {
                         $uom=$this->super_model->select_column_where("unit",'unit_name','unit_id',$it->unit_id);
                         $item=$it->item_name." - ".$it->item_specs;
                     }
+                    $partial = $this->super_model->count_custom_query("SELECT ah.aoq_id FROM aoq_header ah INNER JOIN aoq_reco ai ON ah.aoq_id = ai.aoq_id WHERE ah.pr_id = '$p->pr_id' AND ai.item_id = '$p->item_id' AND ai.balance != '0' AND ai.balance != ai.quantity GROUP BY ai.item_id");
                     $data['po'][]=array(
                         'po_id'=>$p->po_id,
                         'pr_no'=>$pr_no,
@@ -612,6 +617,7 @@ class Reports extends CI_Controller {
                         'po_no'=>$p->po_no,
                         'saved'=>$p->saved,
                         'cancelled'=>$p->cancelled,
+                        'partial'=>$partial,
                         'supplier'=>$supplier,
                         'terms'=>$terms,
                     );
