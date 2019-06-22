@@ -1,3 +1,7 @@
+   <?php
+   error_reporting(0);
+ini_set('display_errors', 0);
+   ?>
     <style type="text/css">
         .fixed-table-body {
             overflow-x: hidden!important; 
@@ -189,7 +193,9 @@
                         <div style="overflow-y: scroll;height: 255px;max-height: 255px  ">
                             <!-- loop here -->
 
-                            <?php foreach($urgent AS $ur){ ?>
+                            <?php 
+                            if(!empty($urgent)){
+                            foreach($urgent AS $ur){ ?>
                             <div class="row m-t-5" style="width: 310px">
                                 <div class="col-lg-12">
                                     <div class="project-dashone-phara pad-5" style="border:1px solid #b5b2b2;border-radius: 5px;">
@@ -198,7 +204,8 @@
                                     </div>
                                 </div>
                             </div>     
-                            <?php } ?>
+                            <?php } 
+                        }?>
                             <!-- loop here --> 
 
                                   
@@ -254,7 +261,7 @@
                                     </thead>
                                     <tbody>
                                         <?php 
-
+                                        if(!empty($pr_details)){
                                         foreach($pr_details AS $pr){ ?>
                                         <tr>
                                             <td><?php echo $pr['pr_no']; ?></td>
@@ -271,7 +278,8 @@
                                             <td class="datatable-ct"><?php echo (($pr['partial']==1) ? 'Partially Served' : ''); ?></td>
                                             <td class="datatable-ct"><a href='' class="btn btn-danger btn-xs cancelPR" data-toggle="modal" data-target="#cancelPR" data-id="<?php echo $pr['pr_details_id']; ?>"><i class="fa fa-ban"></i></a></td>
                                         </tr>
-                                        <?php } ?>
+                                        <?php }
+                                        } ?>
                                     </tbody>
                                     
                                 </table>

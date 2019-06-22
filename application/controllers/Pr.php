@@ -180,6 +180,9 @@ class Pr extends CI_Controller {
                     'item'=>$item,
                     'specs'=>$specs,
                     'qty'=>$det->quantity,
+                    'cancelled'=>$det->cancelled,
+                    'cancel_date'=>$det->cancel_date,
+                    'cancel_reason'=>$det->cancel_reason
                 );
             }
         }else {
@@ -298,22 +301,24 @@ class Pr extends CI_Controller {
         $this->load->view('template/header');
         $this->load->view('template/navbar');
         /*$data['pr_head']=$this->super_model->select_all_order_by('pr_head','pr_date','ASC');*/
-        $count = $this->super_model->count_rows_where('pr_head','cancelled','1');
+        $count = $this->super_model->count_custom_query("SELECT * FROM pr_details pd INNER JOIN pr_head ph ON pd.pr_id = ph.pr_id WHERE pd.cancelled = '1'");
         if($count!=0){
           
-            foreach($this->super_model->select_row_where('pr_head','cancelled','1') AS $heads){
+            foreach($this->super_model->custom_query("SELECT * FROM pr_details pd INNER JOIN pr_head ph ON pd.pr_id = ph.pr_id WHERE pd.cancelled = '1'") AS $heads){
              
                 $data['pr_head'][] = array(
                     'pr_id'=>$heads->pr_id,
                     'pr_no'=>$heads->pr_no,
                     'pr_date'=>$heads->pr_date,
+                    'item_name'=>$this->super_model->select_column_where("item",'item_name','item_id',$heads->item_id),
+                    'item_specs'=>$this->super_model->select_column_where("item",'item_specs','item_id',$heads->item_id),
                     'urgency_num'=>$heads->urgency_num,
                     'urgency_des'=>$heads->urgency_des,
                     'department'=>$this->super_model->select_column_where("department",'department_name','department_id',$heads->department_id),
                     'requestor'=>$this->super_model->select_column_where("employees",'employee_name','employee_id',$heads->requested_by),
                     //'status'=>$status
                 );
-                $x++;
+              
             }
         }else {
             $data['pr_head']=array();

@@ -69,13 +69,13 @@
                                                 <div class="col-lg-6 col-md-4 col-xs-6 thumb">
                                                     <label> Attachment 1:</label>
                                                     <?php if(!empty($h['pr_attach1'])){ ?>
-                                                        <a class="thumbnail" href="#" data-image-id="" data-toggle="modal" data-title="<?php echo $h['pr_attach1']; ?>" data-caption="<?php echo $h['pr_attach1']; ?>" data-image="../../../uploads/<?php echo $h['pr_attach1']; ?>" data-target="#image-gallery">
-                                                            <img class="img-responsive" src="../../../uploads/<?php echo $h['pr_attach1']; ?>" alt="<?php echo $h['pr_attach1']; ?>">
+                                                        <a class="thumbnail" href="#" data-image-id="" data-toggle="modal" data-title="<?php echo $h['pr_attach1']; ?>" data-caption="<?php echo $h['pr_attach1']; ?>" data-image="<?php echo base_url(); ?>uploads/<?php echo $h['pr_attach1']; ?>" data-target="#image-gallery">
+                                                            <img class="img-responsive" src="<?php echo base_url(); ?>uploads/<?php echo $h['pr_attach1']; ?>" alt="<?php echo $h['pr_attach1']; ?>">
                                                         </a>
                                                         <small><?php echo $h['pr_attach1']; ?></small>
                                                     <?php } else { ?>
                                                         <a href="#" class="thumbnail">
-                                                            <img class="img-responsive" src="../../../default/nofile.png" alt="No Attached File">
+                                                            <img class="img-responsive" src="<?php echo base_url(); ?>default/nofile.png" alt="No Attached File">
                                                         </a>
                                                         <center><small>No Attached File</small></center>
                                                     <?php } ?>
@@ -84,13 +84,13 @@
                                                 <div class="col-lg-6 col-md-4 col-xs-6 thumb">
                                                     <label> Attachment 2:</label>
                                                     <?php if(!empty($h['pr_attach1'])){ ?>
-                                                        <a class="thumbnail" href="#" data-image-id="" data-toggle="modal" data-title="<?php echo $h['pr_attach2']; ?>" data-caption="<?php echo $h['pr_attach2']; ?>" data-image="../../../uploads/<?php echo $h['pr_attach2']; ?>" data-target="#image-gallery">
-                                                            <img class="img-responsive" src="../../../uploads/<?php echo $h['pr_attach2']; ?>" alt="<?php echo $h['pr_attach2']; ?>">
+                                                        <a class="thumbnail" href="#" data-image-id="" data-toggle="modal" data-title="<?php echo $h['pr_attach2']; ?>" data-caption="<?php echo $h['pr_attach2']; ?>" data-image="<?php echo base_url(); ?>uploads/<?php echo $h['pr_attach2']; ?>" data-target="#image-gallery">
+                                                            <img class="img-responsive" src="<?php echo base_url(); ?>uploads/<?php echo $h['pr_attach2']; ?>" alt="<?php echo $h['pr_attach2']; ?>">
                                                         </a>
                                                         <small><?php echo $h['pr_attach1']; ?></small>
                                                     <?php } else { ?>
                                                         <a href="#" class="thumbnail">
-                                                            <img class="img-responsive" src="../../../default/nofile.png" alt="No Attached File">
+                                                            <img class="img-responsive" src="<?php echo base_url(); ?>default/nofile.png" alt="No Attached File">
                                                         </a>
                                                         <center><small>No Attached File</small></center>
                                                     <?php } ?>
@@ -143,14 +143,16 @@
                                                             <th width="15%">Qty</th>
                                                             <?php if($saved==0 && $cancelled==0){ ?>
                                                             <th width="5%"><center><span class="fa fa-bars"></span></center></th>
-                                                            <?php }?>
+                                                            <?php } if($saved==1){ ?>
+                                                                <th width="30%">Status</th>
+                                                            <?php } ?>
                                                         </tr>
                                                     </thead>
                                                     <tbody>    
                                                         <?php foreach($details AS $d){ ?>                                    
                                                         <tr>
-                                                            <td><?php echo $d['item']. ", ". $d['specs'];?></td>
-                                                            <td><?php echo $d['qty'];?></td>
+                                                            <td <?php echo (($d['cancelled']==1) ? "style='background-color:#FA8072'" : ""); ?>><?php echo $d['item']. ", ". $d['specs'];?></td>
+                                                            <td <?php echo (($d['cancelled']==1) ? "style='background-color:#FA8072'" : ""); ?>><?php echo $d['qty'];?></td>
                                                             <?php if($saved==0 && $cancelled==0){ ?>
                                                             <td>
                                                                 <center>
@@ -159,6 +161,8 @@
                                                                     </a>
                                                                 </center>
                                                             </td>
+                                                            <?php } if($saved==1) { ?>
+                                                                <td <?php echo (($d['cancelled']==1) ? "style='background-color:#FA8072'" : ""); ?>><?php echo (($d['cancelled']==1) ? $d['cancel_reason'].' / '. date('m.d.y', strtotime($d['cancel_date'])) : ' '); ?></td>
                                                             <?php } ?>
                                                         </tr> 
                                                         <?php } ?>                      

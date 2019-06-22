@@ -1,3 +1,16 @@
+     <script type="text/javascript">
+        $(document).on("click", ".addremarks", function () {
+             var pr_details_id = $(this).data('id');
+             var year = $(this).data('year');
+             var month = $(this).data('month');
+             var remarks = $(this).data('remarks');
+             $(".modal #pr_details_id").val(pr_details_id);
+             $(".modal #year").val(year);
+             $(".modal #month").val(month);
+             $(".modal #remarks").val(remarks);
+          
+        });
+    </script>
     <div id="filter_pr" class="modal modal-adminpro-general default-popup-PrimaryModal fade" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -111,16 +124,14 @@
                                             <td></td>
                                             <td><?php echo $p['status_remarks']; ?></td>
                                             <td><?php echo $p['status']; ?></td>
-                                            <td></td>
+                                            <td><?php echo $p['remarks']; ?></td>
                                             <td></td>
                                             <td>
                                                 <div class="btn-group">
-                                                    <button type="button" class="btn btn-primary btn-xs " data-toggle="modal" data-target="#addremarks">
+                                                    <button type="button" class="btn btn-primary btn-xs addremarks" data-toggle="modal" data-target="#addremarks" title='Add Remarks' data-id="<?php echo $p['pr_details_id']; ?>" data-year="<?php echo $year; ?>" data-month="<?php echo $month; ?>" data-remarks="<?php echo $p['remarks']; ?>">
                                                         <span class="fa fa-plus"></span>
                                                     </button>
-                                                    <button type="button" class="btn btn-secondary btn-xs " data-toggle="modal" data-target="#updateremarks">
-                                                        <span class="text-white fa fa-pencil"></span>
-                                                    </button>
+                                                 
                                                 </div>
                                             </td>
                                         </tr>     
@@ -145,39 +156,22 @@
                         </button>
                     </h5>    
                 </div>
-                <form>
+                <form method='POST' action="<?php echo base_url(); ?>reports/add_remarks">
                     <div class="modal-body">
-                        <textarea class="form-control" rows="5"></textarea>
+                        <textarea class="form-control" rows="5" name='remarks' id='remarks'></textarea>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-primary btn-block">Save changes</button>
+                        <input type='hidden' name='pr_details_id' id='pr_details_id'>
+                        <input type='hidden' name='year' id='year'>
+                        <input type='hidden' name='month' id='month'>
+                        <input type="submit" class="btn btn-primary btn-block" value='Save changes'>
                     </div>
                 </form>
             </div>
         </div>
     </div>
 
-    <div class="modal fade" id="updateremarks" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Update Remarks
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                        </button>
-                    </h5>    
-                </div>
-                <form>
-                    <div class="modal-body">
-                        <textarea class="form-control" rows="5"></textarea>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary btn-block text-white">Save changes</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
+
     <script type="text/javascript">
         function goBack() {
             window.history.back();
