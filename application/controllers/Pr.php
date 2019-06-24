@@ -28,6 +28,15 @@ class Pr extends CI_Controller {
 	}
 
 
+    public function check_diff_multi($arraya, $arrayb){
+        foreach ($arraya as $keya => $valuea) {
+            if (in_array($valuea, $arrayb)) {
+                unset($arraya[$keya]);
+            }
+        }
+        return $arraya;
+    }
+
     public function pr_list(){  
         $data['employee']=$this->super_model->select_all_order_by("employees", "employee_name", "ASC");
         $data['enduse']=$this->super_model->select_all_order_by("enduse", "enduse_name", "ASC");
@@ -36,7 +45,14 @@ class Pr extends CI_Controller {
         $this->load->view('template/header');
         $this->load->view('template/navbar');
         //$data['pr_head']=$this->super_model->select_all_order_by('pr_head','pr_date','ASC');
+         // $pending=$this->pending_prs();
+        // print_r($pending);
+
+           // $x=0;
         foreach($this->super_model->select_row_where('pr_head','cancelled','0') AS $head){
+               //echo "**".$pending[$x]['pr_id']."<br>";
+           
+            
             $data['head'][] = array(
                 'pr_id'=>$head->pr_id,
                 'pr_no'=>$head->pr_no,
@@ -47,7 +63,9 @@ class Pr extends CI_Controller {
                 'purpose'=>$this->super_model->select_column_where("purpose",'purpose_name','purpose_id',$head->purpose_id),
                 'enduse'=>$this->super_model->select_column_where("enduse",'enduse_name','enduse_id',$head->enduse_id),
                 'requestor'=>$this->super_model->select_column_where("employees",'employee_name','employee_id',$head->requested_by),
+              
             );
+            // $x++;
         }
         $this->load->view('pr/pr_list',$data);
         $this->load->view('template/footer');
@@ -162,6 +180,9 @@ class Pr extends CI_Controller {
                     'item'=>$item,
                     'specs'=>$specs,
                     'qty'=>$det->quantity,
+                    'cancelled'=>$det->cancelled,
+                    'cancel_date'=>$det->cancel_date,
+                    'cancel_reason'=>$det->cancel_reason
                 );
             }
         }else {
@@ -244,22 +265,60 @@ class Pr extends CI_Controller {
         }
     }
 
+    public function pending_prs(){
+          foreach($this->super_model->custom_query("SELECT * FROM pr_head INNER JOIN pr_details ON pr_head.pr_id = pr_details.pr_id WHERE pr_details.cancelled = '0' ORDER BY pr_date DESC") AS $pr){
+
+                $pr_arr[] = array(
+                    'pr_id'=>$pr->pr_id,
+                    'item_id'=>$pr->item_id
+                );
+        }
+
+        foreach($this->super_model->custom_query("SELECT * FROM po_pr INNER JOIN po_items ON po_pr.po_pr_id = po_items.po_pr_id") AS $po){
+             $po_arr[] = array(
+                'pr_id'=>$po->pr_id,
+                'item_id'=>$po->item_id
+            );
+
+        }
+
+
+
+         $result = $this->check_diff_multi($pr_arr, $po_arr);
+
+        foreach($this->super_model->custom_query("SELECT ah.pr_id, ai.item_id FROM aoq_header ah INNER JOIN aoq_reco ai ON ah.aoq_id = ai.aoq_id WHERE ai.balance != '0' AND ai.balance != ai.quantity") AS $partial){
+                
+                $result[] = array(
+                    'pr_id'=>$partial->pr_id,
+                    'item_id'=>$partial->item_id
+                );
+          }
+
+          return $result;
+    }
+
     public function cancelled_pr(){
         $this->load->view('template/header');
         $this->load->view('template/navbar');
         /*$data['pr_head']=$this->super_model->select_all_order_by('pr_head','pr_date','ASC');*/
-        $count = $this->super_model->count_rows_where('pr_head','cancelled','1');
+        $count = $this->super_model->count_custom_query("SELECT * FROM pr_details pd INNER JOIN pr_head ph ON pd.pr_id = ph.pr_id WHERE pd.cancelled = '1'");
         if($count!=0){
-            foreach($this->super_model->select_row_where('pr_head','cancelled','1') AS $heads){
+          
+            foreach($this->super_model->custom_query("SELECT * FROM pr_details pd INNER JOIN pr_head ph ON pd.pr_id = ph.pr_id WHERE pd.cancelled = '1'") AS $heads){
+             
                 $data['pr_head'][] = array(
                     'pr_id'=>$heads->pr_id,
                     'pr_no'=>$heads->pr_no,
                     'pr_date'=>$heads->pr_date,
+                    'item_name'=>$this->super_model->select_column_where("item",'item_name','item_id',$heads->item_id),
+                    'item_specs'=>$this->super_model->select_column_where("item",'item_specs','item_id',$heads->item_id),
                     'urgency_num'=>$heads->urgency_num,
                     'urgency_des'=>$heads->urgency_des,
                     'department'=>$this->super_model->select_column_where("department",'department_name','department_id',$heads->department_id),
                     'requestor'=>$this->super_model->select_column_where("employees",'employee_name','employee_id',$heads->requested_by),
+                    //'status'=>$status
                 );
+              
             }
         }else {
             $data['pr_head']=array();

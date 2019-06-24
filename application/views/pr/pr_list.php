@@ -91,7 +91,13 @@
                         </div>
                         <div class="form-group">
                             <p class="m-b-0">Urgency Number:</p>
-                            <input type="number" name="urnum" class="form-control">
+                            <select name='urnum' class="form-control">
+                                <option value='' selected="selected">-Choose-</option>
+                                <option value='1'>Urgency 1 - Needed within the week</option>
+                                <option value='2'>Urgency 2 - Needed within the month</option>
+                                <option value='3'>Urgency 3 - Low Prio/For Scheduling</option>
+                            </select>
+                            
                         </div>
                         <div class="form-group">
                             <p class="m-b-0">Urgency Description:</p>
@@ -143,6 +149,7 @@
                                                 <th>Urgency Number</th>
                                                 <th>Urgency Description</th>
                                                 <th>Requestor</th>
+                                               
                                                 <th><center><span class="fa fa-bars"></span></center></th>
                                             </tr>
                                         </thead>

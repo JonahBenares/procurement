@@ -1,3 +1,16 @@
+     <script type="text/javascript">
+        $(document).on("click", ".addremarks", function () {
+             var pr_details_id = $(this).data('id');
+             var year = $(this).data('year');
+             var month = $(this).data('month');
+             var remarks = $(this).data('remarks');
+             $(".modal #pr_details_id").val(pr_details_id);
+             $(".modal #year").val(year);
+             $(".modal #month").val(month);
+             $(".modal #remarks").val(remarks);
+          
+        });
+    </script>
     <div id="filter_pr" class="modal modal-adminpro-general default-popup-PrimaryModal fade" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -88,12 +101,15 @@
 												Cancelled -->
 											</th>
                                             <th>Remarks</th>
-                                            <th>End User's Comments</th>											
+                                            <th>End User's Comments</th>	
+                                            <th><span class="fa fa-bars"></span></th>										
                                         </tr>
                                        
                                     </thead>
                                     <tbody>    
-                                     <?php foreach($pr AS $p){ 
+                                     <?php 
+                                     if(!empty($pr)){
+                                     foreach($pr AS $p){ 
                                         ?>                                  
                                         <tr>
                                             <td><?php echo date('m-d-y', strtotime($p['pr_date'])); ?></td>
@@ -106,12 +122,21 @@
                                             <td><?php echo $p['qty']; ?></td>
                                             <td><?php echo $p['item_name']. ", " . $p['item_specs']; ?></td>
                                             <td></td>
+                                            <td><?php echo $p['status_remarks']; ?></td>
+                                            <td><?php echo $p['status']; ?></td>
+                                            <td><?php echo $p['remarks']; ?></td>
                                             <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
+                                            <td>
+                                                <div class="btn-group">
+                                                    <button type="button" class="btn btn-primary btn-xs addremarks" data-toggle="modal" data-target="#addremarks" title='Add Remarks' data-id="<?php echo $p['pr_details_id']; ?>" data-year="<?php echo $year; ?>" data-month="<?php echo $month; ?>" data-remarks="<?php echo $p['remarks']; ?>">
+                                                        <span class="fa fa-plus"></span>
+                                                    </button>
+                                                 
+                                                </div>
+                                            </td>
                                         </tr>     
-                                     <?php } ?>                  
+                                     <?php } 
+                                    } ?>                  
                                     </tbody>
                                 </table>
                             </div>                           
@@ -121,6 +146,32 @@
             </div>
         </div>
     </div>
+    <div class="modal fade" id="addremarks" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add Remarks
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </h5>    
+                </div>
+                <form method='POST' action="<?php echo base_url(); ?>reports/add_remarks">
+                    <div class="modal-body">
+                        <textarea class="form-control" rows="5" name='remarks' id='remarks'></textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <input type='hidden' name='pr_details_id' id='pr_details_id'>
+                        <input type='hidden' name='year' id='year'>
+                        <input type='hidden' name='month' id='month'>
+                        <input type="submit" class="btn btn-primary btn-block" value='Save changes'>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
     <script type="text/javascript">
         function goBack() {
             window.history.back();

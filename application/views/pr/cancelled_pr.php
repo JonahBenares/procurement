@@ -50,7 +50,7 @@
                                         <tr>
                                             <th>PR NO</th>
                                             <th>Date Received</th>
-                                            <th>Department</th>
+                                            <th>Item</th>
                                             <th>Urgency Number</th>
                                             <th>Urgency Description</th>
                                             <th>Requestor</th>
@@ -64,17 +64,17 @@
                                         <tr>
                                             <td><?php echo $p['pr_no']; ?></td>
                                             <td><?php echo $p['pr_date']; ?></td>
-                                            <td><?php echo $p['department']; ?></td>
+                                            <td><?php echo $p['item_name'].", ".$p['item_specs']; ?></td>
                                             <td ><center><?php echo $p['urgency_num']; ?></center></td>
                                             <td><?php echo $p['urgency_des']; ?></td>
                                             <td><?php echo $p['requestor']; ?></td>
                                             <td>
                                                 <center>
-<<<<<<< HEAD
+
                                                     <a href="<?php echo base_url(); ?>pr/purchase_request/<?php echo $p['pr_id']; ?>" class="btn btn-custon-three btn-warning btn-xs">
-=======
-                                                    <a href="<?php echo base_url(); ?>index.php/pr/purchase_request/<?php echo $p->pr_id; ?>" class="btn btn-custon-three btn-warning btn-xs">
->>>>>>> c450592820ab68941de71d2a72344fb898c162b8
+
+                                                  
+
                                                     <span class="fa fa-eye"></span>
                                                     </a>
                                                 </center>
