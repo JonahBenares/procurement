@@ -304,20 +304,22 @@
 					    		$grandtotal=array(0);
 					    		if(!empty($items)){
 					    		foreach($items AS $it){ 
-					    			$total = $it['quantity'] * $it['price'];
-					    			$grandtotal[] = $total; ?>
-					    		<tr>
-					    			<td colspan="" class="bor-right" align="center"><b><?php echo $it['item_no']; ?></b></td>
-					    			<td colspan="" class="bor-right" align="center"><b><?php echo $it['quantity']; ?></b></td>
-					    			<td colspan="" class="bor-right" align="center"><b><?php echo $it['unit']; ?></b></td>
-					    			<td colspan="<?php echo (($saved==1) ? '12' : '11'); ?>" class="bor-right" align="left"><b><?php echo $it['offer']. ", ". $it['item'] . ", ".$it['specs']; ?></b></td>
-					    			<td colspan="2" class="bor-right" align="center"><b><?php echo number_format($it['price'],2); ?></b></td>
-					    			<td colspan="3" class="bor-right" align="right"><b><?php echo number_format($total,2); ?></b></td>
-					    			<?php if($saved==0){ ?>
-					    			<td align="center"><a href='<?php echo base_url(); ?>/po/remove_po_item/<?php echo $po_id; ?>/<?php echo $it['po_items_id']; ?>' class="btn-danger btn-xs" onclick="return confirm('Are you sure you want to remove item?')"><span class="fa fa-times"></span></a></td>	
-					    			<?php } ?>				    			
-					    		</tr> 
-					    		<?php $a++; } 
+					    			
+						    			$total = $it['quantity'] * $it['price'];
+						    			$grandtotal[] = $total; ?>
+						    		<tr>
+						    			<td colspan="" class="bor-right" align="center"><b><?php echo $it['item_no']; ?></b></td>
+						    			<td colspan="" class="bor-right" align="center"><b><?php echo $it['quantity']; ?></b></td>
+						    			<td colspan="" class="bor-right" align="center"><b><?php echo $it['unit']; ?></b></td>
+						    			<td colspan="<?php echo (($saved==1) ? '12' : '11'); ?>" class="bor-right" align="left"><b><?php echo $it['offer']. ", ". $it['item'] . ", ".$it['specs']; ?></b></td>
+						    			<td colspan="2" class="bor-right" align="center"><b><?php echo number_format($it['price'],2); ?></b></td>
+						    			<td colspan="3" class="bor-right" align="right"><b><?php echo number_format($total,2); ?></b></td>
+						    			<?php if($saved==0){ ?>
+						    			<td align="center"><a href='<?php echo base_url(); ?>/po/remove_po_item/<?php echo $po_id; ?>/<?php echo $it['po_items_id']; ?>' class="btn-danger btn-xs" onclick="return confirm('Are you sure you want to remove item?')"><span class="fa fa-times"></span></a></td>	
+						    			<?php } ?>				    			
+						    		</tr> 
+						    		<?php $a++; } 
+						    		
 					    		}	?>
 
 					    		<tr>
@@ -465,7 +467,7 @@
 		    		</tr>
 		    		<tr>
 		    			<td colspan="2"></td>
-		    			<td colspan="7"><b><?php echo $_SESSION['fullname']; ?></b></td>
+		    			<td colspan="7"><b><?php echo $prepared; ?></b></td>
 		    			<td colspan="2"></td>
 		    			<td colspan="7"><b>
 		    			<?php if($saved==0){ ?>
