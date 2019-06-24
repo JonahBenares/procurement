@@ -54,9 +54,15 @@
                                 </h1>
                                 <small class="p-l-25">&nbsp;PURCHASE REQUEST</small> 
                                 <div class="sparkline8-outline-icon">
-                                    <a type='button' class="btn btn-custon-three btn-info"  data-toggle="modal" data-target="#filter_pr"> 
-                                        <span class="fa fa-print p-l-0"></span> Export to Excel
-                                    </a>
+                                    <?php if(!empty($filt)){ ?>
+                                        <a href="<?php echo base_url(); ?>reports/export_po/<?php echo $year; ?>/<?php echo $month; ?>/<?php echo $pr_no; ?>/<?php echo $date_po; ?>/<?php echo $po_no; ?>/<?php echo $purpose; ?>/<?php echo $enduse; ?>/<?php echo $requestor; ?>/<?php echo $description; ?>/<?php echo $supplier; ?>" class="btn btn-custon-three btn-info"> 
+                                            <span class="fa fa-upload"></span> Export to Excel
+                                        </a>
+                                    <?php } else { ?>
+                                        <a href="<?php echo base_url(); ?>reports/export_po/<?php echo $year; ?>/<?php echo $month; ?>" class="btn btn-custon-three btn-info"> 
+                                            <span class="fa fa-upload"></span> Export to Excel
+                                        </a>
+                                    <?php } ?>
                                     <a type='button' class="btn btn-custon-three btn-success"  data-toggle="modal" data-target="#filter_pr"> 
                                         <span class="fa fa-filter p-l-0"></span> Filter
                                     </a>
