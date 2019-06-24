@@ -20,32 +20,59 @@
                         <a class="close" data-dismiss="modal" href="#"><i class="fa fa-close"></i></a>
                     </div>
                 </div>
-                <form method="POST" action = "<?php echo base_url();?>pr/insert_pr" enctype="multipart/form-data">
+                <form method="POST" action = "<?php echo base_url();?>reports/search_pr/">
                     <div class="modal-body-lowpad">                        
                         <div class="form-group">
                             <p class="m-b-0">Date Received/Email:</p>
-                            <input type="date" name="" class="form-control">
+                            <input type="date" name="date_receive" class="form-control">
                         </div>    
                         <div class="form-group">
                             <p class="m-b-0">Purpose:</p>
-                            <input type="text" name="" class="form-control">
+                            <select name="purpose" class="form-control">    
+                                <option value = "">--Select Purpose--</option>
+                                <?php foreach($purpose AS $p){ ?>
+                                <option value = "<?php echo $p->purpose_id;?>"><?php echo $p->purpose_name; ?></option>
+                                <?php } ?>
+                            </select>
                         </div>   
                         <div class="form-group">
-                            <p class="m-b-0">EndUse:</p>
-                            <input type="text" name="" class="form-control">
-                        </div>   
+                            <p class="m-b-0">Enduse:</p>
+                            <select name="enduse" class="form-control">
+                                <option value = "">--Select Enduse--</option>
+                                <?php foreach($enduse AS $e){ ?>
+                                <option value = "<?php echo $e->enduse_id;?>"><?php echo $e->enduse_name; ?></option>
+                                <?php } ?>
+                            </select>
+                        </div>    
                         <div class="form-group">
                             <p class="m-b-0">PR No:</p>
-                            <input type="text" name="" class="form-control">
-                        </div>   
+                            <select name="pr_no" class="form-control">
+                                <option value = "">--Select PR Number--</option>
+                                <?php foreach($pr_no AS $prq){ ?>
+                                <option value = "<?php echo $prq->pr_id;?>"><?php echo $prq->pr_no; ?></option>
+                                <?php } ?>
+                            </select>
+                        </div>    
                         <div class="form-group">
                             <p class="m-b-0">Requestor:</p>
-                            <input type="text" name="" class="form-control">
+                            <select name="requestor" class="form-control">
+                                <option value = "">--Select Requestor--</option>
+                                <?php foreach($employees AS $emp){ ?>
+                                <option value = "<?php echo $emp->employee_id;?>"><?php echo $emp->employee_name; ?></option>
+                                <?php } ?>
+                            </select>
                         </div>   
                         <div class="form-group">
                             <p class="m-b-0">Description:</p>
-                            <input type="text" name="" class="form-control">
-                        </div>                      
+                            <select name="description" class="form-control">
+                                <option value = "">--Select Item--</option>
+                                <?php foreach($items AS $i){ ?>
+                                <option value = "<?php echo $i->item_id;?>"><?php echo $i->item_name." - ".$i->item_specs; ?></option>
+                                <?php } ?>
+                            </select>
+                        </div> 
+                        <input type="hidden" name="month" value = "<?php echo $month; ?>">            
+                        <input type="hidden" name="year" value = "<?php echo $year; ?>">                      
                         <center>                           
                             <input type = "submit" class="btn btn-custon-three btn-primary btn-block" value = "Proceed">
                            <!--  <a href="<?php echo base_url(); ?>index.php/pr/purchase_request">Proceed</a> -->
@@ -68,11 +95,11 @@
                                 <small class="p-l-25">&nbsp;PURCHASE REQUEST</small> 
                                 <div class="sparkline8-outline-icon">
                                     <?php if(!empty($filt)){ ?>
-                                        <a href="<?php echo base_url(); ?>reports/export_po/<?php echo $year; ?>/<?php echo $month; ?>/<?php echo $pr_no; ?>/<?php echo $date_po; ?>/<?php echo $po_no; ?>/<?php echo $purpose; ?>/<?php echo $enduse; ?>/<?php echo $requestor; ?>/<?php echo $description; ?>/<?php echo $supplier; ?>" class="btn btn-custon-three btn-info"> 
+                                        <a href="<?php echo base_url(); ?>reports/export_pr/<?php echo $year; ?>/<?php echo $month; ?>/<?php echo $date_receive; ?>/<?php echo $purpose1; ?>/<?php echo $enduse1; ?>/<?php echo $pr_no1; ?>/<?php echo $requestor; ?>/<?php echo $description; ?>" class="btn btn-custon-three btn-info"> 
                                             <span class="fa fa-upload"></span> Export to Excel
                                         </a>
                                     <?php } else { ?>
-                                        <a href="<?php echo base_url(); ?>reports/export_po/<?php echo $year; ?>/<?php echo $month; ?>" class="btn btn-custon-three btn-info"> 
+                                        <a href="<?php echo base_url(); ?>reports/export_pr/<?php echo $year; ?>/<?php echo $month; ?>" class="btn btn-custon-three btn-info"> 
                                             <span class="fa fa-upload"></span> Export to Excel
                                         </a>
                                     <?php } ?>
@@ -81,7 +108,10 @@
                                     </a>
                                 </div>
                             </div>
-                        </div>                       
+                        </div>   
+                        <?php if(!empty($filt)){ ?>     
+                        <span class='btn btn-success disabled'>Filter Applied</span><?php echo $filt ?>, <a href='<?php echo base_url(); ?>index.php/reports/pr_report/<?php echo $year; ?>/<?php echo $month; ?>' class='remove_filter alert-link pull-right btn'><span class="fa fa-times"></span></a>                    
+                        <?php } ?>                    
                         <div class="sparkline8-graph" >
                             <div class="datatable-dashv1-list custom-datatable-overright" style="overflow-x: scroll;">
                                 <table class="table-bordered" width="200%">
