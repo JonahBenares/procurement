@@ -106,7 +106,7 @@ class Masterfile extends CI_Controller {
 
         $result = $this->check_diff_multi($pr_arr, $po_arr);
 
-        foreach($this->super_model->custom_query("SELECT ah.pr_id, ai.item_id FROM aoq_header ah INNER JOIN aoq_reco ai ON ah.aoq_id = ai.aoq_id WHERE ai.balance != '0' AND ai.balance != ai.quantity") AS $partial){
+        foreach($this->super_model->custom_query("SELECT ah.pr_id, ai.item_id FROM aoq_header ah INNER JOIN aoq_reco ai ON ah.aoq_id = ai.aoq_id INNER JOIN pr_head pr ON pr.pr_id = ah.pr_id WHERE pr.urgency_num = '1' AND ai.balance != '0' AND ai.balance != ai.quantity") AS $partial){
                 
                 $result[] = array(
                     'pr_id'=>$partial->pr_id,
