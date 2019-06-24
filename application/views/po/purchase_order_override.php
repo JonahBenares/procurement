@@ -408,7 +408,7 @@
 		    		</tr>
 		    		<tr>
 		    			<td colspan="2"></td>
-		    			<td colspan="7"><b><?php echo $_SESSION['fullname']; ?></b></td>
+		    			<td colspan="7"><b><?php echo $prepared; ?></b></td>
 		    			<td colspan="2"></td>
 		    			<td colspan="7"><b>
 		    			<select name='approved' class="select-des emphasis">

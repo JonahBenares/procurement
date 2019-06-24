@@ -207,7 +207,7 @@
                                 </button>
                             </h5>                            
                         </div>
-                        <form method='POST' action="<?php echo base_url(); ?>reports/generate_pr_summary">
+                        <form method='POST' action="<?php echo base_url(); ?>reports/generate_pr_summary" target='_blank'>
                             <div class="modal-body">
                                 <div class="form-group">
                                     Choose Year:
@@ -258,7 +258,7 @@
                                 </button>
                             </h5>                            
                         </div>
-                        <form method='POST' action="<?php echo base_url(); ?>reports/generate_po_summary">
+                        <form method='POST' action="<?php echo base_url(); ?>reports/generate_po_summary" target='_blank'>
                             <div class="modal-body">
                                 <div class="form-group">
                                     Choose Year:

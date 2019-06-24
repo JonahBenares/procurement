@@ -132,6 +132,7 @@ class Po extends CI_Controller {
         $data['notes']=$this->super_model->select_column_where('po_head', 'notes', 'po_id', $po_id);
         $approved_id=$this->super_model->select_column_where('po_head', 'approved_by', 'po_id', $po_id);
         $data['approved_id']=$approved_id;
+
        // $data['approved']=$this->super_model->select_column_where('employees', 'employee_name', 'employee_id', $approved_id);
         foreach($this->super_model->select_row_where("po_head", "po_id", $po_id) AS $head){
             
@@ -145,7 +146,7 @@ class Po extends CI_Controller {
                 'contact'=>$this->super_model->select_column_where('vendor_head', 'contact_person', 'vendor_id',$head->supplier_id)
             );
 
-
+        $data['prepared']=$this->super_model->select_column_where('users', 'fullname', 'user_id', $head->prepared_by);
         }
         
         //$data['pr'] = $this->super_model->select_row_where_order_by("aoq_header", "served", "0", "pr_no", "ASC");
@@ -221,7 +222,7 @@ class Po extends CI_Controller {
                 'contact'=>$this->super_model->select_column_where('vendor_head', 'contact_person', 'vendor_id',$head->supplier_id)
             );
 
-
+            $data['prepared']=$this->super_model->select_column_where('users', 'fullname', 'user_id', $head->prepared_by);
         }
         //$data['pr'] = $this->super_model->select_row_where_order_by("aoq_header", "served", "0", "pr_no", "ASC");
 
@@ -293,7 +294,7 @@ class Po extends CI_Controller {
                 'phone'=>$this->super_model->select_column_where('vendor_head', 'phone_number', 'vendor_id', $head->supplier_id),
                 'contact'=>$this->super_model->select_column_where('vendor_head', 'contact_person', 'vendor_id',$head->supplier_id)
             );
-
+               $data['prepared']=$this->super_model->select_column_where('users', 'fullname', 'user_id', $head->prepared_by);
             //$data['pr'] = $this->super_model->select_row_where_order_by("aoq_header", "served", "0", "pr_no", "ASC");
 
             foreach($this->super_model->select_row_where_order_by("aoq_header", "served", "0", "pr_id", "ASC") AS $ao){
@@ -314,6 +315,8 @@ class Po extends CI_Controller {
                     'enduse'=>$enduse
                   
                 );
+
+                
             }
             foreach($this->super_model->select_custom_where("revised_po_items", "po_id = '$head->po_id' AND revision_no = '$revise_no'") AS $pritems){
                 $unit_id=$this->super_model->select_column_where('item', 'unit_id', 'item_id', $pritems->item_id);
@@ -1227,6 +1230,7 @@ class Po extends CI_Controller {
                 'phone'=>$this->super_model->select_column_where('vendor_head', 'phone_number', 'vendor_id', $head->supplier_id),
                 'contact'=>$this->super_model->select_column_where('vendor_head', 'contact_person', 'vendor_id',$head->supplier_id)
             );
+              $data['prepared']=$this->super_model->select_column_where('users', 'fullname', 'user_id', $head->prepared_by);
         }
 
         /*foreach($this->super_model->select_row_where_order_by("aoq_header", "served", "0", "pr_id", "ASC") AS $ao){*/
@@ -1414,6 +1418,7 @@ class Po extends CI_Controller {
                     'purpose_id'=>$this->super_model->select_column_where('po_pr', 'purpose_id', 'po_pr_id',$pr_id)
                 );*/
                 // if($this->super_model->insert_into("po_pr", $pr_details)){
+                if($qty!=0){
                         $pr_items = array(
                             'po_id'=>$po_id,
                             'item_id'=>$item_id,
@@ -1424,6 +1429,7 @@ class Po extends CI_Controller {
                             'source_poid'=>$old_po,
                         );
                         $this->super_model->insert_into("po_items", $pr_items);
+                }
                //  }
             } else {
                  $item_no_count = $this->super_model->count_custom_where("po_items","po_id= '$po_id'");

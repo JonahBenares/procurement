@@ -42,7 +42,12 @@ class Reports extends CI_Controller {
         $year=$this->uri->segment(3);
         $data['year']=$this->uri->segment(3);
         $month=$this->uri->segment(4);
+<<<<<<< HEAD
         $data['month']=$this->uri->segment(4);
+=======
+        $data['year']=$year;
+        $data['month']=$month;
+>>>>>>> 7ae820597c1e435f8d8ddab9e24a3a79714084d7
         if(empty($month)){
             $date = $year;
         } else {
@@ -50,7 +55,7 @@ class Reports extends CI_Controller {
         }
         $data['date']=date('F Y', strtotime($date));
 
-        foreach($this->super_model->custom_query("SELECT ph.pr_id, ph.pr_no, ph.pr_date, ph.purpose_id, ph.enduse_id, ph.requested_by, pd.item_id, pd.quantity, pd.cancelled, pd.cancel_reason, pd.cancel_date FROM pr_head ph INNER JOIN pr_details pd ON ph.pr_id = pd.pr_id WHERE ph.pr_date LIKE '$date%'") AS $head){
+        foreach($this->super_model->custom_query("SELECT ph.pr_id, ph.pr_no, ph.pr_date, ph.purpose_id, ph.enduse_id, ph.requested_by, pd.item_id, pd.quantity, pd.cancelled, pd.cancel_reason, pd.cancel_date, pd.pr_details_id, pd.add_remarks FROM pr_head ph INNER JOIN pr_details pd ON ph.pr_id = pd.pr_id WHERE ph.pr_date LIKE '$date%'") AS $head){
 
             $po = $this->super_model->count_custom_query("SELECT pop.po_id FROM po_head ph INNER JOIN po_pr pop ON ph.po_id = pop.po_id INNER JOIN po_items pi ON pop.po_pr_id = pi.po_pr_id  WHERE pop.pr_id = '$head->pr_id' AND pi.item_id = '$head->item_id' AND  ph.saved='1' AND ph.cancelled = '0' GROUP BY pi.item_id");
         
@@ -77,9 +82,10 @@ class Reports extends CI_Controller {
                     foreach($this->super_model->custom_query("SELECT pop.po_id, ph.po_date, pi.item_id FROM po_head ph INNER JOIN po_pr pop ON ph.po_id = pop.po_id INNER JOIN po_items pi ON pop.po_pr_id = pi.po_pr_id  WHERE pop.pr_id = '$head->pr_id' AND pi.item_id = '$head->item_id' AND ph.saved='1' AND ph.cancelled = '0' GROUP BY pi.item_id") AS $pod){
                     $po_date = $pod->po_date;
                     $po_id = $pod->po_id;
+                    $balance = $this->super_model->custom_query_single("balance","SELECT ai.balance FROM aoq_header ah INNER JOIN aoq_reco ai ON ah.aoq_id = ai.aoq_id WHERE ah.pr_id = '$head->pr_id' AND ai.item_id = '$head->item_id' AND ai.balance != '0' AND ai.balance != ai.quantity GROUP BY ai.item_id");
                     //echo $pod->item_id ."<br>";
                     $status='Partially Served';
-                    $status_remarks=date('m.d.y', strtotime($po_date)) . ' - Served DR#'. $this->super_model->select_column_where("dr_head",'dr_no','po_id',$po_id);
+                    $status_remarks=date('m.d.y', strtotime($po_date)) . ' - Served DR#'. $this->super_model->select_column_where("dr_head",'dr_no','po_id',$po_id) . ' -<span style="color:red"> Unserved: '.$balance .'</span>';
                 }
             } else if($head->cancelled=='1'){
                 $status='Cancelled';
@@ -119,6 +125,7 @@ class Reports extends CI_Controller {
             $unit = $this->super_model->select_column_where("unit",'unit_name','unit_id',$unit_id);
             $data['pr'][] = array(
                 'pr_id'=>$head->pr_id,
+                'pr_details_id'=>$head->pr_details_id,
                 'pr_no'=>$head->pr_no,
                 'pr_date'=>$head->pr_date,
                 'purpose'=>$this->super_model->select_column_where("purpose",'purpose_name','purpose_id',$head->purpose_id),
@@ -129,7 +136,8 @@ class Reports extends CI_Controller {
                 'item_name'=>$this->super_model->select_column_where("item",'item_name','item_id',$head->item_id),
                 'item_specs'=>$this->super_model->select_column_where("item",'item_specs','item_id',$head->item_id),
                 'status'=>$status,
-                'status_remarks'=>$status_remarks
+                'status_remarks'=>$status_remarks,
+                'remarks'=>$head->add_remarks
             );
         }
         
@@ -888,6 +896,26 @@ class Reports extends CI_Controller {
         $this->load->view('template/header');        
         $this->load->view('reports/po_report',$data);
         $this->load->view('template/footer');
+    }
+
+     public function add_remarks(){
+        $pr_details_id =$this->input->post('pr_details_id');
+        $year =$this->input->post('year');
+        $month =$this->input->post('month');
+        $remarks=$this->input->post('remarks');
+        $remark_date = date('Y-m-d H:i:s');
+
+
+        $data=array(
+            'add_remarks'=>$remarks,
+            'remark_date'=>$remark_date,
+            'remark_by'=>$_SESSION['user_id']
+        );
+      /*  echo  $pr_details_id;
+        print_r($data);*/
+        if($this->super_model->update_where("pr_details", $data, "pr_details_id", $pr_details_id)){
+            redirect(base_url().'reports/pr_report/'.$year.'/'.$month);
+        }
     }
 }
 ?>

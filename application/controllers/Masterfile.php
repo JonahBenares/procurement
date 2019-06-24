@@ -97,6 +97,12 @@ class Masterfile extends CI_Controller {
             );
 
         }
+  
+        if(!empty($pr_arr)) $pr_arr = $pr_arr;
+        else $pr_arr=array();
+
+        if(!empty($po_arr)) $po_arr = $po_arr;
+        else $po_arr=array();
 
         $result = $this->check_diff_multi($pr_arr, $po_arr);
 
@@ -107,6 +113,7 @@ class Masterfile extends CI_Controller {
                     'item_id'=>$partial->item_id
                 );
           }
+      
 
           return $result;
     }
@@ -130,6 +137,12 @@ class Masterfile extends CI_Controller {
 
         }
 
+          if(!empty($pr_arr)) $pr_arr = $pr_arr;
+        else $pr_arr=array();
+
+        if(!empty($po_arr)) $po_arr = $po_arr;
+        else $po_arr=array();
+       
         $result = $this->check_diff_multi($pr_arr, $po_arr);
 
         foreach($this->super_model->custom_query("SELECT ah.pr_id, ai.item_id FROM aoq_header ah INNER JOIN aoq_reco ai ON ah.aoq_id = ai.aoq_id WHERE ai.balance != '0' AND ai.balance != ai.quantity") AS $partial){
@@ -141,7 +154,9 @@ class Masterfile extends CI_Controller {
           }
 
           $count_pr = count($result);
-          return $count_pr;
+      
+
+         return $count_pr;
 
     }
 
@@ -211,73 +226,93 @@ class Masterfile extends CI_Controller {
         }
 
 
+       // if(!empty($pr_arr) && !empty($po_arr)){
 
-         $result = $this->check_diff_multi($pr_arr, $po_arr);
+        if(!empty($pr_arr)) $pr_arr = $pr_arr;
+        else $pr_arr=array();
 
-        foreach($this->super_model->custom_query("SELECT ah.pr_id, ai.item_id FROM aoq_header ah INNER JOIN aoq_reco ai ON ah.aoq_id = ai.aoq_id WHERE ai.balance != '0' AND ai.balance != ai.quantity") AS $partial){
-                
-                $result[] = array(
-                    'pr_id'=>$partial->pr_id,
-                    'item_id'=>$partial->item_id
-                );
-          }
+        if(!empty($po_arr)) $po_arr = $po_arr;
+        else $po_arr=array();
 
-
-          foreach($result AS $res){
-
-
-
-            $pr_details_id = $this->super_model->select_column_custom_where("pr_details", "pr_details_id", "pr_id = '$res[pr_id]' AND item_id = '$res[item_id]'");
-            $rfq_outgoing = $this->super_model->count_custom_query("SELECT rh.rfq_id FROM rfq_head rh INNER JOIN rfq_detail rd ON rh.rfq_id = rd.rfq_id WHERE rh.pr_id = '$res[pr_id]' AND rd.item_id = '$res[item_id]' GROUP BY rd.item_id");
-
-            $rfq_incoming = $this->super_model->count_custom_query("SELECT rh.rfq_id FROM rfq_head rh INNER JOIN rfq_detail rd ON rh.rfq_id = rd.rfq_id WHERE rh.pr_id = '$res[pr_id]' AND rd.item_id = '$res[item_id]' AND rh.saved = '1' AND rh.completed='1' GROUP BY rd.item_id");
-
-            $refer_mnl = $this->super_model->count_custom_query("SELECT ah.aoq_id FROM aoq_header ah INNER JOIN aoq_items ai ON ah.aoq_id = ai.aoq_id WHERE ah.pr_id = '$res[pr_id]' AND ai.item_id = '$res[item_id]' AND ah.saved = '1' AND ah.refer_mnl='1'  GROUP BY ai.item_id");
-
-            $refer_date = $this->super_model->custom_query_single("refer_date","SELECT ah.refer_date FROM aoq_header ah INNER JOIN aoq_items ai ON ah.aoq_id = ai.aoq_id WHERE ah.pr_id = '$res[pr_id]' AND ai.item_id = '$res[item_id]' AND ah.saved = '1' AND ah.refer_mnl='1'");
-                    //$refer_date = $aq['refer_date'];
-                    //echo $refer_date;
+             $result = $this->check_diff_multi($pr_arr, $po_arr);
             
-           
 
-            $aoq_for_te = $this->super_model->count_custom_query("SELECT ah.aoq_id FROM aoq_header ah INNER JOIN aoq_items ai ON ah.aoq_id = ai.aoq_id WHERE ah.pr_id = '$res[pr_id]' AND ai.item_id = '$res[item_id]' GROUP BY ai.item_id");
-
-            $te_done = $this->super_model->count_custom_query("SELECT ah.aoq_id FROM aoq_header ah INNER JOIN aoq_items ai ON ah.aoq_id = ai.aoq_id WHERE ah.pr_id = '$res[pr_id]' AND ai.item_id = '$res[item_id]'  AND ah.saved = '1' AND ah.completed='1' GROUP BY ai.item_id");
-
-            $po = $this->super_model->count_custom_query("SELECT pop.po_id FROM po_head ph INNER JOIN po_pr pop ON ph.po_id = pop.po_id INNER JOIN po_items pi ON pop.po_pr_id = pi.po_pr_id  WHERE pop.pr_id = '$res[pr_id]' AND pi.item_id = '$res[item_id]' AND  ph.saved='1' AND ph.cancelled = '0' GROUP BY pi.item_id");
-
-            $partial = $this->super_model->count_custom_query("SELECT ah.aoq_id FROM aoq_header ah INNER JOIN aoq_reco ai ON ah.aoq_id = ai.aoq_id WHERE ah.pr_id = '$res[pr_id]' AND ai.item_id = '$res[item_id]' AND ai.balance != '0' AND ai.balance != ai.quantity GROUP BY ai.item_id");
-          
-            $data['pr_details'][]= array(
-                'pr_details_id'=>$pr_details_id,
-                'pr_no'=>$this->super_model->select_column_where("pr_head",'pr_no','pr_id',$res['pr_id']), 
-                'item_name'=>$this->super_model->select_column_where("item",'item_name','item_id',$res['item_id']), 
-                'item_specs'=>$this->super_model->select_column_where("item",'item_specs','item_id',$res['item_id']), 
-                'rfq_outgoing'=>$rfq_outgoing,
-                'rfq_incoming'=>$rfq_incoming,
-                'for_te'=>$aoq_for_te,
-                'te_done'=>$te_done,
-                'po'=>$po,
-                'partial'=>$partial,
-                'refer_mnl'=>$refer_mnl,
-                'refer_date'=>$refer_date,
-            );
-
-        }
+            foreach($this->super_model->custom_query("SELECT ah.pr_id, ai.item_id FROM aoq_header ah INNER JOIN aoq_reco ai ON ah.aoq_id = ai.aoq_id WHERE ai.balance != '0' AND ai.balance != ai.quantity") AS $partial){
+                    
+                    $result[] = array(
+                        'pr_id'=>$partial->pr_id,
+                        'item_id'=>$partial->item_id
+                    );
+              }
 
 
-        foreach($this->high_urgency() AS $hu){
-            $data['urgent'][] = array(
-                'pr_no'=>$this->super_model->select_column_where("pr_head",'pr_no','pr_id',$hu['pr_id']),
-                'item_name'=>$this->super_model->select_column_where("item",'item_name','item_id',$hu['item_id']), 
-                'item_specs'=>$this->super_model->select_column_where("item",'item_specs','item_id',$hu['item_id']), 
-            );
-        }
+              foreach($result AS $res){
+
+
+
+                $pr_details_id = $this->super_model->select_column_custom_where("pr_details", "pr_details_id", "pr_id = '$res[pr_id]' AND item_id = '$res[item_id]'");
+                $rfq_outgoing = $this->super_model->count_custom_query("SELECT rh.rfq_id FROM rfq_head rh INNER JOIN rfq_detail rd ON rh.rfq_id = rd.rfq_id WHERE rh.pr_id = '$res[pr_id]' AND rd.item_id = '$res[item_id]' GROUP BY rd.item_id");
+
+                $rfq_incoming = $this->super_model->count_custom_query("SELECT rh.rfq_id FROM rfq_head rh INNER JOIN rfq_detail rd ON rh.rfq_id = rd.rfq_id WHERE rh.pr_id = '$res[pr_id]' AND rd.item_id = '$res[item_id]' AND rh.saved = '1' AND rh.completed='1' GROUP BY rd.item_id");
+
+                $refer_mnl = $this->super_model->count_custom_query("SELECT ah.aoq_id FROM aoq_header ah INNER JOIN aoq_items ai ON ah.aoq_id = ai.aoq_id WHERE ah.pr_id = '$res[pr_id]' AND ai.item_id = '$res[item_id]' AND ah.saved = '1' AND ah.refer_mnl='1'  GROUP BY ai.item_id");
+
+                $refer_date = $this->super_model->custom_query_single("refer_date","SELECT ah.refer_date FROM aoq_header ah INNER JOIN aoq_items ai ON ah.aoq_id = ai.aoq_id WHERE ah.pr_id = '$res[pr_id]' AND ai.item_id = '$res[item_id]' AND ah.saved = '1' AND ah.refer_mnl='1'");
+                        //$refer_date = $aq['refer_date'];
+                        //echo $refer_date;
+                
+               
+
+                $aoq_for_te = $this->super_model->count_custom_query("SELECT ah.aoq_id FROM aoq_header ah INNER JOIN aoq_items ai ON ah.aoq_id = ai.aoq_id WHERE ah.pr_id = '$res[pr_id]' AND ai.item_id = '$res[item_id]' GROUP BY ai.item_id");
+
+                $te_done = $this->super_model->count_custom_query("SELECT ah.aoq_id FROM aoq_header ah INNER JOIN aoq_items ai ON ah.aoq_id = ai.aoq_id WHERE ah.pr_id = '$res[pr_id]' AND ai.item_id = '$res[item_id]'  AND ah.saved = '1' AND ah.completed='1' GROUP BY ai.item_id");
+
+                $po = $this->super_model->count_custom_query("SELECT pop.po_id FROM po_head ph INNER JOIN po_pr pop ON ph.po_id = pop.po_id INNER JOIN po_items pi ON pop.po_pr_id = pi.po_pr_id  WHERE pop.pr_id = '$res[pr_id]' AND pi.item_id = '$res[item_id]' AND  ph.saved='1' AND ph.cancelled = '0' GROUP BY pi.item_id");
+
+                $partial = $this->super_model->count_custom_query("SELECT ah.aoq_id FROM aoq_header ah INNER JOIN aoq_reco ai ON ah.aoq_id = ai.aoq_id WHERE ah.pr_id = '$res[pr_id]' AND ai.item_id = '$res[item_id]' AND ai.balance != '0' AND ai.balance != ai.quantity GROUP BY ai.item_id");
+              
+                $data['pr_details'][]= array(
+                    'pr_details_id'=>$pr_details_id,
+                    'pr_no'=>$this->super_model->select_column_where("pr_head",'pr_no','pr_id',$res['pr_id']), 
+                    'item_name'=>$this->super_model->select_column_where("item",'item_name','item_id',$res['item_id']), 
+                    'item_specs'=>$this->super_model->select_column_where("item",'item_specs','item_id',$res['item_id']), 
+                    'rfq_outgoing'=>$rfq_outgoing,
+                    'rfq_incoming'=>$rfq_incoming,
+                    'for_te'=>$aoq_for_te,
+                    'te_done'=>$te_done,
+                    'po'=>$po,
+                    'partial'=>$partial,
+                    'refer_mnl'=>$refer_mnl,
+                    'refer_date'=>$refer_date,
+                );
+
+            }
+        /*} else  {
+            $data['pr_details']=array();
+        }*/
+
+
+       
+            foreach($this->high_urgency() AS $hu){
+                $data['urgent'][] = array(
+                    'pr_no'=>$this->super_model->select_column_where("pr_head",'pr_no','pr_id',$hu['pr_id']),
+                    'item_name'=>$this->super_model->select_column_where("item",'item_name','item_id',$hu['item_id']), 
+                    'item_specs'=>$this->super_model->select_column_where("item",'item_specs','item_id',$hu['item_id']), 
+                );
+            }
+        
         $this->load->view('masterfile/dashboard',$data);
         $this->load->view('template/footer');
     }
 
     public function check_diff_multi($arraya, $arrayb){
+
+        if(!empty($arraya)) $arraya = $arraya;
+        else $arraya=array();
+
+        if(!empty($arrayb)) $arrayb = $arrayb;
+        else $arrayb=array();
+
         foreach ($arraya as $keya => $valuea) {
             if (in_array($valuea, $arrayb)) {
                 unset($arraya[$keya]);
@@ -295,7 +330,8 @@ class Masterfile extends CI_Controller {
         $data=array(
             'cancelled'=>1,
             'cancel_reason'=>$reason,
-            'cancel_date'=>$cancel_date
+            'cancel_date'=>$cancel_date,
+            'cancelled_by'=>$_SESSION['user_id']
         );
       /*  echo  $pr_details_id;
         print_r($data);*/
