@@ -211,22 +211,77 @@
 		    			<td class="f13" colspan="7"></td>
 		    			<td class="f13" colspan="3"></td>
 		    		</tr>	
-		    		<tr><td class="f13 p-l-5 p-t-10 p-b-10" colspan="20" align="left">Note: Kin</td></tr>
+		    		<tr><td class="f13 p-l-5 p-t-10 p-b-10" colspan="20" align="left">Note: Kindly indicate Term of payment, duration of work and warranty</td></tr>
 		    		<tr>
 		    			<td class="f13 p-l-5" colspan="3">Terms of Payment:</td>
-		    			<td class="f13 bor-btm" colspan="7"></td>
+		    			<td class="f13 emphasis" colspan="7"><input type="text" name="" class="btn-block"></td>
 		    			<td class="f13" colspan="7"></td>
 		    			<td class="f13" colspan="3"></td>
 		    		</tr>	
-
-
-
-
+		    		<tr>
+		    			<td class="f13 p-l-5" colspan="3">Work Duration:</td>
+		    			<td class="f13 emphasis" colspan="7"><input type="text" name="" class="btn-block"></td>
+		    			<td class="f13" colspan="7"></td>
+		    			<td class="f13" colspan="3"></td>
+		    		</tr>	
+		    		<tr>
+		    			<td class="f13 p-l-5" colspan="3">Warranty:</td>
+		    			<td class="f13 emphasis" colspan="7"><input type="text" name="" class="btn-block"></td>
+		    			<td class="f13" colspan="7"></td>
+		    			<td class="f13" colspan="3"></td>
+		    		</tr>	
+		    		<tr><td class="f13" colspan="20" align="center"><br></td></tr>	
+		    		<tr><td class="f13" colspan="20" align="center"><br></td></tr>	
+		    		<tr>
+		    			<td class="f13 p-l-5" colspan="3">Conforme:</td>
+		    			<td class="f13 bor-btm" colspan="7"></td>
+		    			<td class="f13" colspan="7"></td>
+		    			<td class="f13" colspan="3"></td>
+		    		</tr>
+		    		<tr>
+		    			<td class="f13" colspan="3"></td>
+		    			<td class="f13" colspan="7" align="center">Supplier's Signature Over Printed Name</td>
+		    			<td class="f13" colspan="7"></td>
+		    			<td class="f13" colspan="3"></td>
+		    		</tr>
+		    		<tr><td class="f13" colspan="20" align="center"><br></td></tr>    	
+		    		<tr><td class="f13" colspan="20" align="center"><br></td></tr>  
+		    		<tr>
+		    			<td class="f13 p-l-5" colspan="7">Requested by:</td>
+		    			<td class="f13" colspan="3"></td>
+		    			<td class="f13" colspan="7"></td>
+		    			<td class="f13" colspan="3"></td>
+		    		</tr>
+		    		<tr><td class="f13" colspan="20" align="center"><br></td></tr> 
+		    		<tr><td class="f13" colspan="20" align="center"><br></td></tr> 
+		    		<tr>
+		    			<td class="f13" colspan="7" style="border-bottom: 1px solid #000"></td>
+		    			<td class="f13" colspan="3"></td>
+		    			<td class="f13" colspan="7"></td>
+		    			<td class="f13" colspan="3"></td>
+		    		</tr>
+		    		<tr>
+		    			<td class="f13 p-l-5" colspan="7"><b>Imelda P. Espera</b></td>
+		    			<td class="f13" colspan="3"></td>
+		    			<td class="f13" colspan="7"></td>
+		    			<td class="f13" colspan="3"></td>
+		    		</tr>
+		    		<tr>
+		    			<td class="f13 p-l-5" colspan="7">Purchasing Department</td>
+		    			<td class="f13" colspan="3"></td>
+		    			<td class="f13" colspan="7"></td>
+		    			<td class="f13" colspan="3"></td>
+		    		</tr>
+		    		<tr>
+		    			<td class="f13 p-l-5" colspan="7">Tel. No. 435-1932/0918-6760758</td>
+		    			<td class="f13" colspan="3"></td>
+		    			<td class="f13" colspan="7"></td>
+		    			<td class="f13" colspan="3"></td>
+		    		</tr>
 		    		<tr><td class="f13" colspan="20" align="center"><br></td></tr>    	
 		    		<tr><td class="f13" colspan="20" align="center"><br></td></tr>    	
 		    	</table>		    
 	    	</div>
-	    	<input type='hidden' name='rfq_id' value=''>
     	</form>
     </div>
     <script type="text/javascript">
