@@ -277,7 +277,7 @@ a.dropdown-item:hover{
    left:-134px;
 }
 .header-right-info ul.header-right-menu li .author-log{
-   left:12px;
+   left:-50px;
 }
 .header-right-info ul.header-right-menu li.open .author-message-top, .header-right-info ul.header-right-menu li.open .notification-author, .header-right-info ul.header-right-menu li.open .author-log{
    opacity:1;
@@ -5845,4 +5845,10 @@ div#sparklinedask2, div#sparklinedask1 {
 }
 .thumbnail{
 	margin-bottom: 0px!important;
+}
+.reminder-style{
+	border-radius: 5px;
+    background: linear-gradient(to left, #ff5a71 0%, #ff8e6c 100%);
+    box-shadow: 2px 2px 4px 0px #7d4242;
+    color: white;
 }

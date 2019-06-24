@@ -198,7 +198,7 @@ ini_set('display_errors', 0);
                             foreach($urgent AS $ur){ ?>
                             <div class="row m-t-5" style="width: 310px">
                                 <div class="col-lg-12">
-                                    <div class="project-dashone-phara pad-5" style="border:1px solid #b5b2b2;border-radius: 5px;">
+                                    <div class="project-dashone-phara pad-5 reminder-style">
                                         <p><?php echo 'PR #: '.$ur['pr_no']; ?></p>
                                         <p class=""><?php echo $ur['item_name'] .', '.$ur['item_specs']; ?></p>
                                     </div>
